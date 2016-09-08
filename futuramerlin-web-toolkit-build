@@ -6,14 +6,14 @@
 shopt -s extglob
 
 echo "Preparing environment..."
-mkdir futuramerlin-web-toolkit-content
-mv ./* ./.[^.]* ./futuramerlin-web-toolkit-content/
+mkdir "source"
+mv ./* ./.[^.]* ./source/
 git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
-mkdir futuramerlin-web-toolkit-output
-cp -r ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./futuramerlin-web-toolkit-output/
+mkdir built
+cp -r ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
 echo "Environment ready; building site..."
 
-#The parentheses make the block run in a subshell, I think. I'm not sure why, or what effect this has.
+#The parentheses make the block run in a subshell, I think. I'm not sure why I have them, or what effect they have.
 (
 	cd "content" || exit
 	traversedirectory() {
