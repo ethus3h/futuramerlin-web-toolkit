@@ -1,1 +1,1 @@
-Your Web site's content will go here.
+Your finished Web site's content will show up here.
