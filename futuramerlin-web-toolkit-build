@@ -4,10 +4,12 @@
 [ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
 
 shopt -s extglob
+#git clone toolkit; mv ./futuramerlin-web-toolkit ./.futuramerlin-web-toolkit; mkdir futuramerlin-web-toolkit-content; mv ./* ./futuramerlin-web-toolkit-content/; mv ./.futuramerlin-web-toolkit/* .; rm -r ./.futuramerlin-web-toolkit; ./build; mv ./.futuramerlin-web-toolkit-content
 
 echo "Preparing environment..."
-mkdir output
-cd output
+mkdir futuramerlin-web-toolkit-content
+mv ./* ./.[^.]* ./futuramerlin-web-toolkit-content/
+git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
 cp -r ./assets/* ./assets/.[^.]* .
 echo "Environment ready; building site..."
 
