@@ -2,5 +2,6 @@
 
 #Build the current site using the Futuramerlin Web Toolkit
 build() {
-    git clone toolkit; mv ./futuramerlin-web-toolkit ./.futuramerlin-web-toolkit; mkdir futuramerlin-web-toolkit-content; mv ./* ./futuramerlin-web-toolkit-content/; mv ./.futuramerlin-web-toolkit/* .; rm -r ./.futuramerlin-web-toolkit; ./build; mv ./.futuramerlin-web-toolkit-content }
+    ~/.futuramerlin-web-toolkit-build
+}
 export -f build;
