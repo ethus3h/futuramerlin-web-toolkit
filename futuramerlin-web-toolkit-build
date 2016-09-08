@@ -6,11 +6,9 @@
 shopt -s extglob
 
 echo "Preparing environment..."
-rm -r "../output"
-mkdir "../output"
-cp -r ./assets/* ./assets/.[^.]* "../built/"
-rm "../built/build-page"
-
+mkdir output
+cd output
+cp -r ./assets/* ./assets/.[^.]* .
 echo "Environment ready; building site..."
 
 #The parentheses make the block run in a subshell, I think. I'm not sure why, or what effect this has.
