@@ -1,12 +1,18 @@
 #!/bin/bash
 #Futuramerlin Web Toolkit build script
-
-[ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
+#Version:
+export futuramerlinWebToolkitVersion='2.0'
 
 shopt -s extglob
 set -e
 
 echo "Preparing environment..."
+futuramerlinWebToolkitSiteName=$(sed '1q;d' "$HOME"/.warcdealer.cfg)
+futuramerlinWebToolkitLocalInstallationConfig=$(sed '2q;d' "$HOME"/.warcdealer.cfg)
+futuramerlinWebToolkitLocalInstallationEnabled=false
+if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation" ]]; then
+    futuramerlinWebToolkitLocalInstallationEnabled=true
+fi
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
 mv ./* ./.[^.]* ./futuramerlin-web-toolkit-content/content/
@@ -58,6 +64,8 @@ minify --no-comments -o "../built/m.css" "../built/m.css" > /dev/null
 rm ../built/*.tmp
 
 echo "Finishing up..."
+
+[ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
 cp "../built/m.css" "/m.css"
 mv ./built ./futuramerlin-web-toolkit-output
 mv ./source ./futuramerlin-web-toolkit-content
