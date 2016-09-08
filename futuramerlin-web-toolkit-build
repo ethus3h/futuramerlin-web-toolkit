@@ -6,13 +6,18 @@
 shopt -s extglob
 
 echo "Preparing environment..."
-mkdir "source"
-mv ./* ./.[^.]* ./source/
+mkdir -p "futuramerlin-web-toolkit-content/content"
+mkdir "futuramerlin-web-toolkit-content/scripts"
+mv ./* ./.[^.]* ./futuramerlin-web-toolkit-content/content/
+mv ./futuramerlin-web-toolkit-content ./source
 git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
 mkdir built
-cp -r ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
-echo "Environment ready; building site..."
+mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
+mv ./futuramerlin-web-toolkit/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
+rm -r ./futuramerlin-web-toolkit
+cd ./source
 
+echo "Environment ready; building site..."
 #The parentheses make the block run in a subshell, I think. I'm not sure why I have them, or what effect they have.
 (
 	cd "content" || exit
@@ -41,8 +46,8 @@ echo "Environment ready; building site..."
 	}
 	traversedirectory "."
 )
+
 echo "Processing CSS..."
-cp "./assets/m.css" "../built/m.css"
 postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/m.css" "../built/m.css"
 tr '\n' ' ' < "../built/m.css" > "../built/1.tmp"
 tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
@@ -50,5 +55,15 @@ tr '\r' ' ' < "../built/2.tmp" > "../built/3.tmp"
 tr -s " " < "../built/3.tmp" > "../built/m.css"
 minify --no-comments -o "../built/m.css" "../built/m.css" > /dev/null
 rm ../built/*.tmp
+
+echo "Finishing up..."
 cp "../built/m.css" "/m.css"
+mv ./built ./futuramerlin-web-toolkit-output
+mv ./source ./futuramerlin-web-toolkit-content
+mv ./futuramerlin-web-toolkit-content/* ./futuramerlin-web-toolkit-content/.[^.]* .
+rm -r ./futuramerlin-web-toolkit-content
+
+
+echo "The finished Web site is in:"
+echo "./futuramerlin-web-toolkit-content"
 echo "Done!"
