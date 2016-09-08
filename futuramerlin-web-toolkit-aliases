@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Build the current site using the Futuramerlin Web Toolkit
+#Build the site in the current directory using the Futuramerlin Web Toolkit
 build() {
     ~/.futuramerlin-web-toolkit-build
 }

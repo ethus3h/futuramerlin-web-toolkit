@@ -4,6 +4,7 @@
 [ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
 
 shopt -s extglob
+set -e
 
 echo "Preparing environment..."
 mkdir -p "futuramerlin-web-toolkit-content/content"
@@ -63,7 +64,8 @@ mv ./source ./futuramerlin-web-toolkit-content
 mv ./futuramerlin-web-toolkit-content/* ./futuramerlin-web-toolkit-content/.[^.]* .
 rm -r ./futuramerlin-web-toolkit-content
 
+#Clear the screen
+printf "\033c"
 
-echo "The finished Web site is in:"
-echo "./futuramerlin-web-toolkit-content"
-echo "Done!"
+echo "Done! The finished Web site is in:"
+echo "./futuramerlin-web-toolkit-output"
