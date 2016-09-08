@@ -1,26 +1,24 @@
 #!/bin/bash
-
-#Usage: build
-
-#Requires html-minifier: https://www.npmjs.com/package/html-minifier
-#Requires html5-tidy: https://github.com/htacg/tidy-html5
-#Requires minifier: https://www.npmjs.com/package/minifier
-#Requires hypertoc: sudo cpan -f -i HTML::GenToc
-#Requires autoprefixer: sudo npm install --global postcss-cli autoprefixer
+#Futuramerlin Web Toolkit build script
 
 [ "$(whoami)" != "root" ] && exec sudo -- "$0" "$@"
 
 shopt -s extglob
 
 echo "Preparing environment..."
-rm -r "../built"
-mkdir "../built"
-echo "Copying theme assets..."
+rm -r "../output"
+mkdir "../output"
 cp -r ./assets/* ./assets/.[^.]* "../built/"
+rm "../built/build-page"
+
+echo "Environment ready; building site..."
+
+#The parentheses make the block run in a subshell, I think. I'm not sure why, or what effect this has.
 (
 	cd "content" || exit
 	traversedirectory() {
 		echo "Entered directory $1..."
+        #Iterate over the contents of the directory at $1 (doesn't include dotfiles unless the dotglob option is enabled)
 		for i in "$1"/*; do
 			mkdir -p "../../built/$1"
 			if [[ -d "$i" ]]; then
