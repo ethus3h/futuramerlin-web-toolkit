@@ -15,7 +15,7 @@ if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation
 fi
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
-find . -name "*" ! -maxdepth 1 -path . ! -path ./futuramerlin-web-toolkit-content -exec mv {} ./futuramerlin-web-toolkit/content/ \;
+find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec mv {} ./futuramerlin-web-toolkit/content/ \;
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content ./source
 git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
