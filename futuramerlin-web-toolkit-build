@@ -70,7 +70,7 @@ cd ..
 echo "Finishing up..."
 
 if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
-    sudo cp "../built/m.css" "/m.css"
+    sudo cp "./built/m.css" "/m.css"
 fi
 mv ./built ./futuramerlin-web-toolkit-output
 mv ./source ./futuramerlin-web-toolkit-content
