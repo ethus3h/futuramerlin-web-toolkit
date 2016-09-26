@@ -74,7 +74,7 @@ if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
 fi
 mv ./built ./futuramerlin-web-toolkit-output
 mv ./source ./futuramerlin-web-toolkit-content
-find ./futuramerlin-web-toolkit-content -maxdepth 1 -name "*" ! -path . -exec mv {} . \;
+find ./futuramerlin-web-toolkit-content -maxdepth 1 -name "*" ! -path ./futuramerlin-web-toolkit-content -exec mv {} . \;
 rm -r ./futuramerlin-web-toolkit-content
 
 #Clear the screen
