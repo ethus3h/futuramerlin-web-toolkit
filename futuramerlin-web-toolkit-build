@@ -18,11 +18,13 @@ mkdir "futuramerlin-web-toolkit-content/scripts"
 find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec mv {} ./futuramerlin-web-toolkit-content/content/ \;
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
+rm -r ./futuramerlin-web-toolkit-content
 git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
 mkdir built
 mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
+cp -r ./built ./source/assets
 mv ./futuramerlin-web-toolkit/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
-rm -r ./futuramerlin-web-toolkit
+rm -rf ./futuramerlin-web-toolkit
 cd ./source
 
 echo "Environment ready; building site..."
