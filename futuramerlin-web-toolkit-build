@@ -7,8 +7,8 @@ shopt -s extglob
 set -e
 
 echo "Preparing environment..."
-futuramerlinWebToolkitSiteName=$(sed '1q;d' "$HOME"/.warcdealer.cfg)
-futuramerlinWebToolkitLocalInstallationConfig=$(sed '2q;d' "$HOME"/.warcdealer.cfg)
+futuramerlinWebToolkitSiteName=$(sed '1q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
+futuramerlinWebToolkitLocalInstallationConfig=$(sed '2q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
 futuramerlinWebToolkitLocalInstallationEnabled=false
 if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation" ]]; then
     futuramerlinWebToolkitLocalInstallationEnabled=true
