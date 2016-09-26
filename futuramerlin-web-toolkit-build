@@ -68,13 +68,17 @@ rm ../built/*.tmp
 cd ..
 
 echo "Finishing up..."
-
+echo "IN $(pwd)"
 if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
     sudo cp "./built/m.css" "/m.css"
 fi
+echo "IN $(pwd)"
 mv ./built ./futuramerlin-web-toolkit-output
+echo "IN $(ls)"
 mv ./source ./futuramerlin-web-toolkit-content
+echo "IN $(ls)"
 find ./content -maxdepth 1 -name "*" ! -path ./content -exec mv {} . \;
+echo "IN $(ls)"
 rm -r ./futuramerlin-web-toolkit-content
 
 #Clear the screen
