@@ -17,7 +17,7 @@ mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
 find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec mv {} ./futuramerlin-web-toolkit-content/content/ \;
 mkdir ./source
-mv ./futuramerlin-web-toolkit-content ./source
+mv ./futuramerlin-web-toolkit-content/* ./source
 git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
 mkdir built
 mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
