@@ -13,6 +13,7 @@ futuramerlinWebToolkitLocalInstallationEnabled=false
 if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation" ]]; then
     futuramerlinWebToolkitLocalInstallationEnabled=true
 fi
+rm -rf ./futuramerlin-web-toolkit-output
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
 find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec mv {} ./futuramerlin-web-toolkit-content/content/ \;
@@ -71,7 +72,6 @@ echo "Finishing up..."
 if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
     sudo cp "./built/m.css" "/m.css"
 fi
-rm -rf ./futuramerlin-web-toolkit-output
 mv ./built ./futuramerlin-web-toolkit-output
 mv ./source ./futuramerlin-web-toolkit-content
 find ./futuramerlin-web-toolkit-content/content -maxdepth 1 -name "*" ! -path ./futuramerlin-web-toolkit-content/content -exec mv {} . \;
