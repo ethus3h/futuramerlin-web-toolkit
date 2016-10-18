@@ -51,8 +51,7 @@
         color: #2a1657;
     }
 
-    h1,h2,h3,h4,h5,h6,
-    p {
+    h1,h2,h3,h4,h5,h6, p, dt, dd {
         hyphens: auto;
     }
 
@@ -537,13 +536,15 @@
     }
 
     dl {
-        border: .063rem white;
+        margin: .5rem;
+        border: .063rem solid rgba(255,255,255,0.6);
         padding: .5rem;
     }
 
     dt {
         float: left;
         clear: left;
+        width: 25%;
     }
 
     dt::after {
@@ -551,8 +552,7 @@
     }
 
     dd {
-        margin: .5rem;
-        padding: .5rem;
+        padding-left: calc(.5rem + 25%);
     }
 
 /* Figures */
