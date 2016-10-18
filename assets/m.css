@@ -567,7 +567,8 @@
         margin-bottom: .5rem;
     }
 
-    dt ul, dd ul, dt ol, dd ol, dt dl, dd dl {
+    dt ul, dd ul, dt ol, dd ol, dt dl, dd dl,
+    li ul, li ol, li dl {
         padding-top: 0;
         margin-top: 0;
     }
