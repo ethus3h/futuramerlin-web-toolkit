@@ -80,7 +80,7 @@
 
     /* General */
 
-        .important-word {
+        .important-word, .important-letter {
             font-weight: bold;
         }
 
