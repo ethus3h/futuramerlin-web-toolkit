@@ -536,6 +536,25 @@
         padding-top: 0;
     }
 
+    dl {
+        border: .063rem white;
+        padding: .5rem;
+    }
+
+    dt {
+        float: left;
+        clear: left;
+    }
+
+    dt::after {
+        content: ": ";
+    }
+
+    dd {
+        margin: .5rem;
+        padding: .5rem;
+    }
+
 /* Figures */
 
     .center-figure, .center-image {
