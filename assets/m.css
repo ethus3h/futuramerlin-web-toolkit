@@ -567,6 +567,11 @@
         margin-bottom: .5rem;
     }
 
+    dt ul, dd ul, dt ol, dd ol, dt dl, dd dl {
+        padding-top: 0;
+        margin-top: 0;
+    }
+
 /* Figures */
 
     .center-figure, .center-image {
