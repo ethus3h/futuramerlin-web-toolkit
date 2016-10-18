@@ -548,7 +548,7 @@
         float: left;
         clear: left;
         width: 25%;
-        overflow-x: scroll;
+        overflow-x: auto;
         font-weight: bold;
     }
 
@@ -558,6 +558,7 @@
 
     dd {
         padding-left: .5rem;
+        width: 25%;
     }
 
     dt, dd {
