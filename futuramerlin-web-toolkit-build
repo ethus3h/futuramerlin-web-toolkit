@@ -70,8 +70,8 @@ rm ../built/*.tmp
 cd ..
 
 echo "Finishing up..."
-rm ./built/1_start.html ./built/2_end.html
-mv ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
+rm -v ./built/1_start.html ./built/2_end.html
+mv -v ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
 if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
     sudo cp "./built/m.css" "/m.css"
 fi
