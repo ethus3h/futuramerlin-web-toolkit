@@ -43,6 +43,7 @@ echo "Environment ready; building site..."
 				if ! [[ "$i" == "." ]]; then
 					if ! [[ "$i" == ".." ]]; then
 						if ! [[ "$i" == "./.git" ]]; then
+                            echo "Directory name $i does not equal ./.git"
 							echo "Entering directory $i..."
 							traversedirectory "$i"
 						fi
