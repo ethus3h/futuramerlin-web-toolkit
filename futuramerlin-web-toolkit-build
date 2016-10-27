@@ -35,15 +35,17 @@ echo "Environment ready; building site..."
 	cd "content" || exit
 	traversedirectory() {
 		echo "Entered directory $1..."
-		#Iterate over the contents of the directory at $1 (doesn't include dotfiles unless the dotglob option is enabled; setting GLOBIGNORE implicitly enables dotglob and ignores . and ..)
-		GLOBIGNORE=.git
+		#Iterate over the contents of the directory at $1
+		shopt -s dotglob
 		for i in "$1"/*; do
 			mkdir -p "../../built/$1"
 			if [[ -d "$i" ]]; then
 				if ! [[ "$i" == "." ]]; then
 					if ! [[ "$i" == ".." ]]; then
-						echo "Entering directory $i..."
-						traversedirectory "$i"
+						if ! [[ "$i" == ".git" ]]; then
+							echo "Entering directory $i..."
+							traversedirectory "$i"
+						fi
 					fi
 				fi
 			else
