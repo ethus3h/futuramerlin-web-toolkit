@@ -8,7 +8,8 @@ set -e
 
 echo "Preparing environment..."
 futuramerlinWebToolkitSiteName=$(sed '1q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
-futuramerlinWebToolkitLocalInstallationConfig=$(sed '2q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
+futuramerlinWebToolkitWordPressLocation=$(sed '2q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
+futuramerlinWebToolkitLocalInstallationConfig=$(sed '3q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
 futuramerlinWebToolkitLocalInstallationEnabled=false
 if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation" ]]; then
     futuramerlinWebToolkitLocalInstallationEnabled=true
@@ -24,7 +25,9 @@ git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
 mkdir built
 mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
 cp -r ./built ./source/assets
-mv ./futuramerlin-web-toolkit/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
+rm ./built/1_start.html ./built/2_end.html
+mv ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
+mv ./built/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
 rm -rf ./futuramerlin-web-toolkit
 cd ./source
 
