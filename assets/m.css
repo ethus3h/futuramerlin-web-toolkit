@@ -942,7 +942,8 @@
         .project-completion-mostly-complete::before,
         .project-completion-partly-complete::before,
         .project-completion-begun::before,
-        .project-completion-not-started::before {
+        .project-completion-not-started::before,
+        .project-completion-retired::before {
             border-bottom: 0.5rem solid transparent;
             border-right: 0.5rem solid transparent;
             background-clip: padding-box;
@@ -974,6 +975,10 @@
             background-color: #000000;
         }
 
+        .project-completion-retired::before {
+            background-color: #666;
+        }
+
         .project-completion-complete > span:last-of-type {
             text-shadow: #3FBF3F 0 0 0.063rem;
         }
@@ -996,6 +1001,10 @@
 
         .project-completion-not-started > span:last-of-type {
             text-shadow: #000000 0 0 0.063rem;
+        }
+
+        .project-completion-retired > span:last-of-type {
+            text-shadow: #666 0 0 0.063rem;
         }
 
     /* Hatnotes */
