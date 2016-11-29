@@ -33,6 +33,9 @@ echo "Environment ready; building site..."
 #The parentheses make the block run in a subshell, I think. I'm not sure why I have them, or what effect they have.
 (
 	cd "content" || exit
+    if [ -f .futuramerlin-web-toolkit/pre-build-hooks ]; then
+        ./.futuramerlin-web-toolkit/pre-build-hooks
+    fi
 	traversedirectory() {
 		echo "Entered directory $1..."
 		#Iterate over the contents of the directory at $1
@@ -61,6 +64,9 @@ echo "Environment ready; building site..."
 		shopt -u dotglob
 	}
 	traversedirectory "."
+    if [ -f .futuramerlin-web-toolkit/post-build-hooks ]; then
+        ./.futuramerlin-web-toolkit/post-build-hooks
+    fi
 )
 
 echo "Processing CSS..."
