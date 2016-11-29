@@ -32,38 +32,38 @@ cd ./source
 echo "Environment ready; building site..."
 #The parentheses make the block run in a subshell, I think. I'm not sure why I have them, or what effect they have.
 (
-	cd "content" || exit
+    cd "content" || exit
     if [ -f .futuramerlin-web-toolkit/pre-build-hooks ]; then
         ./.futuramerlin-web-toolkit/pre-build-hooks
     fi
-	traversedirectory() {
-		echo "Entered directory $1..."
-		#Iterate over the contents of the directory at $1
-		shopt -s dotglob
-		for i in "$1"/*; do
-			mkdir -p "../../built/$1"
-			if [[ -d "$i" ]]; then
-				if ! [[ "$i" == "." ]]; then
-					if ! [[ "$i" == ".." ]]; then
-						if ! [[ "$i" == "./.git" ]]; then
-							echo "Entering directory $i..."
-							traversedirectory "$i"
-						fi
-					fi
-				fi
-			else
-				if [[ "$i" =~ \.htm ]]; then
-					echo "Building page: $i"
-					../scripts/build-page "$i"
-				else
-					echo "Copying content asset: $i"
-					cp "$i" "../../built/$i"
-				fi
-			fi
-		done
-		shopt -u dotglob
-	}
-	traversedirectory "."
+    traversedirectory() {
+        echo "Entered directory $1..."
+        #Iterate over the contents of the directory at $1
+        shopt -s dotglob
+        for i in "$1"/*; do
+            mkdir -p "../../built/$1"
+            if [[ -d "$i" ]]; then
+                if ! [[ "$i" == "." ]]; then
+                    if ! [[ "$i" == ".." ]]; then
+                        if ! [[ "$i" == "./.git" ]]; then
+                            echo "Entering directory $i..."
+                            traversedirectory "$i"
+                        fi
+                    fi
+                fi
+            else
+                if [[ "$i" =~ \.htm ]]; then
+                    echo "Building page: $i"
+                    ../scripts/build-page "$i"
+                else
+                    echo "Copying content asset: $i"
+                    cp "$i" "../../built/$i"
+                fi
+            fi
+        done
+        shopt -u dotglob
+    }
+    traversedirectory "."
     if [ -f .futuramerlin-web-toolkit/post-build-hooks ]; then
         ./.futuramerlin-web-toolkit/post-build-hooks
     fi
