@@ -43,13 +43,9 @@ echo "Environment ready; building site..."
         for i in "$1"/*; do
             mkdir -p "../../built/$1"
             if [[ -d "$i" ]]; then
-                if ! [[ "$i" == "." ]]; then
-                    if ! [[ "$i" == ".." ]]; then
-                        if ! [[ ( "$i" == "./.git" ) || ( "$i" == "./.futuramerlin-web-toolkit" ) ]]; then
-                            echo "Entering directory $i..."
-                            traversedirectory "$i"
-                        fi
-                    fi
+                if [[ "$i" != @(.|..|./.git|./.futuramerlin-web-toolkit) ]]; then
+                    echo "Entering directory $i..."
+                    traversedirectory "$i"
                 fi
             else
                 if [[ "$i" =~ \.htm ]]; then
