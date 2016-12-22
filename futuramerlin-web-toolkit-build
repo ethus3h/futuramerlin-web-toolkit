@@ -45,7 +45,7 @@ echo "Environment ready; building site..."
             if [[ -d "$i" ]]; then
                 if ! [[ "$i" == "." ]]; then
                     if ! [[ "$i" == ".." ]]; then
-                        if ! [[ "$i" == "./.git" ]]; then
+                        if ! [[ ( "$i" == "./.git" ) || ( "$i" == "./.futuramerlin-web-toolkit" ) ]]; then
                             echo "Entering directory $i..."
                             traversedirectory "$i"
                         fi
