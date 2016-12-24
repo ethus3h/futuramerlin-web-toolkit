@@ -17,7 +17,7 @@ fi
 rm -rf ./futuramerlin-web-toolkit-output
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
-find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec mv {} ./futuramerlin-web-toolkit-content/content/ \;
+find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
 rm -r ./futuramerlin-web-toolkit-content
