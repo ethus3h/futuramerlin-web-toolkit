@@ -34,7 +34,9 @@ echo "Environment ready; building site..."
 (
     cd "content" || exit
     if [ -f .futuramerlin-web-toolkit/pre-build-hooks ]; then
+        echo "Beginning pre-build-hooks..."
         ./.futuramerlin-web-toolkit/pre-build-hooks
+        echo "Done pre-build-hooks."
     fi
     traversedirectory() {
         echo "Entered directory $1..."
@@ -61,7 +63,9 @@ echo "Environment ready; building site..."
     }
     traversedirectory "."
     if [ -f .futuramerlin-web-toolkit/post-build-hooks ]; then
+        echo "Beginning post-build-hooks..."
         ./.futuramerlin-web-toolkit/post-build-hooks
+        echo "Done post-build-hooks."
     fi
 )
 
