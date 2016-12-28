@@ -50,7 +50,7 @@ echo "Environment ready; building site..."
                     traversedirectory "$i"
                 fi
             else
-                if [[ "$i" =~ \.htm ]]; then
+                if [[ "$i" =~ \.htm$ ]]; then
                     echo "Building page: $i"
                     ../scripts/build-page "$i"
                 else
