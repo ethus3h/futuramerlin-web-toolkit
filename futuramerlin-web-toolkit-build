@@ -6,10 +6,16 @@ export futuramerlinWebToolkitVersion='2.0.1'
 shopt -s extglob
 set -e
 
+futuramerlinWebToolkitConfigFileName="$HOME/.futuramerlin-web-toolkit.cfg"
+
+if [ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]; then
+    futuramerlinWebToolkitConfigFileName="./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg"
+fi
+
 echo "Preparing environment..."
-futuramerlinWebToolkitSiteName=$(sed '1q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
-futuramerlinWebToolkitWordPressLocation=$(sed '2q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
-futuramerlinWebToolkitLocalInstallationConfig=$(sed '3q;d' "$HOME"/.futuramerlin-web-toolkit.cfg)
+futuramerlinWebToolkitSiteName=$(sed '1q;d' "$futuramerlinWebToolkitConfigFileName")
+futuramerlinWebToolkitWordPressLocation=$(sed '2q;d' "$futuramerlinWebToolkitConfigFileName")
+futuramerlinWebToolkitLocalInstallationConfig=$(sed '3q;d' "$futuramerlinWebToolkitConfigFileName")
 futuramerlinWebToolkitLocalInstallationEnabled=false
 if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation" ]]; then
     futuramerlinWebToolkitLocalInstallationEnabled=true
