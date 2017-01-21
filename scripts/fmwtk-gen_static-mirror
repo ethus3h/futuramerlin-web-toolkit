@@ -1,0 +1,3 @@
+#!/bin/bash
+# Futuramerlin Web Toolkit Content Generator: Static copy of site
+wget --adjust-extension -p -e robots="off" --mirror --no-parent "$@" || echo "WARNING: Wget reported non-zero exit status for static content download"
