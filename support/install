@@ -1,64 +1,56 @@
 #!/bin/bash
 echo 1 "$1" 2 "$2" 3 "$3" 4 "$4" 5 "$5" 6 "$6" 7 "$7" 8 "$8" 9 "$9"
-crystallizeDestdir="$1"
-crystallizePrefix="$2"
-crystallizeCapPrefix="$3"
-crystallizeExecPrefix="$4"
-crystallizeBindir="$5"
-crystallizeDatarootdir="$6"
-crystallizeDatadir="$7"
-crystallizeSysconfdir="$8"
-crystallizeSharedstatedir="$9"
-if ! [ -n "$crystallizePrefix" ]; then
-    if ! [ -n "$crystallizeCapPrefix" ]; then
-        crystallizePrefix="$crystallizeDestdir"/usr/local
+fmwtkDestdir="$1"
+fmwtkPrefix="$2"
+fmwtkCapPrefix="$3"
+fmwtkExecPrefix="$4"
+fmwtkBindir="$5"
+fmwtkDatarootdir="$6"
+fmwtkDatadir="$7"
+fmwtkSysconfdir="$8"
+fmwtkSharedstatedir="$9"
+if ! [ -n "$fmwtkPrefix" ]; then
+    if ! [ -n "$fmwtkCapPrefix" ]; then
+        fmwtkPrefix="$fmwtkDestdir"/usr/local
     else
-        crystallizePrefix="$crystallizeCapPrefix"
+        fmwtkPrefix="$fmwtkCapPrefix"
     fi
 fi
-echo "crystallizePrefix: $crystallizePrefix"
-if ! [ -n "$crystallizeExecPrefix" ]; then
-    crystallizeExecPrefix="$crystallizePrefix"
+echo "fmwtkPrefix: $fmwtkPrefix"
+if ! [ -n "$fmwtkExecPrefix" ]; then
+    fmwtkExecPrefix="$fmwtkPrefix"
 fi
-echo "crystallizeExecPrefix: $crystallizeExecPrefix"
-if ! [ -n "$crystallizeBindir" ]; then
-    crystallizeBindir="$crystallizeExecPrefix"/bin
+echo "fmwtkExecPrefix: $fmwtkExecPrefix"
+if ! [ -n "$fmwtkBindir" ]; then
+    fmwtkBindir="$fmwtkExecPrefix"/bin
 fi
-echo "crystallizeBindir: $crystallizeBindir"
-if ! [ -n "$crystallizeDatarootdir" ]; then
-    crystallizeDatarootdir="$crystallizePrefix"/share
+echo "fmwtkBindir: $fmwtkBindir"
+if ! [ -n "$fmwtkDatarootdir" ]; then
+    fmwtkDatarootdir="$fmwtkPrefix"/share
 fi
-echo "crystallizeDatarootdir: $crystallizeDatarootdir"
-if ! [ -n "$crystallizeDatadir" ]; then
-    crystallizeDatadir="$crystallizeDatarootdir"
+echo "fmwtkDatarootdir: $fmwtkDatarootdir"
+if ! [ -n "$fmwtkDatadir" ]; then
+    fmwtkDatadir="$fmwtkDatarootdir"
 fi
-echo "crystallizeDatadir: $crystallizeDatadir"
-if ! [ -n "$crystallizeSysconfdir" ]; then
-    crystallizeSysconfdir="$crystallizePrefix"/etc
+echo "fmwtkDatadir: $fmwtkDatadir"
+if ! [ -n "$fmwtkSysconfdir" ]; then
+    fmwtkSysconfdir="$fmwtkPrefix"/etc
 fi
-echo "crystallizeSysconfdir: $crystallizeSysconfdir"
-if ! [ -n "$crystallizeSharedstatedir" ]; then
-    crystallizeSharedstatedir="$crystallizePrefix"/var
+echo "fmwtkSysconfdir: $fmwtkSysconfdir"
+if ! [ -n "$fmwtkSharedstatedir" ]; then
+    fmwtkSharedstatedir="$fmwtkPrefix"/var
 fi
-echo "crystallizeSharedstatedir: $crystallizeSharedstatedir"
-export crystallizeBindir
-export crystallizeSharedstatedir
-export crystallizeSysconfdir
-crystallizeBindirEsc="$(perl -0777 -e 'print(quotemeta($ENV{crystallizeBindir}))')"
-echo "crystallizeBindirEsc: $crystallizeBindirEsc"
-crystallizeSharedstatedirEsc="$(perl -0777 -e 'print(quotemeta($ENV{crystallizeSharedstatedir}))')"
-echo "crystallizeSharedstatedirEsc: $crystallizeSharedstatedirEsc"
-crystallizeSysconfdirEsc="$(perl -0777 -e 'print(quotemeta($ENV{crystallizeSysconfdir}))')"
-echo "crystallizeSysconfdirEsc: $crystallizeSysconfdirEsc"
-perl -0777 -p -i -e "s/\/usr\/local\/bin/$crystallizeBindirEsc/g" scripts/decrystallize
-perl -0777 -p -i -e "s/\/usr\/local\/bin/$crystallizeBindirEsc/g" scripts/quickliquid
-perl -0777 -p -i -e "s/\/usr\/local\/bin/$crystallizeBindirEsc/g" scripts/crystallize-update
-perl -0777 -p -i -e "s/\/usr\/local\/etc/$crystallizeSysconfdirEsc/g" scripts/crystallize-getconf
-perl -0777 -p -i -e "s/\/usr\/local\/etc/$crystallizeSysconfdirEsc/g" scripts/crystallize-logsession
-perl -0777 -p -i -e "s/\/usr\/local\/var/$crystallizeSharedstatedirEsc/g" support/crystallize.conf
-mkdir -p "$crystallizeBindir"
+echo "fmwtkSharedstatedir: $fmwtkSharedstatedir"
+export fmwtkSysconfdir
+fmwtkSysconfdirEsc="$(perl -0777 -e 'print(quotemeta($ENV{fmwtkSysconfdir}))')"
+echo "fmwtkSysconfdirEsc: $fmwtkSysconfdirEsc"
+perl -0777 -p -i -e "s/\/usr\/local\/etc/$fmwtkSysconfdirEsc/g" scripts/futuramerlin-web-toolkit-build
+mkdir -p "$fmwtkBindir"
 chmod +x scripts/*
-cp scripts/* "$crystallizeBindir/"
-mkdir -p "$crystallizeSysconfdir"
-cp -v support/crystallize.conf "$crystallizeSysconfdir/"
-mkdir -p "$crystallizeSharedstatedir"/crystallize
+cp scripts/* "$fmwtkBindir/"
+mkdir -p "$fmwtkSysconfdir"
+cp -v support/futuramerlin-web-toolkit.conf "$fmwtkSysconfdir/"
+mkdir -p "$fmwtkSharedstatedir"/fmwtk
+cp -v support/assets/m.css "$fmwtkPrefix"
+cp -rv support/assets/* "$fmwtkDatadir"
+cp -rv support/assets/.* "$fmwtkDatadir"

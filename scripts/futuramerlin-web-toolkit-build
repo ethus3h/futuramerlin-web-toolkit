@@ -1,12 +1,16 @@
 #!/bin/bash
 #Futuramerlin Web Toolkit build script
 #Version:
-export futuramerlinWebToolkitVersion='2.0.1'
+export futuramerlinWebToolkitVersion='2.1'
 
 shopt -s extglob
 set -e
 
-futuramerlinWebToolkitConfigFileName="$HOME/.futuramerlin-web-toolkit.cfg"
+futuramerlinWebToolkitConfigFileName="/usr/local/etc/futuramerlin-web-toolkit.conf"
+
+if [ -f "$HOME/.futuramerlin-web-toolkit.cfg" ]; then
+    futuramerlinWebToolkitConfigFileName="$HOME/.futuramerlin-web-toolkit.cfg"
+fi
 
 if [ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]; then
     futuramerlinWebToolkitConfigFileName="./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg"
