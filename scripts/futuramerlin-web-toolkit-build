@@ -31,7 +31,13 @@ find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-conten
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
 rm -r ./futuramerlin-web-toolkit-content
-git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git
+git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git || echo "(Could not get updated toolkit version, using local copy instead)"
+if [ ! -d futuramerlin-web-toolkit ]; then
+    mkdir -p futuramerlin-web-toolkit/support
+    cp -rv /usr/local/share/futuramerlin-web-toolkit/assets futuramerlin-web-toolkit/support/
+    mkdir futuramerlin-web-toolkit/scripts
+    cp -v /usr/local/bin/futuramerlin-web-toolkit-build-page futuramerlin-web-toolkit/scripts
+fi
 mkdir built
 mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
 cp -r ./built ./source/assets
@@ -91,7 +97,11 @@ cd ..
 
 echo "Finishing up..."
 rm ./built/1_start.html ./built/2_end.html
-mv ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
+if [[ "$futuramerlinWebToolkitWordPressLocation" == "disableWordPressIntegration" ]]; then
+    echo "(Skipping WordPress integration.)"
+else
+    mv ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
+fi
 if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
     sudo cp "./built/m.css" "/m.css"
 fi

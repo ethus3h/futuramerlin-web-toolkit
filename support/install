@@ -52,5 +52,4 @@ mkdir -p "$fmwtkSysconfdir"
 cp -v support/futuramerlin-web-toolkit.conf "$fmwtkSysconfdir/"
 mkdir -p "$fmwtkSharedstatedir"/fmwtk
 cp -v support/assets/m.css "$fmwtkPrefix"
-cp -rv support/assets/* "$fmwtkDatadir"
-cp -rv support/assets/.* "$fmwtkDatadir"
+cp -rv support/assets "$fmwtkDatadir/futuramerlin-web-toolkit/"
