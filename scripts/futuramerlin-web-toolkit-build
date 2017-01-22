@@ -40,7 +40,7 @@ if ! git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
     echo "(Done preparing local toolkit copy; now continuing)"
 fi
 mkdir built
-mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
+mv ./futuramerlin-web-toolkit/source/assets/* ./futuramerlin-web-toolkit/source/assets/.[^.]* ./built/
 cp -r ./built ./source/assets
 mv ./futuramerlin-web-toolkit/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
 rm -rf ./futuramerlin-web-toolkit
