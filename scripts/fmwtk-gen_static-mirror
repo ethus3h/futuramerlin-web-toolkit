@@ -9,7 +9,7 @@ mkdir -pv content
     if wget --adjust-extension -p -e robots="off" --mirror --no-parent --warc-file="futuramerlin-web-toolkit.static-mirror.warc.gz" "$@"; then
         echo "(Done getting static page(s))"
     else
-        echo "WARNING: Could not download static page(s), using cached copy"
+        echo "WARNING: Could not download all static site(s), using cached copies as needed"
         rsync -av --checksum --progress --no-i-r --ignore-existing ../.futuramerlin-web-toolkit/gen/static/content .
     fi
 )
