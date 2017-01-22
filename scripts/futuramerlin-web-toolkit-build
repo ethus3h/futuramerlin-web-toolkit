@@ -42,7 +42,7 @@ fi
 mkdir built
 mv ./futuramerlin-web-toolkit/support/assets/* ./futuramerlin-web-toolkit/support/assets/.[^.]* ./built/
 cp -r ./built ./assets
-mv ./futuramerlin-web-toolkit/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
+mv ./futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
 rm -rf ./futuramerlin-web-toolkit
 
 echo "Environment ready; building site..."
