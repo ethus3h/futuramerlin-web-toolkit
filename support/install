@@ -62,6 +62,7 @@ chmod +x scripts/*
 cp scripts/* "$fmwtkBindir/"
 mkdir -p "$fmwtkSysconfdir"
 cp -v support/futuramerlin-web-toolkit.conf "$fmwtkSysconfdir/"
-mkdir -p "$fmwtkSharedstatedir"/fmwtk
+mkdir -p "$fmwtkSharedstatedir"/futuramerlin-web-toolkit
+mkdir -p "$fmwtkDatadir/futuramerlin-web-toolkit"
 cp -v support/assets/m.css "$fmwtkPrefix"
 cp -rv support/assets "$fmwtkDatadir/futuramerlin-web-toolkit/"
