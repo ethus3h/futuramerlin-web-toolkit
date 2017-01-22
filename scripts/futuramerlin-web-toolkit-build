@@ -1,7 +1,7 @@
 #!/bin/bash
 #Futuramerlin Web Toolkit build script
 #Version:
-export futuramerlinWebToolkitVersion='2.1.1'
+export futuramerlinWebToolkitVersion='2.1.2'
 
 shopt -s extglob
 set -e
