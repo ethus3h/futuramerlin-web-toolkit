@@ -1,3 +1,16 @@
 #!/bin/bash
-# Futuramerlin Web Toolkit Content Generator: Static copy of site
-wget --adjust-extension -p -e robots="off" --mirror --no-parent "$@" || echo "WARNING: Wget reported non-zero exit status for static content download"
+# Futuramerlin Web Toolkit Content Generator: Static copy of site directory
+set -e
+(
+    cd content
+    set +e
+    rm -r ./*
+    if wget --adjust-extension -p -e robots="off" --mirror --no-parent "$@"; then
+        echo "(Done getting static page(s))"
+    else
+        echo "WARNING: Could not download static page(s), using cached copy"
+        rsync -av --checksum --progress --no-i-r ../.futuramerlin-web-toolkit/gen/static/content .
+    fi
+)
+set -e
+rsync -av --checksum --progress --no-i-r content ../.futuramerlin-web-toolkit/gen/static/
