@@ -9,7 +9,7 @@ set -e
         echo "(Done getting static page(s))"
     else
         echo "WARNING: Could not download static page(s), using cached copy"
-        rsync -av --checksum --progress --no-i-r ../.futuramerlin-web-toolkit/gen/static/content .
+        rsync -av --checksum --progress --no-i-r --ignore-existing ../.futuramerlin-web-toolkit/gen/static/content .
     fi
 )
 set -e
