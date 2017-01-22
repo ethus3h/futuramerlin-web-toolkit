@@ -1,7 +1,7 @@
 #!/bin/bash
 #Futuramerlin Web Toolkit build script
 #Version:
-export futuramerlinWebToolkitVersion='2.1'
+export futuramerlinWebToolkitVersion='2.1.1'
 
 shopt -s extglob
 set -e
@@ -31,69 +31,70 @@ find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-conten
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
 rm -r ./futuramerlin-web-toolkit-content
-git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git || echo "(Could not get updated toolkit version, using local copy instead)"
-if [ ! -d futuramerlin-web-toolkit ]; then
-    mkdir -p futuramerlin-web-toolkit/support
-    cp -rv /usr/local/share/futuramerlin-web-toolkit/assets futuramerlin-web-toolkit/support/
-    mkdir futuramerlin-web-toolkit/scripts
-    cp -v /usr/local/bin/futuramerlin-web-toolkit-build-page futuramerlin-web-toolkit/scripts
+if ! git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
+    echo "(Could not get updated toolkit version, preparing local copy instead...)"
+    mkdir -pv futuramerlin-web-toolkit/support || exit 1
+    cp -rv /usr/local/share/futuramerlin-web-toolkit/assets futuramerlin-web-toolkit/support/ || exit 1
+    mkdir -v futuramerlin-web-toolkit/scripts || exit 1
+    cp -v /usr/local/bin/futuramerlin-web-toolkit-build-page futuramerlin-web-toolkit/scripts || exit 1
+    echo "(Done preparing local toolkit copy; now continuing)"
 fi
 mkdir built
 mv ./futuramerlin-web-toolkit/assets/* ./futuramerlin-web-toolkit/assets/.[^.]* ./built/
 cp -r ./built ./source/assets
 mv ./futuramerlin-web-toolkit/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
 rm -rf ./futuramerlin-web-toolkit
-cd ./source
 
 echo "Environment ready; building site..."
-#The parentheses make the block run in a subshell, I think. I'm not sure why I have them, or what effect they have.
+cd ./source || exit 1
 (
-    cd "content" || exit
-    if [ -f .futuramerlin-web-toolkit/pre-build-hooks ]; then
-        echo "Beginning pre-build-hooks..."
-        ./.futuramerlin-web-toolkit/pre-build-hooks || echo "WARNING! pre-build-hooks failed; continuing anyway."
-        echo "Done pre-build-hooks."
-    fi
-    traversedirectory() {
-        echo "Entered directory $1..."
-        #Iterate over the contents of the directory at $1
-        shopt -s dotglob
-        for i in "$1"/*; do
-            mkdir -p "../../built/$1"
-            if [[ -d "$i" ]]; then
-                if [[ "$i" != @(.|..|./.git|./.futuramerlin-web-toolkit) ]]; then
-                    echo "Entering directory $i..."
-                    traversedirectory "$i"
-                fi
-            else
-                if [[ "$i" =~ \.htm$ ]]; then
-                    echo "Building page: $i"
-                    ../scripts/build-page "$i"
+    (
+        cd "content" || exit 1
+        if [ -f .futuramerlin-web-toolkit/pre-build-hooks ]; then
+            echo "Beginning pre-build-hooks..."
+            ./.futuramerlin-web-toolkit/pre-build-hooks || echo "WARNING! pre-build-hooks failed; continuing anyway."
+            echo "Done pre-build-hooks."
+        fi
+        traversedirectory() {
+            echo "Entered directory $1..."
+            #Iterate over the contents of the directory at $1
+            shopt -s dotglob
+            for i in "$1"/*; do
+                mkdir -p "../../built/$1"
+                if [[ -d "$i" ]]; then
+                    if [[ "$i" != @(.|..|./.git|./.futuramerlin-web-toolkit) ]]; then
+                        echo "Entering directory $i..."
+                        traversedirectory "$i"
+                    fi
                 else
-                    echo "Copying content asset: $i"
-                    cp "$i" "../../built/$i"
+                    if [[ "$i" =~ \.htm$ ]]; then
+                        echo "Building page: $i"
+                        ../scripts/build-page "$i"
+                    else
+                        echo "Copying content asset: $i"
+                        cp "$i" "../../built/$i"
+                    fi
                 fi
-            fi
-        done
-        shopt -u dotglob
-    }
-    traversedirectory "."
-    if [ -f .futuramerlin-web-toolkit/post-build-hooks ]; then
-        echo "Beginning post-build-hooks..."
-        ./.futuramerlin-web-toolkit/post-build-hooks || echo "WARNING! post-build-hooks failed; continuing anyway."
-        echo "Done post-build-hooks."
-    fi
-)
+            done
+            shopt -u dotglob
+        }
+        traversedirectory "."
+        if [ -f .futuramerlin-web-toolkit/post-build-hooks ]; then
+            echo "Beginning post-build-hooks..."
+            ./.futuramerlin-web-toolkit/post-build-hooks || echo "WARNING! post-build-hooks failed; continuing anyway."
+            echo "Done post-build-hooks."
+        fi
+    )
 
-echo "Processing CSS..."
-postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/m.css" "../built/m.css"
-tr '\n' ' ' < "../built/m.css" > "../built/1.tmp"
-tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
-tr '\r' ' ' < "../built/2.tmp" > "../built/3.tmp"
-tr -s " " < "../built/3.tmp" > "../built/m.css"
-minify --no-comments -o "../built/m.css" "../built/m.css" > /dev/null
-rm ../built/*.tmp
-cd ..
+    echo "Processing CSS..."
+    postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/m.css" "../built/m.css"
+    tr '\n' ' ' < "../built/m.css" > "../built/1.tmp"
+    tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
+    tr '\r' ' ' < "../built/2.tmp" > "../built/3.tmp"
+    tr -s " " < "../built/3.tmp" > "../built/m.css"
+    minify --no-comments -o "../built/m.css" "../built/m.css" > /dev/null
+    rm ../built/*.tmp
+)
 
 echo "Finishing up..."
 rm ./built/1_start.html ./built/2_end.html
