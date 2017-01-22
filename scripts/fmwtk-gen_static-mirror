@@ -10,7 +10,7 @@ mkdir -pv content
         echo "(Done getting static page(s))"
     else
         echo "WARNING: Could not download all static site(s), using cached copies as needed"
-        rsync -av --checksum --progress --no-i-r --ignore-existing ../.futuramerlin-web-toolkit/gen/static/content .
+        rsync -av --checksum --progress --no-i-r --ignore-existing ../.futuramerlin-web-toolkit/gen/static/content/* .
     fi
 )
 set -e
