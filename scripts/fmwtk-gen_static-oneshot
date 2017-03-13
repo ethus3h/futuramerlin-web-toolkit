@@ -8,6 +8,7 @@ mkdir -pv content
     rm -r ./* || echo "(nothing to remove; this is probably nothing to worry about)"
     if wget --adjust-extension -p -e robots="off" --warc-file="futuramerlin-web-toolkit.static-oneshot.warc.gz" "$@"; then
         echo "(Done getting static page(s))"
+        crystallize *.warc.gz
     else
         echo "WARNING: Could not download all static page(s), using cached copies as needed"
         rsync -av --checksum --progress --no-i-r --ignore-existing ../.futuramerlin-web-toolkit/gen/static/content/* .
