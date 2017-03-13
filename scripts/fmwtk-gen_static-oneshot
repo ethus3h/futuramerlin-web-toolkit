@@ -5,7 +5,6 @@ mkdir -pv content
 (
     cd content
     set +e
-    rm -r ./* || echo "(nothing to remove; this is probably nothing to worry about)"
     if wget --adjust-extension -p -e robots="off" --warc-file="futuramerlin-web-toolkit.static-oneshot.warc.gz" "$@"; then
         echo "(Done getting static page(s))"
         crystallize *.warc.gz

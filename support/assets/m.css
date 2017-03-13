@@ -160,6 +160,7 @@
             padding-right: .125rem;
             padding-left: .125rem;
             background: #ddd;
+            hyphens: none;
         }
 
         .app-syntax > code:first-of-type {
