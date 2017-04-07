@@ -89,9 +89,11 @@ function buildIndex() {
                 # Generate index of artists on this label
                 print "<h2>Artists</h2><ul>" >> "$fn"
                 for artist in ../artists/*.conf; do
+                    artist="${artist#..\/artists\/}"
+                    artist="${artist%.conf}"
                     readconf "label" "../artists/$artist.conf"
                     foundMatch="false"
-                    for matchingCategory in "${readconfValue[@]}"; do
+                    for matchingCategory in "${readconfValue[@]:?}"; do
                         if [[ "$matchingCategory" == "label" ]]; then
                             foundMatch="true"
                         fi
@@ -107,6 +109,8 @@ function buildIndex() {
                 # Generate list of releases
                 print "<h2>Releases</h2><ul>" >> "$fn"
                 for release in ../releases/*.conf; do
+                    release="${artist#..\/artists\/}"
+                    release="${artist%.conf}"
                     readconf "${category%s}" "../releases/$release.conf"
                     foundMatch="false"
                     for matchingCategory in "${readconfValue[@]}"; do
