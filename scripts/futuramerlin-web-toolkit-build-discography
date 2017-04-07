@@ -250,7 +250,6 @@ function buildFilteredListEntry() {
     local recursive="$6"
     local workVersion="$7"
     local workVersionReleases="$8"
-    pwd
     if [[ "$workVersionReleases" == "true" ]]; then
         if grep -P "^track,$(basename "$needleKey")" "$(getRelativeDiscographyDir)/releases/$haystackItem".conf; then
             local releaseName
@@ -314,7 +313,7 @@ function buildFilteredList() {
     local destinationFile="$4"
     if [[ "$1" == "--workVersionReleases" ]]; then
         shift
-        destinationFile="$2"
+        destinationFile="../works/$(basename "$2")"
         local workVersionReleases="true"
     elif [[ "$1" == "--workVersion" ]]; then
         shift
