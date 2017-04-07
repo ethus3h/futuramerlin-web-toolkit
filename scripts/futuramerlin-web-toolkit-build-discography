@@ -6,3 +6,12 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
     die "Couldn't find discography configuration file!"
 fi
+
+# Where the discography assets are located
+da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
+
+# Build main index page
+cp "$da/index.htm" .
+ereplace "@BREADCRUMBS@" "$(<futuramerlin-web-toolkit-discography.breadcrumbs)" "$da/index.htm"
+
+# Build artists index page

@@ -53,7 +53,7 @@ echo "Environment ready; building site..."
         cd "content" || exit 1
         if [[ -f .futuramerlin-web-toolkit/pre-build-hooks ]]; then
             echo "Beginning pre-build-hooks..."
-            ./.futuramerlin-web-toolkit/pre-build-hooks || echo "WARNING! pre-build-hooks failed; continuing anyway."
+            ./.futuramerlin-web-toolkit/pre-build-hooks || warn "Pre-build-hooks failed; continuing anyway."
             echo "Done pre-build-hooks."
         fi
         traversedirectory() {
@@ -82,7 +82,7 @@ echo "Environment ready; building site..."
         traversedirectory "."
         if [[ -f .futuramerlin-web-toolkit/post-build-hooks ]]; then
             echo "Beginning post-build-hooks..."
-            ./.futuramerlin-web-toolkit/post-build-hooks || echo "WARNING! post-build-hooks failed; continuing anyway."
+            ./.futuramerlin-web-toolkit/post-build-hooks || warn "Post-build-hooks failed; continuing anyway."
             echo "Done post-build-hooks."
         fi
     )
@@ -99,6 +99,7 @@ echo "Environment ready; building site..."
 
 echo "Finishing up..."
 rm ./built/1_start.html ./built/2_end.html
+rm -r ./built/discography.assets
 if [[ "$futuramerlinWebToolkitWordPressLocation" == "disableWordPressIntegration" ]]; then
     echo "(Skipping WordPress integration.)"
 else
