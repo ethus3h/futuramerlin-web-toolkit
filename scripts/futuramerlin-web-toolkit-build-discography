@@ -249,6 +249,7 @@ function buildFilteredListEntry() {
     local destinationFile="$5"
     local recursive="$6"
     local workVersion="$7"
+    local workVersionReleases="$8"
     if [[ "$workVersionReleases" == "true" ]]; then
         if grep -P "^track,$(basename "$needleValue")" "$needleKey"; then
             local releaseName
@@ -358,15 +359,15 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry "release" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "${category%s}" "$id" "$fn" "recursive"
+        buildFilteredList "release" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "${category%s}" "$id" "$fn"
         print "</ul>" >> "$fn"
     fi
     if [[ "$category" == "works" ]]; then
         # Generate list of sub-works, and build a page for each
         print "<h2>Versions</h2><ul>" >> "$fn"
-        buildFilteredListEntry --workVersion "work" "$fn"
+        buildFilteredList --workVersion "work" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry --workVersionReleases "$fn" "$id"
+        buildFilteredList --workVersionReleases "$fn" "$id"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
