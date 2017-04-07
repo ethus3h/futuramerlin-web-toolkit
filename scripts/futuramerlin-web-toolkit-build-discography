@@ -317,7 +317,7 @@ function buildSinglePage() {
             local workItem
             workItem="$(getRelativeDiscographyDir)/works/$work"
             name="$(preadconf name "$workItem")"
-            listItem "$workItem" "$name" >> "$fn"
+            listItem "${workItem%.conf}" "$name" >> "$fn"
         done
         print "</ul>" >> "$fn"
     fi
