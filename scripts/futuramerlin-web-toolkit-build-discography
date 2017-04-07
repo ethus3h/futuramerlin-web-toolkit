@@ -10,8 +10,41 @@ fi
 # Where the discography assets are located
 da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 
-# Build main index page
-cp "$da/index.htm" .
-ereplace "@BREADCRUMBS@" "$(<futuramerlin-web-toolkit-discography.breadcrumbs)" "$da/index.htm"
+# Breadcrumbs prefix
+breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 
-# Build artists index page
+# Build main index page
+discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
+cp "$da/index.htm" "./$discographyPageName.htm"
+ereplace "@BREADCRUMBS@" "$breadcrumbs" "$da/index.htm"
+
+function listItem() {
+    print "<li><a href=\"$1\">$2</a></li>"
+}
+export -f listItem
+
+# Get a list of artists, and make the artists index page
+function buildIndex() {
+(
+    cd artists || die
+    declare -a artists
+    count=0
+    for artist in *.conf; do
+        artists[$count]="${artist%.conf}"
+        count=$(( count + 1 ))
+    done
+    export artists
+
+    # Build artists index page
+    cp "$da/index-template.htm" index.htm
+    ereplace "@TITLE@" "Artists" index.htm
+    ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
+    artistList=""
+    for artist in "${artists[@]}"; do
+        name="$(preadconf name "$artist.conf")"
+        artistList="$artistList$(listItem "$artist" "$name")"
+    done
+    ereplace "@LIST@" "$artistList" index.htm
+)
+}
+export -f buildIndex
