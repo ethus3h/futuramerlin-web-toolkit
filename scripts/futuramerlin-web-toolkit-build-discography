@@ -258,7 +258,7 @@ function buildFilteredListEntry() {
         fi
     elif [[ "$workVersion" == "true" ]]; then
         local haystackPath
-        haystackPath="$(getRelativeDiscographyDir)/works/${haystackKind}/$haystackItem"
+        haystackPath="$(getRelativeDiscographyDir)/works/${needleKey}/$haystackItem"
         haystackPath="${haystackPath%.conf}"
         listItem "$haystackPath" "$(preadconf name "$haystackPath".conf)" >> "$destinationFile"
     else
