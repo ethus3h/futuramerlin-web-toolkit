@@ -72,13 +72,14 @@ function buildIndex() {
             # Build individual page
             cp "$da/item-template.htm" "$fn"
             name="$(preadconf name "$id.conf")"
-            ereplace "@TITLE@" "${category^}" "$fn"
+            ereplace "@TITLE@" "$name" "$fn"
             ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category.htm\">${category^}</a></span>" "$fn"
             print "<dl>" >> "$fn"
             while IFS= read -r line; do
                 if ! [[ "$line" =~ ^# ]]; then
+                    key="$(cut -f1 -d, <<< "$line")"
                     if ! [[ -z "$key" ]]; then
-                        traitToHtm "$category" "$(cut -f1 -d, <<< "$line")" "$(cut -f2 -d, <<< "$line")" >> "$fn"
+                        traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
                     fi
                 fi
             done < "$2"
@@ -90,7 +91,7 @@ function buildIndex() {
         ereplace "@TITLE@" "${category^}" index.htm
         ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
         itemList=""
-        categoryarray="$category[@]"
+        categoryarray="${category}[@]"
         for item in "${!categoryarray}"; do
             name="$(preadconf name "$item.conf")"
             itemList="$itemList$(listItem "$item" "$name")"
