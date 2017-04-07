@@ -302,23 +302,24 @@ function buildFilteredList() {
         local workVersion="true"
     fi
     # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
-    local haystackKind="$1"
-    local needleKey="$2"
-    local needleValue="$3"
-    local destinationFile="$4"
-    local subst
-    subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
-    if [[ "$workVersion" == "true" ]]; then
-        destinationFile="$1"
-        subst="$(getRelativeDiscographyDir)/works/$2/"
-    elif [[ "$workVersionReleases" == "true" ]]; then
-        destinationFile="$1"
-        subst="$(getRelativeDiscographyDir)/releases/"
+    if [[ "$workVersion" == "true" || workVersionReleases == "true" ]]; then
+        needleKey="$1"
+        destinationFile="$2"
+        subst="$(getRelativeDiscographyDir)/works/$needleKey/"
+        if [[ "$workVersionReleases" == "true" ]]; then
+            subst="$(getRelativeDiscographyDir)/releases/"
+        fi
+    else
+        local haystackKind="$1"
+        local needleKey="$2"
+        local needleValue="$3"
+        local destinationFile="$4"
+        local subst
+        subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
     fi
     (
         cd "$subst" || die
         if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
-            next="$(preadconf nextEntry "$item".conf)"
             buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workVersionReleases"
         else
             for haystackItem in *.conf; do
@@ -367,7 +368,7 @@ function buildSinglePage() {
         print "<h2>Versions</h2><ul>" >> "$fn"
         buildFilteredList --workVersion "$id" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredList --workVersionReleases "$fn" "$id"
+        buildFilteredList --workVersionReleases "$id" "$fn"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
