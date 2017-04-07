@@ -34,7 +34,7 @@ function buildIndex() {
         cd "$1" || die
         declare -a "$1"
         for item in *.conf; do
-            "$1"+="${item%.conf}"
+            "$1"+=("${item%.conf}")
         done
         # shellcheck disable=SC2163
         export "$1"
