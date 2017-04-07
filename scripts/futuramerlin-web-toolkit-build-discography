@@ -365,7 +365,7 @@ function buildSinglePage() {
     if [[ "$category" == "works" ]]; then
         # Generate list of sub-works, and build a page for each
         print "<h2>Versions</h2><ul>" >> "$fn"
-        buildFilteredList --workVersion "work" "$fn"
+        buildFilteredList --workVersion "$id" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
         buildFilteredList --workVersionReleases "$fn" "$id"
         print "</ul>" >> "$fn"
