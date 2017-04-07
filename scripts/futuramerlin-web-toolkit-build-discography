@@ -70,21 +70,25 @@ function simpleIaLink() {
     local filename="$1"
     local localident="$2"
     local label="$3"
-    local iaident="$(preadconf ia "$localident")"
+    local iaident
+    iaident="$(preadconf ia "$localident")"
     print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
 }
 
 function simpleIaImage() {
     local filename="$1"
     local localident="$2"
-    local iaident="$(preadconf ia "$localident")"
-    local relname="$(preadconf name "$localident")"
+    local iaident
+    iaident="$(preadconf ia "$localident")"
+    local relname
+    relname="$(preadconf name "$localident")"
     print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/t$filename.png\" alt=\"$relname: album artwork\" /></a>"
 }
 
 function refEntry() {
-    kind="$1"
-    identifier="$2"
+    local kind="$1"
+    local identifier="$2"
+    local name
     name="$(preadconf name "$(getRelativeDiscographyDir)${kind}s/$identifier.conf")"
     print "<a href=\"../${kind}s/$identifier.htm\">$name</a>"
 }
@@ -150,8 +154,10 @@ function simpleReference() {
 }
 
 function buildTrackPlayer() {
-    local workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
-    local filename="$(preadconf filename "$workConf")"
+    local workConf
+    workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
+    local filename
+    filename="$(preadconf filename "$workConf")"
     simpleIaLink "$filename".mp3 "$3" "MP3"
     print "/"
     simpleIaLink "$filename".flac "$3" "FLAC"
@@ -244,7 +250,7 @@ function buildFilteredListEntry() {
     local destinationFile="$5"
     local recursive="$6"
     local subst
-    subst="$(getRelativeDiscographyDir)/${matchKind}s/"
+    subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
     haystackItem="${haystackItem#"$subst"}"
     haystackItem="${haystackItem%.conf}"
     haystackConf="$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem.conf"
@@ -257,7 +263,8 @@ function buildFilteredListEntry() {
             fi
         done
         if [[ "$foundMatch" == "true" ]]; then
-            local name="$(preadconf name "$haystackConf")"
+            local name
+            name="$(preadconf name "$haystackConf")"
             listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationFile"
         fi
     fi
