@@ -44,7 +44,7 @@ function buildIndex() {
         ereplace "@TITLE@" "${1^}" index.htm
         ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
         itemList=""
-        for item in "${$1[@]}"; do
+        for item in "${!1[@]}"; do
             name="$(preadconf name "$item.conf")"
             itemList="$itemList$(listItem "$item" "$name" "$includePictures")"
         done
@@ -54,7 +54,7 @@ function buildIndex() {
 export -f buildIndex
 
 cp "$da/index-template.htm" "$discographyPageName.htm" || die
-ereplace "@TITLE@" "Discography" index.htm
+ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
 indexItems=(artists broadcasts files labels releases sessions works)
