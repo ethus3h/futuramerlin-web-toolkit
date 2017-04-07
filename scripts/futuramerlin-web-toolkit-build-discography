@@ -313,7 +313,7 @@ function buildSinglePage() {
     if [[ "$category" == "works" ]]; then
         # Generate list of sub-works, and build a page for each
         print "<h2>Versions</h2><ul>" >> "$fn"
-        for work in works/*.conf; do
+        for work in works/"$(basename "$workItem")"/*.conf; do
             local workItem
             workItem="$(getRelativeDiscographyDir)/$work"
             name="$(preadconf name "$workItem")"
@@ -322,7 +322,8 @@ function buildSinglePage() {
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
-        local next="$(preadconf nextEntry)"
+        local next
+        next="$(preadconf nextEntry)"
         if [[ -n "$next" ]]; then
             buildSinglePage "$next" "recursive"
         fi
