@@ -36,7 +36,7 @@ function mergeConfFile() {
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! grep -P "^$key," "$dir/$1"; then
-                print "$line" >> "$dir/$1"
+                printf "%s\n" "$line" >> "$dir/$1"
             fi
         fi
     done < "$inheritFrom"
@@ -163,7 +163,7 @@ function traitToHtm() {
         work="$(cut -f1 -d, <<< "$3")"
         subWork="$(cut -f2 -d, <<< "$3")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\""$workPrefix.htm"\">"$(preadconf name "$workPrefix.conf")"</a></td><td>"$(preadconf duration "$workPrefix.conf")"</td><td>"$(preadconf Instrumentation "$workPrefix.conf")"</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\""$workPrefix.htm"\">"$(preadconf name "$workPrefix.conf")"</a></td><td>"$(preadconf duration "$workPrefix.conf")"</td><td>"$(preadconf instrumentation "$workPrefix.conf")"</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$2")" "$(keyToLabel "$3")"
