@@ -55,7 +55,7 @@ function simpleIaLink() {
 function refEntry() {
     kind="$1"
     identifier="$2"
-    pwd
+    pwd 1&>2
     name="$(preadconf name "$(getRelativeDiscographyDir)$kind/$identifier.conf")"
     print "<a href=\"../$kind/$identifier.htm\">$name</a>"
 }
