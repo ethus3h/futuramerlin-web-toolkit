@@ -95,7 +95,7 @@ function buildIndex() {
                     foundMatch="false"
                     if [[ "${#readconfValue[@]}" -gt 0 ]]; then
                         for matchingCategory in "${readconfValue[@]:?}"; do
-                            if [[ "$matchingCategory" == "label" ]]; then
+                            if [[ "$matchingCategory" == "$item" ]]; then
                                 foundMatch="true"
                             fi
                         done
@@ -116,7 +116,7 @@ function buildIndex() {
                     readconf "${category%s}" "../releases/$release.conf"
                     foundMatch="false"
                     for matchingCategory in "${readconfValue[@]}"; do
-                        if [[ "$matchingCategory" == "${category%s}" ]]; then
+                        if [[ "$matchingCategory" == "$item" ]]; then
                             foundMatch="true"
                         fi
                     done
