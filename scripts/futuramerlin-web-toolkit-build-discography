@@ -305,7 +305,7 @@ function buildFilteredList() {
     # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
     if [[ "$workVersion" == "true" || workVersionReleases == "true" ]]; then
         needleKey="$1"
-        destinationFile="$2"
+        destinationFile="../$2"
         subst="$(getRelativeDiscographyDir)/works/$needleKey/"
         if [[ "$workVersionReleases" == "true" ]]; then
             subst="$(getRelativeDiscographyDir)/releases/"
