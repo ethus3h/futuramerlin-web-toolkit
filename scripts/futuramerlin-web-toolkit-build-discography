@@ -61,13 +61,13 @@ function traitToHtm() {
 }
 
 function buildFilteredListEntry() {
-    local kind="$1"
+    local matchKind="$1"
     local id="$2"
     local item="$3"
-    local subst="../${kind}s/"
+    local subst="../${matchKind}s/"
     item="${item#"$subst"}"
     item="${item%.conf}"
-    readconf "label" "../${kind}s/$item.conf"
+    readconf "label" "../${matchKind}s/$item.conf"
     foundMatch="false"
     if [[ "${#readconfValue[@]}" -gt 0 ]]; then
         for matchingCategory in "${readconfValue[@]:?}"; do
@@ -76,7 +76,7 @@ function buildFilteredListEntry() {
             fi
         done
         if [[ "$foundMatch" == "true" ]]; then
-            name="$(preadconf name "../${kind}s/$item.conf")"
+            name="$(preadconf name "../${matchKind}s/$item.conf")"
             listItem "$item" "$name" >> "$fn"
         fi
     fi
@@ -111,7 +111,7 @@ function buildSinglePage() {
         # Generate index of artists on this label
         print "<h2>Artists</h2><ul>" >> "$fn"
         for artist in ../artists/*.conf; do
-            buildFilteredListEntry "artist" "$id" "$artist"
+            buildFilteredListEntry "label" "$id" "$artist"
         done
         print "</ul>" >> "$fn"
     fi
