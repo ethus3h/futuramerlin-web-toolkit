@@ -32,6 +32,14 @@ function simpleMetadata() {
     print "<dt>$1</dt><dd>$2</dd>"
 }
 
+function simpleIaLink() {
+    filename="$1"
+    localident="$2"
+    label="$3"
+    iaident="$(preadconf ia $localident)"
+    print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
+}
+
 function refEntry() {
     kind="$1"
     identifier="$2"
@@ -41,6 +49,9 @@ function refEntry() {
 
 function keyToLabel() {
     case $1 in
+    nonPngArtwork)
+        print "Nonstandard artwork"
+        ;;
     fileIsSemanticallySignificant)
         print "File is semantically significant"
         ;;
@@ -77,6 +88,9 @@ function simpleReference() {
 
 function traitToHtm() {
     case $2 in
+    nonPngArtwork)
+        simpleMetadata "$(keyToLabel "$2")" "$(simpleIaLink "$3" "$4" "$3")"
+        ;;
     fileIsSemanticallySignificant)
         if [[ "$3" == "yes" ]]; then
             simpleMetadata "$(keyToLabel "$2")" "$3"
@@ -163,7 +177,7 @@ function buildSinglePage() {
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! [[ -z "$key" ]]; then
-                traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
+                traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" "$id.conf" >> "$fn"
             fi
         fi
     done < "$id.conf"
