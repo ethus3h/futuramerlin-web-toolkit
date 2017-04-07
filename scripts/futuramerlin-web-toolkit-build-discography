@@ -56,8 +56,8 @@ function simpleIaLink() {
 function refEntry() {
     kind="$1"
     identifier="$2"
-    name="$(preadconf name "$kind/$identifier.conf")"
-    print "<a href=\"../$kind/$identifier.htm\">$name</a>"
+    name="$(preadconf name "$(getRelativeDiscographyDir)${kind}s/$identifier.conf")"
+    print "<a href=\"../${kind}s/$identifier.htm\">$name</a>"
 }
 
 function keyToLabel() {
