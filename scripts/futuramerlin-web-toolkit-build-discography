@@ -30,12 +30,13 @@ function getRelativeDiscographyDir() {
 }
 
 function mergeConfFile() {
-    inheritFrom="$(getRelativeDiscographyDir)"/works/"$(basename "$(pwd)")".conf
+    local dir="$(getRelativeDiscographyDir)"
+    inheritFrom="$dir"/works/"$(basename "$(pwd)")".conf
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
-            if ! grep -P "^$key," "$(getRelativeDiscographyDir)"/"$1"; then
-                print "$line" >> "$fn"
+            if ! grep -P "^$key," "$dir/$1"; then
+                print "$line" >> "$dir/$1"
             fi
         fi
     done < "$inheritFrom"
