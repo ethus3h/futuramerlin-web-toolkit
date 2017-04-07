@@ -1,18 +1,19 @@
 #!/bin/bash
-#Futuramerlin Web Toolkit build script
+source ember_bash_setup &> /dev/null
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
 #Version:
 export futuramerlinWebToolkitVersion='2.1.2.5.5.1'
 
 shopt -s extglob
-set -e
 
 futuramerlinWebToolkitConfigFileName="/usr/local/etc/futuramerlin-web-toolkit.conf"
 
-if [ -f "$HOME/.futuramerlin-web-toolkit.cfg" ]; then
+if [[ -f "$HOME/.futuramerlin-web-toolkit.cfg" ]]; then
     futuramerlinWebToolkitConfigFileName="$HOME/.futuramerlin-web-toolkit.cfg"
 fi
 
-if [ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]; then
+if [[ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]]; then
     futuramerlinWebToolkitConfigFileName="./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg"
 fi
 
@@ -50,7 +51,7 @@ echo "Environment ready; building site..."
     cd ./source || exit 1
     (
         cd "content" || exit 1
-        if [ -f .futuramerlin-web-toolkit/pre-build-hooks ]; then
+        if [[ -f .futuramerlin-web-toolkit/pre-build-hooks ]]; then
             echo "Beginning pre-build-hooks..."
             ./.futuramerlin-web-toolkit/pre-build-hooks || echo "WARNING! pre-build-hooks failed; continuing anyway."
             echo "Done pre-build-hooks."
@@ -79,7 +80,7 @@ echo "Environment ready; building site..."
             shopt -u dotglob
         }
         traversedirectory "."
-        if [ -f .futuramerlin-web-toolkit/post-build-hooks ]; then
+        if [[ -f .futuramerlin-web-toolkit/post-build-hooks ]]; then
             echo "Beginning post-build-hooks..."
             ./.futuramerlin-web-toolkit/post-build-hooks || echo "WARNING! post-build-hooks failed; continuing anyway."
             echo "Done post-build-hooks."

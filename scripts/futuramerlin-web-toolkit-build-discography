@@ -1,0 +1,8 @@
+#!/bin/bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
+    die "Couldn't find discography configuration file!"
+fi

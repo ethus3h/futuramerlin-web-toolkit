@@ -1,4 +1,6 @@
 #!/bin/bash
+source ember_bash_setup &> /dev/null
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 shopt -s extglob
 set +H
@@ -42,12 +44,12 @@ ere_quote() {
 }
 export -f ere_quote
 title="$(ere_quote $title)"
-if [ -n "$title" ]; then
+if [[ -n "$title" ]]; then
     replace="s/<title>Ember<\/title>/<title>$title &mdash; Ember<\/title>/g"
     perl -0777 -p -i -e "$replace" "../../built/$1"
 fi
 #Work on home page
-if [ "$Page" == "." ]; then
+if [[ "$Page" == "." ]]; then
     replace="s/<p class=\"logo\">(((?!<\/p>)[\S\s])*)<\/p>/<h1 class=\"logo\">\1<\/h1>/g"
     perl -0777 -p -i -e "$replace" "../../built/$1"
     perl -0777 -p -i -e "s/nav-item-inactive index\"/nav-item-selected\"/g" "../../built/$1"
