@@ -60,74 +60,88 @@ function traitToHtm() {
     esac
 }
 
+function buildFilteredListEntry() {
+    local kind="$1"
+    local id="$2"
+    local item="$3"
+    local subst="../${kind}s/"
+    item="${item#"$subst"}"
+    item="${item%.conf}"
+    readconf "label" "../${kind}s/$item.conf"
+    foundMatch="false"
+    if [[ "${#readconfValue[@]}" -gt 0 ]]; then
+        for matchingCategory in "${readconfValue[@]:?}"; do
+            if [[ "$matchingCategory" == "$id" ]]; then
+                foundMatch="true"
+            fi
+        done
+        if [[ "$foundMatch" == "true" ]]; then
+            name="$(preadconf name "../${kind}s/$item.conf")"
+            listItem "$item" "$name" >> "$fn"
+        fi
+    fi
+    if [[ "$3" == "recursive" ]]; then
+        next="$(preadconf nextEntry)"
+        if [[ -n "$next" ]]; then
+            buildFilteredListEntry "$next" "recursive"
+        fi
+    fi
+}
+
+function buildSinglePage() {
+    id="$1"
+    fn="$id.htm"
+    declare -n ref=$category; ref+=( "$id" )
+    # Build individual page
+    cp "$da/item-template.htm" "$fn"
+    name="$(preadconf name "$id.conf")"
+    ereplace "@TITLE@" "$name" "$fn"
+    ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category\">${category^}</a></span>" "$fn"
+    print "<dl>" >> "$fn"
+    while IFS= read -r line; do
+        if ! [[ "$line" =~ ^# ]]; then
+            key="$(cut -f1 -d, <<< "$line")"
+            if ! [[ -z "$key" ]]; then
+                traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
+            fi
+        fi
+    done < "$id.conf"
+    print "</dl>" >> "$fn"
+    if [[ "$category" == "labels" ]]; then
+        # Generate index of artists on this label
+        print "<h2>Artists</h2><ul>" >> "$fn"
+        for artist in ../artists/*.conf; do
+            buildFilteredListEntry "artist" "$id" "$artist"
+        done
+        print "</ul>" >> "$fn"
+    fi
+    if [[ "$category" == "artists" || "$category" == "labels" ]]; then
+        # Generate list of releases
+        print "<h2>Releases</h2><ul>" >> "$fn"
+        buildFilteredListEntry "release" "$id" "$(<../releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        print "</ul>" >> "$fn"
+    fi
+    if [[ "$2" == "recursive" ]]; then
+        next="$(preadconf nextEntry)"
+        if [[ -n "$next" ]]; then
+            buildSinglePage "$next" "recursive"
+        fi
+    fi
+}
+
 function buildIndex() {
     category="$1"
     (
         cd "$category" || die
         declare -a -g "$category"
         shopt -s nullglob
-        for item in *.conf; do
-            id="${item%.conf}"
-            fn="$id.htm"
-            declare -n ref=$category; ref+=( "$id" )
-            # Build individual page
-            cp "$da/item-template.htm" "$fn"
-            name="$(preadconf name "$id.conf")"
-            ereplace "@TITLE@" "$name" "$fn"
-            ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category\">${category^}</a></span>" "$fn"
-            print "<dl>" >> "$fn"
-            while IFS= read -r line; do
-                if ! [[ "$line" =~ ^# ]]; then
-                    key="$(cut -f1 -d, <<< "$line")"
-                    if ! [[ -z "$key" ]]; then
-                        traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
-                    fi
-                fi
-            done < "$id.conf"
-            print "</dl>" >> "$fn"
-            if [[ "$category" == "labels" ]]; then
-                # Generate index of artists on this label
-                print "<h2>Artists</h2><ul>" >> "$fn"
-                for artist in ../artists/*.conf; do
-                    artist="${artist#\.\.\/artists\/}"
-                    artist="${artist%.conf}"
-                    readconf "label" "../artists/$artist.conf"
-                    foundMatch="false"
-                    if [[ "${#readconfValue[@]}" -gt 0 ]]; then
-                        for matchingCategory in "${readconfValue[@]:?}"; do
-                            if [[ "$matchingCategory" == "$id" ]]; then
-                                foundMatch="true"
-                            fi
-                        done
-                        if [[ "$foundMatch" == "true" ]]; then
-                            name="$(preadconf name "../artists/$artist.conf")"
-                            listItem "$artist" "$name" >> "$fn"
-                        fi
-                    fi
-                done
-                print "</ul>" >> "$fn"
-            fi
-            if [[ "$category" == "artists" || "$category" == "labels" ]]; then
-                # Generate list of releases
-                print "<h2>Releases</h2><ul>" >> "$fn"
-                for release in ../releases/*.conf; do
-                    release="${release#\.\.\/release\/}"
-                    release="${release%.conf}"
-                    readconf "${category%s}" "../releases/$release.conf"
-                    foundMatch="false"
-                    for matchingCategory in "${readconfValue[@]}"; do
-                        if [[ "$matchingCategory" == "$id" ]]; then
-                            foundMatch="true"
-                        fi
-                    done
-                    if [[ "$foundMatch" == "true" ]]; then
-                        name="$(preadconf name "../releases/$release.conf")"
-                        listItem "$release" "$name" >> "$fn"
-                    fi
-                done
-                print "</ul>" >> "$fn"
-            fi
-        done
+        if [[ "$category" == releases || "$category" == works ]]; then
+            buildSinglePage "$(<futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        else
+            for item in *.conf; do
+                buildSinglePage "${item%.conf}"
+            done
+        fi
 
         # Build index page
         cp "$da/index-template.htm" index.htm
@@ -147,7 +161,7 @@ cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
-indexItems=(artists labels releases works broadcasts sessions files)
+indexItems=(artists labels releases works broadcasts press sessions files)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
