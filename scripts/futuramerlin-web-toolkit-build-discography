@@ -65,6 +65,7 @@ function buildIndex() {
     (
         cd "$category" || die
         declare -a -g "$category"
+        shopt -s nullglob
         for item in *.conf; do
             id="${item%.conf}"
             fn="$id.htm"
@@ -79,11 +80,10 @@ function buildIndex() {
                 if ! [[ "$line" =~ ^# ]]; then
                     key="$(cut -f1 -d, <<< "$line")"
                     if ! [[ -z "$key" ]]; then
-                        # traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
-                        traitToHtm "$category" "$key" "VALUE" >> "$fn"
+                        traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
                     fi
                 fi
-            done < "$2"
+            done < "$id.conf"
             print "</dl>" >> "$fn"
         done
 
@@ -105,7 +105,7 @@ cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
-indexItems=(artists broadcasts labels releases sessions works)
+indexItems=(artists broadcasts files labels releases sessions works)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
