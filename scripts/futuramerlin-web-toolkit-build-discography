@@ -361,8 +361,8 @@ function buildIndex() {
 cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
-local itemList=""
-local indexItems=(artists labels releases works broadcasts press sessions files)
+itemList=""
+indexItems=(artists labels releases works broadcasts press sessions files)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
