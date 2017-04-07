@@ -55,7 +55,7 @@ function simpleIaLink() {
 function refEntry() {
     kind="$1"
     identifier="$2"
-    name="$(preadconf name "$kind/$identifier.conf")"
+    name="$(preadconf name "$(getRelativeDiscographyDir)$kind/$identifier.conf")"
     print "<a href=\"../$kind/$identifier.htm\">$name</a>"
 }
 
@@ -215,7 +215,7 @@ function buildSinglePage() {
     if [[ "$category" == "labels" ]]; then
         # Generate index of artists on this label
         print "<h2>Artists</h2><ul>" >> "$fn"
-        for artist in ../artists/*.conf; do
+        for artist in "$(getRelativeDiscographyDir)"/artists/*.conf; do
             buildFilteredListEntry "label" "$id" "$artist"
         done
         print "</ul>" >> "$fn"
