@@ -21,7 +21,11 @@ function listItem() {
     if [[ "$3" == "true" && -e "$1.t.png" ]]; then
         picture="<img src=\"$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
     fi
-    print "<li><a href=\"$1.htm\">$picture$2</a></li>"
+    useDirs=".htm"
+    if [[ "$3" == "true" ]]; then
+        useDirs=""
+    fi
+    print "<li><a href=\"$1$useDirs\">$picture$2</a></li>"
 }
 export -f listItem
 
@@ -29,6 +33,10 @@ function buildIndex() {
     includePictures="true"
     if [[ "$2" == "false" ]]; then
         includePictures=""
+    fi
+    useDirs="false"
+    if [[ "$3" == "true" ]]; then
+        useDirs="true"
     fi
     category="$1"
     (
@@ -47,7 +55,7 @@ function buildIndex() {
         itemList=""
         for item in "${!category[@]}"; do
             name="$(preadconf name "$item.conf")"
-            itemList="$itemList$(listItem "$item" "$name" "$includePictures")"
+            itemList="$itemList$(listItem "$item" "$name" "$includePictures" "$useDirs")"
         done
         ereplace "@LIST@" "$itemList" index.htm
     )
