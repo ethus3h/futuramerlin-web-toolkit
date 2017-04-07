@@ -19,13 +19,13 @@ discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.c
 function listItem() {
     picture=""
     if [[ -e "$1.t.png" ]]; then
-        picture="<img src=\"$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
+        picture="<img src=\"$4/$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
     fi
     extension=".htm"
     if [[ "$3" == "true" ]]; then
         extension=""
     fi
-    print "<li><a href=\"$1$extension\">$picture$2</a></li>"
+    print "<li><a href=\"$4/$1$extension\">$picture$2</a></li>"
 }
 
 function simpleMetadata() {
@@ -41,7 +41,7 @@ function keyToLabel() {
         print "Internet Archive"
         ;;
     *)
-        "${1^}"
+        print "${1^}"
         ;;
     esac
 }
@@ -85,6 +85,42 @@ function buildIndex() {
                 fi
             done < "$id.conf"
             print "</dl>" >> "$fn"
+            if [[ "$category" == "labels" ]]; then
+                # Generate index of artists on this label
+                print "<h2>Artists</h2><ul>" >> "$fn"
+                for artist in ../artists/*.conf; do
+                    readconf "label" "../artists/$artist.conf"
+                    foundMatch="false"
+                    for matchingCategory in "${readconfValue[@]}"; do
+                        if [[ "$matchingCategory" == "label" ]]; then
+                            foundMatch="true"
+                        fi
+                    done
+                    if [[ "$foundMatch" == "true" ]]; then
+                        name="$(preadconf name "../artists/$artist.conf")"
+                        listItem "$artist" "$name" "false" "../artists/" >> "$fn"
+                    fi
+                done
+                print "</ul>" >> "$fn"
+            fi
+            if [[ "$category" == "artists" || "$category" == "labels" ]]; then
+                # Generate list of releases
+                print "<h2>Releases</h2><ul>" >> "$fn"
+                for release in ../releases/*.conf; do
+                    readconf "${category%s}" "../releases/$release.conf"
+                    foundMatch="false"
+                    for matchingCategory in "${readconfValue[@]}"; do
+                        if [[ "$matchingCategory" == "${category%s}" ]]; then
+                            foundMatch="true"
+                        fi
+                    done
+                    if [[ "$foundMatch" == "true" ]]; then
+                        name="$(preadconf name "../releases/$release.conf")"
+                        listItem "$release" "$name" "false" "../releases/" >> "$fn"
+                    fi
+                done
+                print "</ul>" >> "$fn"
+            fi
         done
 
         # Build index page
@@ -105,7 +141,7 @@ cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
-indexItems=(artists broadcasts files labels releases sessions works)
+indexItems=(artists labels releases works broadcasts sessions files)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
