@@ -17,6 +17,7 @@ breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
 function getRelativeDiscographyDir() {
+    pwd 1&>2
     if [[ -f "futuramerlin-web-toolkit-discography.conf" ]]; then
         print "./"
     elif [[ -f "../futuramerlin-web-toolkit-discography.conf" ]]; then
@@ -55,7 +56,6 @@ function simpleIaLink() {
 function refEntry() {
     kind="$1"
     identifier="$2"
-    pwd 1&>2
     name="$(preadconf name "$(getRelativeDiscographyDir)$kind/$identifier.conf")"
     print "<a href=\"../$kind/$identifier.htm\">$name</a>"
 }
