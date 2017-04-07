@@ -29,7 +29,7 @@ function buildIndex() {
         includePictures=""
     fi
     (
-        cd "$1" || exit 0 # it's ok if the directory doesn't exist; that just means that that category of things isn't present in the discography
+        cd "$1" || die
         declare -a "$1"
         count=0
         for item in *.conf; do
@@ -53,13 +53,16 @@ function buildIndex() {
 }
 export -f buildIndex
 
-cp "$da/index-template.htm" "./$discographyPageName.htm"
+cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" index.htm
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
-for item in (artists broadcasts files labels releases sessions works); do
-    buildIndex "$item"
+for item in ( artists broadcasts files labels releases sessions works ); do
     if [[ -e "$item" ]]; then
+        buildIndex "$item"
         itemList="$itemList$(listItem "$item" "${item^}")"
     fi
 done
+ereplace "@LIST@" "$itemList" "$discographyPageName.htm"
+
+# All the indices are now built.

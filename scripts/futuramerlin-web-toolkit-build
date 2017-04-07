@@ -3,7 +3,7 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 #Version:
-export futuramerlinWebToolkitVersion='2.1.2.5.5.1'
+export futuramerlinWebToolkitVersion='2.2_pre1'
 
 shopt -s extglob
 
