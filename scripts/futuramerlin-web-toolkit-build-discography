@@ -67,10 +67,10 @@ function simpleMetadata() {
 }
 
 function simpleIaLink() {
-    filename="$1"
-    localident="$2"
-    label="$3"
-    iaident="$(preadconf ia "$localident")"
+    local filename="$1"
+    local localident="$2"
+    local label="$3"
+    local iaident="$(preadconf ia "$localident")"
     print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
 }
 
@@ -142,8 +142,8 @@ function simpleReference() {
 }
 
 function buildTrackPlayer() {
-    workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
-    filename="$(preadconf filename "$workConf")"
+    local workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
+    local filename="$(preadconf filename "$workConf")"
     simpleIaLink "$filename".mp3 "$3" "MP3"
     print "/"
     simpleIaLink "$filename".flac "$3" "FLAC"
