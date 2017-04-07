@@ -142,6 +142,7 @@ function simpleReference() {
 }
 
 function buildTrackPlayer() {
+    workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
     filename="$(preadconf filename "$workConf")"
     simpleIaLink "$filename".mp3 "$3" "MP3"
     print "/"
@@ -279,7 +280,7 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry "${category%s}" "$id" "$(<"$(getRelativeDiscographyDir)"/"$category"/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        buildFilteredListEntry "${category%s}" "$id" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
