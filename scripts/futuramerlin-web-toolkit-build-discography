@@ -313,7 +313,7 @@ function buildSinglePage() {
     if [[ "$category" == "works" ]]; then
         # Generate list of sub-works, and build a page for each
         print "<h2>Versions</h2><ul>" >> "$fn"
-        for work in works/"$(basename "$id")"/*.conf; do
+        for work in "$(basename "$id")"/*.conf; do
             local workItem
             workItem="$(getRelativeDiscographyDir)/$work"
             name="$(preadconf name "$workItem")"
