@@ -79,7 +79,8 @@ function buildIndex() {
                 if ! [[ "$line" =~ ^# ]]; then
                     key="$(cut -f1 -d, <<< "$line")"
                     if ! [[ -z "$key" ]]; then
-                        traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
+                        # traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" >> "$fn"
+                        traitToHtm "$category" "$key" "VALUE" >> "$fn"
                     fi
                 fi
             done < "$2"
