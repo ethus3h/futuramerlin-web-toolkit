@@ -32,11 +32,9 @@ function buildIndex() {
     fi
     (
         cd "$1" || die
-        declare -A "$1"
-        count=0
+        declare -a "$1"
         for item in *.conf; do
-            "$1"[$count]="${item%.conf}"
-            count=$(( count + 1 ))
+            "$1"+="${item%.conf}"
         done
         # shellcheck disable=SC2163
         export "$1"
