@@ -10,13 +10,9 @@ fi
 # Where the discography assets are located
 da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 
-# Breadcrumbs prefix
+# Variables
 breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
-
-# Build main index page
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
-cp "$da/index.htm" "./$discographyPageName.htm"
-ereplace "@BREADCRUMBS@" "$breadcrumbs" "$da/index.htm"
 
 function listItem() {
     picture=""
@@ -57,7 +53,13 @@ function buildIndex() {
 }
 export -f buildIndex
 
-# Get a list of artists, and make the artists index page
+cp "$da/index-template.htm" "./$discographyPageName.htm"
+ereplace "@TITLE@" "Discography" index.htm
+ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
+itemList=""
 for item in (artists broadcasts files labels releases sessions works); do
-    buildIndex "$item"
+    if [[ -e "$item" ]]; then
+        buildIndex "$item"
+        itemList="$itemList$(listItem "$item" "${item^}")"
+    fi
 done
