@@ -19,32 +19,49 @@ cp "$da/index.htm" "./$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$da/index.htm"
 
 function listItem() {
-    print "<li><a href=\"$1\">$2</a></li>"
+    picture=""
+    if [[ "$3" == "true" && -e "$1.t.png" ]]; then
+        picture="<img src=\"$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
+    fi
+    print "<li><a href=\"$1.htm\">$picture$2</a></li>"
 }
 export -f listItem
 
-# Get a list of artists, and make the artists index page
 function buildIndex() {
-(
-    cd artists || die
-    declare -a artists
-    count=0
-    for artist in *.conf; do
-        artists[$count]="${artist%.conf}"
-        count=$(( count + 1 ))
-    done
-    export artists
+    includePictures="true"
+    if [[ "$2" == "false" ]]; then
+        includePictures=""
+    fi
+    (
+        cd "$1" || die
+        declare -a "$1"
+        count=0
+        for item in *.conf; do
+            "$1"[$count]="${item%.conf}"
+            count=$(( count + 1 ))
+        done
+        # shellcheck disable=SC2163
+        export "$1"
 
-    # Build artists index page
-    cp "$da/index-template.htm" index.htm
-    ereplace "@TITLE@" "Artists" index.htm
-    ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
-    artistList=""
-    for artist in "${artists[@]}"; do
-        name="$(preadconf name "$artist.conf")"
-        artistList="$artistList$(listItem "$artist" "$name")"
-    done
-    ereplace "@LIST@" "$artistList" index.htm
-)
+        # Build index page
+        cp "$da/index-template.htm" index.htm
+        ereplace "@TITLE@" "${1^}" index.htm
+        ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
+        itemList=""
+        for item in "${$1[@]}"; do
+            name="$(preadconf name "$item.conf")"
+            itemList="$itemList$(listItem "$item" "$name" "$includePictures")"
+        done
+        ereplace "@LIST@" "$itemList" index.htm
+    )
 }
 export -f buildIndex
+
+# Get a list of artists, and make the artists index page
+buildIndex artists
+buildIndex broadcasts
+buildIndex files
+buildIndex labels
+buildIndex releases
+buildIndex sessions
+buildIndex works
