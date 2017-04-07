@@ -242,14 +242,12 @@ function traitToHtm() {
 }
 
 function buildFilteredListEntry() {
-    # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
     local haystackKind="$1"
     local haystackItem="$2"
     local needleKey="$3"
     local needleValue="$4"
     local destinationFile="$5"
     local recursive="$6"
-    local subst
     subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
     haystackItem="${haystackItem#"$subst"}"
     haystackItem="${haystackItem%.conf}"
@@ -265,14 +263,31 @@ function buildFilteredListEntry() {
         if [[ "$foundMatch" == "true" ]]; then
             local name
             name="$(preadconf name "$haystackConf")"
-            listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationFile"
+            listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationle"
         fi
     fi
     if [[ "$recursive" == "true" ]]; then
-        next="$(preadconf nextEntry "$item".conf)"
+        next="$(preadconf nextEntry "$haystackItem".conf)"
         if [[ -n "$next" ]]; then
             buildFilteredListEntry "$haystackKind" "$next" "$needleKey" "$needleValue" "$destinationFile" "true"
         fi
+    fi
+}
+
+function buildFilteredList() {
+    # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
+    local haystackKind="$1"
+    local needleKey="$3"
+    local needleValue="$4"
+    local destinationFile="$5"
+    local subst
+    if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
+        next="$(preadconf nextEntry "$item".conf)"
+        buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true"
+    else
+        for haystackItem in *.conf; do
+            buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "false"
+        done
     fi
 }
 
