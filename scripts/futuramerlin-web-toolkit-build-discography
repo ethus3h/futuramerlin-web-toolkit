@@ -251,7 +251,7 @@ function buildFilteredListEntry() {
     local workVersion="$7"
     local workVersionReleases="$8"
     if [[ "$workVersionReleases" == "true" ]]; then
-        if grep -P "^track,$(basename "$haystackItem")" "$needleKey"; then
+        if grep -P "^track,$(basename "$haystackItem")" "$needleKey".conf; then
             local releaseName
             releaseName="$(preadconf name "$needleKey")"
             local disambig
