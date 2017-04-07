@@ -118,7 +118,7 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry "release" "$id" "$(<../releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        buildFilteredListEntry "${category%s}" "$id" "$(<../releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
