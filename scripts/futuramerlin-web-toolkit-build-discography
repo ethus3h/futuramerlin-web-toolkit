@@ -36,14 +36,14 @@ function simpleIaLink() {
     filename="$1"
     localident="$2"
     label="$3"
-    iaident="$(preadconf ia $localident)"
+    iaident="$(preadconf ia "$localident")"
     print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
 }
 
 function refEntry() {
     kind="$1"
     identifier="$2"
-    name="$(preadconf name ../$kind/$identifier.conf)"
+    name="$(preadconf name "../$kind/$identifier.conf")"
     print "<a href=\"../$kind/$identifier.htm\">$name</a>"
 }
 
