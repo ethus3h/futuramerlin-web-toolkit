@@ -88,6 +88,9 @@ function simpleReference() {
 
 function traitToHtm() {
     case $2 in
+    file)
+        print "<li>"$(simpleIaLink "$(cut -f2- -d, <<< "$3")" "$4" "$(keyToLabel "$(cut -f1 -d, <<< "$3")")")"</li>"
+        ;;
     nonPngArtwork)
         simpleMetadata "$(keyToLabel "$2")" "$(simpleIaLink "$3" "$4" "$3")"
         ;;
@@ -101,6 +104,9 @@ function traitToHtm() {
         ;;
     artist)
         simpleReference artist "$2" "$3"
+        ;;
+    name)
+        print ""
         ;;
     hasAlias)
         simpleReference artist "$2" "$3"
@@ -121,10 +127,10 @@ function traitToHtm() {
         print ""
         ;;
     "* Files *")
-        print ""
+        print "<h2>Files</h2><ul>"
         ;;
     "* Tracks *")
-        print "<h2>Track listing</h2>"
+        print "</ul><h2>Track listing</h2>"
         ;;
     ia)
         simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://archive.org/details/$3\">$3</a>"
