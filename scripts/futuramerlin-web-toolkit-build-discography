@@ -316,8 +316,17 @@ function buildSinglePage() {
         for work in "$(basename "$id")"/*.conf; do
             local workItem
             workItem="$(getRelativeDiscographyDir)/works/$work"
+            local name
             name="$(preadconf name "$workItem")"
             listItem "${workItem%.conf}" "$name" >> "$fn"
+        done
+        print "</ul><h2>Releases</h2><ul>" >> "$fn"
+        for release in ../releases/*.conf; do
+            if grep -P "^track,$(basename "$id")" "$release"; then
+                local releaseName
+                releaseName="$(preadconf name "$release")"
+                listItem "${release%.conf}" "$releaseName" >> "$fn"
+            fi
         done
         print "</ul>" >> "$fn"
     fi
