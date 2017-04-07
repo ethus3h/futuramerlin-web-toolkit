@@ -309,11 +309,11 @@ function buildFilteredList() {
     local subst
     subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
     if [[ "$workVersion" == "true" ]]; then
-        subst="$(getRelativeDiscographyDir)/works/$haystackKind/"
-        destinationFile="$2"
-    elif [[ "$workVersionReleases" == "true" ]]; then
-        subst="$(getRelativeDiscographyDir)/releases/"
         destinationFile="$1"
+        subst="$(getRelativeDiscographyDir)/works/$2/"
+    elif [[ "$workVersionReleases" == "true" ]]; then
+        destinationFile="$1"
+        subst="$(getRelativeDiscographyDir)/releases/"
     fi
     (
         cd "$subst" || die
