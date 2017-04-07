@@ -310,12 +310,12 @@ function buildFilteredList() {
     if [[ "$workVersion" == "true" ]]; then
         subst="$(getRelativeDiscographyDir)/works/$haystackKind/"
         destinationFile="$2"
-    elif [[ local workVersionReleases="true" ]]; then
+    elif [[ "$workVersionReleases" == "true" ]]; then
         subst="$(getRelativeDiscographyDir)/releases/"
         destinationFile="$1"
     fi
     (
-        cd subst
+        cd subst || die
         if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
             next="$(preadconf nextEntry "$item".conf)"
             buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workVersionReleases"
@@ -366,7 +366,7 @@ function buildSinglePage() {
         print "<h2>Versions</h2><ul>" >> "$fn"
         buildFilteredListEntry --workVersion "work" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry --workVersionReleases "$fn" "$release" "$id"
+        buildFilteredListEntry --workVersionReleases "$fn" "$id"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
