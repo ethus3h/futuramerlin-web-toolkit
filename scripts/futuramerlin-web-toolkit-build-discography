@@ -148,6 +148,7 @@ function buildTrackPlayer() {
     print "/"
     simpleIaLink "$filename".flac "$3" "FLAC"
     print "/"
+    cat "$workConf"
     simpleIaLink "$filename"."$(preadconf origExt "$workConf")" "$3" "Orig."
 }
 
