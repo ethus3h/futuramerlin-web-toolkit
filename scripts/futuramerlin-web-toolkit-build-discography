@@ -243,7 +243,7 @@ function buildFilteredListEntry() {
     subst="$(getRelativeDiscographyDir)/${matchKind}s/"
     item="${item#"$subst"}"
     item="${item%.conf}"
-    readconf "label" "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf"
+    readconf "${matchKind}" "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf"
     foundMatch="false"
     if [[ "${#readconfValue[@]}" -gt 0 ]]; then
         for matchingCategory in "${readconfValue[@]:?}"; do
