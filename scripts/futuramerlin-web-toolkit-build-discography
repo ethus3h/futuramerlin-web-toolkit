@@ -17,7 +17,7 @@ breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
 function getRelativeDiscographyDir() {
-    pwd 1>&2
+    # pwd 1>&2
     if [[ -f "futuramerlin-web-toolkit-discography.conf" ]]; then
         print "./"
     elif [[ -f "../futuramerlin-web-toolkit-discography.conf" ]]; then
@@ -251,7 +251,7 @@ function buildFilteredListEntry() {
     local workVersion="$7"
     local workVersionReleases="$8"
     if [[ "$workVersionReleases" == "true" ]]; then
-        if grep -P "^track,$(basename "$needleValue")" "$needleKey"; then
+        if grep -P "^track,$(basename "$haystackItem")" "$needleKey"; then
             local releaseName
             releaseName="$(preadconf name "$needleKey")"
             local disambig
