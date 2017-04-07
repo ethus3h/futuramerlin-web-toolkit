@@ -177,7 +177,7 @@ function buildSinglePage() {
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! [[ -z "$key" ]]; then
-                traitToHtm "$category" "$key" "$(cut -f2 -d, <<< "$line")" "$id.conf" >> "$fn"
+                traitToHtm "$category" "$key" "$(cut -f2- -d, <<< "$line")" "$id.conf" >> "$fn"
             fi
         fi
     done < "$id.conf"
