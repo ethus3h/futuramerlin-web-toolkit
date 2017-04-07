@@ -33,7 +33,7 @@ function buildIndex() {
         includePictures=""
     fi
     (
-        cd "$1" || die
+        cd "$1" || exit 0 # it's ok if the directory doesn't exist; that just means that that category of things isn't present in the discography
         declare -a "$1"
         count=0
         for item in *.conf; do
@@ -58,10 +58,6 @@ function buildIndex() {
 export -f buildIndex
 
 # Get a list of artists, and make the artists index page
-buildIndex artists
-buildIndex broadcasts
-buildIndex files
-buildIndex labels
-buildIndex releases
-buildIndex sessions
-buildIndex works
+for item in (artists broadcasts files labels releases sessions works); do
+    buildIndex "$item"
+done
