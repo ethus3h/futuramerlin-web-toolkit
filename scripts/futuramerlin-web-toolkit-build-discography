@@ -17,7 +17,7 @@ breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
 function mergeConfFile() {
-    inheritFrom="$(basename "$(pwd)")"
+    inheritFrom=../"$(basename "$(pwd)")".conf
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
