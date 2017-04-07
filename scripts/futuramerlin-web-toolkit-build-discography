@@ -16,6 +16,18 @@ da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
+function getRelativeDiscographyDir() {
+    if [[ -f "futuramerlin-web-toolkit-discography.conf" ]]; then
+        print "./"
+    elif [[ -f "../futuramerlin-web-toolkit-discography.conf" ]]; then
+        print "../"
+    elif [[ -f "../../futuramerlin-web-toolkit-discography.conf" ]]; then
+        print "../../"
+    elif [[ -f "../../../futuramerlin-web-toolkit-discography.conf" ]]; then
+        print "../../../"
+    fi
+}
+
 function listItem() {
     picture=""
     if [[ -e "$1.t.png" ]]; then
@@ -49,6 +61,21 @@ function refEntry() {
 
 function keyToLabel() {
     case $1 in
+    cdRip)
+        print "CD Rip"
+        ;;
+    zipRelease)
+        print "ZIP release <small>(historic packing)</small>"
+        ;;
+    artSource)
+        print "Artwork production files"
+        ;;
+    soundSource)
+        print "Music production files"
+        ;;
+    releaseTracks)
+        print "Original release tracks <small>(packing not original)</small>"
+        ;;
     nonPngArtwork)
         print "Nonstandard artwork"
         ;;
@@ -142,10 +169,10 @@ function buildFilteredListEntry() {
     local matchKind="$1"
     local id="$2"
     local item="$3"
-    local subst="../${matchKind}s/"
+    local subst="$(getRelativeDiscographyDir)/${matchKind}s/"
     item="${item#"$subst"}"
     item="${item%.conf}"
-    readconf "label" "../${matchKind}s/$item.conf"
+    readconf "label" "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf"
     foundMatch="false"
     if [[ "${#readconfValue[@]}" -gt 0 ]]; then
         for matchingCategory in "${readconfValue[@]:?}"; do
@@ -154,7 +181,7 @@ function buildFilteredListEntry() {
             fi
         done
         if [[ "$foundMatch" == "true" ]]; then
-            name="$(preadconf name "../${matchKind}s/$item.conf")"
+            name="$(preadconf name "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf")"
             listItem "$item" "$name" >> "$fn"
         fi
     fi
@@ -196,7 +223,7 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry "${category%s}" "$id" "$(<../releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        buildFilteredListEntry "${category%s}" "$id" "$(<../"$category"/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
