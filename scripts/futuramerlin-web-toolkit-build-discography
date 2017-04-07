@@ -30,21 +30,22 @@ function buildIndex() {
     if [[ "$2" == "false" ]]; then
         includePictures=""
     fi
+    category="$1"
     (
-        cd "$1" || die
-        declare -a "$1"
+        cd "$category" || die
+        declare -a "$category"
         for item in *.conf; do
-            declare -a "$1"="${!1[@]}" "${item%.conf}"
+            declare -a "$category"="${!category[@]}" "${item%.conf}"
         done
         # shellcheck disable=SC2163
-        export "$1"
+        export "$category"
 
         # Build index page
         cp "$da/index-template.htm" index.htm
-        ereplace "@TITLE@" "${1^}" index.htm
+        ereplace "@TITLE@" "${category^}" index.htm
         ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
         itemList=""
-        for item in "${!1[@]}"; do
+        for item in "${!category[@]}"; do
             name="$(preadconf name "$item.conf")"
             itemList="$itemList$(listItem "$item" "$name" "$includePictures")"
         done
