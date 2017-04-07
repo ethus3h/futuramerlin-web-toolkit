@@ -316,7 +316,7 @@ function buildFilteredList() {
         destinationFile="$1"
     fi
     (
-        cd subst || die
+        cd "$subst" || die
         if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
             next="$(preadconf nextEntry "$item".conf)"
             buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workVersionReleases"
