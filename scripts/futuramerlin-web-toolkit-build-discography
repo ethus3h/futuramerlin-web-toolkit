@@ -33,9 +33,9 @@ function buildIndex() {
     category="$1"
     (
         cd "$category" || die
-        declare -a "$category"
+        declare -a -g "$category"
         for item in *.conf; do
-            declare -a "$category"=("${!category[@]}" "${item%.conf}")
+            declare -n ref=$category; ref+=( "${item%.conf}" )
         done
         # shellcheck disable=SC2163
         export "$category"
