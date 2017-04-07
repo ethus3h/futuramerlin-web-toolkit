@@ -79,7 +79,7 @@ function simpleIaImage() {
     local localident="$2"
     local iaident="$(preadconf ia "$localident")"
     local relname="$(preadconf name "$localident")"
-    print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/${filename}t.png\" alt=\"$relname: album artwork\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/t$filename.png\" alt=\"$relname: album artwork\" /></a>"
 }
 
 function refEntry() {
