@@ -74,7 +74,7 @@ function buildIndex() {
             cp "$da/item-template.htm" "$fn"
             name="$(preadconf name "$id.conf")"
             ereplace "@TITLE@" "$name" "$fn"
-            ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category.htm\">${category^}</a></span>" "$fn"
+            ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category\">${category^}</a></span>" "$fn"
             print "<dl>" >> "$fn"
             while IFS= read -r line; do
                 if ! [[ "$line" =~ ^# ]]; then
