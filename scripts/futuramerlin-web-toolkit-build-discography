@@ -248,47 +248,83 @@ function buildFilteredListEntry() {
     local needleValue="$4"
     local destinationFile="$5"
     local recursive="$6"
-    subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
-    haystackItem="${haystackItem#"$subst"}"
-    haystackItem="${haystackItem%.conf}"
-    haystackConf="$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem.conf"
-    readconf "${needleKey}" "$haystackConf"
-    foundMatch="false"
-    if [[ "${#readconfValue[@]}" -gt 0 ]]; then
-        for matchingCategory in "${readconfValue[@]:?}"; do
-            if [[ "$matchingCategory" == "$needleValue" ]]; then
-                foundMatch="true"
+    local workVersion="$7"
+    if [[ "$workVersionReleases" == "true" ]]; then
+        if grep -P "^track,$(basename "$needleValue")" "$needleKey"; then
+            local releaseName
+            releaseName="$(preadconf name "$needleKey")"
+            listItem "${needleKey%.conf}" "$releaseName" >> "$destinationFile"
+        fi
+    elif [[ "$workVersion" == "true" ]]; then
+        local haystackPath
+        haystackPath="$(getRelativeDiscographyDir)/works/${haystackKind}/$haystackItem"
+        listItem "$haystackPath" "$(preadconf name "$haystackPath".conf)" >> "$destinationFile"
+    else
+        haystackItem="${haystackItem#"$subst"}"
+        haystackItem="${haystackItem%.conf}"
+        local haystackConf
+        haystackConf="$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem.conf"
+        readconf "${needleKey}" "$haystackConf"
+        foundMatch="false"
+        if [[ "${#readconfValue[@]}" -gt 0 ]]; then
+            for matchingCategory in "${readconfValue[@]:?}"; do
+                if [[ "$matchingCategory" == "$needleValue" ]]; then
+                    foundMatch="true"
+                fi
+            done
+            if [[ "$foundMatch" == "true" ]]; then
+                local name
+                name="$(preadconf name "$haystackConf")"
+                listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationFile"
             fi
-        done
-        if [[ "$foundMatch" == "true" ]]; then
-            local name
-            name="$(preadconf name "$haystackConf")"
-            listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationle"
         fi
     fi
     if [[ "$recursive" == "true" ]]; then
-        next="$(preadconf nextEntry "$haystackItem".conf)"
+        local next
+        if [[ "$workVersion" == "true" ]]; then
+            next="$(preadconf nextEntry "$haystackPath".conf)"
+        else
+            next="$(preadconf nextEntry "$haystackItem".conf)"
+        fi
         if [[ -n "$next" ]]; then
-            buildFilteredListEntry "$haystackKind" "$next" "$needleKey" "$needleValue" "$destinationFile" "true"
+            buildFilteredListEntry "$haystackKind" "$next" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion"
         fi
     fi
 }
 
 function buildFilteredList() {
+    if [[ "$1" == "--workVersionReleases" ]]; then
+        shift
+        local workVersionReleases="true"
+    elif [[ "$1" == "--workVersion" ]]; then
+        shift
+        local workVersion="true"
+    fi
     # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
     local haystackKind="$1"
-    local needleKey="$3"
-    local needleValue="$4"
-    local destinationFile="$5"
+    local needleKey="$2"
+    local needleValue="$3"
+    local destinationFile="$4"
     local subst
-    if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
-        next="$(preadconf nextEntry "$item".conf)"
-        buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true"
-    else
-        for haystackItem in *.conf; do
-            buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "false"
-        done
+    subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
+    if [[ "$workVersion" == "true" ]]; then
+        subst="$(getRelativeDiscographyDir)/works/$haystackKind/"
+        destinationFile="$2"
+    elif [[ local workVersionReleases="true" ]]; then
+        subst="$(getRelativeDiscographyDir)/releases/"
+        destinationFile="$1"
     fi
+    (
+        cd subst
+        if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
+            next="$(preadconf nextEntry "$item".conf)"
+            buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workVersionReleases"
+        else
+            for haystackItem in *.conf; do
+                buildFilteredListEntry "$haystackKind" "$haystackItem" "$needleKey" "$needleValue" "$destinationFile" "false" "$workVersion" "$workVersionReleases"
+            done
+        fi
+    )
 }
 
 function buildSinglePage() {
@@ -328,14 +364,9 @@ function buildSinglePage() {
     if [[ "$category" == "works" ]]; then
         # Generate list of sub-works, and build a page for each
         print "<h2>Versions</h2><ul>" >> "$fn"
-        for work in "$(basename "$id")"/*.conf; do
-            local workItem
-            workItem="$(getRelativeDiscographyDir)/works/$work"
-            local name
-            name="$(preadconf name "$workItem")"
-            listItem "${workItem%.conf}" "$name" >> "$fn"
-        done
+        buildFilteredListEntry --workVersion "work" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
+        buildFilteredListEntry --workVersionReleases "$fn" "$release" "$id"
         for release in ../releases/*.conf; do
             if grep -P "^track,$(basename "$id")" "$release"; then
                 local releaseName
