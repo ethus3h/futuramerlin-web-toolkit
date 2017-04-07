@@ -42,7 +42,8 @@ function buildIndex() {
         ereplace "@TITLE@" "${category^}" index.htm
         ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
         itemList=""
-        for item in "${!category[@]}"; do
+        categoryarray="$category[@]"
+        for item in "${!categoryarray}"; do
             name="$(preadconf name "$item.conf")"
             itemList="$itemList$(listItem "$item" "$name")"
         done
