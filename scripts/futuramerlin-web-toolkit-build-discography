@@ -18,26 +18,18 @@ discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.c
 
 function listItem() {
     picture=""
-    if [[ "$3" == "true" && -e "$1.t.png" ]]; then
+    if [[ -e "$1.t.png" ]]; then
         picture="<img src=\"$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
     fi
-    useDirs=".htm"
+    extension=".htm"
     if [[ "$3" == "true" ]]; then
-        useDirs=""
+        extension=""
     fi
-    print "<li><a href=\"$1$useDirs\">$picture$2</a></li>"
+    print "<li><a href=\"$1$extension\">$picture$2</a></li>"
 }
 export -f listItem
 
 function buildIndex() {
-    includePictures="true"
-    if [[ "$2" == "false" ]]; then
-        includePictures=""
-    fi
-    useDirs="false"
-    if [[ "$3" == "true" ]]; then
-        useDirs="true"
-    fi
     category="$1"
     (
         cd "$category" || die
@@ -55,7 +47,7 @@ function buildIndex() {
         itemList=""
         for item in "${!category[@]}"; do
             name="$(preadconf name "$item.conf")"
-            itemList="$itemList$(listItem "$item" "$name" "$includePictures" "$useDirs")"
+            itemList="$itemList$(listItem "$item" "$name")"
         done
         ereplace "@LIST@" "$itemList" index.htm
     )
@@ -70,7 +62,7 @@ indexItems=(artists broadcasts files labels releases sessions works)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
-        itemList="$itemList$(listItem "$item" "${item^}" true true)"
+        itemList="$itemList$(listItem "$item" "${item^}" true)"
     fi
 done
 ereplace "@LIST@" "$itemList" "$discographyPageName.htm"
