@@ -74,6 +74,14 @@ function simpleIaLink() {
     print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
 }
 
+function simpleIaImage() {
+    local filename="$1"
+    local localident="$2"
+    local iaident="$(preadconf ia "$localident")"
+    local relname="$(preadconf name "$localident")"
+    print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/${filename}t.png\" alt=\"$relname: album artwork\" /></a>"
+}
+
 function refEntry() {
     kind="$1"
     identifier="$2"
@@ -148,7 +156,6 @@ function buildTrackPlayer() {
     print "/"
     simpleIaLink "$filename".flac "$3" "FLAC"
     print "/"
-    cat "$workConf"
     simpleIaLink "$filename"."$(preadconf origExt "$workConf")" "$3" "Orig."
 }
 
@@ -165,6 +172,13 @@ function traitToHtm() {
         if [[ "$3" == "yes" ]]; then
             simpleMetadata "$(keyToLabel "$2")" "$3"
         fi
+        ;;
+    artworkcount)
+        local end="$3"
+        for (( i=1; i<=end; i++ )); do
+            simpleIaImage "$i" "$4"
+            print ' '
+        done
         ;;
     track)
         trackCounter=$(( trackCounter + 1 ))
