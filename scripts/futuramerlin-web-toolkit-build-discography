@@ -58,7 +58,7 @@ ereplace "@TITLE@" "Discography" index.htm
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
 indexItems=(artists broadcasts files labels releases sessions works)
-for item in indexItems; do
+for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
         itemList="$itemList$(listItem "$item" "${item^}")"
