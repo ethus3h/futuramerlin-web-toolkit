@@ -142,7 +142,12 @@ function simpleReference() {
 }
 
 function buildTrackPlayer() {
-    print "TODO"
+    filename="$(preadconf filename "$workConf")"
+    simpleIaLink "$filename".mp3 "$3" "MP3"
+    print "/"
+    simpleIaLink "$filename".flac "$3" "FLAC"
+    print "/"
+    simpleIaLink "$filename"."$(preadconf origExt "$workConf")" "$3" "Orig."
 }
 
 trackCounter=0
@@ -164,7 +169,7 @@ function traitToHtm() {
         work="$(cut -f1 -d, <<< "$3")"
         subWork="$(cut -f2 -d, <<< "$3")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork" "$4")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$2")" "$(keyToLabel "$3")"
@@ -200,7 +205,7 @@ function traitToHtm() {
         print "<h2>Files</h2><ul>"
         ;;
     "* Tracks *")
-        print "</ul><h2>Track listing</h2><table><thead><th><td>#</td><td>🔊</td><td>Track name</td><td>Duration</td><td>Instrumentation</td></th></thead><tbody>"
+        print "</ul><h2>Track listing</h2><table><thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead><tbody>"
         ;;
     mbid)
         simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://musicbrainz.org/${1%s}/$3\">$3</a>"
