@@ -251,7 +251,9 @@ function buildFilteredListEntry() {
     local workVersion="$7"
     local workVersionReleases="$8"
     if [[ "$workVersionReleases" == "true" ]]; then
-        if grep -P "^track,$(basename "$needleKey")" "$(getRelativeDiscographyDir)/releases/$haystackItem".conf; then
+        local relativePrefix
+        relativePrefix="$(getRelativeDiscographyDir)/releases/$haystackItem"
+        if grep -P "^track,$(basename "$needleKey")" "$relativePrefix".conf; then
             local releaseName
             releaseName="$(preadconf name "$haystackItem.conf")"
             local disambig
@@ -259,7 +261,7 @@ function buildFilteredListEntry() {
             if [[ -n "$disambig" ]]; then
                 disambig=" <small>$disambig</small>"
             fi
-            listItem "$haystackItem" "$releaseName$disambig" >> "$destinationFile"
+            listItem "$relativePrefix" "$releaseName$disambig" >> "$destinationFile"
         fi
     elif [[ "$workVersion" == "true" ]]; then
         local haystackPath
