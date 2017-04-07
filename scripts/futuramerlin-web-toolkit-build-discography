@@ -310,6 +310,17 @@ function buildSinglePage() {
         buildFilteredListEntry "release" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "${category%s}" "$id" "$fn" "recursive"
         print "</ul>" >> "$fn"
     fi
+    if [[ "$category" == "works" ]]; then
+        # Generate list of sub-works, and build a page for each
+        print "<h2>Versions</h2><ul>" >> "$fn"
+        for work in works/*.conf; do
+            local workItem
+            workItem="$(getRelativeDiscographyDir)/$work"
+            name="$(preadconf name "$workItem")"
+            listItem "$workItem" "$name" >> "$fn"
+        done
+        print "</ul>" >> "$fn"
+    fi
     if [[ "$2" == "recursive" ]]; then
         local next="$(preadconf nextEntry)"
         if [[ -n "$next" ]]; then
