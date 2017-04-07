@@ -236,31 +236,35 @@ function traitToHtm() {
 }
 
 function buildFilteredListEntry() {
-    # Searches through the items of the type "matchKind" (e.g. label, or release). It can operate in recursive mode, in which case it will use "item" as the starting point, and follow the "nextEntry" fields in the items in a chain. Otherwise, it just looks at the one "item". For each item it looks at, it checks whether it matches the search criteria: 
-    local matchKind="$1"
-    local id="$2"
-    local item="$3"
+    # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
+    local haystackKind="$1"
+    local haystackItem="$2"
+    local needleKey="$3"
+    local needleValue="$4"
+    local destinationFile="$5"
+    local recursive="$6"
     local subst
     subst="$(getRelativeDiscographyDir)/${matchKind}s/"
-    item="${item#"$subst"}"
-    item="${item%.conf}"
-    readconf "${matchKind}" "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf"
+    haystackItem="${haystackItem#"$subst"}"
+    haystackItem="${haystackItem%.conf}"
+    haystackConf="$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem.conf"
+    readconf "${needleKey}" "$haystackConf"
     foundMatch="false"
     if [[ "${#readconfValue[@]}" -gt 0 ]]; then
         for matchingCategory in "${readconfValue[@]:?}"; do
-            if [[ "$matchingCategory" == "$id" ]]; then
+            if [[ "$matchingCategory" == "$needleValue" ]]; then
                 foundMatch="true"
             fi
         done
         if [[ "$foundMatch" == "true" ]]; then
-            name="$(preadconf name "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf")"
-            listItem "$item" "$name" >> "$fn"
+            local name="$(preadconf name "$haystackConf")"
+            listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationFile"
         fi
     fi
-    if [[ "$4" == "recursive" ]]; then
-        next="$(preadconf nextEntry)"
+    if [[ "$recursive" == "true" ]]; then
+        next="$(preadconf nextEntry "$item".conf)"
         if [[ -n "$next" ]]; then
-            buildFilteredListEntry "$next" "recursive"
+            buildFilteredListEntry "$haystackKind" "$next" "$needleKey" "$needleValue" "$destinationFile" "true"
         fi
     fi
 }
@@ -289,14 +293,14 @@ function buildSinglePage() {
         # Generate index of artists on this label
         print "<h2>Artists</h2><ul>" >> "$fn"
         for artist in "$(getRelativeDiscographyDir)"/artists/*.conf; do
-            buildFilteredListEntry "label" "$id" "$artist"
+            buildFilteredListEntry "artist" "$artist" "label" "$id" "$fn"
         done
         print "</ul>" >> "$fn"
     fi
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry "release" "$id" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        buildFilteredListEntry "release" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "${category%s}" "$id" "$fn" "recursive"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
