@@ -111,8 +111,8 @@ function buildIndex() {
                 # Generate list of releases
                 print "<h2>Releases</h2><ul>" >> "$fn"
                 for release in ../releases/*.conf; do
-                    release="${artist#..\/artists\/}"
-                    release="${artist%.conf}"
+                    release="${release#..\/release\/}"
+                    release="${release%.conf}"
                     readconf "${category%s}" "../releases/$release.conf"
                     foundMatch="false"
                     for matchingCategory in "${readconfValue[@]}"; do
