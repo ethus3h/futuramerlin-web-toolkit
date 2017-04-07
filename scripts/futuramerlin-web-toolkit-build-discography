@@ -28,19 +28,57 @@ function listItem() {
     print "<li><a href=\"$1$extension\">$picture$2</a></li>"
 }
 
+function keyToLabel() {
+    case $1 in
+    name)
+        print "Name"
+        ;;
+    *)
+        print
+        ;;
+    esac
+}
+
+function simpleMetadata() {
+    print "<dt>$1</dt><dd>$2</dd>"
+}
+
 function buildIndex() {
     category="$1"
     (
         cd "$category" || die
         declare -a -g "$category"
         for item in *.conf; do
-            declare -n ref=$category; ref+=( "${item%.conf}" )
+            id="${item%.conf}"
+            fn="$id.htm"
+            declare -n ref=$category; ref+=( "$id" )
+            # Build individual page
+            cp "$da/item-template.htm" "$fn"
+            name="$(preadconf name "$id.conf")"
+            ereplace "@TITLE@" "${category^}" "$fn"
+            ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category.htm\">${category^}</a></span>" "$fn"
+            if [[ "$category" == artists ]]; then
+                print "<dl>" >> "$fn"
+                while IFS= read -r line; do
+                    if ! [[ "$line" =~ ^# ]]; then
+                        if [[ -z "$key" ]]; then
+                            readconfValue+=("$line")
+                        else
+                            if [[ "$(cut -f1 -d, <<< "$line")" == "$1" ]]; then
+                                readconfValue+=("$(cut -f2 -d, <<< "$line")")
+                            fi
+                        fi
+                    fi
+                done < "$2"
+                simpleMetadata "$(keyToLabel "$name")" "$name" >> "$fn"
+                print "</dl>" >> "$fn"
+            fi
         done
 
         # Build index page
         cp "$da/index-template.htm" index.htm
         ereplace "@TITLE@" "${category^}" index.htm
-        ereplace "@BREADCRUMBS@" "$breadcrumbs<span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
+        ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
         itemList=""
         categoryarray="$category[@]"
         for item in "${!categoryarray}"; do
