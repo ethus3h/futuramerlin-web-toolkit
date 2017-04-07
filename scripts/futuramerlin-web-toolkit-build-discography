@@ -94,8 +94,23 @@ function traitToHtm() {
     isAliasFor)
         simpleReference artist "$2" "$3"
         ;;
-    Identifiers)
+    "* Identifiers *")
         print "<h2>Identifiers</h2>"
+        ;;
+    "* Traits *")
+        print ""
+        ;;
+    "* Relationships *")
+        print ""
+        ;;
+    "* Specs *")
+        print ""
+        ;;
+    "* Files *")
+        print ""
+        ;;
+    "* Tracks *")
+        print "<h2>Track listing</h2>"
         ;;
     ia)
         simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://archive.org/details/$3\">$3</a>"
