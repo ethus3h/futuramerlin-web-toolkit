@@ -19,13 +19,13 @@ discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.c
 function listItem() {
     picture=""
     if [[ -e "$1.t.png" ]]; then
-        picture="<img src=\"$4/$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
+        picture="<img src=\"$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
     fi
     extension=".htm"
     if [[ "$3" == "true" ]]; then
         extension=""
     fi
-    print "<li><a href=\"$4/$1$extension\">$picture$2</a></li>"
+    print "<li><a href=\"$1$extension\">$picture$2</a></li>"
 }
 
 function simpleMetadata() {
@@ -101,7 +101,7 @@ function buildIndex() {
                         done
                         if [[ "$foundMatch" == "true" ]]; then
                             name="$(preadconf name "../artists/$artist.conf")"
-                            listItem "$artist" "$name" "false" "../artists/" >> "$fn"
+                            listItem "$artist" "$name" >> "$fn"
                         fi
                     fi
                 done
@@ -122,7 +122,7 @@ function buildIndex() {
                     done
                     if [[ "$foundMatch" == "true" ]]; then
                         name="$(preadconf name "../releases/$release.conf")"
-                        listItem "$release" "$name" "false" "../releases/" >> "$fn"
+                        listItem "$release" "$name" >> "$fn"
                     fi
                 done
                 print "</ul>" >> "$fn"
