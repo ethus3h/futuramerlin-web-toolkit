@@ -27,7 +27,6 @@ function listItem() {
     fi
     print "<li><a href=\"$1$extension\">$picture$2</a></li>"
 }
-export -f listItem
 
 function buildIndex() {
     category="$1"
@@ -37,8 +36,6 @@ function buildIndex() {
         for item in *.conf; do
             declare -n ref=$category; ref+=( "${item%.conf}" )
         done
-        # shellcheck disable=SC2163
-        export "$category"
 
         # Build index page
         cp "$da/index-template.htm" index.htm
@@ -52,7 +49,6 @@ function buildIndex() {
         ereplace "@LIST@" "$itemList" index.htm
     )
 }
-export -f buildIndex
 
 cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
