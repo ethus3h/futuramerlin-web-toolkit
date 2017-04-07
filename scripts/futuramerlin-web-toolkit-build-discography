@@ -139,7 +139,7 @@ function traitToHtm() {
         trackCounter=$(( trackCounter + 1 ))
         work="$(cut -f1 -d, <<< "$3")"
         subWork="$(cut -f2 -d, <<< "$3")"
-        workPrefix="$(<"$(getRelativeDiscographyDir)/$work/$subWork")"
+        workPrefix="$(getRelativeDiscographyDir)/$work/$subWork"
         print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\""$workPrefix.htm"\">"$(preadconf name "$workPrefix.conf")"</a></td><td>"$(preadconf duration "$workConf")"</td><td>"$(preadconf Instrumentation "$workConf")"</td></tr>"
         ;;
     medium)
