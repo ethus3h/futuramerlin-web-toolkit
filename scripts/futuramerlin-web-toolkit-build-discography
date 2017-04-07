@@ -16,25 +16,6 @@ da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
-function mergeConfFile() {
-    inheritFrom=../"$(basename "$(pwd)")".conf
-    while IFS= read -r line; do
-        if ! [[ "$line" =~ ^# ]]; then
-            key="$(cut -f1 -d, <<< "$line")"
-            if ! grep -P "^$key," "$1"; then
-                print "$line" >> "$fn"
-            fi
-        fi
-    done < "$inheritFrom"
-}
-
-for file in works/*/*.conf; do
-    (
-        cd "$(dirname "$file")"
-        mergeConfFile "$file"
-    )
-done
-
 function getRelativeDiscographyDir() {
     pwd 1>&2
     if [[ -f "futuramerlin-web-toolkit-discography.conf" ]]; then
@@ -47,6 +28,25 @@ function getRelativeDiscographyDir() {
         print "../../../"
     fi
 }
+
+function mergeConfFile() {
+    inheritFrom="$(getRelativeDiscographyDir)"/works/"$(basename "$(pwd)")".conf
+    while IFS= read -r line; do
+        if ! [[ "$line" =~ ^# ]]; then
+            key="$(cut -f1 -d, <<< "$line")"
+            if ! grep -P "^$key," "$(getRelativeDiscographyDir)"/"$1"; then
+                print "$line" >> "$fn"
+            fi
+        fi
+    done < "$inheritFrom"
+}
+
+for file in works/*/*.conf; do
+    (
+        cd "$(dirname "$file")"
+        mergeConfFile "$file"
+    )
+done
 
 function listItem() {
     picture=""
