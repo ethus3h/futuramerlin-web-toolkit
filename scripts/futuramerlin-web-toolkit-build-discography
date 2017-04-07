@@ -30,7 +30,8 @@ function getRelativeDiscographyDir() {
 }
 
 function mergeConfFile() {
-    local dir="$(getRelativeDiscographyDir)"
+    local dir
+    dir="$(getRelativeDiscographyDir)"
     inheritFrom="$dir"/works/"$(basename "$(pwd)")".conf
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
@@ -44,7 +45,7 @@ function mergeConfFile() {
 
 for file in works/*/*.conf; do
     (
-        cd "$(dirname "$file")"
+        cd "$(dirname "$file")" || die
         mergeConfFile "$file"
     )
 done
@@ -163,7 +164,7 @@ function traitToHtm() {
         work="$(cut -f1 -d, <<< "$3")"
         subWork="$(cut -f2 -d, <<< "$3")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\""$workPrefix.htm"\">"$(preadconf name "$workPrefix.conf")"</a></td><td>"$(preadconf duration "$workPrefix.conf")"</td><td>"$(preadconf instrumentation "$workPrefix.conf")"</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$2")" "$(keyToLabel "$3")"
@@ -199,7 +200,7 @@ function traitToHtm() {
         print "<h2>Files</h2><ul>"
         ;;
     "* Tracks *")
-        print "</ul><h2>Track listing</h2><table><thead><tr><td>#</td><td>🔊</td><td>Track name</td><td>Duration</td><td>Instrumentation</td></th></thead><tbody>"
+        print "</ul><h2>Track listing</h2><table><thead><th><td>#</td><td>🔊</td><td>Track name</td><td>Duration</td><td>Instrumentation</td></th></thead><tbody>"
         ;;
     mbid)
         simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://musicbrainz.org/${1%s}/$3\">$3</a>"
@@ -217,7 +218,8 @@ function buildFilteredListEntry() {
     local matchKind="$1"
     local id="$2"
     local item="$3"
-    local subst="$(getRelativeDiscographyDir)/${matchKind}s/"
+    local subst
+    subst="$(getRelativeDiscographyDir)/${matchKind}s/"
     item="${item#"$subst"}"
     item="${item%.conf}"
     readconf "label" "$(getRelativeDiscographyDir)/${matchKind}s/$item.conf"
