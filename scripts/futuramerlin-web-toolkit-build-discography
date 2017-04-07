@@ -3,6 +3,8 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
+set -x
+
 if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
     die "Couldn't find discography configuration file!"
 fi
@@ -30,7 +32,7 @@ function buildIndex() {
     fi
     (
         cd "$1" || die
-        declare -a "$1"
+        declare -A "$1"
         count=0
         for item in *.conf; do
             "$1"[$count]="${item%.conf}"
