@@ -16,6 +16,25 @@ da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
+function mergeConfFile() {
+    inheritFrom="$(basename "$(pwd)")"
+    while IFS= read -r line; do
+        if ! [[ "$line" =~ ^# ]]; then
+            key="$(cut -f1 -d, <<< "$line")"
+            if ! grep -P "^$key," "$1"; then
+                print "$line" >> "$fn"
+            fi
+        fi
+    done < "$inheritFrom"
+}
+
+for file in works/*/*.conf; do
+    (
+        cd "$(dirname "$file")"
+        mergeConfFile "$file"
+    )
+done
+
 function getRelativeDiscographyDir() {
     pwd 1>&2
     if [[ -f "futuramerlin-web-toolkit-discography.conf" ]]; then
@@ -62,6 +81,9 @@ function refEntry() {
 
 function keyToLabel() {
     case $1 in
+    mbid)
+        print "MusicBrainz"
+        ;;
     alac)
         print "M4A: Apple Lossless Audio Codec"
         ;;
@@ -95,8 +117,8 @@ function keyToLabel() {
     hypFmCatNum)
         print "Two-part old catalog number"
         ;;
-    isAliasFor)
-        print "Is alias for"
+    isAliasOf)
+        print "Is alias of"
         ;;
     hasAlias)
         print "Has alias"
@@ -140,7 +162,7 @@ function traitToHtm() {
         work="$(cut -f1 -d, <<< "$3")"
         subWork="$(cut -f2 -d, <<< "$3")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\""$workPrefix.htm"\">"$(preadconf name "$workPrefix.conf")"</a></td><td>"$(preadconf duration "$workConf")"</td><td>"$(preadconf Instrumentation "$workConf")"</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork")</td><td><a href=\""$workPrefix.htm"\">"$(preadconf name "$workPrefix.conf")"</a></td><td>"$(preadconf duration "$workPrefix.conf")"</td><td>"$(preadconf Instrumentation "$workPrefix.conf")"</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$2")" "$(keyToLabel "$3")"
@@ -177,6 +199,9 @@ function traitToHtm() {
         ;;
     "* Tracks *")
         print "</ul><h2>Track listing</h2><table><thead><tr><td>#</td><td>🔊</td><td>Track name</td><td>Duration</td><td>Instrumentation</td></th></thead><tbody>"
+        ;;
+    mbid)
+        simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://musicbrainz.org/${1%s}/$3\">$3</a>"
         ;;
     ia)
         simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://archive.org/details/$3\">$3</a>"
