@@ -28,19 +28,36 @@ function listItem() {
     print "<li><a href=\"$1$extension\">$picture$2</a></li>"
 }
 
+function simpleMetadata() {
+    print "<dt>$1</dt><dd>$2</dd>"
+}
+
 function keyToLabel() {
     case $1 in
-    name)
-        print "Name"
+    legalName)
+        print "Legal name"
+        ;;
+    ia)
+        print "Internet Archive"
         ;;
     *)
-        print
+        "${1^}"
         ;;
     esac
 }
 
-function simpleMetadata() {
-    print "<dt>$1</dt><dd>$2</dd>"
+function traitToHtm() {
+    case $2 in
+    Identifiers)
+        print "<h2>Identifiers</h2>"
+        ;;
+    ia)
+        simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://archive.org/details/$3\">$3</a>"
+        ;;
+    *)
+        simpleMetadata "$(keyToLabel "$2")" "$3"
+        ;;
+    esac
 }
 
 function buildIndex() {
@@ -57,22 +74,15 @@ function buildIndex() {
             name="$(preadconf name "$id.conf")"
             ereplace "@TITLE@" "${category^}" "$fn"
             ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category.htm\">${category^}</a></span>" "$fn"
-            if [[ "$category" == artists ]]; then
-                print "<dl>" >> "$fn"
-                while IFS= read -r line; do
-                    if ! [[ "$line" =~ ^# ]]; then
-                        if [[ -z "$key" ]]; then
-                            readconfValue+=("$line")
-                        else
-                            if [[ "$(cut -f1 -d, <<< "$line")" == "$1" ]]; then
-                                readconfValue+=("$(cut -f2 -d, <<< "$line")")
-                            fi
-                        fi
+            print "<dl>" >> "$fn"
+            while IFS= read -r line; do
+                if ! [[ "$line" =~ ^# ]]; then
+                    if ! [[ -z "$key" ]]; then
+                        traitToHtm "$category" "$(cut -f1 -d, <<< "$line")" "$(cut -f2 -d, <<< "$line")" >> "$fn"
                     fi
-                done < "$2"
-                simpleMetadata "$(keyToLabel "$name")" "$name" >> "$fn"
-                print "</dl>" >> "$fn"
-            fi
+                fi
+            done < "$2"
+            print "</dl>" >> "$fn"
         done
 
         # Build index page
