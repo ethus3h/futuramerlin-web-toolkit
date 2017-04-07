@@ -367,13 +367,6 @@ function buildSinglePage() {
         buildFilteredListEntry --workVersion "work" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
         buildFilteredListEntry --workVersionReleases "$fn" "$release" "$id"
-        for release in ../releases/*.conf; do
-            if grep -P "^track,$(basename "$id")" "$release"; then
-                local releaseName
-                releaseName="$(preadconf name "$release")"
-                listItem "${release%.conf}" "$releaseName" >> "$fn"
-            fi
-        done
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
