@@ -43,7 +43,7 @@ function simpleIaLink() {
 function refEntry() {
     kind="$1"
     identifier="$2"
-    name="$(preadconf name "../$kind/$identifier.conf")"
+    name="$(preadconf name "$kind/$identifier.conf")"
     print "<a href=\"../$kind/$identifier.htm\">$name</a>"
 }
 
@@ -89,7 +89,7 @@ function simpleReference() {
 function traitToHtm() {
     case $2 in
     file)
-        print "<li>"$(simpleIaLink "$(cut -f2- -d, <<< "$3")" "$4" "$(keyToLabel "$(cut -f1 -d, <<< "$3")")")"</li>"
+        print "<li>$(simpleIaLink "$(cut -f2- -d, <<< "$3")" "$4" "$(keyToLabel "$(cut -f1 -d, <<< "$3")")")</li>"
         ;;
     nonPngArtwork)
         simpleMetadata "$(keyToLabel "$2")" "$(simpleIaLink "$3" "$4" "$3")"
@@ -116,9 +116,6 @@ function traitToHtm() {
         ;;
     "* Identifiers *")
         print "<h2>Identifiers</h2>"
-        ;;
-    "* Traits *")
-        print ""
         ;;
     "* Relationships *")
         print ""
