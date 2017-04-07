@@ -70,7 +70,7 @@ indexItems=(artists broadcasts files labels releases sessions works)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
-        itemList="$itemList$(listItem "$item" "${item^}")"
+        itemList="$itemList$(listItem "$item" "${item^}" true true)"
     fi
 done
 ereplace "@LIST@" "$itemList" "$discographyPageName.htm"
