@@ -93,14 +93,16 @@ function buildIndex() {
                     artist="${artist%.conf}"
                     readconf "label" "../artists/$artist.conf"
                     foundMatch="false"
-                    for matchingCategory in "${readconfValue[@]:?}"; do
-                        if [[ "$matchingCategory" == "label" ]]; then
-                            foundMatch="true"
+                    if [[ "${#readconfValue[@]}" -gt 0 ]]; then
+                        for matchingCategory in "${readconfValue[@]:?}"; do
+                            if [[ "$matchingCategory" == "label" ]]; then
+                                foundMatch="true"
+                            fi
+                        done
+                        if [[ "$foundMatch" == "true" ]]; then
+                            name="$(preadconf name "../artists/$artist.conf")"
+                            listItem "$artist" "$name" "false" "../artists/" >> "$fn"
                         fi
-                    done
-                    if [[ "$foundMatch" == "true" ]]; then
-                        name="$(preadconf name "../artists/$artist.conf")"
-                        listItem "$artist" "$name" "false" "../artists/" >> "$fn"
                     fi
                 done
                 print "</ul>" >> "$fn"
