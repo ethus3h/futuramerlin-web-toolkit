@@ -236,6 +236,7 @@ function traitToHtm() {
 }
 
 function buildFilteredListEntry() {
+    # Searches through the items of the type "matchKind" (e.g. label, or release). It can operate in recursive mode, in which case it will use "item" as the starting point, and follow the "nextEntry" fields in the items in a chain. Otherwise, it just looks at the one "item". For each item it looks at, it checks whether it matches the search criteria: 
     local matchKind="$1"
     local id="$2"
     local item="$3"
@@ -256,7 +257,7 @@ function buildFilteredListEntry() {
             listItem "$item" "$name" >> "$fn"
         fi
     fi
-    if [[ "$3" == "recursive" ]]; then
+    if [[ "$4" == "recursive" ]]; then
         next="$(preadconf nextEntry)"
         if [[ -n "$next" ]]; then
             buildFilteredListEntry "$next" "recursive"
@@ -295,7 +296,7 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredListEntry "${category%s}" "$id" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+        buildFilteredListEntry "release" "$id" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "recursive"
         print "</ul>" >> "$fn"
     fi
     if [[ "$2" == "recursive" ]]; then
