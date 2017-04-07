@@ -104,7 +104,7 @@ cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
-indexItems=(artists broadcasts files labels releases sessions works)
+indexItems=(artists broadcasts labels releases sessions works)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
         buildIndex "$item"
