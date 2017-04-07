@@ -205,7 +205,7 @@ function traitToHtm() {
     hasAlias)
         simpleReference artist "$2" "$3"
         ;;
-    isAliasFor)
+    isAliasOf)
         simpleReference artist "$2" "$3"
         ;;
     "* Identifiers *")
