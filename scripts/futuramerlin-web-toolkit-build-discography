@@ -254,13 +254,23 @@ function buildFilteredListEntry() {
         if grep -P "^track,$(basename "$needleValue")" "$needleKey"; then
             local releaseName
             releaseName="$(preadconf name "$needleKey")"
-            listItem "${needleKey%.conf}" "$releaseName" >> "$destinationFile"
+            local disambig
+            disambig="$(preadconf disambig "$needleKey")"
+            if [[ -n "$disambig" ]]; then
+                disambig=" <small>$disambig</small>"
+            fi
+            listItem "${needleKey%.conf}" "$releaseName$disambig" >> "$destinationFile"
         fi
     elif [[ "$workVersion" == "true" ]]; then
         local haystackPath
         haystackPath="$(getRelativeDiscographyDir)/works/${needleKey}/$haystackItem"
         haystackPath="${haystackPath%.conf}"
-        listItem "$haystackPath" "$(preadconf name "$haystackPath".conf)" >> "$destinationFile"
+        local disambig
+        disambig="$(preadconf disambig "$haystackPath".conf)"
+        if [[ -n "$disambig" ]]; then
+            disambig=" <small>$disambig</small>"
+        fi
+        listItem "$haystackPath" "$(preadconf name "$haystackPath".conf)$disambig" >> "$destinationFile"
     else
         haystackItem="${haystackItem#"$subst"}"
         haystackItem="${haystackItem%.conf}"
@@ -277,7 +287,12 @@ function buildFilteredListEntry() {
             if [[ "$foundMatch" == "true" ]]; then
                 local name
                 name="$(preadconf name "$haystackConf")"
-                listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name" >> "$destinationFile"
+                local disambig
+                disambig="$(preadconf disambig "$haystackConf")"
+                if [[ -n "$disambig" ]]; then
+                    disambig=" <small>$disambig</small>"
+                fi
+                listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name$disambig" >> "$destinationFile"
             fi
         fi
     fi
@@ -303,7 +318,7 @@ function buildFilteredList() {
         local workVersion="true"
     fi
     # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
-    if [[ "$workVersion" == "true" || workVersionReleases == "true" ]]; then
+    if [[ "$workVersion" == "true" || "$workVersionReleases" == "true" ]]; then
         needleKey="$1"
         destinationFile="../$2"
         subst="$(getRelativeDiscographyDir)/works/$needleKey/"
