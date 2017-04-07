@@ -77,6 +77,12 @@ echo "Environment ready; building site..."
                     fi
                 fi
             done
+            (
+                cd "../../built/$1"
+                if [[ -f futuramerlin-web-toolkit-discography.conf ]]; then
+                    futuramerlin-web-toolkit-discography-build
+                fi
+            )
             shopt -u dotglob
         }
         traversedirectory "."
