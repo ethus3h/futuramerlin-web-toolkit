@@ -310,8 +310,10 @@ function buildFilteredListEntry() {
 }
 
 function buildFilteredList() {
+    local destinationFile="$4"
     if [[ "$1" == "--workVersionReleases" ]]; then
         shift
+        destinationFile="$2"
         local workVersionReleases="true"
     elif [[ "$1" == "--workVersion" ]]; then
         shift
@@ -329,7 +331,6 @@ function buildFilteredList() {
         local haystackKind="$1"
         local needleKey="$2"
         local needleValue="$3"
-        local destinationFile="$4"
         local subst
         subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
     fi
