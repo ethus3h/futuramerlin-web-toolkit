@@ -3,7 +3,7 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 #Version:
-export futuramerlinWebToolkitVersion='2.2_pre2'
+export futuramerlinWebToolkitVersion='2.2_pre2.1'
 
 shopt -s extglob
 
@@ -56,6 +56,7 @@ echo "Environment ready; building site..."
             ./.futuramerlin-web-toolkit/pre-build-hooks || warn "Pre-build-hooks failed; continuing anyway."
             echo "Done pre-build-hooks."
         fi
+        # find . -name ".futuramerlin-web-toolkit-discography.conf" -exec 
         traversedirectory() {
             echo "Entered directory $1..."
             #Iterate over the contents of the directory at $1
@@ -77,12 +78,6 @@ echo "Environment ready; building site..."
                     fi
                 fi
             done
-            (
-                cd "../../built/$1"
-                if [[ -f futuramerlin-web-toolkit-discography.conf ]]; then
-                    futuramerlin-web-toolkit-discography-build
-                fi
-            )
             shopt -u dotglob
         }
         traversedirectory "."
