@@ -448,6 +448,7 @@ function buildSinglePage() {
             local oCategory="$category"
             category="versions"
             for wversion in *.conf; do
+                true
                 # buildSinglePage "${wversion%.conf}"
             done
             category="$oCategory"
