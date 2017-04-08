@@ -452,7 +452,7 @@ function buildSinglePage() {
             done
             category="$oCategory"
         )
-    fix
+    fi
     if [[ "$2" == "recursive" ]]; then
         local next
         next="$(preadconf nextEntry)"
