@@ -82,6 +82,7 @@ function simpleIaUrl() {
     iaident="$(preadconf ia "$localident")"
     print "https://archive.org/download/$iaident/$filename"
 }
+
 function simpleIaImage() {
     local filename="$1"
     local localident="$2"
@@ -447,11 +448,11 @@ function buildSinglePage() {
             local oCategory="$category"
             category="versions"
             for wversion in *.conf; do
-                buildSinglePage "${wversion%.conf}"
+                # buildSinglePage "${wversion%.conf}"
             done
             category="$oCategory"
         )
-    fi
+    fix
     if [[ "$2" == "recursive" ]]; then
         local next
         next="$(preadconf nextEntry)"
