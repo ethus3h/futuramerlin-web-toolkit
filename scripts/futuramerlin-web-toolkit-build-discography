@@ -433,7 +433,8 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredList "release" "$(<"$(getRelativeDiscographyDir)"/releases/futuramerlin-web-toolkit-discography.entry-point)" "${category%s}" "$id" "$fn"
+        local entryPoint="$(getRelativeDiscographyDir)/releases/futuramerlin-web-toolkit-discography.entry-point"
+        buildFilteredList "release" "$(<"$entryPoint")" "${category%s}" "$id" "$fn"
         print "</ul>" >> "$fn"
     fi
     if [[ "$category" == "works" ]]; then
