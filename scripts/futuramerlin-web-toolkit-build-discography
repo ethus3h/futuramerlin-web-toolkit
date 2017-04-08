@@ -75,6 +75,13 @@ function simpleIaLink() {
     print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
 }
 
+function simpleIaUrl() {
+    local filename="$1"
+    local localident="$2"
+    local iaident
+    iaident="$(preadconf ia "$localident")"
+    print "https://archive.org/download/$iaident/$filename"
+}
 function simpleIaImage() {
     local filename="$1"
     local localident="$2"
@@ -158,11 +165,57 @@ function buildTrackPlayer() {
     workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
     local filename
     filename="$(preadconf filename "$workConf")"
-    simpleIaLink "$filename".mp3 "$3" "MP3"
-    print "/"
-    simpleIaLink "$filename".flac "$3" "FLAC"
-    print "/"
-    simpleIaLink "$filename"."$(preadconf origExt "$workConf")" "$3" "Orig."
+    local extA
+    extA="$(preadconf origExt "$workConf")"
+    if [[ -n "$extA" ]]; then
+        simpleIaLink "$filename.$extA" "$3" "Orig. ($extA)"
+        print " "
+    fi
+    local extB
+    extB="$(preadconf origExtB "$workConf")"
+    if [[ -n "$extB" ]]; then
+        simpleIaLink "$filename.$extB" "$3" "Orig. ($extB)"
+        print " "
+    fi
+    local extC
+    extC="$(preadconf origExtC "$workConf")"
+    if [[ -n "$extC" ]]; then
+        simpleIaLink "$filename.$extC" "$3" "Orig. ($extC)"
+        print " "
+    fi
+    if [[ "$extA" == "flac" || "$extB" == "flac" || "$extC" == "flac" ]]; then
+        local hasFlac="true"
+    elif [[ "$extA" == "mp3" || "$extB" == "mp3" || "$extC" == "mp3" ]]; then
+        local hasMp3="true"
+    elif [[ "$extA" == "ogg" || "$extB" == "ogg" || "$extC" == "ogg" ]]; then
+        local hasOgg="true"
+    fi
+    if ! [[ "$hasMp3" == "true" ]]; then
+        simpleIaLink "$filename".mp3 "$3" "MP3"
+        print " "
+    fi
+    if ! [[ "$hasFlac" == "true" ]]; then
+        simpleIaLink "$filename".flac "$3" "FLAC"
+        print " "
+    fi
+    if ! [[ "$hasOgg" == "true" ]]; then
+        simpleIaLink "$filename".ogg "$3" "OGA"
+    fi
+    print "<br />"
+    print "<audio controls preload=\"none\">"
+    local formats=(flac ogg mp3)
+    for format in "${formats[@]}"; do
+        print "<source src=\""
+        simpleIaLink "$filename.$format" "$3"
+        print "\" type=\"audio/"
+        if [[ "$format" == "mp3" ]]; then
+            print "mpeg"
+        else
+            print "$format"
+        fi
+        print "\">"
+    done
+    print "Could not start audio player.</audio>"
 }
 
 trackCounter=0
