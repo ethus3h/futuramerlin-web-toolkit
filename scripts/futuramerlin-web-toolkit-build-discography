@@ -442,6 +442,15 @@ function buildSinglePage() {
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
         buildFilteredList --workVersionReleases "$id" "$fn"
         print "</ul>" >> "$fn"
+        (
+            cd "$id"
+            local oCategory="$category"
+            category="versions"
+            for wversion in *.conf; do
+                buildSinglePage "${wversion%.conf}"
+            done
+            category="$oCategory"
+        )
     fi
     if [[ "$2" == "recursive" ]]; then
         local next
