@@ -444,12 +444,12 @@ function buildSinglePage() {
         buildFilteredList --workVersionReleases "$id" "$fn"
         print "</ul>" >> "$fn"
         (
-            cd "$id"
+            cd "$id" || die
             local oCategory="$category"
             category="versions"
             for wversion in *.conf; do
-                true
-                # buildSinglePage "${wversion%.conf}"
+                # true
+                buildSinglePage "${wversion%.conf}"
             done
             category="$oCategory"
         )
