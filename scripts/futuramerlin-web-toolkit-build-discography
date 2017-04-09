@@ -89,7 +89,7 @@ function linkToItem() {
     local name
     name="$(discReadConf name "$kind" "$identifier")"
     # TODO: Implement extraInfo
-    print "<a href=\"../${kind}s/$identifier.htm\">$picture$name</a>"
+    print "<a href=\"$(getItemPath "$kind" "$identifier").htm\">$picture$name</a>"
 }
 
 function simpleMetadata() {
@@ -97,22 +97,15 @@ function simpleMetadata() {
 }
 
 function simpleReference() {
-    local key="$2"
-    local kind="$1"
+    local key="$1"
+    local kind="$2"
     local identifier="$3"
     simpleMetadata "$(keyToLabel "$key")" "$(linkToItem "$kind" "$identifier")"
 }
 
 function listItem() {
-    local kind="$1"
-    local identifier="$2"
-    local usePicture="$3"
-    local extraInfo="$4" # a formatting string like (@shortDate@)
-    extension=".htm"
-    if [[ "$3" == "true" ]]; then
-        extension=""
-    fi
-    print "<li><a href=\"$1$extension\">$picture$2</a></li>"
+    # Arguments are the same as for linkToItem
+    print "<li>"$(linkToItem "$@")"</li>"
 }
 
 function simpleIaLink() {
@@ -522,24 +515,26 @@ function buildPage() {
     local identifier="$2"
     case "$kind" in
     kind)
-        true
-        #TODO
+        local discographyPageName="$3"
+        (
+            cd "$(getKindFolderName "$kind")" || die
+            cp "$da/index-template.htm" index.htm
+            ereplace "@TITLE@" "${kind^}" index.htm
+            ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
+            local itemList=""
+            local categoryarray="${category}[@]"
+            for item in "${!categoryarray}"; do
+                local name
+                name="$(preadconf name "$item.conf")"
+                itemList="$itemList$(listItem "$item" "$name")"
+            done
+            ereplace "@LIST@" "$itemList" index.htm
+        )
         ;;
     *)
         die "Unknown type!"
         ;;
     esac
-    cp "$da/index-template.htm" index.htm
-    ereplace "@TITLE@" "${category^}" index.htm
-    ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
-    local itemList=""
-    local categoryarray="${category}[@]"
-    for item in "${!categoryarray}"; do
-        local name
-        name="$(preadconf name "$item.conf")"
-        itemList="$itemList$(listItem "$item" "$name")"
-    done
-    ereplace "@LIST@" "$itemList" index.htm
 }
 
 function buildPages() {
@@ -551,7 +546,7 @@ function buildPages() {
         indexItems=(artist label release work broadcast press session file)
         for item in "${indexItems[@]}"; do
             if [[ -e "$item" ]]; then
-                buildPage "kind" "$item"
+                buildPage "kind" "$item" "$discographyPageName"
                 buildPages "$item"
                 itemList="$itemList$(listItem "$item" "${item^}" true)"
             fi
