@@ -103,6 +103,9 @@ function refEntry() {
 
 function keyToLabel() {
     case $1 in
+    dateBegun)
+        print "Date begun"
+        ;;
     mbid)
         print "MusicBrainz"
         ;;
@@ -303,8 +306,8 @@ function buildFilteredListEntry() {
     local destinationFile="$5"
     local recursive="$6"
     local workVersion="$7"
-    local workVersionReleases="$8"
-    if [[ "$workVersionReleases" == "true" ]]; then
+    local workReleases="$8"
+    if [[ "$workReleases" == "true" ]]; then
         local relativePrefix
         relativePrefix="$(getRelativeDiscographyDir)/releases/$haystackItem"
         if grep -P "^track,$(basename "$needleKey")" "$relativePrefix".conf; then
@@ -368,19 +371,26 @@ function buildFilteredListEntry() {
 function buildFilteredList() {
     local destinationFile="$4"
     if [[ "$1" == "--workVersionReleases" ]]; then
+        # List for the individual work version
         shift
-        destinationFile="../works/$(basename "$2")"
+        destinationFile="works/$(basename "$2")/$(basename "$5")"
         local workVersionReleases="true"
+    elif [[ "$1" == "--workReleases" ]]; then
+        # List of releases any version of the work appears on
+        shift
+        destinationFile="works/$(basename "$2")"
+        local workReleases="true"
     elif [[ "$1" == "--workVersion" ]]; then
+        # List of versions of the work
         shift
         local workVersion="true"
-        destinationFile="../$2"
+        destinationFile="$2"
     fi
     # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
-    if [[ "$workVersion" == "true" || "$workVersionReleases" == "true" ]]; then
+    if [[ "$workVersion" == "true" || "$workReleases" == "true" ]]; then
         needleKey="$1"
         subst="$(getRelativeDiscographyDir)/works/$needleKey/"
-        if [[ "$workVersionReleases" == "true" ]]; then
+        if [[ "$workReleases" == "true" ]]; then
             subst="$(getRelativeDiscographyDir)/releases/"
         fi
     else
@@ -393,10 +403,10 @@ function buildFilteredList() {
     (
         cd "$subst" || die
         if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
-            buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workVersionReleases"
+            buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workReleases"
         else
             for haystackItem in *.conf; do
-                buildFilteredListEntry "$haystackKind" "$haystackItem" "$needleKey" "$needleValue" "$destinationFile" "false" "$workVersion" "$workVersionReleases"
+                buildFilteredListEntry "$haystackKind" "$haystackItem" "$needleKey" "$needleValue" "$destinationFile" "false" "$workVersion" "$workReleases"
             done
         fi
     )
@@ -442,7 +452,7 @@ function buildSinglePage() {
         print "<h2>Versions</h2><ul>" >> "$fn"
         buildFilteredList --workVersion "$id" "$fn"
         print "</ul><h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredList --workVersionReleases "$id" "$fn"
+        buildFilteredList --workReleases "$id" "$fn"
         print "</ul>" >> "$fn"
         (
             cd "$id" || die
