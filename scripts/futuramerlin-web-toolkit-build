@@ -17,7 +17,7 @@ if [[ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]]; then
     futuramerlinWebToolkitConfigFileName="./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg"
 fi
 
-echo "Preparing environment..."
+echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
 futuramerlinWebToolkitSiteName=$(sed '1q;d' "$futuramerlinWebToolkitConfigFileName")
 futuramerlinWebToolkitWordPressLocation=$(sed '2q;d' "$futuramerlinWebToolkitConfigFileName")
 futuramerlinWebToolkitLocalInstallationConfig=$(sed '3q;d' "$futuramerlinWebToolkitConfigFileName")
