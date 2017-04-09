@@ -519,7 +519,7 @@ function buildList() {
         indexItems=(artist label release work broadcast press session file)
         for item in "${indexItems[@]}"; do
             if [[ -e "$item" ]]; then
-                buildPage "$kind" "$item"
+                buildCategory "$kind" "$item"
                 itemList="$itemList$(listItem "$kind" "$item")"
             fi
         done
@@ -552,18 +552,8 @@ function buildCategory() {
         ;;
     kind)
         (
-            cd "$(getKindFolderName "$kind")" || die
-            cp "$da/index-template.htm" index.htm
-            ereplace "@TITLE@" "${kind^}" index.htm
-            ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
-            local itemList=""
-            local categoryarray="${category}[@]"
-            for item in "${!categoryarray}"; do
-                local name
-                name="$(preadconf name "$item.conf")"
-                itemList="$itemList$(listItem "$item" "$name")"
-            done
-            ereplace "@LIST@" "$(buildList )" index.htm
+            cd "$(getKindFolderName "$identifier")" || die
+            buildPage "index" "${identifier^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList $identifier)"
         )
         ;;
     *)
