@@ -1,10 +1,11 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-set -x
+# set -x
 
 #Version:
-futuramerlinWebToolkitVersion='2.2_pre2.1.1.1'
+futuramerlinWebToolkitVersion='2.2_pre2.1.2'
 
 shopt -s extglob
 
@@ -72,7 +73,7 @@ echo "Environment ready; building site..."
                 else
                     if [[ "$i" =~ \.htm$ ]]; then
                         echo "Building page: $i"
-                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion"
+                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName"
                     else
                         echo "Copying content asset: $i"
                         cp "$i" "../../built/$i"
@@ -107,7 +108,7 @@ if [[ "$futuramerlinWebToolkitWordPressLocation" == "disableWordPressIntegration
 else
     mv ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
 fi
-if [[ $futuramerlinWebToolkitLocalInstallationEnabled ]]; then
+if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
     sudo cp "./built/m.css" "/m.css"
 fi
 mv ./built ./futuramerlin-web-toolkit-output

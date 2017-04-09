@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
@@ -6,6 +7,7 @@ shopt -s extglob
 set +H
 
 futuramerlinWebToolkitVersion="$2"
+futuramerlinWebToolkitSiteName="$3"
 PageA="${1/%\/index\.htm}"
 PageB="${PageA/%\.htm}"
 Page="$(basename "$PageB")";
@@ -15,6 +17,7 @@ mkdir -p "../../built/$1"
 rm -rf "../../built/$1"
 cp "../assets/1_start.html" "../../built/$1"
 ereplace "@FMWTK_VERSION@" "$futuramerlinWebToolkitVersion" "../../built/$1"
+ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 cat "../content/$1" >> "../../built/$1"
 cat "../assets/2_end.html" >> "../../built/$1"
 perl -0777 -p -i -e "s/(<h1 class=\"title\">(((?!<\/h1>)[\S\s])*)<\/h1>)/\\1<!-- toc -->/g" "../../built/$1"
