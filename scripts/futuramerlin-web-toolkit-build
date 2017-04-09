@@ -3,7 +3,7 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 #Version:
-export futuramerlinWebToolkitVersion='2.2_pre2.1.1.1'
+futuramerlinWebToolkitVersion='2.2_pre2.1.1.1'
 
 shopt -s extglob
 
@@ -22,7 +22,7 @@ futuramerlinWebToolkitSiteName=$(sed '1q;d' "$futuramerlinWebToolkitConfigFileNa
 futuramerlinWebToolkitWordPressLocation=$(sed '2q;d' "$futuramerlinWebToolkitConfigFileName")
 futuramerlinWebToolkitLocalInstallationConfig=$(sed '3q;d' "$futuramerlinWebToolkitConfigFileName")
 futuramerlinWebToolkitLocalInstallationEnabled=false
-if [[ $futuramerlinWebToolkitLocalInstallationConfig == "enableLocalInstallation" ]]; then
+if [[ "$futuramerlinWebToolkitLocalInstallationConfig" == "enableLocalInstallation" ]]; then
     futuramerlinWebToolkitLocalInstallationEnabled=true
 fi
 rm -rf ./futuramerlin-web-toolkit-output
@@ -71,7 +71,7 @@ echo "Environment ready; building site..."
                 else
                     if [[ "$i" =~ \.htm$ ]]; then
                         echo "Building page: $i"
-                        ../scripts/build-page "$i"
+                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion"
                     else
                         echo "Copying content asset: $i"
                         cp "$i" "../../built/$i"
