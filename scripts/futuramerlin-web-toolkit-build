@@ -2,7 +2,7 @@
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-# set -x
+set -x
 
 #Version:
 futuramerlinWebToolkitVersion='2.2_pre2.1.2'
@@ -20,13 +20,9 @@ if [[ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]]; then
 fi
 
 echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
-futuramerlinWebToolkitSiteName=$(sed '1q;d' "$futuramerlinWebToolkitConfigFileName")
-futuramerlinWebToolkitWordPressLocation=$(sed '2q;d' "$futuramerlinWebToolkitConfigFileName")
-futuramerlinWebToolkitLocalInstallationConfig=$(sed '3q;d' "$futuramerlinWebToolkitConfigFileName")
-futuramerlinWebToolkitLocalInstallationEnabled=false
-if [[ "$futuramerlinWebToolkitLocalInstallationConfig" == "enableLocalInstallation" ]]; then
-    futuramerlinWebToolkitLocalInstallationEnabled=true
-fi
+futuramerlinWebToolkitSiteName="$(preadconf siteName)"
+futuramerlinWebToolkitWordPressLocation="$(preadconf wordPressIntegrationFolder)"
+futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation)"
 rm -rf ./futuramerlin-web-toolkit-output
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
