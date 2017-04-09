@@ -512,6 +512,7 @@ function buildSinglePage() {
 
 function buildList() {
     local kind="$1"
+    print "<ul>"
     case "$kind" in
     kind)
         itemList=""
@@ -528,20 +529,28 @@ function buildList() {
         die "Unknown type!"
         ;;
     esac
+    print "</ul>"
 }
 
 function buildPage() {
+    local destinationFile="$1"
+    local pageTitle="$2"
+    local pageBreadcrumbs="$3"
+    local pageContent="$4"
+    cp "$da/template.htm" "$destinationFile.htm" || die
+    ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
+    ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
+    ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
+}
+
+function buildCategory() {
     local kind="$1"
     local identifier="$2"
     case "$kind" in
     index)
-        cp "$da/index-template.htm" "$discographyPageName.htm" || die
-        ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
-        ereplace "@BREADCRUMBS@" "$indexBreadcrumbs" "$discographyPageName.htm"
-        ereplace "@LIST@" "$(buildList kind)" "$discographyPageName.htm"
+        buildPage "$discographyPageName" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
         ;;
     kind)
-        local discographyPageName="$3"
         (
             cd "$(getKindFolderName "$kind")" || die
             cp "$da/index-template.htm" index.htm
@@ -563,4 +572,4 @@ function buildPage() {
     esac
 }
 
-buildPage "index"
+buildCategory "index"
