@@ -413,7 +413,8 @@ function buildFilteredList() {
 }
 
 function buildSinglePage() {
-    id="$1"
+    category="$1"
+    id="$2"
     fn="$id.htm"
     declare -n ref=$category; ref+=( "$id" )
     # Build individual page
@@ -443,7 +444,8 @@ function buildSinglePage() {
     if [[ "$category" == "artists" || "$category" == "labels" ]]; then
         # Generate list of releases
         print "<h2>Releases</h2><ul>" >> "$fn"
-        local entryPoint="$(getRelativeDiscographyDir)/releases/futuramerlin-web-toolkit-discography.entry-point"
+        local entryPoint
+        entryPoint="$(getRelativeDiscographyDir)/releases/futuramerlin-web-toolkit-discography.entry-point"
         buildFilteredList "release" "$(<"$entryPoint")" "${category%s}" "$id" "$fn"
         print "</ul>" >> "$fn"
     fi
@@ -475,16 +477,15 @@ function buildSinglePage() {
 }
 
 function buildIndex() {
-    category="$1"
+    local category="$1"
     (
         cd "$category" || die
-        declare -a -g "$category"
         shopt -s nullglob
         if [[ "$category" == releases || "$category" == works ]]; then
-            buildSinglePage "$(<futuramerlin-web-toolkit-discography.entry-point)" "recursive"
+            buildSinglePage "$category" "$(<futuramerlin-web-toolkit-discography.entry-point)" "recursive"
         else
             for item in *.conf; do
-                buildSinglePage "${item%.conf}"
+                buildSinglePage "$category" "${item%.conf}"
             done
         fi
 
