@@ -13,7 +13,7 @@ fi
 da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 
 # Variables
-breadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
+indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 
 function getRelativeDiscographyDir() {
@@ -510,10 +510,36 @@ function buildSinglePage() {
     fi
 }
 
+function buildList() {
+    local kind="$1"
+    case "$kind" in
+    kind)
+        itemList=""
+        indexItems=(artist label release work broadcast press session file)
+        for item in "${indexItems[@]}"; do
+            if [[ -e "$item" ]]; then
+                buildPage "$kind" "$item"
+                itemList="$itemList$(listItem "$kind" "$item")"
+            fi
+        done
+        print itemList
+        ;;
+    *)
+        die "Unknown type!"
+        ;;
+    esac
+}
+
 function buildPage() {
     local kind="$1"
     local identifier="$2"
     case "$kind" in
+    index)
+        cp "$da/index-template.htm" "$discographyPageName.htm" || die
+        ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
+        ereplace "@BREADCRUMBS@" "$indexBreadcrumbs" "$discographyPageName.htm"
+        ereplace "@LIST@" "$(buildList kind)" "$discographyPageName.htm"
+        ;;
     kind)
         local discographyPageName="$3"
         (
@@ -528,7 +554,7 @@ function buildPage() {
                 name="$(preadconf name "$item.conf")"
                 itemList="$itemList$(listItem "$item" "$name")"
             done
-            ereplace "@LIST@" "$itemList" index.htm
+            ereplace "@LIST@" "$(buildList )" index.htm
         )
         ;;
     *)
@@ -537,32 +563,4 @@ function buildPage() {
     esac
 }
 
-function buildPages() {
-    local kind="$1"
-    case "$kind" in
-    kind)
-        local discographyPageName="$2"
-        itemList=""
-        indexItems=(artist label release work broadcast press session file)
-        for item in "${indexItems[@]}"; do
-            if [[ -e "$item" ]]; then
-                buildPage "kind" "$item" "$discographyPageName"
-                buildPages "$item"
-                itemList="$itemList$(listItem "$item" "${item^}" true)"
-            fi
-        done
-        ereplace "@LIST@" "$itemList" "$discographyPageName.htm"
-        ;;
-    artist)
-        true
-        ;;
-    *)
-        die "Unknown type!"
-        ;;
-    esac
-}
-
-cp "$da/index-template.htm" "$discographyPageName.htm" || die
-ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
-ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
-buildPages "kind" "$discographyPageName"
+buildPage "index"
