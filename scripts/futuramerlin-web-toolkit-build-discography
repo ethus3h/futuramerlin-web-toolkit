@@ -50,20 +50,69 @@ for file in works/*/*.conf; do
     )
 done
 
-function listItem() {
-    picture=""
-    if [[ -e "$1.t.png" ]]; then
-        picture="<img src=\"$1.t.png\" alt=\"$2: album artwork thumbnail\" /> "
+function getKindFolderName() {
+    kind="$1"
+    if [[ "$kind" == "press" ]]; then
+        print "press"
+    else
+        print "${kind}s"
     fi
+}
+
+function getItemPath() {
+    # Returns the prefix pathname (e.g. releases/sylfan) of the referenced item, relative to the current directory.
+    local kind="$1"
+    local identifier="$2"
+    # TODO: Make this able to handle more cases (it won't work for e.g. kind=work/sylfan)
+    print "$(getRelativeDiscographyDir)${kind}s/$identifier"
+}
+
+function discReadConf() {
+    local key="$1"
+    local kind="$2"
+    local identifier="$3"
+    preadconf "$key" "$(getItemPath "$kind" "$identifier").conf"
+}
+
+function linkToItem() {
+    local kind="$1"
+    local identifier="$2"
+    local usePicture="$3"
+    local extraInfo="$4" # a formatting string like (@shortDate@)
+    local picture=""
+    if [[ "$usePicture" != "false" ]]; then
+        local picturePathName="$(getItemPath "$kind" "$identifier").t.png"
+        if [[ -e "$picturePathName" ]]; then
+            picture="<img src=\"$picturePathName\" alt=\"$2: thumbnail image\" /> "
+        fi
+    fi
+    local name
+    name="$(discReadConf name "$kind" "$identifier")"
+    # TODO: Implement extraInfo
+    print "<a href=\"../${kind}s/$identifier.htm\">$picture$name</a>"
+}
+
+function simpleMetadata() {
+    print "<dt>$1</dt><dd>$2</dd>"
+}
+
+function simpleReference() {
+    local key="$2"
+    local kind="$1"
+    local identifier="$3"
+    simpleMetadata "$(keyToLabel "$key")" "$(linkToItem "$kind" "$identifier")"
+}
+
+function listItem() {
+    local kind="$1"
+    local identifier="$2"
+    local usePicture="$3"
+    local extraInfo="$4" # a formatting string like (@shortDate@)
     extension=".htm"
     if [[ "$3" == "true" ]]; then
         extension=""
     fi
     print "<li><a href=\"$1$extension\">$picture$2</a></li>"
-}
-
-function simpleMetadata() {
-    print "<dt>$1</dt><dd>$2</dd>"
 }
 
 function simpleIaLink() {
@@ -91,14 +140,6 @@ function simpleIaImage() {
     local relname
     relname="$(preadconf name "$localident")"
     print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/t$filename.png\" alt=\"$relname: album artwork\" /></a>"
-}
-
-function refEntry() {
-    local kind="$1"
-    local identifier="$2"
-    local name
-    name="$(preadconf name "$(getRelativeDiscographyDir)${kind}s/$identifier.conf")"
-    print "<a href=\"../${kind}s/$identifier.htm\">$name</a>"
 }
 
 function keyToLabel() {
@@ -160,29 +201,25 @@ function keyToLabel() {
     esac
 }
 
-function simpleReference() {
-    simpleMetadata "$(keyToLabel "$2")" "$(refEntry "$1" "$3")"
-}
-
 function buildTrackPlayer() {
-    local workConf
-    workConf="$(getRelativeDiscographyDir)/works/$1/$2.conf"
+    local kind="$1"
+    local identifier="$2"
     local filename
-    filename="$(preadconf filename "$workConf")"
+    filename="$(discReadConf filename "$kind" "$identifier")"
     local extA
-    extA="$(preadconf origExt "$workConf")"
+    extA="$(discReadConf origExt "$kind" "$identifier")"
     if [[ -n "$extA" ]]; then
         simpleIaLink "$filename.$extA" "$3" "Orig. ($extA)"
         print " "
     fi
     local extB
-    extB="$(preadconf origExtB "$workConf")"
+    extB="$(discReadConf origExtB "$kind" "$identifier")"
     if [[ -n "$extB" ]]; then
         simpleIaLink "$filename.$extB" "$3" "Orig. ($extB)"
         print " "
     fi
     local extC
-    extC="$(preadconf origExtC "$workConf")"
+    extC="$(discReadConf origExtC "$kind" "$identifier")"
     if [[ -n "$extC" ]]; then
         simpleIaLink "$filename.$extC" "$3" "Orig. ($extC)"
         print " "
@@ -224,40 +261,44 @@ function buildTrackPlayer() {
 
 trackCounter=0
 function traitToHtm() {
-    case $2 in
+    local kind="$1"
+    local identifier="$2"
+    local key="$3"
+    local value="$4"
+    case "$key" in
     file)
-        print "<li>$(simpleIaLink "$(cut -f2- -d, <<< "$3")" "$4" "$(keyToLabel "$(cut -f1 -d, <<< "$3")")")</li>"
+        print "<li>$(simpleIaLink "$(cut -f2- -d, <<< "$value")" "$identifier" "$(keyToLabel "$(cut -f1 -d, <<< "$value")")")</li>"
         ;;
     nonPngArtwork)
-        simpleMetadata "$(keyToLabel "$2")" "$(simpleIaLink "$3" "$4" "$3")"
+        simpleMetadata "$(keyToLabel "$key")" "$(simpleIaLink "$value" "$identifier" "$value")"
         ;;
     fileIsSemanticallySignificant)
-        if [[ "$3" == "yes" ]]; then
-            simpleMetadata "$(keyToLabel "$2")" "$3"
+        if [[ "$value" == "yes" ]]; then
+            simpleMetadata "$(keyToLabel "$key")" "yes"
         fi
         ;;
     artworkcount)
-        local end="$3"
+        local end="$value"
         for (( i=1; i<=end; i++ )); do
-            simpleIaImage "$i" "$4"
+            simpleIaImage "$i" "$identifier"
             print ' '
         done
         ;;
     track)
         trackCounter=$(( trackCounter + 1 ))
-        work="$(cut -f1 -d, <<< "$3")"
-        subWork="$(cut -f2 -d, <<< "$3")"
+        work="$(cut -f1 -d, <<< "$value")"
+        subWork="$(cut -f2 -d, <<< "$value")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork" "$4")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
-        simpleMetadata "$(keyToLabel "$2")" "$(keyToLabel "$3")"
+        simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
         ;;
     label)
-        simpleReference label "$2" "$3"
+        simpleReference "$key" label "$value"
         ;;
     artist)
-        simpleReference artist "$2" "$3"
+        simpleReference "$key" artist "$value"
         ;;
     shortDate)
         print ""
@@ -266,10 +307,10 @@ function traitToHtm() {
         print ""
         ;;
     hasAlias)
-        simpleReference artist "$2" "$3"
+        simpleReference "$key" artist "$value"
         ;;
     isAliasOf)
-        simpleReference artist "$2" "$3"
+        simpleReference "$key" artist "$value"
         ;;
     "* Identifiers *")
         print "<h2>Identifiers</h2>"
@@ -287,13 +328,13 @@ function traitToHtm() {
         print "</ul><h2>Track listing</h2><table><thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead><tbody>"
         ;;
     mbid)
-        simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://musicbrainz.org/${1%s}/$3\">$3</a>"
+        simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
         ;;
     ia)
-        simpleMetadata "$(keyToLabel "$2")" "<a href=\"https://archive.org/details/$3\">$3</a>"
+        simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://archive.org/details/$value\">$value</a>"
         ;;
     *)
-        simpleMetadata "$(keyToLabel "$2")" "$3"
+        simpleMetadata "$(keyToLabel "$key")" "$value"
         ;;
     esac
 }
@@ -413,8 +454,8 @@ function buildFilteredList() {
 }
 
 function buildSinglePage() {
-    category="$1"
-    id="$2"
+    local kind="$1"
+    local identifier="$2"
     fn="$id.htm"
     declare -n ref=$category; ref+=( "$id" )
     # Build individual page
@@ -428,7 +469,7 @@ function buildSinglePage() {
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! [[ -z "$key" ]]; then
-                traitToHtm "$category" "$key" "$(cut -f2- -d, <<< "$line")" "$id.conf" >> "$fn"
+                traitToHtm "$category" "$id" "$key" "$(cut -f2- -d, <<< "$line")" >> "$fn"
             fi
         fi
     done < "$id.conf"
@@ -476,31 +517,35 @@ function buildSinglePage() {
     fi
 }
 
-function buildIndex() {
-    local category="$1"
+function buildPage() {
+    local kind="$1"
+    local identifier="$2"
+}
+
+function buildPages() {
+    local kind="$1"
+    cp "$da/index-template.htm" index.htm
+    ereplace "@TITLE@" "${category^}" index.htm
+    ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
+    local itemList=""
+    local categoryarray="${category}[@]"
+    for item in "${!categoryarray}"; do
+        local name
+        name="$(preadconf name "$item.conf")"
+        itemList="$itemList$(listItem "$item" "$name")"
+    done
+    ereplace "@LIST@" "$itemList" index.htm
+}
+
+function buildTopLevel() {
+    local kind="$1"
     (
-        cd "$category" || die
+        cd "$(getKindFolderName "$kind")" || die
         shopt -s nullglob
-        if [[ "$category" == releases || "$category" == works ]]; then
-            buildSinglePage "$category" "$(<futuramerlin-web-toolkit-discography.entry-point)" "recursive"
-        else
-            for item in *.conf; do
-                buildSinglePage "$category" "${item%.conf}"
-            done
-        fi
+        buildPages "$kind"
 
         # Build index page
-        cp "$da/index-template.htm" index.htm
-        ereplace "@TITLE@" "${category^}" index.htm
-        ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" index.htm
-        local itemList=""
-        local categoryarray="${category}[@]"
-        for item in "${!categoryarray}"; do
-            local name
-            name="$(preadconf name "$item.conf")"
-            itemList="$itemList$(listItem "$item" "$name")"
-        done
-        ereplace "@LIST@" "$itemList" index.htm
+        buildPage "kind" "$kind"
     )
 }
 
@@ -508,10 +553,10 @@ cp "$da/index-template.htm" "$discographyPageName.htm" || die
 ereplace "@TITLE@" "Discography" "$discographyPageName.htm"
 ereplace "@BREADCRUMBS@" "$breadcrumbs" "$discographyPageName.htm"
 itemList=""
-indexItems=(artists labels releases works broadcasts press sessions files)
+indexItems=(artist label release work broadcast press session file)
 for item in "${indexItems[@]}"; do
     if [[ -e "$item" ]]; then
-        buildIndex "$item"
+        buildTopLevel "$item"
         itemList="$itemList$(listItem "$item" "${item^}" true)"
     fi
 done
