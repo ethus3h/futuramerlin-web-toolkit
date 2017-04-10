@@ -519,7 +519,7 @@ function buildList() {
         indexItems=(artist label release work broadcast press session file)
         for item in "${indexItems[@]}"; do
             if [[ -e "$item" ]]; then
-                buildCategory "$kind" "$item"
+                buildCategory "kind" "$item"
                 itemList="$itemList$(listItem "$kind" "$item")"
             fi
         done
