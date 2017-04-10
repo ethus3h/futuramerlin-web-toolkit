@@ -65,7 +65,14 @@ function getItemPath() {
     local kind="$1"
     local identifier="$2"
     # TODO: Make this able to handle more cases (it won't work for e.g. kind=work/sylfan)
-    print "$(getRelativeDiscographyDir)${kind}s/$identifier"
+    case "$kind" in
+    kind)
+        print "$(getRelativeDiscographyDir)${kind}s"
+        ;;
+    *)
+        print "$(getRelativeDiscographyDir)${kind}s/$identifier"
+        ;;
+    esac
 }
 
 function discReadConf() {
@@ -89,8 +96,11 @@ function linkToItem() {
     fi
     local name
     name="$(discReadConf name "$kind" "$identifier")"
+    local extension=".htm"
+    if [[ "$kind" == "kind" ]]; then
+        extension=""
     # TODO: Implement extraInfo
-    print "<a href=\"$(getItemPath "$kind" "$identifier").htm\">$picture$name</a>"
+    print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">$picture$name</a>"
 }
 
 function simpleMetadata() {
