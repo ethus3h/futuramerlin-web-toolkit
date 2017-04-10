@@ -525,6 +525,30 @@ function buildList() {
         done
         print "$itemList"
         ;;
+    artist)
+        echo "artist"
+        ;;
+    label)
+        echo "label"
+        ;;
+    release)
+        echo "release"
+        ;;
+    work)
+        echo "work"
+        ;;
+    broadcast)
+        echo "broadcast"
+        ;;
+    press)
+        echo "press"
+        ;;
+    session)
+        echo "session"
+        ;;
+    file)
+          echo "file"
+            ;;
     *)
         die "Unknown type!"
         ;;
