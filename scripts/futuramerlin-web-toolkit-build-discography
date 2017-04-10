@@ -126,9 +126,32 @@ function simpleReference() {
     simpleMetadata "$(keyToLabel "$key")" "$(linkToItem "$kind" "$identifier")"
 }
 
+function getEntryPoint() {
+    local kind="$1"
+    local entryPointFile
+    entryPointFile="$(getKindFolderName "$1")/futuramerlin-web-toolkit-discography.entry-point"
+    if ! [[ -e "$entryPointFile" ]]; then
+        die "No entry point file found!"
+    fi
+    print "$(<"$entryPointFile")"
+}
+
 function listItem() {
-    # Arguments are the same as for linkToItem
+    if [[ "$1" == "--recursive" ]]; then
+        local recursive="true"
+        shift
+    fi
+    # Remaining arguments are the same as for linkToItem
+    local kind="$1"
+    local identifier="$2"
+    local usePicture="$3"
+    local extraInfo="$4" # a formatting string like (@shortDate@)
     print "<li>$(linkToItem "$@")</li>"
+    if [[ "$recursive" == "true" ]]; then
+        local nextIdentifier
+        nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
+        listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
+    fi
 }
 
 function simpleIaLink() {
@@ -354,6 +377,19 @@ function traitToHtm() {
     esac
 }
 
+function listRecursive() {
+    kind="$1"
+    listItem --recursive "$kind" "$(getEntryPoint "$kind")"
+}
+
+function listAlphabetical() {
+    kind="$1"
+    itemList=""
+    for item in "$(getKindFolderName)"/*.conf; do
+        itemList="$itemList$(listItem "kind" "$item")"
+    done
+}
+
 function buildList() {
     local kind="$1"
     print "<ul>"
@@ -364,31 +400,31 @@ function buildList() {
         for item in "${indexItems[@]}"; do
             if [[ -e "$(getKindFolderName "$item")" ]]; then
                 buildCategory "kind" "$item"
-                itemList="$itemList$(listItem "$kind" "$item")"
+                itemList="$itemList$(listItem "kind" "$item")"
             fi
         done
         print "$itemList"
         ;;
     artist)
-        echo "<li>artist</li>"
+        listAlphabetical "$kind"
         ;;
     label)
-        echo "<li>label</li>"
+        listAlphabetical "$kind"
         ;;
     release)
-        echo "<li>release</li>"
+        listRecursive "$kind"
         ;;
     work)
-        echo "<li>work</li>"
+        listRecursive "$kind"
         ;;
     broadcast)
-        echo "<li>broadcast</li>"
+        listRecursive "$kind"
         ;;
     press)
-        echo "<li>press</li>"
+        listRecursive "$kind"
         ;;
     session)
-        echo "<li>session</li>"
+        listRecursive "$kind"
         ;;
     file)
         echo "<li>file</li>"
