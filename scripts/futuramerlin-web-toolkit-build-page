@@ -17,7 +17,6 @@ mkdir -p "../../built/$1"
 rm -rf "../../built/$1"
 cp "../assets/1_start.html" "../../built/$1"
 ereplace "@FMWTK_VERSION@" "$futuramerlinWebToolkitVersion" "../../built/$1"
-ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 cat "../content/$1" >> "../../built/$1"
 cat "../assets/2_end.html" >> "../../built/$1"
 perl -0777 -p -i -e "s/(<h1 class=\"title\">(((?!<\/h1>)[\S\s])*)<\/h1>)/\\1<!-- toc -->/g" "../../built/$1"
@@ -50,9 +49,11 @@ ere_quote() {
 export -f ere_quote
 title="$(ere_quote $title)"
 if [[ -n "$title" ]]; then
-    replace="s/<title>Ember<\/title>/<title>$title &mdash; Ember<\/title>/g"
+    replace="s/<title>@FMWTK_SITE_NAME@<\/title>/<title>$title &mdash; @FMWTK_SITE_NAME@<\/title>/g"
     perl -0777 -p -i -e "$replace" "../../built/$1"
 fi
+ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
+ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
 #Work on home page
 if [[ "$Page" == "." ]]; then
     replace="s/<p class=\"logo\">(((?!<\/p>)[\S\s])*)<\/p>/<h1 class=\"logo\">\1<\/h1>/g"
