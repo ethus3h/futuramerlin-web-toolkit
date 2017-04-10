@@ -89,7 +89,8 @@ function linkToItem() {
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local picture=""
     if [[ "$usePicture" != "false" ]]; then
-        local picturePathName="$(getItemPath "$kind" "$identifier").t.png"
+        local picturePathName
+        picturePathName="$(getItemPath "$kind" "$identifier").t.png"
         if [[ -e "$picturePathName" ]]; then
             picture="<img src=\"$picturePathName\" alt=\"$2: thumbnail image\" /> "
         fi
@@ -99,6 +100,7 @@ function linkToItem() {
     local extension=".htm"
     if [[ "$kind" == "kind" ]]; then
         extension=""
+    fi
     # TODO: Implement extraInfo
     print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">$picture$name</a>"
 }
@@ -116,7 +118,7 @@ function simpleReference() {
 
 function listItem() {
     # Arguments are the same as for linkToItem
-    print "<li>"$(linkToItem "$@")"</li>"
+    print "<li>$(linkToItem "$@")</li>"
 }
 
 function simpleIaLink() {
@@ -340,184 +342,6 @@ function traitToHtm() {
         simpleMetadata "$(keyToLabel "$key")" "$value"
         ;;
     esac
-}
-
-function buildFilteredListEntry() {
-    local haystackKind="$1"
-    local haystackItem="$2"
-    local needleKey="$3"
-    local needleValue="$4"
-    local destinationFile="$5"
-    local recursive="$6"
-    local workVersion="$7"
-    local workReleases="$8"
-    if [[ "$workReleases" == "true" ]]; then
-        local relativePrefix
-        relativePrefix="$(getRelativeDiscographyDir)/releases/$haystackItem"
-        if grep -P "^track,$(basename "$needleKey")" "$relativePrefix".conf; then
-            local releaseName
-            releaseName="$(preadconf name "$haystackItem.conf")"
-            local disambig
-            disambig="$(preadconf disambig "$haystackItem.conf")"
-            if [[ -n "$disambig" ]]; then
-                disambig=" <small>$disambig</small>"
-            fi
-            listItem "$relativePrefix" "$releaseName$disambig" >> "$destinationFile"
-        fi
-    elif [[ "$workVersion" == "true" ]]; then
-        local haystackPath
-        haystackPath="$(getRelativeDiscographyDir)/works/${needleKey}/$haystackItem"
-        haystackPath="${haystackPath%.conf}"
-        local disambig
-        disambig="$(preadconf disambig "$haystackPath".conf)"
-        if [[ -n "$disambig" ]]; then
-            disambig=" <small>$disambig</small>"
-        fi
-        listItem "$haystackPath" "$(preadconf name "$haystackPath".conf)$disambig" >> "$destinationFile"
-    else
-        haystackItem="${haystackItem#"$subst"}"
-        haystackItem="${haystackItem%.conf}"
-        local haystackConf
-        haystackConf="$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem.conf"
-        readconf "${needleKey}" "$haystackConf"
-        foundMatch="false"
-        if [[ "${#readconfValue[@]}" -gt 0 ]]; then
-            for matchingCategory in "${readconfValue[@]:?}"; do
-                if [[ "$matchingCategory" == "$needleValue" ]]; then
-                    foundMatch="true"
-                fi
-            done
-            if [[ "$foundMatch" == "true" ]]; then
-                local name
-                name="$(preadconf name "$haystackConf")"
-                local disambig
-                disambig="$(preadconf disambig "$haystackConf")"
-                if [[ -n "$disambig" ]]; then
-                    disambig=" <small>$disambig</small>"
-                fi
-                listItem "$(getRelativeDiscographyDir)/${haystackKind}s/$haystackItem" "$name$disambig" >> "$destinationFile"
-            fi
-        fi
-    fi
-    if [[ "$recursive" == "true" ]]; then
-        local next
-        if [[ "$workVersion" == "true" ]]; then
-            next="$(preadconf nextEntry "$haystackPath".conf)"
-        else
-            next="$(preadconf nextEntry "$haystackItem".conf)"
-        fi
-        if [[ -n "$next" ]]; then
-            buildFilteredListEntry "$haystackKind" "$next" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion"
-        fi
-    fi
-}
-
-function buildFilteredList() {
-    local destinationFile="$4"
-    if [[ "$1" == "--workVersionReleases" ]]; then
-        # List for the individual work version
-        shift
-        destinationFile="works/$(basename "$2")/$(basename "$5")"
-        local workVersionReleases="true"
-    elif [[ "$1" == "--workReleases" ]]; then
-        # List of releases any version of the work appears on
-        shift
-        destinationFile="works/$(basename "$2")"
-        local workReleases="true"
-    elif [[ "$1" == "--workVersion" ]]; then
-        # List of versions of the work
-        shift
-        local workVersion="true"
-        destinationFile="$2"
-    fi
-    # Searches for items of type haystackKind with the given key-value pair. If recursive is specified, it will follow the nextEntry records, starting from the given haystackItem.
-    if [[ "$workVersion" == "true" || "$workReleases" == "true" ]]; then
-        needleKey="$1"
-        subst="$(getRelativeDiscographyDir)/works/$needleKey/"
-        if [[ "$workReleases" == "true" ]]; then
-            subst="$(getRelativeDiscographyDir)/releases/"
-        fi
-    else
-        local haystackKind="$1"
-        local needleKey="$2"
-        local needleValue="$3"
-        local subst
-        subst="$(getRelativeDiscographyDir)/${haystackKind}s/"
-    fi
-    (
-        cd "$subst" || die
-        if [[ -e futuramerlin-web-toolkit-discography.entry-point ]]; then
-            buildFilteredListEntry "$haystackKind" "$(<futuramerlin-web-toolkit-discography.entry-point)" "$needleKey" "$needleValue" "$destinationFile" "true" "$workVersion" "$workReleases"
-        else
-            for haystackItem in *.conf; do
-                buildFilteredListEntry "$haystackKind" "$haystackItem" "$needleKey" "$needleValue" "$destinationFile" "false" "$workVersion" "$workReleases"
-            done
-        fi
-    )
-}
-
-function buildSinglePage() {
-    local kind="$1"
-    local identifier="$2"
-    fn="$id.htm"
-    declare -n ref=$category; ref+=( "$id" )
-    # Build individual page
-    cp "$da/item-template.htm" "$fn"
-    name="$(preadconf name "$id.conf")"
-    ereplace "@TITLE@" "$name" "$fn"
-    ereplace "@BREADCRUMBS@" "$breadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span> <span><a href=\"../$category\">${category^}</a></span>" "$fn"
-    print "<dl>" >> "$fn"
-    trackCounter=0
-    while IFS= read -r line; do
-        if ! [[ "$line" =~ ^# ]]; then
-            key="$(cut -f1 -d, <<< "$line")"
-            if ! [[ -z "$key" ]]; then
-                traitToHtm "$category" "$id" "$key" "$(cut -f2- -d, <<< "$line")" >> "$fn"
-            fi
-        fi
-    done < "$id.conf"
-    print "</dl>" >> "$fn"
-    if [[ "$category" == "labels" ]]; then
-        # Generate index of artists on this label
-        print "<h2>Artists</h2><ul>" >> "$fn"
-        for artist in "$(getRelativeDiscographyDir)"/artists/*.conf; do
-            buildFilteredListEntry "artist" "$artist" "label" "$id" "$fn"
-        done
-        print "</ul>" >> "$fn"
-    fi
-    if [[ "$category" == "artists" || "$category" == "labels" ]]; then
-        # Generate list of releases
-        print "<h2>Releases</h2><ul>" >> "$fn"
-        local entryPoint
-        entryPoint="$(getRelativeDiscographyDir)/releases/futuramerlin-web-toolkit-discography.entry-point"
-        buildFilteredList "release" "$(<"$entryPoint")" "${category%s}" "$id" "$fn"
-        print "</ul>" >> "$fn"
-    fi
-    if [[ "$category" == "works" ]]; then
-        # Generate list of sub-works, and build a page for each
-        print "<h2>Versions</h2><ul>" >> "$fn"
-        buildFilteredList --workVersion "$id" "$fn"
-        print "</ul><h2>Releases</h2><ul>" >> "$fn"
-        buildFilteredList --workReleases "$id" "$fn"
-        print "</ul>" >> "$fn"
-        (
-            cd "$id" || die
-            local oCategory="$category"
-            category="versions"
-            for wversion in *.conf; do
-                # true
-                buildSinglePage "${wversion%.conf}"
-            done
-            category="$oCategory"
-        )
-    fi
-    if [[ "$2" == "recursive" ]]; then
-        local next
-        next="$(preadconf nextEntry)"
-        if [[ -n "$next" ]]; then
-            buildSinglePage "$next" "recursive"
-        fi
-    fi
 }
 
 function buildList() {
