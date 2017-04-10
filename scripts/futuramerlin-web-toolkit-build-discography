@@ -15,6 +15,7 @@ da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 # Variables
 indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
+trackCounter=0
 
 function getRelativeDiscographyDir() {
     # pwd 1>&2
@@ -252,7 +253,6 @@ function buildTrackPlayer() {
     print "Could not start audio player.</audio>"
 }
 
-trackCounter=0
 function traitToHtm() {
     local kind="$1"
     local identifier="$2"
@@ -523,7 +523,7 @@ function buildList() {
                 itemList="$itemList$(listItem "$kind" "$item")"
             fi
         done
-        print itemList
+        print "$itemList"
         ;;
     *)
         die "Unknown type!"

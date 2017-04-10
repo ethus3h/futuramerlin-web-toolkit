@@ -2,7 +2,7 @@
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-set -x
+# set -x
 
 #Version:
 futuramerlinWebToolkitVersion='2.2_pre2.1.2'
