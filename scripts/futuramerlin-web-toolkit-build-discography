@@ -130,10 +130,9 @@ function getEntryPoint() {
     local kind="$1"
     local entryPointFile
     entryPointFile="$(getKindFolderName "$1")/futuramerlin-web-toolkit-discography.entry-point"
-    if ! [[ -e "$entryPointFile" ]]; then
-        die "No entry point file found!"
+    if [[ -e "$entryPointFile" ]]; then
+        print "$(<"$entryPointFile")"
     fi
-    print "$(<"$entryPointFile")"
 }
 
 function listItem() {
@@ -379,7 +378,13 @@ function traitToHtm() {
 
 function listRecursive() {
     kind="$1"
-    listItem --recursive "$kind" "$(getEntryPoint "$kind")"
+    local entryPointFile
+    entryPointFile="$(getEntryPoint "$kind")"
+    if [[ -z "$entryPointFile" ]]; then
+        listAlphabetical "$1"
+    else
+        listItem --recursive "$kind" "$(getEntryPoint "$kind")"
+    fi
 }
 
 function listAlphabetical() {
@@ -405,32 +410,8 @@ function buildList() {
         done
         print "$itemList"
         ;;
-    artist)
-        listAlphabetical "$kind"
-        ;;
-    label)
-        listAlphabetical "$kind"
-        ;;
-    release)
-        listRecursive "$kind"
-        ;;
-    work)
-        listRecursive "$kind"
-        ;;
-    broadcast)
-        listRecursive "$kind"
-        ;;
-    press)
-        listRecursive "$kind"
-        ;;
-    session)
-        listRecursive "$kind"
-        ;;
-    file)
-        echo "<li>file</li>"
-          ;;
     *)
-        die "Unknown type!"
+        listRecursive "$kind"
         ;;
     esac
     print "</ul>"
