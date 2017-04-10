@@ -60,6 +60,13 @@ function getKindFolderName() {
     fi
 }
 
+function getKindLabel() {
+    local kind="$1"
+    local res
+    res="$(getKindFolderName "$kind")"
+    print "${res^}"
+}
+
 function getItemPath() {
     # Returns the prefix pathname (e.g. releases/sylfan) of the referenced item, relative to the current directory.
     local kind="$1"
@@ -67,10 +74,10 @@ function getItemPath() {
     # TODO: Make this able to handle more cases (it won't work for e.g. kind=work/sylfan)
     case "$kind" in
     kind)
-        print "$(getRelativeDiscographyDir)${kind}s"
+        print "$(getRelativeDiscographyDir)$(getKindFolderName "$identifier")"
         ;;
     *)
-        print "$(getRelativeDiscographyDir)${kind}s/$identifier"
+        print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")/$identifier"
         ;;
     esac
 }
@@ -96,10 +103,13 @@ function linkToItem() {
         fi
     fi
     local name
-    name="$(discReadConf name "$kind" "$identifier")"
-    local extension=".htm"
+    local extension
     if [[ "$kind" == "kind" ]]; then
+        name="$(getKindLabel "$identifier")"
         extension=""
+    else
+        name="$(discReadConf name "$kind" "$identifier")"
+        extension=".htm"
     fi
     # TODO: Implement extraInfo
     print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">$picture$name</a>"
@@ -411,7 +421,7 @@ function buildCategory() {
     kind)
         (
             cd "$(getKindFolderName "$identifier")" || die
-            buildPage "index" "${identifier^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList $identifier)"
+            buildPage "index" "${identifier^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
         )
         ;;
     *)
