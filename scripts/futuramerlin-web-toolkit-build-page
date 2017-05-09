@@ -54,7 +54,7 @@ if [[ -n "$title" ]]; then
     echo "Trying to replace titel: $replace"
     perl -0777 -p -i -e "$replace" "../../built/$1"
 fi
-ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
+#ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
 #Work on home page
 if [[ "$Page" == "." ]]; then
