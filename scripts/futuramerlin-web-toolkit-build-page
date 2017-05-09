@@ -49,6 +49,7 @@ ere_quote() {
 export -f ere_quote
 title="$(ere_quote $title)"
 if [[ -n "$title" ]]; then
+    echo "Trying to replace titel"
     replace="s/<title>@FMWTK_SITE_NAME@<\/title>/<title>$title &mdash; @FMWTK_SITE_NAME@<\/title>/g"
     perl -0777 -p -i -e "$replace" "../../built/$1"
 fi
