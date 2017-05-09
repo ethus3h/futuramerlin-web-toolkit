@@ -5,6 +5,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 shopt -s extglob
 set +H
+set -x
 
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
