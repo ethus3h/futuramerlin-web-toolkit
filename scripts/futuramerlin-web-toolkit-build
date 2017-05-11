@@ -101,6 +101,7 @@ rm ./built/1_start.html ./built/2_end.html
 rm -r ./built/discography.assets
 if [[ "$futuramerlinWebToolkitWordPressLocation" == "disableWordPressIntegration" ]]; then
     echo "(Skipping WordPress integration.)"
+    rm -r ./built/wordpress-integration
 else
     mv ./built/wordpress-integration "./built/$futuramerlinWebToolkitWordPressLocation"
 fi
