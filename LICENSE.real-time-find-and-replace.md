@@ -1,3 +1,5 @@
+The files in support/assets/wordpress-integration/wp-content/themes/fm-wp-theme/real-time-find-and-replace/ are used under the following license terms:
+
 ### GNU GENERAL PUBLIC LICENSE
 
 Version 2, June 1991
