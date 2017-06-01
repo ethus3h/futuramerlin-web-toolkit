@@ -5,7 +5,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 # set -x
 
 #Version:
-futuramerlinWebToolkitVersion='2.2.1'
+futuramerlinWebToolkitVersion='2.2.2'
 
 shopt -s extglob
 
@@ -40,7 +40,9 @@ if ! git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
 fi
 mkdir built
 mv ./futuramerlin-web-toolkit/support/assets/* ./built/
-mv ./futuramerlin-web-toolkit/support/assets/.[^.]* ./built/ || true
+trap - ERR
+mv ./futuramerlin-web-toolkit/support/assets/.[^.]* ./built/
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 cp -r ./built ./source/assets
 mv ./futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
 rm -rf ./futuramerlin-web-toolkit
