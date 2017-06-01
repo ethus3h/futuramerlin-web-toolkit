@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Build the site in the current directory using the Futuramerlin Web Toolkit
 build() {

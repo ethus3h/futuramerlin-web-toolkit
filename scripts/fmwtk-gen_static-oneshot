@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Futuramerlin Web Toolkit Content Generator: Static copy of page
 set -e
 mkdir -pv content
