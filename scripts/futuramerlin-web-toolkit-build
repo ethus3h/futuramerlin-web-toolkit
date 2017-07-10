@@ -5,7 +5,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 #set -x
 
 #Version:
-futuramerlinWebToolkitVersion='2.2.3'
+futuramerlinWebToolkitVersion='2.2.4'
 
 shopt -s extglob
 
@@ -75,7 +75,7 @@ echo "Environment ready; building site..."
                         ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName"
                     else
                         echo "Copying content asset: $i"
-                        cp "$i" "../../built/$i"
+                        cp "$i" "../../built/$i" || warn "(copying failed: probably just ignoring empty directory $i)"
                     fi
                 fi
             done
