@@ -43,7 +43,10 @@ makeIndexPage() {
     local loopPostNumber="1"
     while [[ "$loopPostNumber" -lt "$maxPostsPerPage" ]]; do
         # Find the first unprocessed file
+        previousPostPath="$currentPostPath"
         currentPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -n "$currentPostNumber"p)"
+        local nextPostNumber=$(( currentPostNumber + 1 ))
+        local nextPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -n "$nextPostNumber"p)"
         echo "$currentPostPath"
         printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
 
@@ -90,6 +93,8 @@ makeIndexPage() {
 numPostsRemaining="$numPosts"
 currentPageNumber="1"
 currentPostNumber="1"
+currentPostPath=""
+previousPostPath=""
 while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
     makeIndexPage
     numPostsRemaining=$(( numPostsRemaining - 5 ))
