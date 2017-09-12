@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+# set -x
+
+[[ -e "run" ]] && rm -r "run"
+
+../../futuramerlin-web-toolkit-blog "in" "run"
+
+assert directoryEquals "out" "run"

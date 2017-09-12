@@ -36,6 +36,8 @@ makeIndexPage() {
         indexPageName="index.htm"
     fi
     printf '%s\n\n' '<h1 class="title">Ember Blog</h1>' > "$indexPageName"
+
+    # Pagination widget
     if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
         # Make pagination widget, because there are more than one page
         echo '<footer class="pagination">' >> "$indexPageName"
