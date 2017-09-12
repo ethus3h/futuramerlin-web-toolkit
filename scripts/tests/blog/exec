@@ -8,3 +8,5 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 [[ -e "run" ]] && rm -r "run"
 
 futuramerlin-web-toolkit-blog "in" "run"
+
+assert directoryEquals "out" "run"
