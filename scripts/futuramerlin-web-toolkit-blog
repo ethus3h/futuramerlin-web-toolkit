@@ -19,7 +19,7 @@ cd "$destDir" || die
 
 # Count the number of posts
 
-numPosts="$(find "$destDir" -type f -print . | wc -c)"
+numPosts="$(find "$destDir" -type f -printf '.' | wc -c)"
 
 
 
