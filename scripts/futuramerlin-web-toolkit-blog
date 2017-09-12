@@ -4,3 +4,13 @@ source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 set -x
+
+sourceDir="$1"
+
+destDir="$2"
+
+[[ -e "$2" ]] && rm -r "$2"
+
+rsync -a --checksum "$1/" "$2"
+
+echo "built" > "$2/.futuramerlin-web-toolkit-blog.conf"
