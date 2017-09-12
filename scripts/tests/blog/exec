@@ -5,16 +5,6 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 # set -x
 
-cd tests || die
+[[ -e "run" ]] && rm -r "run"
 
-runTest() {
-    testName="$1"
-    if [[ -d "$testName" ]]; then
-        cd "$testName" || die
-        ./exec
-    elif [[ -f "$testName" ]]; then
-        ./"$testName"
-    fi
-}
-
-runTest blog
+futuramerlin-web-toolkit-blog "in" "run"
