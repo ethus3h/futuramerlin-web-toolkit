@@ -7,8 +7,9 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 cd tests || die
 
-totalTests="0"
+succeededTests="0"
 failedTests="0"
+totalTests="0"
 
 verboseTests=""
 
@@ -21,8 +22,8 @@ runTest() {
     totalTests=$(( totalTests + 1 ))
     local testName="$1"
     testSucceed() {
-        echo "Test $testName failed."
-        failedTests=$(( failedTests + 1 ))
+        echo "Test $testName succeeded."
+        succeededTests=$(( succeededTests + 1 ))
     }
     testFail() {
         echo "Test $testName failed."
@@ -47,7 +48,6 @@ runTest() {
 }
 
 reportTests() {
-    local succeededTests=$(( totalTests - failedTests ))
     local succeededWord="tests"
     if [[ "$succeededTests" == 1 ]]; then
         succeededWord="test"
@@ -61,6 +61,7 @@ reportTests() {
         totalWord="test"
     fi
     echo "$succeededTests $succeededWord succeeded and $failedTests $failedWord failed out of a total of $totalTests $totalWord."
+    [[ $(( totalTests - failedTests )) == "$succeededTests" ]] || die "There's a problem in the testing framework."
 }
 
 runTest blog
