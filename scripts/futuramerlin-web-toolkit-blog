@@ -43,22 +43,30 @@ makeIndexPage() {
     local loopPostNumber="1"
     while [[ "$loopPostNumber" -lt "$maxPostsPerPage" ]]; do
         # Find the first unprocessed file
-        previousPostPath="$currentPostPath"
+        local previousPostPath="$currentPostPath"
+        local previousPostFilename="$(basename "$previousPostPath")"
+        local previousPostDay="$(dirname "$previousPostPath")"
+        local previousPostMonth="$(dirname "$previousPostMonth")"
+        local previousPostYear="$(dirname "$previousPostYear")"
         currentPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -n "$currentPostNumber"p)"
         local nextPostNumber=$(( currentPostNumber + 1 ))
         local nextPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -n "$nextPostNumber"p)"
+        local nextPostFilename="$(basename "$nextPostPath")"
+        local nextPostDay="$(dirname "$nextPostPath")"
+        local nextPostMonth="$(dirname "$nextPostMonth")"
+        local nextPostYear="$(dirname "$nextPostYear")"
         echo "$currentPostPath"
         printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
 
         if [[ "$currentPostNumber" != "1" ]]; then
             echo '    <div class="nav-previous">' >> "$currentPostPath"
-            echo '        <a href="../../../2016/03/06/web-site-update-is-live.htm" rel="prev"><span class="meta-nav">&larr; Previous post: </span>Web site update is live!</a>' >> "$currentPostPath"
+            echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>Web site update is live!</a>' >> "$currentPostPath"
             echo '    </div>' >> "$currentPostPath"
         fi
 
         if [[ "$currentPostNumber" != "$numPosts" ]]; then
             echo '    <div class="nav-next">' >> "$currentPostPath"
-            echo '        <a href="../../../2016/02/17/2-another-update-on-the-web-site-update-dont-get-too-excited-i-guess.htm" rel="next"><span class="meta-nav">Next post: </span>Another update on the Web site update. Don&#8217;t get too excited, I guess.<span class="meta-nav"> &rarr;</span></a>' >> "$currentPostPath"
+            echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>Another update on the Web site update. Don&#8217;t get too excited, I guess.<span class="meta-nav"> &rarr;</span></a>' >> "$currentPostPath"
             echo '    </div>' >> "$currentPostPath"
         fi
 
@@ -94,7 +102,6 @@ numPostsRemaining="$numPosts"
 currentPageNumber="1"
 currentPostNumber="1"
 currentPostPath=""
-previousPostPath=""
 while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
     makeIndexPage
     numPostsRemaining=$(( numPostsRemaining - 5 ))
