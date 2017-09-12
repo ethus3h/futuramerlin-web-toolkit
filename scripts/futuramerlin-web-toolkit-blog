@@ -39,6 +39,15 @@ makeIndexPage() {
     fi
     printf '%s\n\n' '<h1 class="title">Ember Blog</h1>' > "$indexPageName"
 
+    local loopPostNumber="1"
+    while [[ "$loopPostNumber" -lt "$maxPostsPerPage" ]]; do
+        # Find the first unprocessed file
+        currentPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -n "$currentPostNumber"p)"
+        echo "$currentPostPath"
+        currentPostNumber=$(( currentPostNumber + 1 ))
+        loopPostNumber=$(( loopPostNumber + 1 ))
+    done
+
     # Pagination widget
     if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
         # Make pagination widget, because there are more than one page
@@ -64,6 +73,7 @@ makeIndexPage() {
 
 numPostsRemaining="$numPosts"
 currentPageNumber="1"
+currentPostNumber="1"
 while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
     makeIndexPage
     numPostsRemaining=$(( numPostsRemaining - 5 ))
