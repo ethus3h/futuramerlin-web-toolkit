@@ -20,6 +20,10 @@ runTest() {
     fi
     totalTests=$(( totalTests + 1 ))
     local testName="$1"
+    testSucceed() {
+        echo "Test $testName failed."
+        failedTests=$(( failedTests + 1 ))
+    }
     testFail() {
         echo "Test $testName failed."
         failedTests=$(( failedTests + 1 ))
@@ -28,19 +32,38 @@ runTest() {
         cd "$testName" || die
         chmod +x ./exec
         if [[ "$verbose" == "true" ]]; then
-            ./exec || testFail
+            ./exec && testSucceed || testFail
         else
-            ./exec &> /dev/null || testFail
+            ./exec &> /dev/null && testSucceed || testFail
         fi
     elif [[ -f "$testName" ]]; then
         chmod +x ./"$testName"
         if [[ "$verbose" == "true" ]]; then
-            ./"$testName" || testFail
+            ./"$testName" && testSucceed || testFail
         else
-            ./"$testName" &> /dev/null || testFail
+            ./"$testName" &> /dev/null && testSucceed || testFail
         fi
     fi
 }
 
+reportTests() {
+    local succeededTests=$(( totalTests - failedTests ))
+    local succeededWord="tests"
+    if [[ "$succeededTests" == 1 ]]; then
+        succeededWord="test"
+    fi
+    local failedWord="tests"
+    if [[ "$failedTests" == 1 ]]; then
+        failedWord="test"
+    fi
+    local totalWord="tests"
+    if [[ "$totalTests" == 1 ]]; then
+        totalWord="test"
+    fi
+    echo "$succeededTests $succeededWord succeeded and $failedTests $failedWord failed out of a total of $totalTests $totalWord."
+}
+
 runTest blog
 runTest blog-1page
+
+reportTests
