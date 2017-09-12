@@ -7,15 +7,38 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 cd tests || die
 
+totalTests="0"
+failedTests="0"
+
+verboseTests=""
+
 runTest() {
-    testName="$1"
+    local verbose="$verboseTests"
+    if [[ "$1" == "-v" ]]; then
+        verbose="true"
+        shift
+    fi
+    totalTests=$(( totalTests + 1 ))
+    local testName="$1"
+    testFail() {
+        echo "Test $testName failed."
+        failedTests=$(( failedTests + 1 ))
+    }
     if [[ -d "$testName" ]]; then
         cd "$testName" || die
         chmod +x ./exec
-        ./exec
+        if [[ "$verbose" == "true" ]]; then
+            ./exec || testFail
+        else
+            ./exec &> /dev/null || testFail
+        fi
     elif [[ -f "$testName" ]]; then
         chmod +x ./"$testName"
-        ./"$testName"
+        if [[ "$verbose" == "true" ]]; then
+            ./"$testName" || testFail
+        else
+            ./"$testName" &> /dev/null || testFail
+        fi
     fi
 }
 
