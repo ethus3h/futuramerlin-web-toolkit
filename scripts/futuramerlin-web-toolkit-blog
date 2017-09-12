@@ -39,6 +39,20 @@ makeIndexPage() {
     if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
         # Make pagination widget, because there are more than one page
         echo '<footer class="pagination">' >> "$indexPageName"
+        echo '    <ul>' >> "$indexPageName"
+        if [[ "$currentPageNumber" != "1" ]]; then
+            echo '        <li><a class="prev page-numbers" href="'$(( currentPageNumber - 1 ))'/">&laquo; Previous</a></li>' >> "$indexPageName"
+        fi
+        echo '        <li><span class="page-numbers current">'"$currentPageNumber"'</span></li>' >> "$indexPageName"
+        echo '        <li><a class="next page-numbers" href="2/">Next &raquo;</a></li>' >> "$indexPageName"
+        echo '        <li>' >> "$indexPageName"
+        echo '            <form class="wpsp-page-nav-form" action="./" method="get">' >> "$indexPageName"
+        echo '                <input class="wpsp-input-number" type="text" placeholder="Jump to" size="6" name="paged" />' >> "$indexPageName"
+        echo '                <input class="wpsp-button" value="Go" type="submit" >' >> "$indexPageName"
+        echo '            </form>' >> "$indexPageName"
+        echo '        </li>' >> "$indexPageName"
+        echo '    </ul>' >> "$indexPageName"
+        echo '</footer>' >> "$indexPageName"
     fi
 }
 
