@@ -56,6 +56,10 @@ makeIndexPage() {
         currentPostTitle="$(head -n 1 "$currentPostPath")"
         currentPostTitle="${currentPostTitle/<h1 class=\"title\">/}"
         currentPostTitle="${currentPostTitle%<\/h1>}"
+        local currentPostFilename="$(basename "$currentPostPath")"
+        local currentPostDay="$(dirname "$currentPostPath")"
+        local currentPostMonth="$(dirname "$currentPostMonth")"
+        local currentPostYear="$(dirname "$currentPostYear")"
 
         local nextPostNumber=$(( currentPostNumber + 1 ))
         local nextPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -n "$nextPostNumber"p)"
@@ -68,8 +72,8 @@ makeIndexPage() {
         nextPostTitle="${nextPostTitle%<\/h1>}"
 
         if [[ "$numPosts" != "1" ]]; then
-            # Create footer widget
-            
+            # Create footer navigation widget for the individual post
+
             printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
 
             if [[ "$currentPostNumber" != "1" ]]; then
@@ -86,6 +90,9 @@ makeIndexPage() {
 
             echo '</footer>' >> "$currentPostPath"
         fi
+        
+        currentPostMonthName="$(date -d "$currentPostYear-$currentPostMonth-$currentPostDay" '+%B')"
+        echo '<h2 class="entry-title"><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostDay $currentPostMonthName, $currentPostYear: $currentPostTitle"'</a></h2>' >> "$indexPageName"
 
         currentPostNumber=$(( currentPostNumber + 1 ))
         loopPostNumber=$(( loopPostNumber + 1 ))
