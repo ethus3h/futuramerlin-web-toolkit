@@ -9,8 +9,14 @@ sourceDir="$1"
 
 destDir="$2"
 
+maxPostsPerPage="5"
+
 [[ -e "$2" ]] && rm -r "$2"
 
 rsync -a --checksum "$1/" "$2"
 
-echo "built" > "$2/.futuramerlin-web-toolkit-blog.conf"
+cd "$2" || die
+
+
+
+echo "built" > ".futuramerlin-web-toolkit-blog.conf"
