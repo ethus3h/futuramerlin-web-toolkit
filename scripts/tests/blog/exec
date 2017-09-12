@@ -3,13 +3,18 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-set -x
+# set -x
 
 cd tests || die
 
 runTest() {
     testName="$1"
-    
+    if [[ -d "$testName" ]]; then
+        cd "$testName" || die
+        ./exec
+    elif [[ -f "$testName" ]]; then
+        ./"$testName"
+    fi
 }
 
 runTest blog
