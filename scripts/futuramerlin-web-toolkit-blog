@@ -47,13 +47,13 @@ makeIndexPage() {
         echo "$currentPostPath"
         printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
 
-        if ! { [[ "$currentPageNumber" == "1" ]] && [[ "$loopPostNumber" == "1" ]] }; then
+        if [[ "$currentPostNumber" != "1" ]]; then
             echo '    <div class="nav-previous">' >> "$currentPostPath"
             echo '        <a href="../../../2016/03/06/web-site-update-is-live.htm" rel="prev"><span class="meta-nav">&larr; Previous post: </span>Web site update is live!</a>' >> "$currentPostPath"
             echo '    </div>' >> "$currentPostPath"
         fi
 
-        if ! { [[ "$currentPageNumber" == "1" ]] && [[ "$loopPostNumber" == "$maxPostsPerPage" ]] }; then
+        if [[ "$currentPostNumber" != "$numPosts" ]]; then
             echo '    <div class="nav-next">' >> "$currentPostPath"
             echo '        <a href="../../../2016/02/17/2-another-update-on-the-web-site-update-dont-get-too-excited-i-guess.htm" rel="next"><span class="meta-nav">Next post: </span>Another update on the Web site update. Don&#8217;t get too excited, I guess.<span class="meta-nav"> &rarr;</span></a>' >> "$currentPostPath"
             echo '    </div>' >> "$currentPostPath"
