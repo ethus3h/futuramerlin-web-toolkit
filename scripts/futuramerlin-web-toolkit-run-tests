@@ -20,3 +20,4 @@ runTest() {
 }
 
 runTest blog
+runTest blog-1page
