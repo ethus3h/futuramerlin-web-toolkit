@@ -21,24 +21,30 @@ cd "$destDir" || die
 
 numPosts="$(find "$destDir" -type f -name "*.htm" -printf '.' | wc -c)"
 
+makeIndexPage() {
+    # Create redirect page
+    mkdir "$currentPageNumber"
+    if [[ "$currentPageNumber" == "1" ]]; then
+        echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+    else
+        echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'.htm"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+    fi
+    
+    # Create actual index page
+    if [[ "$currentPageNumber" == "1" ]]; then
+    printf '%s\n\n' '<h1 class="title">Ember Blog</h1>' > 
+}
+
 if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
     numPostsRemaining="$numPosts"
     currentPageNumber="1"
-    makePage() {
-        mkdir "$currentPageNumber"
-        if [[ "$currentPageNumber" == "1" ]]; then
-            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-        else
-            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-        fi
-    }
     while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
-        makePage
+        makeIndexPage
         numPostsRemaining=$(( numPostsRemaining - 5 ))
         currentPageNumber=$(( currentPageNumber + 1 ))
     done
     # Last (or only) page
-    makePage
+    makeIndexPage
 fi
 
 
