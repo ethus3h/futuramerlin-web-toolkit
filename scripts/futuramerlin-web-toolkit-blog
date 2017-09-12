@@ -5,17 +5,21 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 set -x
 
-sourceDir="$1"
+sourceDir="$(readlink -f "$1")"
 
-destDir="$2"
+destDir="$(readlink -f "$2")"
 
 maxPostsPerPage="5"
 
-[[ -e "$2" ]] && rm -r "$2"
+[[ -e "$destDir" ]] && rm -r "$destDir"
 
-rsync -a --checksum "$1/" "$2"
+rsync -a --checksum "$sourceDir/" "$destDir"
 
-cd "$2" || die
+cd "$destDir" || die
+
+# Count the number of posts
+
+numPosts="$(find "$destDir" -type f -print . | wc -c)"
 
 
 
