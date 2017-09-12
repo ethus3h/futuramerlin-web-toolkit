@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-# set -x
+set -x
 
 sourceDir="$(readlink -f "$1")"
 
@@ -22,12 +22,14 @@ cd "$destDir" || die
 numPosts="$(find "$destDir" -type f -name "*.htm" -printf '.' | wc -c)"
 
 makeIndexPage() {
-    # Create redirect page
-    mkdir "$currentPageNumber"
-    if [[ "$currentPageNumber" == "1" ]]; then
-        echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-    else
-        echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'.htm"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+    if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
+        # Create redirect page
+        mkdir "$currentPageNumber"
+        if [[ "$currentPageNumber" == "1" ]]; then
+            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+        else
+            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'.htm"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+        fi
     fi
     
     # Create actual index page

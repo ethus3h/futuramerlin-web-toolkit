@@ -69,6 +69,6 @@ reportTests() {
 }
 
 runTest blog
-runTest blog-1page
+runTest -v blog-1page
 
 reportTests
