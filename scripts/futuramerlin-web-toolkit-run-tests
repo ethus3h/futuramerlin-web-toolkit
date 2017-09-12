@@ -30,13 +30,14 @@ runTest() {
         failedTests=$(( failedTests + 1 ))
     }
     if [[ -d "$testName" ]]; then
-        cd "$testName" || die
+        pushd "$testName" > /dev/null || die
         chmod +x ./exec
         if [[ "$verbose" == "true" ]]; then
             ./exec && testSucceed || testFail
         else
             ./exec &> /dev/null && testSucceed || testFail
         fi
+        popd > /dev/null
     elif [[ -f "$testName" ]]; then
         chmod +x ./"$testName"
         if [[ "$verbose" == "true" ]]; then
@@ -44,6 +45,9 @@ runTest() {
         else
             ./"$testName" &> /dev/null && testSucceed || testFail
         fi
+    else
+        warn "Could not find the test $testName."
+        testFail
     fi
 }
 
