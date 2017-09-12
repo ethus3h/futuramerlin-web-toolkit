@@ -44,7 +44,9 @@ makeIndexPage() {
             echo '        <li><a class="prev page-numbers" href="'$(( currentPageNumber - 1 ))'/">&laquo; Previous</a></li>' >> "$indexPageName"
         fi
         echo '        <li><span class="page-numbers current">'"$currentPageNumber"'</span></li>' >> "$indexPageName"
-        echo '        <li><a class="next page-numbers" href="2/">Next &raquo;</a></li>' >> "$indexPageName"
+        if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; then
+            echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next &raquo;</a></li>' >> "$indexPageName"
+        fi
         echo '        <li>' >> "$indexPageName"
         echo '            <form class="wpsp-page-nav-form" action="./" method="get">' >> "$indexPageName"
         echo '                <input class="wpsp-input-number" type="text" placeholder="Jump to" size="6" name="paged" />' >> "$indexPageName"
