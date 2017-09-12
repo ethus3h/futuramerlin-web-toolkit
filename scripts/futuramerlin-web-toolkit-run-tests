@@ -7,67 +7,6 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 cd tests || die
 
-succeededTests="0"
-failedTests="0"
-totalTests="0"
-
-verboseTests=""
-
-runTest() {
-    local verbose="$verboseTests"
-    if [[ "$1" == "-v" ]]; then
-        verbose="true"
-        shift
-    fi
-    totalTests=$(( totalTests + 1 ))
-    local testName="$1"
-    testSucceed() {
-        echo "Test $testName succeeded."
-        succeededTests=$(( succeededTests + 1 ))
-    }
-    testFail() {
-        echo "Test $testName failed."
-        failedTests=$(( failedTests + 1 ))
-    }
-    if [[ -d "$testName" ]]; then
-        pushd "$testName" > /dev/null || die
-        chmod +x ./exec
-        if [[ "$verbose" == "true" ]]; then
-            ./exec && testSucceed || testFail
-        else
-            ./exec &> /dev/null && testSucceed || testFail
-        fi
-        popd > /dev/null
-    elif [[ -f "$testName" ]]; then
-        chmod +x ./"$testName"
-        if [[ "$verbose" == "true" ]]; then
-            ./"$testName" && testSucceed || testFail
-        else
-            ./"$testName" &> /dev/null && testSucceed || testFail
-        fi
-    else
-        warn "Could not find the test $testName."
-        testFail
-    fi
-}
-
-reportTests() {
-    local succeededWord="tests"
-    if [[ "$succeededTests" == 1 ]]; then
-        succeededWord="test"
-    fi
-    local failedWord="tests"
-    if [[ "$failedTests" == 1 ]]; then
-        failedWord="test"
-    fi
-    local totalWord="tests"
-    if [[ "$totalTests" == 1 ]]; then
-        totalWord="test"
-    fi
-    echo "$succeededTests $succeededWord succeeded and $failedTests $failedWord failed out of a total of $totalTests $totalWord."
-    [[ $(( totalTests - failedTests )) == "$succeededTests" ]] || die "There's a problem in the testing framework."
-}
-
 runTest blog
 runTest -v blog-1page
 
