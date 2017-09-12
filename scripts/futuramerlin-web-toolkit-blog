@@ -41,7 +41,7 @@ makeIndexPage() {
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
-    while [[ "$loopPostNumber" -lt "$maxPostsPerPage" ]]; do
+    while [[ "$loopPostNumber" -le "$maxPostsPerPage" ]]; do
 
         local previousPostPath="$currentPostPath"
         local previousPostFilename="$(basename "$previousPostPath")"
