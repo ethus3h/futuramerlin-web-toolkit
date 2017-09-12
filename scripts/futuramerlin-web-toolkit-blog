@@ -19,8 +19,27 @@ cd "$destDir" || die
 
 # Count the number of posts
 
-numPosts="$(find "$destDir" -type f -printf '.' | wc -c)"
+numPosts="$(find "$destDir" -type f -name "*.htm" -printf '.' | wc -c)"
 
+if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
+    numPostsRemaining="$numPosts"
+    currentPageNumber="1"
+    makePage() {
+        mkdir "$currentPageNumber"
+        if [[ "$currentPageNumber" == "1" ]]; then
+            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+        else
+            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+        fi
+    }
+    while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
+        makePage
+        numPostsRemaining=$(( numPostsRemaining - 5 ))
+        currentPageNumber=$(( currentPageNumber + 1 ))
+    done
+    # Last (or only) page
+    makePage
+fi
 
 
 echo "built" > ".futuramerlin-web-toolkit-blog.conf"
