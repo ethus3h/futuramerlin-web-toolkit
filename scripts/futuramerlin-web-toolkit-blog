@@ -31,21 +31,24 @@ makeIndexPage() {
     fi
     
     # Create actual index page
+    local indexPageName="page-$currentPageNumber.htm"
     if [[ "$currentPageNumber" == "1" ]]; then
-    printf '%s\n\n' '<h1 class="title">Ember Blog</h1>' > 
+        indexPageName="index.htm"
+    fi
+    printf '%s\n\n' '<h1 class="title">Ember Blog</h1>' > "$indexPageName"
+    if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
+        # Make pagination widget
+    fi
 }
 
-if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
-    numPostsRemaining="$numPosts"
-    currentPageNumber="1"
-    while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
-        makeIndexPage
-        numPostsRemaining=$(( numPostsRemaining - 5 ))
-        currentPageNumber=$(( currentPageNumber + 1 ))
-    done
-    # Last (or only) page
+numPostsRemaining="$numPosts"
+currentPageNumber="1"
+while [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; do
     makeIndexPage
-fi
-
+    numPostsRemaining=$(( numPostsRemaining - 5 ))
+    currentPageNumber=$(( currentPageNumber + 1 ))
+done
+# Last (or only) page
+makeIndexPage
 
 echo "built" > ".futuramerlin-web-toolkit-blog.conf"
