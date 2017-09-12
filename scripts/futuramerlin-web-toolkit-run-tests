@@ -11,8 +11,10 @@ runTest() {
     testName="$1"
     if [[ -d "$testName" ]]; then
         cd "$testName" || die
+        chmod +x ./exec
         ./exec
     elif [[ -f "$testName" ]]; then
+        chmod +x ./"$testName"
         ./"$testName"
     fi
 }
