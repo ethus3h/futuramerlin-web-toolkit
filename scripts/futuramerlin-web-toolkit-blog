@@ -45,9 +45,11 @@ makeIndexPage() {
 
         local previousPostPath="$currentPostPath"
         local previousPostFilename="$(basename "$previousPostPath")"
-        local previousPostDay="$(basename "$(dirname "$previousPostPath")")"
-        local previousPostMonth="$(basename "$(dirname "$previousPostDay")")"
+        local previousPostDay="$(dirname "$previousPostPath")"
+        local previousPostMonth="$(dirname "$previousPostDay")"
+        previousPostDay="$(basename "$previousPostDay")"
         local previousPostYear="$(basename "$(dirname "$previousPostMonth")")"
+        previousPostMonth="$(basename "$previousPostMonth")"
         local previousPostTitle="$currentPostTitle"
 
         # Find the first unprocessed file
@@ -57,16 +59,20 @@ makeIndexPage() {
         currentPostTitle="${currentPostTitle/<h1 class=\"title\">/}"
         currentPostTitle="${currentPostTitle%<\/h1>}"
         local currentPostFilename="$(basename "$currentPostPath")"
-        local currentPostDay="$(basename "$(dirname "$currentPostPath")")"
-        local currentPostMonth="$(basename "$(dirname "$currentPostDay")")"
+        local currentPostDay="$(dirname "$currentPostPath")"
+        local currentPostMonth="$(dirname "$currentPostDay")"
+        currentPostDay="$(basename "$currentPostDay")"
         local currentPostYear="$(basename "$(dirname "$currentPostMonth")")"
+        currentPostMonth="$(basename "$currentPostMonth")"
 
         local nextPostNumber=$(( currentPostNumber + 1 ))
         local nextPostPath="$(find "$destDir" -type f -name "*.htm" -print0 | sort -z | sed -z -n "$nextPostNumber"p)"
         local nextPostFilename="$(basename "$nextPostPath")"
-        local nextPostDay="$(basename "$(dirname "$nextPostPath")")"
-        local nextPostMonth="$(basename "$(dirname "$nextPostDay")")"
+        local nextPostDay="$(dirname "$nextPostPath")"
+        local nextPostMonth="$(dirname "$nextPostDay")"
+        nextPostDay="$(basename "$nextPostDay")"
         local nextPostYear="$(basename "$(dirname "$nextPostMonth")")"
+        nextPostMonth="$(basename "$nextPostMonth")"
         local nextPostTitle="$(head -n 1 "$nextPostPath")"
         nextPostTitle="${nextPostTitle/<h1 class=\"title\">/}"
         nextPostTitle="${nextPostTitle%<\/h1>}"
