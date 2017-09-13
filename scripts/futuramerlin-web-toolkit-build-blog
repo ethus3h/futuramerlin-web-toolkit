@@ -175,4 +175,4 @@ done
 # Last (or only) page
 makeIndexPage
 
-echo "built" > ".futuramerlin-web-toolkit-blog.conf"
+echo "built" > "futuramerlin-web-toolkit-blog.conf"
