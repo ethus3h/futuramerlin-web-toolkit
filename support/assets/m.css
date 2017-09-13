@@ -260,11 +260,11 @@
         p.posted-on {
             font-size: 1.35rem;
             text-align: right;
-            top: 0;
             right: 0;
             padding: 1rem;
-            float: left;
-            padding-top: 0;
+            float: right;
+            position: relative;
+            top: -4.75rem;
         }
 
         .entry-title {
