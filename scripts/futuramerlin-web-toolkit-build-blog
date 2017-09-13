@@ -27,16 +27,16 @@ if [[ "$numPosts" -gt $(( numPages * maxPostsPerPage )) ]]; then
 fi
 
 makeIndexPage() {
-    if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
-        # Create redirect page
-        mkdir "$currentPageNumber"
-        if [[ "$currentPageNumber" == "1" ]]; then
-            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-        else
-            echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'.htm"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-        fi
-    fi
-    
+    # if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
+    #     # Create redirect page
+    #     mkdir "$currentPageNumber"
+    #     if [[ "$currentPageNumber" == "1" ]]; then
+    #         echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+    #     else
+    #         echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'.htm"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
+    #     fi
+    # fi
+
     # Create actual index page
     local indexPageName="page-$currentPageNumber.htm"
     pageSuffix=": Page $currentPageNumber"
@@ -138,18 +138,25 @@ makeIndexPage() {
             # Make index pagination widget, because there are more than one page
             echo '<footer class="pagination">'
             echo '    <ul>'
+            getPageFromPageNumber() {
+                if [[ "$1" == "1" ]]; then
+                    printf "."
+                else
+                    printf "page-$1.htm"
+                fi
+            }
             if [[ "$currentPageNumber" != "1" ]] && [[ "$currentPageNumber" != "2" ]]; then
-                echo '        <li><a class="first page-numbers" href="1/">↞ First (p. 1)</a></li>'
+                echo '        <li><a class="first page-numbers" href=".">↞ First (p. 1)</a></li>'
             fi
             if [[ "$currentPageNumber" != "1" ]]; then
-                echo '        <li><a class="prev page-numbers" href="'$(( currentPageNumber - 1 ))'/">&laquo; Previous (p. '$(( currentPageNumber - 1 ))')</a></li>'
+                echo '        <li><a class="prev page-numbers" href="'"$(getPageFromPageNumber $(( currentPageNumber - 1 )))"'/">&laquo; Previous (p. '$(( currentPageNumber - 1 ))')</a></li>'
             fi
             echo '        <li><span class="page-numbers current">'"$currentPageNumber"'</span></li>'
             if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; then
-                echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
+                echo '        <li><a class="next page-numbers" href="page-'$(( currentPageNumber + 1 ))'.htm">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
             fi
             if [[ "$numPostsRemaining" -gt $(( maxPostsPerPage * 2 )) ]]; then
-                echo '        <li><a class="last page-numbers" href="'"$numPages"'/">Last (p. '"$numPages"') ↠</a></li>'
+                echo '        <li><a class="last page-numbers" href="page-'"$numPages"'.htm">Last (p. '"$numPages"') ↠</a></li>'
             fi
             echo '        <li>'
             echo '            <form class="wpsp-page-nav-form" action="./" method="get">'
