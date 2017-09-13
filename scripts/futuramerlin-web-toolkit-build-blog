@@ -19,6 +19,7 @@ cd "$destDir" || die
 
 blogTitle="$(sed '1q;d' futuramerlin-web-toolkit-blog.conf)"
 breadcrumbPrefix="$(sed '2q;d' futuramerlin-web-toolkit-blog.conf)"
+breadcrumbHomeName="$(sed '3q;d' futuramerlin-web-toolkit-blog.conf)"
 # e.g. <span><a href="/ancillary/ready-to-use.htm">Software</a></span> <span><a href="/ancillary/wreathe">Wreathe</a></span>
 
 # Count the number of posts
@@ -39,6 +40,20 @@ makeIndexPage() {
         pageSuffix=""
     fi
     printf '%s\n\n' '<h1>'"$blogTitle$pageSuffix"'</h1>' > "$indexPageName"
+
+    # Index page breadcrumbs
+    [[ -z "$breadcrumbHomeName" ]] && breadcrumbHomeName="Home"
+    echo '<p class="breadcrumbs">Page location:'
+    if [[ -n "$breadcrumbPrefix" ]]; then
+        echo "$breadcrumbPrefix"
+    else
+        echo '    <span><a href="..">'"$breadcrumbHomeName"'</a></span>'
+    fi
+    echo '    <span><a href="../../..">'"$blogTitle"'</a></span>'
+    if [[ "$currentPageNumber" != "1" ]]; then
+        echo '    <span><a href="../../../page-'"$currentPageNumber"'.htm">Page '"$currentPageNumber"'</a></span>'
+    fi
+    echo '</p>'$'\n'
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
@@ -84,9 +99,9 @@ makeIndexPage() {
             echo
             echo '<p class="breadcrumbs">Page location:'
             [[ -n "$breadcrumbPrefix" ]] && echo "$breadcrumbPrefix"
-            echo '<span><a href="../../..">'"$blogTitle"'</a></span>'
+            echo '    <span><a href="../../..">'"$blogTitle"'</a></span>'
             if [[ "$currentPageNumber" != "1" ]]; then
-                echo '<span><a href="../../../page-'"$currentPageNumber"'.htm">Page '"$currentPageNumber"'</a></span>'
+                echo '    <span><a href="../../../page-'"$currentPageNumber"'.htm">Page '"$currentPageNumber"'</a></span>'
             fi
             echo '</p>'$'\n'
             echo "$currentPostBody"
