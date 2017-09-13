@@ -11,6 +11,8 @@ destDir="$(readlink -f "$2")"
 
 maxPostsPerPage="5"
 
+blogTitle="$(<futuramerlin-web-toolkit-blog.conf)"
+
 [[ -e "$destDir" ]] && rm -r "$destDir"
 
 rsync -a --checksum "$sourceDir/" "$destDir"
@@ -27,24 +29,14 @@ if [[ "$numPosts" -gt $(( numPages * maxPostsPerPage )) ]]; then
 fi
 
 makeIndexPage() {
-    # if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
-    #     # Create redirect page
-    #     mkdir "$currentPageNumber"
-    #     if [[ "$currentPageNumber" == "1" ]]; then
-    #         echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-    #     else
-    #         echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="refresh" content="0; url=../page-'"$currentPageNumber"'.htm"> </head> <body> </body> </html>' > "$currentPageNumber/index.html"
-    #     fi
-    # fi
-
-    # Create actual index page
+    # Create index page
     local indexPageName="page-$currentPageNumber.htm"
     pageSuffix=": Page $currentPageNumber"
     if [[ "$currentPageNumber" == "1" ]]; then
         indexPageName="index.htm"
         pageSuffix=""
     fi
-    printf '%s\n\n' '<h1>Ember Blog'"$pageSuffix"'</h1>' > "$indexPageName"
+    printf '%s\n\n' '<h1>'"$blogTitle$pageSuffix"'</h1>' > "$indexPageName"
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
@@ -66,7 +58,7 @@ makeIndexPage() {
         currentPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$currentPostNumber"p)"
         echo "$currentPostPath"
         currentPostTitle="$(head -n 1 "$currentPostPath")"
-        currentPostTitle="${currentPostTitle/<h1 class=\"title\">/}"
+        currentPostTitle="${currentPostTitle/<h1>/}"
         currentPostTitle="${currentPostTitle%<\/h1>}"
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
@@ -101,7 +93,7 @@ makeIndexPage() {
                 nextPostMonth="$(basename "$nextPostMonth")"
                 local nextPostTitle
                 nextPostTitle="$(head -n 1 "$nextPostPath")"
-                nextPostTitle="${nextPostTitle/<h1 class=\"title\">/}"
+                nextPostTitle="${nextPostTitle/<h1>/}"
                 nextPostTitle="${nextPostTitle%<\/h1>}"
                 {
                     echo '    <div class="nav-previous">'
