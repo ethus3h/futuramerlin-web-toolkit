@@ -104,7 +104,7 @@ makeIndexPage() {
             if [[ "$currentPageNumber" != "1" ]]; then
                 echo '    <span><a href="../../../page-'"$currentPageNumber"'.htm">Page '"$currentPageNumber"'</a></span>'
             fi
-            echo '</p>'$'\n'
+            echo '</p>'
             echo "$currentPostBody"
         } > "$currentPostPath"
         # TODO: breadcrumb generation
