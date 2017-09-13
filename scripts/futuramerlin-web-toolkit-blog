@@ -143,12 +143,12 @@ makeIndexPage() {
             if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; then
                 echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
             fi
-            filledPages=$(( numPosts / maxPostsPerPage ))
+            numPages=$(( numPosts / maxPostsPerPage ))
             if [[ "$numPosts" -gt $(( filledPages * maxPostsPerPage )) ]]; then
-                
-            lastPossiblePage=
-            if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]] && [[ "$currentPageNumber" != "1" ]]; then
-                echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
+                numPages=$(( numPages + 1 ))
+            fi
+            if [[ "$numPostsRemaining" -gt $(( maxPostsPerPage * 2 )) ]]; then
+                echo '        <li><a class="last page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
             fi
             echo '        <li>'
             echo '            <form class="wpsp-page-nav-form" action="./" method="get">'
