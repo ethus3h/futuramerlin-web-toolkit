@@ -9,7 +9,7 @@ sourceDir="$(readlink -f "$1")"
 
 destDir="$(readlink -f "$2")"
 
-maxPostsPerPage="5"
+maxPostsPerPage="25"
 
 [[ -e "$destDir" ]] && rm -r "$destDir"
 
