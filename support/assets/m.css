@@ -106,6 +106,7 @@
             display: inline-block;
             margin-left: -.75rem;
             padding-right: 2rem;
+            padding-bottom: 1rem;
         }
 
         .note-emphasis, .song-title, .meta-nav, .foreign-text, a.logolink {
