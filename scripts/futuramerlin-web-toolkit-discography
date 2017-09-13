@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
+
+# set -x
+
+discographyDir="$(dirname(readlink -f "$1"))"
+cd $discographyDir
+futuramerlin-web-toolkit-build-discography "$blogDir" "$tempDir"
+rm -r "$blogDir"
+mv "$tempDir" "$blogDir"
