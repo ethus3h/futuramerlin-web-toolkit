@@ -41,7 +41,7 @@ makeIndexPage() {
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
-    while [[ "$loopPostNumber" -lt "$maxPostsPerPage" ]]; do
+    while [[ "$loopPostNumber" -le "$maxPostsPerPage" ]]; do
 
         local previousPostPath="$currentPostPath"
         local previousPostFilename
@@ -73,24 +73,6 @@ makeIndexPage() {
         currentPostYear="$(basename "$(dirname "$currentPostMonth")")"
         currentPostMonth="$(basename "$currentPostMonth")"
 
-        local nextPostNumber=$(( currentPostNumber + 1 ))
-        local nextPostPath
-        nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -print0 | sort -z -r   | sed -z -n "$nextPostNumber"p)"
-        local nextPostFilename
-        nextPostFilename="$(basename "$nextPostPath")"
-        local nextPostDay
-        nextPostDay="$(dirname "$nextPostPath")"
-        local nextPostMonth
-        nextPostMonth="$(dirname "$nextPostDay")"
-        nextPostDay="$(basename "$nextPostDay")"
-        local nextPostYear
-        nextPostYear="$(basename "$(dirname "$nextPostMonth")")"
-        nextPostMonth="$(basename "$nextPostMonth")"
-        local nextPostTitle
-        nextPostTitle="$(head -n 1 "$nextPostPath")"
-        nextPostTitle="${nextPostTitle/<h1 class=\"title\">/}"
-        nextPostTitle="${nextPostTitle%<\/h1>}"
-
         if [[ "$numPosts" != "1" ]]; then
             # Create footer navigation widget for the individual post
 
@@ -105,6 +87,23 @@ makeIndexPage() {
             fi
 
             if [[ "$currentPostNumber" != "$numPosts" ]]; then
+                local nextPostNumber=$(( currentPostNumber + 1 ))
+                local nextPostPath
+                nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -print0 | sort -z -r   | sed -z -n "$nextPostNumber"p)"
+                local nextPostFilename
+                nextPostFilename="$(basename "$nextPostPath")"
+                local nextPostDay
+                nextPostDay="$(dirname "$nextPostPath")"
+                local nextPostMonth
+                nextPostMonth="$(dirname "$nextPostDay")"
+                nextPostDay="$(basename "$nextPostDay")"
+                local nextPostYear
+                nextPostYear="$(basename "$(dirname "$nextPostMonth")")"
+                nextPostMonth="$(basename "$nextPostMonth")"
+                local nextPostTitle
+                nextPostTitle="$(head -n 1 "$nextPostPath")"
+                nextPostTitle="${nextPostTitle/<h1 class=\"title\">/}"
+                nextPostTitle="${nextPostTitle%<\/h1>}"
                 {
                     echo '    <div class="nav-next">'
                     echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$nextPostTitle"'<span class="meta-nav"> &rarr;</span></a>'
