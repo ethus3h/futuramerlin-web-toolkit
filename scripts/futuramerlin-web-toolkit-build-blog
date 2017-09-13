@@ -72,6 +72,12 @@ makeIndexPage() {
         currentPostYear="$(basename "$(dirname "$currentPostMonth")")"
         currentPostMonth="$(basename "$currentPostMonth")"
 
+        # TODO: breadcrumb generation
+        # <p class="breadcrumbs">Page location:
+        #     <span><a href="/ancillary/ready-to-use.htm">Software</a></span>
+        #     <span><a href="/ancillary/wreathe">Wreathe</a></span>
+        # </p>
+
         if [[ "$numPosts" != "1" ]]; then
             # Create footer navigation widget for the individual post
             # The next and previous are mixed up in this code because the indexes are built in reverse order by date
