@@ -97,15 +97,19 @@ makeIndexPage() {
             printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
 
             if [[ "$currentPostNumber" != "1" ]]; then
-                echo '    <div class="nav-previous">' >> "$currentPostPath"
-                echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$previousPostTitle"'</a>' >> "$currentPostPath"
-                echo '    </div>' >> "$currentPostPath"
+                {
+                    echo '    <div class="nav-previous">'
+                    echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$previousPostTitle"'</a>'
+                    echo '    </div>'
+                } >> "$currentPostPath"
             fi
 
             if [[ "$currentPostNumber" != "$numPosts" ]]; then
-                echo '    <div class="nav-next">' >> "$currentPostPath"
-                echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$nextPostTitle"'<span class="meta-nav"> &rarr;</span></a>' >> "$currentPostPath"
-                echo '    </div>' >> "$currentPostPath"
+                {
+                    echo '    <div class="nav-next">'
+                    echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$nextPostTitle"'<span class="meta-nav"> &rarr;</span></a>'
+                    echo '    </div>'
+                } >> "$currentPostPath"
             fi
 
             echo '</footer>' >> "$currentPostPath"
