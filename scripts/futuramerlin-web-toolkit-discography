@@ -3,7 +3,9 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-# set -x
+set -x
 
+pwd
 cd "$(dirname"$(readlink -f "$1")")"
+pwd
 futuramerlin-web-toolkit-build-discography
