@@ -115,7 +115,11 @@ makeIndexPage() {
         fi
         
         # Add the post to the index page
-        echo '<h2 class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"']</span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></h2>'$'\n' >> "$indexPageName"
+        postIndexLineSuffix=$'\n'
+        if [[ "$loopPostNumber" == "$maxPostsPerPage" ]]; then
+            postIndexLineSuffix=""
+        fi
+        echo '<h2 class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"']</span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></h2>'"$postIndexLineSuffix" >> "$indexPageName"
 
         currentPostNumber=$(( currentPostNumber + 1 ))
         loopPostNumber=$(( loopPostNumber + 1 ))
