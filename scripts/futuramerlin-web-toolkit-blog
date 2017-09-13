@@ -79,17 +79,9 @@ makeIndexPage() {
             printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
 
             if [[ "$currentPostNumber" != "1" ]]; then
-                {
-                    echo '    <div class="nav-previous">'
-                    echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$previousPostTitle"'</a>'
-                    echo '    </div>'
-                } >> "$currentPostPath"
-            fi
-
-            if [[ "$currentPostNumber" != "$numPosts" ]]; then
                 local nextPostNumber=$(( currentPostNumber + 1 ))
                 local nextPostPath
-                nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -print0 | sort -z -r   | sed -z -n "$nextPostNumber"p)"
+                nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -print0 | sort -z -r | sed -z -n "$nextPostNumber"p)"
                 local nextPostFilename
                 nextPostFilename="$(basename "$nextPostPath")"
                 local nextPostDay
@@ -105,8 +97,16 @@ makeIndexPage() {
                 nextPostTitle="${nextPostTitle/<h1 class=\"title\">/}"
                 nextPostTitle="${nextPostTitle%<\/h1>}"
                 {
+                    echo '    <div class="nav-previous">'
+                    echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$nextPostTitle"'</a>'
+                    echo '    </div>'
+                } >> "$currentPostPath"
+            fi
+
+            if [[ "$currentPostNumber" != "$numPosts" ]]; then
+                {
                     echo '    <div class="nav-next">'
-                    echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$nextPostTitle"'<span class="meta-nav"> &rarr;</span></a>'
+                    echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$previousPostTitle"'<span class="meta-nav"> &rarr;</span></a>'
                     echo '    </div>'
                 } >> "$currentPostPath"
             fi
