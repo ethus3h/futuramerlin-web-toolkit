@@ -149,7 +149,8 @@ makeIndexPage() {
                 echo '        <li><a class="first page-numbers" href=".">↞ First (p. 1)</a></li>'
             fi
             if [[ "$currentPageNumber" != "1" ]]; then
-                echo '        <li><a class="prev page-numbers" href="'"$(getPageFromPageNumber $(( currentPageNumber - 1 )))"'/">&laquo; Previous (p. '$(( currentPageNumber - 1 ))')</a></li>'
+                local previousPageNumber=$(( currentPageNumber - 1 ))
+                echo '        <li><a class="prev page-numbers" href="'"$(getPageFromPageNumber "$previousPageNumber")"'/">&laquo; Previous (p. '$(( currentPageNumber - 1 ))')</a></li>'
             fi
             echo '        <li><span class="page-numbers current">'"$currentPageNumber"'</span></li>'
             if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; then
