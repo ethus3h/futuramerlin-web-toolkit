@@ -867,11 +867,11 @@
             font-size: 1.45rem;
         }
 
-        .pagination > div {
+        .pagination {
             padding: .5rem;
         }
 
-        .pagination > div > ul {
+        .pagination > ul {
             list-style-type: none;
             display: flex;
             flex-wrap: wrap;
@@ -884,7 +884,7 @@
             border-top: 0.063rem solid #fff;
         }
 
-        .pagination > div > ul > li {
+        .pagination > ul > li {
             display: inline;
             flex-grow: 1;
             text-align: center;
@@ -892,11 +892,11 @@
             border-bottom: 0.063rem solid #fff;
         }
 
-        .pagination > div > ul > li::before {
+        .pagination > ul > li::before {
             content: none;
         }
 
-        .pagination > div > ul > li:last-of-type {
+        .pagination > ul > li:last-of-type {
             position: relative;
             padding: 1rem;
             width: 100%;
