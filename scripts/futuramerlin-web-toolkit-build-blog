@@ -11,13 +11,13 @@ destDir="$(readlink -f "$2")"
 
 maxPostsPerPage="5"
 
-blogTitle="$(<futuramerlin-web-toolkit-blog.conf)"
-
 [[ -e "$destDir" ]] && rm -r "$destDir"
 
 rsync -a --checksum "$sourceDir/" "$destDir"
 
 cd "$destDir" || die
+
+blogTitle="$(<futuramerlin-web-toolkit-blog.conf)"
 
 # Count the number of posts
 
