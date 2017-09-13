@@ -44,7 +44,7 @@ makeIndexPage() {
         indexPageName="index.htm"
         pageSuffix=""
     fi
-    printf '%s\n\n' '<h1 class="title">Ember Blog'"$pageSuffix"'</h1>' > "$indexPageName"
+    printf '%s\n\n' '<h1>Ember Blog'"$pageSuffix"'</h1>' > "$indexPageName"
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"

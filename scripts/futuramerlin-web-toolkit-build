@@ -60,11 +60,11 @@ echo "Environment ready; building site..."
             echo "Done pre-build-hooks."
         fi
         tempFile="$(tempFile)"
-        find . -name "futuramerlin-web-toolkit-discography.conf" -printf %p\\0 > "$tempFile"
+        find . -name "futuramerlin-web-toolkit-discography.conf" -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
             futuramerlin-web-toolkit-discography "$currentFileName"
         done < "$tempFile"
-        find . -name "futuramerlin-web-toolkit-blog.conf" -printf %p\\0 > "$tempFile"
+        find . -name "futuramerlin-web-toolkit-blog.conf" -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
             futuramerlin-web-toolkit-blog "$currentFileName"
         done < "$tempFile"
