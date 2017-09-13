@@ -17,7 +17,9 @@ rsync -a --checksum "$sourceDir/" "$destDir"
 
 cd "$destDir" || die
 
-blogTitle="$(<futuramerlin-web-toolkit-blog.conf)"
+blogTitle="$(sed '1q;d' futuramerlin-web-toolkit-blog.conf)"
+breadcrumbPrefix="$(sed '2q;d' futuramerlin-web-toolkit-blog.conf)"
+# e.g. <span><a href="/ancillary/ready-to-use.htm">Software</a></span> <span><a href="/ancillary/wreathe">Wreathe</a></span>
 
 # Count the number of posts
 
