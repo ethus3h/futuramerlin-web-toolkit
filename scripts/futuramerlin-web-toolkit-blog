@@ -18,3 +18,5 @@ tempDir="$(tempDir)"
 futuramerlin-web-toolkit-build-blog "$blogDir" "$tempDir"
 rm -r "$blogDir"
 mv "$tempDir" "$blogDir"
+
+finish
