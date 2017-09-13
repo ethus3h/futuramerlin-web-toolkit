@@ -58,7 +58,7 @@ echo "Environment ready; building site..."
             echo "Done pre-build-hooks."
         fi
         # find . -name ".futuramerlin-web-toolkit-discography.conf" -exec 
-        find . -name ".futuramerlin-web-toolkit-blog.conf" -exec 
+        find . -name ".futuramerlin-web-toolkit-blog.conf" -exec futuramerlin-web-toolkit-blog {} \;
         traversedirectory() {
             echo "Entered directory $1..."
             #Iterate over the contents of the directory at $1

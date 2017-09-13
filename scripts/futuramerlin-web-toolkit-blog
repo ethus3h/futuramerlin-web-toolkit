@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
-
 # set -x
+
+finish() {
+    (
+        if [[ -e "${tempDir:?}" ]]; then
+            rm -r "${tempDir:?}"
+        fi
+    )
+}
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; finish; exit 1' ERR
+trap finish EXIT
 
 blogDir="$(dirname(readlink -f "$1"))"
 tempDir="$(tempDir)"
+futuramerlin-web-toolkit-build-blog "$blogDir" "$tempDir"
+rm -r "$blogDir"
+mv "$tempDir" "$blogDir"
