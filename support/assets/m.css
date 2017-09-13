@@ -100,6 +100,14 @@
             font-style: italic;
         }
 
+        .post-index-date {
+            color: #666666;
+            min-width: 20%;
+            display: inline-block;
+            margin-left: -.75rem;
+            padding-right: 2rem;
+        }
+
         .note-emphasis, .song-title, .meta-nav, .foreign-text, a.logolink {
             font-style: italic;
         }
@@ -795,71 +803,6 @@
             padding-left: 1rem;
         }
 
-    /* WordPress post revisions */
-
-        div.post-revisions,
-        .single-post > .entry-footer,
-        div.revision-header,
-        #revision-diffs,
-        .pagination {
-            background-color: rgba(0, 0, 0, 0.07);
-        }
-
-        div.revision-header,
-        #revision-diffs,
-        div.post-revisions,
-        .pagination {
-            padding: 1rem;
-            font-size: 1.1rem;
-        }
-
-        div.post-revisions,
-        .pagination {
-            margin-top: 1rem;
-        }
-
-        .post-revisions > h4 {
-            border-top: none;
-        }
-
-        .post-revisions > h4::before,
-        .post-revisions > h4::after {
-            display: none;
-        }
-
-        div.revision-header {
-            margin-bottom: 1rem;
-        }
-
-        #revision-diffs {
-            position: relative;
-            overflow: auto;
-        }
-
-        #revision-diffs::before {
-            content: none;
-            display: block;
-            padding-top: 50%;
-        }
-
-        #revision-diffs > div {
-            position: absolute;
-            padding: 1rem;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-        }
-
-        #revision-diffs > div > .diff {
-            padding-top: 2rem;
-        }
-
-        div.post-revisions,
-        #revision-diffs {
-            border-bottom: 0.095rem solid rgba(0, 0, 0, 0.5);
-        }
-
     /* Pagination */
 
         .pagination::before {
@@ -868,10 +811,10 @@
         }
 
         .pagination {
+            font-size: 1.1rem;
+            margin-top: 1rem;
             padding: .5rem;
             background-color: rgba(0, 0, 0, 0.07);
-            padding: 1rem;
-            font-size: 1.1rem;
         }
 
         .pagination > ul {
@@ -1729,12 +1672,6 @@
         width: device-width;
         height: device-height;
         user-scalable: yes;
-    }
-
-/* Things to hide */
-
-    .edit-link {
-        display: none;
     }
 
 /* @font-face declarations */

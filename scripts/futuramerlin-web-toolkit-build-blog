@@ -126,7 +126,7 @@ makeIndexPage() {
         if [[ "$loopPostNumber" == "$maxPostsPerPage" ]] && [[ "$numPosts" -le "$maxPostsPerPage" ]]; then
             postIndexLineSuffix=""
         fi
-        echo '<h2 class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"'] </span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></h2>'"$postIndexLineSuffix" >> "$indexPageName"
+        echo '<p class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"'] </span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></p>'"$postIndexLineSuffix" >> "$indexPageName"
 
         currentPostNumber=$(( currentPostNumber + 1 ))
         loopPostNumber=$(( loopPostNumber + 1 ))
