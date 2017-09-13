@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-set -x
+# set -x
 
 sourceDir="$(readlink -f "$1")"
 
@@ -41,7 +41,7 @@ makeIndexPage() {
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
-    while [[ "$loopPostNumber" -le "$maxPostsPerPage" ]]; do
+    while [[ "$loopPostNumber" -lt "$maxPostsPerPage" ]]; do
 
         local previousPostPath="$currentPostPath"
         local previousPostFilename
