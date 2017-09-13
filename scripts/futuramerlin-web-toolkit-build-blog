@@ -43,7 +43,7 @@ makeIndexPage() {
     while [[ "$loopPostNumber" -le "$maxPostsPerPage" ]] && [[ "$currentPostNumber" -le "$numPosts" ]]; do
         local previousPostPath="$currentPostPath"
         local previousPostFilename
-        previousPostFilename="$($(dirname "$previousPostPath")/basename "$previousPostPath")"
+        previousPostFilename="$(basename "$(dirname "$previousPostPath")")/$(basename "$previousPostPath")"
         local previousPostDay
         previousPostDay="$(dirname "$(dirname "$previousPostPath")")"
         local previousPostMonth
@@ -62,7 +62,7 @@ makeIndexPage() {
         currentPostTitle="${currentPostTitle%<\/h1>}"
         ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
         local currentPostFilename
-        currentPostFilename="$($(dirname "$currentPostPath")/basename "$currentPostPath")"
+        currentPostFilename="$(basename "$(dirname "$currentPostPath")")/$(basename "$currentPostPath")"
         local currentPostDay
         currentPostDay="$(dirname "$(dirname "$currentPostPath")")"
         local currentPostMonth
@@ -83,7 +83,7 @@ makeIndexPage() {
                 local nextPostPath
                 nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$nextPostNumber"p)"
                 local nextPostFilename
-                nextPostFilename="$(dirname "$nextPostPath")/$(basename "$nextPostPath")"
+                nextPostFilename="$(basename "$(dirname "$nextPostPath")")/$(basename "$nextPostPath")"
                 local nextPostDay
                 nextPostDay="$(dirname "$(dirname "$nextPostPath")")"
                 local nextPostMonth
