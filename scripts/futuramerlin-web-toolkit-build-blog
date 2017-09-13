@@ -43,9 +43,9 @@ makeIndexPage() {
     while [[ "$loopPostNumber" -le "$maxPostsPerPage" ]] && [[ "$currentPostNumber" -le "$numPosts" ]]; do
         local previousPostPath="$currentPostPath"
         local previousPostFilename
-        previousPostFilename="$($(dirname "$previousPostPath")/basename "$previousPostPath")"
+        previousPostFilename="$(basename "$previousPostPath")"
         local previousPostDay
-        previousPostDay="$(dirname "$(dirname "$previousPostPath")")"
+        previousPostDay="$(dirname "$previousPostPath")"
         local previousPostMonth
         previousPostMonth="$(dirname "$previousPostDay")"
         previousPostDay="$(basename "$previousPostDay")"
@@ -62,9 +62,9 @@ makeIndexPage() {
         currentPostTitle="${currentPostTitle%<\/h1>}"
         ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
         local currentPostFilename
-        currentPostFilename="$($(dirname "$currentPostPath")/basename "$currentPostPath")"
+        currentPostFilename="$(basename "$currentPostPath")"
         local currentPostDay
-        currentPostDay="$(dirname "$(dirname "$currentPostPath")")"
+        currentPostDay="$(dirname "$currentPostPath")"
         local currentPostMonth
         currentPostMonth="$(dirname "$currentPostDay")"
         currentPostDay="$(basename "$currentPostDay")"
@@ -83,9 +83,9 @@ makeIndexPage() {
                 local nextPostPath
                 nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$nextPostNumber"p)"
                 local nextPostFilename
-                nextPostFilename="$(dirname "$nextPostPath")/$(basename "$nextPostPath")"
+                nextPostFilename="$(basename "$nextPostPath")"
                 local nextPostDay
-                nextPostDay="$(dirname "$(dirname "$nextPostPath")")"
+                nextPostDay="$(dirname "$nextPostPath")"
                 local nextPostMonth
                 nextPostMonth="$(dirname "$nextPostDay")"
                 nextPostDay="$(basename "$nextPostDay")"
