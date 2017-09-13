@@ -5,10 +5,8 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 # set -x
 
-cd tests || die
+[[ -e "run" ]] && rm -r "run"
 
-runTest blog-1page
-runTest blog-2page
-runTest blog-3page
+../../futuramerlin-web-toolkit-blog "in" "run"
 
-reportTests
+assert directoryEquals "out" "run"
