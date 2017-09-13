@@ -255,52 +255,16 @@
             float: right;
         }
 
-    /* WordPress post metadata */
+    /* Blog post metadata */
 
-        .entry-footer {
-            padding: 1rem;
-            font-size: 1.25rem;
-        }
-
-        div.entry-meta {
+        p.posted-on {
             font-size: 1.35rem;
             text-align: right;
             top: 0;
             right: 0;
             padding: 1rem;
             float: left;
-        }
-
-        .single-post > .entry-header > .entry-meta {
-            text-align: right;
-            top: 0;
-            right: 0;
-            padding-right: 1rem;
             padding-top: 0;
-        }
-
-        .article-rest > .entry-footer {
-            max-height: 4.1rem;
-            overflow-y: auto;
-        }
-
-        .article-rest > .entry-footer > .tags-links {
-            font-size: 1rem;
-        }
-
-        .article-rest > .entry-footer > .tags-links::before {
-            content: "Tags:\00a0";
-            padding: 1rem;
-        }
-
-        .article-rest > .entry-footer > .cat-links {
-            font-size: 1.2rem;
-        }
-
-        .article-rest > .entry-footer > .cat-links::before {
-            content: "Categories:\00a0";
-            padding: 0.8rem;
-            padding-right: 0.5rem;
         }
 
         .entry-title {
