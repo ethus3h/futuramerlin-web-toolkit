@@ -50,7 +50,7 @@ perl_ere_quote() {
 export -f perl_ere_quote
 title="$(perl_ere_quote $title)"
 if [[ -n "$title" ]]; then
-    replace="s/<title>@FMWTK_SITE_NAME@<\/title>/<title>$title &mdash; @FMWTK_SITE_NAME@<\/title>/g"
+    replace="s/<title>\@FMWTK_SITE_NAME\@<\/title>/<title>$title &mdash; \@FMWTK_SITE_NAME\@<\/title>/g"
     perl -0777 -p -i -e "$replace" "../../built/$1"
 fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
