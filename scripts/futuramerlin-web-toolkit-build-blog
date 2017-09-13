@@ -42,18 +42,19 @@ makeIndexPage() {
     printf '%s\n\n' '<h1>'"$blogTitle$pageSuffix"'</h1>' > "$indexPageName"
 
     # Index page breadcrumbs
-    [[ -z "$breadcrumbHomeName" ]] && breadcrumbHomeName="Home"
-    echo '<p class="breadcrumbs">Page location:'
-    if [[ -n "$breadcrumbPrefix" ]]; then
-        echo "$breadcrumbPrefix"
-    else
-        echo '    <span><a href="..">'"$breadcrumbHomeName"'</a></span>'
-    fi
-    echo '    <span><a href="../../..">'"$blogTitle"'</a></span>'
-    if [[ "$currentPageNumber" != "1" ]]; then
-        echo '    <span><a href="../../../page-'"$currentPageNumber"'.htm">Page '"$currentPageNumber"'</a></span>'
-    fi
-    echo '</p>'$'\n'
+    {
+        [[ -z "$breadcrumbHomeName" ]] && breadcrumbHomeName="Home"
+        echo '<p class="breadcrumbs">Page location:'
+        if [[ -n "$breadcrumbPrefix" ]]; then
+            echo "$breadcrumbPrefix"
+        else
+            echo '    <span><a href="..">'"$breadcrumbHomeName"'</a></span>'
+        fi
+        if [[ "$currentPageNumber" != "1" ]]; then
+            echo '    <span><a href=".">'"$blogTitle"'</a></span>'
+        fi
+        echo '</p>'$'\n'
+    } >> "$indexPageName"
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
