@@ -97,11 +97,8 @@ makeIndexPage() {
             echo '</footer>' >> "$currentPostPath"
         fi
         
-        currentPostMonthName="$(date -d "$currentPostYear-$currentPostMonth-$currentPostDay" '+%B')"
-        
         # Add the post to the index page
-        echo '<h2 class="entry-title"><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostDay $currentPostMonthName, $currentPostYear: $currentPostTitle"'</a></h2>' >> "$indexPageName"
-        currentPostExcerpt="$(tail -n +2 "$currentPostPath" | unoconv -f txt --stdin --stdout | normalizeWhitespace)"
+        echo '<h2 class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"']</span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></h2>' >> "$indexPageName"
         echo "<p>$currentPostExcerpt <a href="$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename">…</a></p>" >> "$indexPageName"
 
 
