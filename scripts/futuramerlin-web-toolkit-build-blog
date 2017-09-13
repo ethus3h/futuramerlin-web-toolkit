@@ -100,6 +100,8 @@ makeIndexPage() {
         {
             echo "$currentPostFirstLine"
             echo
+            echo '<p class="posted-on">[&#x1f551;:&nbsp;'"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"']</p>'
+            echo
             echo '<p class="breadcrumbs">Page location:'
             [[ -n "$breadcrumbPrefix" ]] && echo "$breadcrumbPrefix"
             echo '    <span><a href="../../..">'"$blogTitle"'</a></span>'
