@@ -5,10 +5,10 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 #set -x
 
 #Version:
-futuramerlinWebToolkitVersion='2.2.7'
+futuramerlinWebToolkitVersion='2.2.8'
 
 # The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
-# ( sudo true; newVersion="2.2.7"; cd "/Ember Library/Ember satellite projects/futuramerlin-web-toolkit"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-*.ebuild "app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge futuramerlin-web-toolkit )
+# ( sudo true; newVersion="2.2.8"; cd "/Ember Library/Ember satellite projects/futuramerlin-web-toolkit"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-*.ebuild "app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-$newVersion.ebuild"; repoman manifest; egup-single; sudo layman -s wreathe-overlay; sudo emerge futuramerlin-web-toolkit )
 
 shopt -s extglob
 
@@ -25,7 +25,7 @@ fi
 echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
 futuramerlinWebToolkitSiteName="$(preadconf siteName "$futuramerlinWebToolkitConfigFileName")"
 futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation "$futuramerlinWebToolkitConfigFileName")"
-rm -rf ./futuramerlin-web-toolkit-output
+rm -rf ./futuramerlin-web-toolkit-output ./built ./source
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
 find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
