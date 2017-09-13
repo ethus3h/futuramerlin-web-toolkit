@@ -9,6 +9,6 @@ cd tests || die
 
 runTest blog-1page
 runTest blog-2page
-runTest -v blog-3page
+runTest blog-3page
 
 reportTests
