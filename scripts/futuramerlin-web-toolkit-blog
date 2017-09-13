@@ -5,6 +5,5 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 # set -x
 
-blogConf="$(readlink -f "$1")"
-
-blogDir=
+blogDir="$(dirname(readlink -f "$1"))"
+tempDir="$(tempDir)"
