@@ -8,7 +8,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 cd tests || die
 
 runTest blog-1page
-runTest -v blog-2page
+runTest blog-2page
 runTest blog-3page
 
 reportTests
