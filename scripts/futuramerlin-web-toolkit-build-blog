@@ -9,17 +9,16 @@ sourceDir="$(readlink -f "$1")"
 
 destDir="$(readlink -f "$2")"
 
-maxPostsPerPage="25"
-
 [[ -e "$destDir" ]] && rm -r "$destDir"
 
 rsync -a --checksum "$sourceDir/" "$destDir"
 
 cd "$destDir" || die
 
-blogTitle="$(sed '1q;d' futuramerlin-web-toolkit-blog.conf)"
-breadcrumbPrefix="$(sed '2q;d' futuramerlin-web-toolkit-blog.conf)"
-breadcrumbHomeName="$(sed '3q;d' futuramerlin-web-toolkit-blog.conf)"
+maxPostsPerPage="$(sed '1q;d' futuramerlin-web-toolkit-blog.conf)"
+blogTitle="$(sed '2q;d' futuramerlin-web-toolkit-blog.conf)"
+breadcrumbPrefix="$(sed '3q;d' futuramerlin-web-toolkit-blog.conf)"
+breadcrumbHomeName="$(sed '4q;d' futuramerlin-web-toolkit-blog.conf)"
 # e.g. <span><a href="/ancillary/ready-to-use.htm">Software</a></span> <span><a href="/ancillary/wreathe">Wreathe</a></span>
 
 # Count the number of posts
