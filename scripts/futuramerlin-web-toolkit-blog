@@ -21,6 +21,11 @@ cd "$destDir" || die
 
 numPosts="$(find "$destDir" -type f -name "*.htm" -printf '.' | wc -c)"
 
+numPages=$(( numPosts / maxPostsPerPage ))
+if [[ "$numPosts" -gt $(( numPages * maxPostsPerPage )) ]]; then
+    numPages=$(( numPages + 1 ))
+fi
+
 makeIndexPage() {
     if [[ "$numPosts" -gt "$maxPostsPerPage" ]]; then
         # Create redirect page
@@ -143,12 +148,8 @@ makeIndexPage() {
             if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; then
                 echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
             fi
-            numPages=$(( numPosts / maxPostsPerPage ))
-            if [[ "$numPosts" -gt $(( filledPages * maxPostsPerPage )) ]]; then
-                numPages=$(( numPages + 1 ))
-            fi
             if [[ "$numPostsRemaining" -gt $(( maxPostsPerPage * 2 )) ]]; then
-                echo '        <li><a class="last page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
+                echo '        <li><a class="last page-numbers" href="'"$numPages"'/">Last (p. '"$numPages"') ↠</a></li>'
             fi
             echo '        <li>'
             echo '            <form class="wpsp-page-nav-form" action="./" method="get">'
