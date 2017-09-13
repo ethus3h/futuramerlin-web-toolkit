@@ -34,10 +34,12 @@ makeIndexPage() {
     
     # Create actual index page
     local indexPageName="page-$currentPageNumber.htm"
+    pageSuffix=": Page $currentPageNumber"
     if [[ "$currentPageNumber" == "1" ]]; then
         indexPageName="index.htm"
+        pageSuffix=""
     fi
-    printf '%s\n\n' '<h1 class="title">Ember Blog</h1>' > "$indexPageName"
+    printf '%s\n\n' '<h1 class="title">Ember Blog'"$pageSuffix"'</h1>' > "$indexPageName"
 
     # Loop over the posts that will go on this page and process them
     local loopPostNumber="1"
@@ -117,7 +119,7 @@ makeIndexPage() {
         
         # Add the post to the index page
         postIndexLineSuffix=$'\n'
-        if [[ "$loopPostNumber" == "$maxPostsPerPage" ]]; then
+        if [[ "$loopPostNumber" == "$maxPostsPerPage" ]] && [[ "$numPosts" -le "$maxPostsPerPage" ]]; then
             postIndexLineSuffix=""
         fi
         echo '<h2 class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"']</span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></h2>'"$postIndexLineSuffix" >> "$indexPageName"
