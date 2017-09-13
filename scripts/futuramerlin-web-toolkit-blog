@@ -133,11 +133,21 @@ makeIndexPage() {
             # Make index pagination widget, because there are more than one page
             echo '<footer class="pagination">'
             echo '    <ul>'
+            if [[ "$currentPageNumber" != "1" ]] && [[ "$currentPageNumber" != "2" ]]; then
+                echo '        <li><a class="first page-numbers" href="1/">↞ First (p. 1)</a></li>'
+            fi
             if [[ "$currentPageNumber" != "1" ]]; then
                 echo '        <li><a class="prev page-numbers" href="'$(( currentPageNumber - 1 ))'/">&laquo; Previous (p. '$(( currentPageNumber - 1 ))')</a></li>'
             fi
             echo '        <li><span class="page-numbers current">'"$currentPageNumber"'</span></li>'
             if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]]; then
+                echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
+            fi
+            filledPages=$(( numPosts / maxPostsPerPage ))
+            if [[ "$numPosts" -gt $(( filledPages * maxPostsPerPage )) ]]; then
+                
+            lastPossiblePage=
+            if [[ "$numPostsRemaining" -gt "$maxPostsPerPage" ]] && [[ "$currentPageNumber" != "1" ]]; then
                 echo '        <li><a class="next page-numbers" href="'$(( currentPageNumber + 1 ))'/">Next (p. '$(( currentPageNumber + 1 ))') &raquo;</a></li>'
             fi
             echo '        <li>'
