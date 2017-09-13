@@ -13,7 +13,7 @@ finish() {
 trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."; finish; exit 1' ERR
 trap finish EXIT
 
-blogDir="$(dirname(readlink -f "$1"))"
+blogDir="$(dirname"$(readlink -f "$1")")"
 tempDir="$(tempDir)"
 futuramerlin-web-toolkit-build-blog "$blogDir" "$tempDir"
 rm -r "$blogDir"

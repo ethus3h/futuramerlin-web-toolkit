@@ -5,5 +5,5 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
 # set -x
 
-cd "$(dirname(readlink -f "$1"))"
+cd "$(dirname"$(readlink -f "$1")")"
 futuramerlin-web-toolkit-build-discography
