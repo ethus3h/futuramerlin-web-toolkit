@@ -60,6 +60,7 @@ makeIndexPage() {
         currentPostTitle="$(head -n 1 "$currentPostPath")"
         currentPostTitle="${currentPostTitle/<h1>/}"
         currentPostTitle="${currentPostTitle%<\/h1>}"
+        ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
         local currentPostDay
