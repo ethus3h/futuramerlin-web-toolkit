@@ -80,7 +80,7 @@ makeIndexPage() {
 
             if [[ "$currentPostNumber" != "1" ]]; then
                 {
-                    echo '    <div class="nav-previous">'
+                    echo '    <div class="nav-next">'
                     echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$previousPostTitle"'</a>'
                     echo '    </div>'
                 } >> "$currentPostPath"
@@ -105,8 +105,8 @@ makeIndexPage() {
                 nextPostTitle="${nextPostTitle/<h1 class=\"title\">/}"
                 nextPostTitle="${nextPostTitle%<\/h1>}"
                 {
-                    echo '    <div class="nav-next">'
-                    echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$nextPostTitle"'<span class="meta-nav"> &rarr;</span></a>'
+                    echo '    <div class="nav-previous">'
+                    echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$nextPostTitle"'</a>'
                     echo '    </div>'
                 } >> "$currentPostPath"
             fi
