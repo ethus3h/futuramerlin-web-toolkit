@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO}."' ERR
 
-# set -x
+set -x
 
 sourceDir="$(readlink -f "$1")"
 
@@ -48,7 +48,9 @@ makeIndexPage() {
         if [[ -n "$breadcrumbPrefix" ]]; then
             echo "$breadcrumbPrefix"
         else
-            echo '    <span><a href="..">'"$breadcrumbHomeName"'</a></span>'
+            if [[ "$currentPageNumber" == "1" ]]; then
+                echo '    <span><a href="..">'"$breadcrumbHomeName"'</a></span>'
+            fi
         fi
         if [[ "$currentPageNumber" != "1" ]]; then
             echo '    <span><a href=".">'"$blogTitle"'</a></span>'
