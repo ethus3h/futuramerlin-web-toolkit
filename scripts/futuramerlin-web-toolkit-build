@@ -59,10 +59,16 @@ echo "Environment ready; building site..."
             ./.futuramerlin-web-toolkit/pre-build-hooks || warn "Pre-build-hooks failed; continuing anyway."
             echo "Done pre-build-hooks."
         fi
-        find . -name "futuramerlin-web-toolkit-discography.conf" -exec futuramerlin-web-toolkit-discography {} \;
-        find . -name "futuramerlin-web-toolkit-discography.conf" -printf %p\\0 >"$(tempFile)"
-        while IFS= read -r -d '' file; do   ...;  done <file
-        find . -name "futuramerlin-web-toolkit-blog.conf" -exec futuramerlin-web-toolkit-blog {} \;
+        tempFile="$(tempFile)"
+        find . -name "futuramerlin-web-toolkit-discography.conf" -printf %p\\0 > "$tempFile"
+        while IFS= read -r -d '' currentFileName; do
+            futuramerlin-web-toolkit-discography "$currentFileName"
+        done < "$tempFile"
+        find . -name "futuramerlin-web-toolkit-blog.conf" -printf %p\\0 > "$tempFile"
+        while IFS= read -r -d '' currentFileName; do
+            futuramerlin-web-toolkit-blog "$currentFileName"
+        done < "$tempFile"
+        rm "$tempFile"
         traversedirectory() {
             echo "Entered directory $1..."
             #Iterate over the contents of the directory at $1
