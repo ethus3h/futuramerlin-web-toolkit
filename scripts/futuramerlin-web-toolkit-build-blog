@@ -74,6 +74,23 @@ makeIndexPage() {
         currentPostYear="$(basename "$(dirname "$currentPostMonth")")"
         currentPostMonth="$(basename "$currentPostMonth")"
 
+        local currentPostFirstLine
+        currentPostFirstLine="$(head -n 1 "$currentPostPath")"
+        local currentPostBody
+        currentPostBody="$(tail -n +2 "$currentPostPath")"
+        # Post page breadcrumbs
+        {
+            echo "$currentPostFirstLine"
+            echo
+            echo '<p class="breadcrumbs">Page location:'
+            [[ -n "$breadcrumbPrefix" ]] && echo "$breadcrumbPrefix"
+            echo '<span><a href="../../..">'"$blogTitle"'</a></span>'
+            if [[ "$currentPageNumber" != "1" ]]; then
+                echo '<span><a href="../../../page-'"$currentPageNumber"'.htm">Page '"$currentPageNumber"'</a></span>'
+            fi
+            echo '</p>'$'\n'
+            echo "$currentPostBody"
+        } > "$currentPostPath"
         # TODO: breadcrumb generation
         # <p class="breadcrumbs">Page location:
         #     <span><a href="/ancillary/ready-to-use.htm">Software</a></span>
