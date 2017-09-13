@@ -75,16 +75,9 @@ makeIndexPage() {
 
         if [[ "$numPosts" != "1" ]]; then
             # Create footer navigation widget for the individual post
+            # The next and previous are mixed up in this code because the indexes are built in reverse order by date
 
             printf '\n%s\n' '<footer class="nav-links">' >> "$currentPostPath"
-
-            if [[ "$currentPostNumber" != "1" ]]; then
-                {
-                    echo '    <div class="nav-next">'
-                    echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$previousPostTitle"'</a>'
-                    echo '    </div>'
-                } >> "$currentPostPath"
-            fi
 
             if [[ "$currentPostNumber" != "$numPosts" ]]; then
                 local nextPostNumber=$(( currentPostNumber + 1 ))
@@ -107,6 +100,14 @@ makeIndexPage() {
                 {
                     echo '    <div class="nav-previous">'
                     echo '        <a href="../../../'"$nextPostYear/$nextPostMonth/$nextPostDay/$nextPostFilename"'" rel="prev"><span class="meta-nav">&larr; Previous post: </span>'"$nextPostTitle"'</a>'
+                    echo '    </div>'
+                } >> "$currentPostPath"
+            fi
+
+            if [[ "$currentPostNumber" != "1" ]]; then
+                {
+                    echo '    <div class="nav-next">'
+                    echo '        <a href="../../../'"$previousPostYear/$previousPostMonth/$previousPostDay/$previousPostFilename"'" rel="next"><span class="meta-nav">Next post: </span>'"$previousPostTitle"'</a>'
                     echo '    </div>'
                 } >> "$currentPostPath"
             fi
