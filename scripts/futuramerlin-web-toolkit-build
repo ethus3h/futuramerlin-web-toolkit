@@ -60,6 +60,8 @@ echo "Environment ready; building site..."
             echo "Done pre-build-hooks."
         fi
         find . -name "futuramerlin-web-toolkit-discography.conf" -exec futuramerlin-web-toolkit-discography {} \;
+        find . -name "futuramerlin-web-toolkit-discography.conf" -printf %p\\0 >"$(tempFile)"
+        while IFS= read -r -d '' file; do   ...;  done <file
         find . -name "futuramerlin-web-toolkit-blog.conf" -exec futuramerlin-web-toolkit-blog {} \;
         traversedirectory() {
             echo "Entered directory $1..."
