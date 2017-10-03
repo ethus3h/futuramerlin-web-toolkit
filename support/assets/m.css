@@ -552,6 +552,7 @@
         max-width: none;
         margin: 0;
         margin-bottom: 0.5rem;
+        padding: 0;
     }
 
     figure > a:hover > img,
