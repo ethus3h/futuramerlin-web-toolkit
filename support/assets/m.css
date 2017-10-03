@@ -624,7 +624,7 @@
         max-width: 100%;
     }
 
-    .thumbnail img {
+    .thumbnail-image {
         width: 20%;
         height: auto;
     }
