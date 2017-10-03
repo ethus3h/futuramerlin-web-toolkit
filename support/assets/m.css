@@ -286,32 +286,6 @@
             top: -4.75rem;
         }
 
-        .entry-title {
-            font-weight: bold;
-            font-size: 1.8rem;
-        }
-
-        .single-post > header > h1 {
-            background: none;
-        }
-
-        .post-navigation > h1 {
-            display: none;
-        }
-
-        .post-navigation {
-            font-size: 1.35rem;
-        }
-
-        .single-post > header > h1 {
-            display: table-cell;
-            padding-bottom: 0;
-        }
-
-        .single-post > img {
-            display: none;
-        }
-
 /* Links */
 
     a {
