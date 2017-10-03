@@ -256,44 +256,6 @@
             float: right;
         }
 
-    /* Blog post metadata */
-
-        p.posted-on {
-            font-size: 1.35rem;
-            text-align: right;
-            right: 0;
-            padding: 1rem;
-            float: right;
-            position: relative;
-            top: -4.75rem;
-        }
-
-        .entry-title {
-            font-weight: bold;
-            font-size: 1.8rem;
-        }
-
-        .single-post > header > h1 {
-            background: none;
-        }
-
-        .post-navigation > h1 {
-            display: none;
-        }
-
-        .post-navigation {
-            font-size: 1.35rem;
-        }
-
-        .single-post > header > h1 {
-            display: table-cell;
-            padding-bottom: 0;
-        }
-
-        .single-post > img {
-            display: none;
-        }
-
 /* Links */
 
     a {
@@ -624,15 +586,15 @@
     }
 
     figure.thumbnail-right > figcaption,
-    .wp-caption.alignright > figcaption,
+    .figure-captioned.alignright > figcaption,
     figure.thumbnail-left > figcaption,
-    .wp-caption.alignleft > figcaption,
+    .figure-captioned.alignleft > figcaption,
     .figcaption-empty::after {
         font-size: 1rem;
     }
 
     figure.thumbnail-right > figcaption::after,
-    .wp-caption.alignright > figcaption::after,
+    .figure-captioned.alignright > figcaption::after,
     .figcaption-empty::after {
         content: "\aTap image to view.";
         top: 0.25rem;
@@ -662,8 +624,13 @@
         max-width: 100%;
     }
 
+    .thumbnail img {
+        width: 20%;
+        height: auto;
+    }
+
     figure.thumbnail-left,
-    .wp-caption.alignleft {
+    .figure-captioned.alignleft {
         float: left;
         margin:1rem;
         margin-left: 0;
@@ -675,7 +642,7 @@
     }
 
     figure.thumbnail-left > figcaption::after,
-    .wp-caption.alignleft > figcaption::after, .center-image::after {
+    .figure-captioned.alignleft > figcaption::after, .center-image::after {
         content: "\aTap image to view.";
         top: 0.25rem;
         right: -0.5rem;
@@ -1924,7 +1891,7 @@
             }
             figure.thumbnail-right,
             .featured-image,
-            .wp-caption.alignright,
+            .figure-captioned.alignright,
             .figcaption-empty-figure,
             figure.floating-key {
                 margin: 1rem;
