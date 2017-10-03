@@ -60,6 +60,16 @@
         border: 0.063rem solid #ddd; 
     }
 
+    a > img {
+        transition: all 0.2s;
+        border: 0.063rem dotted #ddd;
+    }
+
+    a > img:hover {
+        transition: all 0.2s;
+        border: 0.063rem dotted #520f22;
+    }
+
     h1,h2,h3,h4,h5,h6, p, dt, dd {
         hyphens: auto;
     }
@@ -262,6 +272,44 @@
             right: calc(100% - 4rem);
             top: calc(100% - 4rem);
             float: right;
+        }
+
+    /* Blog post metadata */
+
+        p.posted-on {
+            font-size: 1.35rem;
+            text-align: right;
+            right: 0;
+            padding: 1rem;
+            float: right;
+            position: relative;
+            top: -4.75rem;
+        }
+
+        .entry-title {
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .single-post > header > h1 {
+            background: none;
+        }
+
+        .post-navigation > h1 {
+            display: none;
+        }
+
+        .post-navigation {
+            font-size: 1.35rem;
+        }
+
+        .single-post > header > h1 {
+            display: table-cell;
+            padding-bottom: 0;
+        }
+
+        .single-post > img {
+            display: none;
         }
 
 /* Links */
