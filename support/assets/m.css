@@ -551,6 +551,7 @@
         display: block;
         max-width: none;
         margin: 0;
+        margin-bottom: 0.5rem;
     }
 
     figure > a:hover > img,
