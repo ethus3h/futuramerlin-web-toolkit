@@ -549,6 +549,8 @@
         transition: all 0.2s;
         border: 0.063rem dotted transparent;
         display: block;
+        max-width: none;
+        margin: 0;
     }
 
     figure > a:hover > img,
