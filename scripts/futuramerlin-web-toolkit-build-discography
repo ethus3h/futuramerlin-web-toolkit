@@ -98,6 +98,7 @@ discReadConf() {
     local key="$1"
     local kind="$2"
     local identifier="$3"
+    echo "Reading configuration value $key from the $kind $idetifier" 1>&2
     preadconf "$key" "$(getItemPath "$kind" "$identifier").conf"
 }
 
