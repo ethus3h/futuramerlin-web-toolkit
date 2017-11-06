@@ -164,6 +164,17 @@ getEntryPoint() {
 }
 
 listItem() {
+    local filtered=""
+    local filterKey
+    local filterValue
+    if [[ "$1" == "--filter" ]]; then
+        filtered="true"
+        shift
+        filterKey="$1"
+        shift
+        filterValue="$1"
+        shift
+    fi
     local recursive="false"
     if [[ "$1" == "--recursive" ]]; then
         # It's recursive, so the outermost call to listItem will actually return the results for *all* items in the chain.
@@ -422,18 +433,42 @@ buildLeafContents() {
 
 listRecursive() {
     kind="$1"
+    local filtered=""
+    local filterKey
+    local filterValue
+    if [[ "$2" == "--filter" ]]; then
+        filtered="true"
+        filterKey="$3"
+        filterValue="$4"
+    fi
     local entryPoint
     entryPoint="$(getEntryPoint)"
     if [[ -z "$entryPoint" ]]; then
-        listAlphabetical "$1"
+        if [[ "$filtered" == "true" ]]; then
+            listAlphabetical "$1" --filter "$filterKey" "$filterValue"
+        else
+            listAlphabetical "$1"
+        fi
     else
         # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
-        listItem --recursive "$kind" "$entryPoint"
+        if [[ "$filtered" == "true" ]]; then
+            listItem --filter "$filterKey" "$filterValue" --recursive "$kind" "$entryPoint"
+        else
+            listItem --recursive "$kind" "$entryPoint"
+        fi
     fi
 }
 
 listAlphabetical() {
     kind="$1"
+    local filtered=""
+    local filterKey
+    local filterValue
+    if [[ "$2" == "--filter" ]]; then
+        filtered="true"
+        filterKey="$3"
+        filterValue="$4"
+    fi
     itemList=""
     echo "Building alphabetical list of $kind" 1>&2
     for item in *.conf; do
@@ -441,7 +476,11 @@ listAlphabetical() {
         # This causes the recursive page building, and doesn't have any effect on what this function returns.
         buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$itemName")"
         # This appends the current item to the list that this function will return.
-        itemList="$itemList$(listItem "$kind" "$itemName")"
+        if [[ "$filtered" == "true" ]]; then
+            itemList="$itemList$(listItem --filter "$filterKey" "$filterValue" "$kind" "$itemName")"
+        else
+            itemList="$itemList$(listItem "$kind" "$itemName")"
+        fi
     done
     print "$itemList"
 }
