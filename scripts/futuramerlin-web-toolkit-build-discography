@@ -50,7 +50,7 @@ mergeConfFile() {
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! grep -P "^$key," "$dir/$1" > /dev/null; then
-                printf "%s\n" "$line" >> "$dir/$1"
+                printf "%s\\n" "$line" >> "$dir/$1"
             fi
         fi
     done < "$inheritFrom"
@@ -393,12 +393,13 @@ traitToHtm() {
 
 listRecursive() {
     kind="$1"
+    echo "Bocemi"
     local entryPointFile
     entryPointFile="$(getEntryPoint "$kind")"
     if [[ -z "$entryPointFile" ]]; then
         listAlphabetical "$1"
     else
-        # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.s
+        # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
         listItem --recursive "$kind" "$(getEntryPoint "$kind")"
     fi
 }
@@ -406,10 +407,10 @@ listRecursive() {
 listAlphabetical() {
     kind="$1"
     itemList=""
+    echo "Building alphabetical list of $kind" 1>&2
     for item in "$(getKindFolderName "$kind")"/*.conf; do
         itemName="$(basename "$item")"
         itemName="${itemName%\.conf}"
-        echo "Building alphabetical list for the $kind $itemName" 1>&2
         buildPage "$(getKindFolderName "$kind")/$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
         itemList="$itemList$(listItem "$kind" "$itemName")"
     done
