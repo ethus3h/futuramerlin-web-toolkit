@@ -533,7 +533,7 @@ buildPage() {
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
-    xxd "$destinationFile.htm"
+    xxd "$destinationFile.htm" 1>&2
 }
 
 buildCategory() {
