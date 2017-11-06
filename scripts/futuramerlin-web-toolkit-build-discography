@@ -115,7 +115,7 @@ linkToItem() {
         extension=""
     elif [[ "$kind" == "session" ]]; then
         name="$identifier: $(discReadConf location "$kind" "$identifier")"
-        extension=""
+        extension=".htm"
     else
         name="$(discReadConf name "$kind" "$identifier")"
         extension=".htm"
