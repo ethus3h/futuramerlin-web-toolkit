@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
-# set -x
+set -x
 
 sourceDir="$(readlink -f "$1")"
 
@@ -450,7 +450,8 @@ function buildCategory() {
     kind)
         (
             cd "$(getKindFolderName "$identifier")" || die
-            buildPage "index" "${identifier^}s" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
+            identifierCategoryName="$(getKindFolderName "$item")"
+            buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
         )
         ;;
     *)
