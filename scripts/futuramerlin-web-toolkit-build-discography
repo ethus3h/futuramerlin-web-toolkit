@@ -491,7 +491,9 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$itemName")"
+            body="$(buildLeafContents "$kind" "$itemName")"
+            print "$body" | xxd 1>&2
+            buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$body"
         fi
     done
     print "$itemList"
@@ -533,7 +535,6 @@ buildPage() {
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
-    xxd "$destinationFile.htm" 1>&2
 }
 
 buildCategory() {
