@@ -410,7 +410,7 @@ listAlphabetical() {
 
 buildList() {
     local kind="$1"
-    echo "Building list for $kind"
+    echo "Building list for $kind" 1>&2
     print "<ul>"
     case "$kind" in
     kind)
@@ -434,7 +434,7 @@ buildList() {
 buildPage() {
     local destinationFile="$1"
     local pageTitle="$2"
-    echo "Building page $pageTitle $destinationFile"
+    echo "Building page $pageTitle $destinationFile" 1>&2
     local pageBreadcrumbs="$3"
     local pageContent="$4"
     cp "$da/template.htm" "$destinationFile.htm" || die
@@ -446,7 +446,7 @@ buildPage() {
 buildCategory() {
     local kind="$1"
     local identifier="$2"
-    echo "Building category for the $kind $identifier"
+    echo "Building category for the $kind $identifier" 1>&2
     case "$kind" in
         index)
             buildPage "$discographyPageName" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
