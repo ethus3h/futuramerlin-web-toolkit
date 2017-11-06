@@ -404,8 +404,10 @@ traitToHtm() {
 listRecursive() {
     kind="$1"
     local entryPoint
+    set -x
     entryPoint="$(getEntryPoint "$kind")"
     echo "Entry point: $entryPoint" 1>&2
+    set +x
     if [[ -z "$entryPointFile" ]]; then
         listAlphabetical "$1"
     else
