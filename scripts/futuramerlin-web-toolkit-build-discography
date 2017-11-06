@@ -414,8 +414,8 @@ traitToHtm() {
 buildLeafContents() {
     kind="$1"
     identifier="$2"
-    print '<h2>Releases</h2>'
     releasesList="$(listRecursive release --filter "$kind" "$identifier")"
+    [[ -n "$releasesList" ]] && print '<h2>Releases</h2>'$'\n'"$releasesList"$'\n'$'\n'
 }
 
 listRecursive() {
