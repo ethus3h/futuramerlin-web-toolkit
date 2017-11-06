@@ -409,7 +409,9 @@ listAlphabetical() {
     echo "Building alphabetical list of $kind" 1>&2
     for item in *.conf; do
         itemName="${itemName%\.conf}"
+        set -x
         buildPage "$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
+        set +x
         itemList="$itemList$(listItem "$kind" "$itemName")"
     done
     print "$itemList"
