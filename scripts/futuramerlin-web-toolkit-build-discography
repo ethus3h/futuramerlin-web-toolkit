@@ -429,6 +429,9 @@ buildList() {
         done
         print "$itemList"
         ;;
+    file)
+        itemList="FIXME"
+        ;;
     *)
         listRecursive "$kind"
         ;;
