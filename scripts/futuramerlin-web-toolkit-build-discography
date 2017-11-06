@@ -403,13 +403,14 @@ traitToHtm() {
 
 listRecursive() {
     kind="$1"
-    local entryPointFile
-    entryPointFile="$(getEntryPoint "$kind")"
+    local entryPoint
+    entryPoint="$(getEntryPoint "$kind")"
+    echo "Entry point: $entryPoint" 1>&2
     if [[ -z "$entryPointFile" ]]; then
         listAlphabetical "$1"
     else
         # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
-        listItem --recursive "$kind" "$(getEntryPoint "$kind")"
+        listItem --recursive "$kind" "$entryPoint"
     fi
 }
 
