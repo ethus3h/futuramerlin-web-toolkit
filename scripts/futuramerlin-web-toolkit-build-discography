@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
-set -x
+#set -x
 
 sourceDir="$(readlink -f "$1")"
 
@@ -29,7 +29,7 @@ indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
 
-function getRelativeDiscographyDir() {
+getRelativeDiscographyDir() {
     # pwd 1>&2
     if [[ -f "futuramerlin-web-toolkit-discography.conf" ]]; then
         print "./"
@@ -42,7 +42,7 @@ function getRelativeDiscographyDir() {
     fi
 }
 
-function mergeConfFile() {
+mergeConfFile() {
     local dir
     dir="$(getRelativeDiscographyDir)"
     inheritFrom="$dir"/works/"$(basename "$(pwd)")".conf
@@ -63,7 +63,7 @@ for file in works/*/*.conf; do
     )
 done
 
-function getKindFolderName() {
+getKindFolderName() {
     kind="$1"
     if [[ "$kind" == "press" ]]; then
         print "press"
@@ -72,14 +72,14 @@ function getKindFolderName() {
     fi
 }
 
-function getKindLabel() {
+getKindLabel() {
     local kind="$1"
     local res
     res="$(getKindFolderName "$kind")"
     print "${res^}"
 }
 
-function getItemPath() {
+getItemPath() {
     # Returns the prefix pathname (e.g. releases/sylfan) of the referenced item, relative to the current directory.
     local kind="$1"
     local identifier="$2"
@@ -94,14 +94,14 @@ function getItemPath() {
     esac
 }
 
-function discReadConf() {
+discReadConf() {
     local key="$1"
     local kind="$2"
     local identifier="$3"
     preadconf "$key" "$(getItemPath "$kind" "$identifier").conf"
 }
 
-function linkToItem() {
+linkToItem() {
     local kind="$1"
     local identifier="$2"
     local usePicture="$3"
@@ -127,18 +127,18 @@ function linkToItem() {
     print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">$picture$name</a>"
 }
 
-function simpleMetadata() {
+simpleMetadata() {
     print "<dt>$1</dt><dd>$2</dd>"
 }
 
-function simpleReference() {
+simpleReference() {
     local key="$1"
     local kind="$2"
     local identifier="$3"
     simpleMetadata "$(keyToLabel "$key")" "$(linkToItem "$kind" "$identifier")"
 }
 
-function getEntryPoint() {
+getEntryPoint() {
     local kind="$1"
     local entryPointFile
     entryPointFile="$(getKindFolderName "$1")/futuramerlin-web-toolkit-discography.entry-point"
@@ -147,7 +147,7 @@ function getEntryPoint() {
     fi
 }
 
-function listItem() {
+listItem() {
     if [[ "$1" == "--recursive" ]]; then
         local recursive="true"
         shift
@@ -165,7 +165,7 @@ function listItem() {
     fi
 }
 
-function simpleIaLink() {
+simpleIaLink() {
     local filename="$1"
     local localident="$2"
     local label="$3"
@@ -174,7 +174,7 @@ function simpleIaLink() {
     print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
 }
 
-function simpleIaUrl() {
+simpleIaUrl() {
     local filename="$1"
     local localident="$2"
     local iaident
@@ -182,7 +182,7 @@ function simpleIaUrl() {
     print "https://archive.org/download/$iaident/$filename"
 }
 
-function simpleIaImage() {
+simpleIaImage() {
     local filename="$1"
     local localident="$2"
     local iaident
@@ -192,7 +192,7 @@ function simpleIaImage() {
     print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/t$filename.png\" alt=\"$relname: album artwork\" /></a>"
 }
 
-function keyToLabel() {
+keyToLabel() {
     case $1 in
     dateBegun)
         print "Date begun"
@@ -251,7 +251,7 @@ function keyToLabel() {
     esac
 }
 
-function buildTrackPlayer() {
+buildTrackPlayer() {
     local kind="$1"
     local identifier="$2"
     local filename
@@ -309,7 +309,7 @@ function buildTrackPlayer() {
     print "Could not start audio player.</audio>"
 }
 
-function traitToHtm() {
+traitToHtm() {
     local kind="$1"
     local identifier="$2"
     local key="$3"
@@ -388,7 +388,7 @@ function traitToHtm() {
     esac
 }
 
-function listRecursive() {
+listRecursive() {
     kind="$1"
     local entryPointFile
     entryPointFile="$(getEntryPoint "$kind")"
@@ -399,7 +399,7 @@ function listRecursive() {
     fi
 }
 
-function listAlphabetical() {
+listAlphabetical() {
     kind="$1"
     itemList=""
     for item in "$(getKindFolderName)"/*.conf; do
@@ -407,7 +407,7 @@ function listAlphabetical() {
     done
 }
 
-function buildList() {
+buildList() {
     local kind="$1"
     print "<ul>"
     case "$kind" in
@@ -426,10 +426,10 @@ function buildList() {
         listRecursive "$kind"
         ;;
     esac
-    print "</ul>"
+    print $'\n'"</ul>"
 }
 
-function buildPage() {
+buildPage() {
     local destinationFile="$1"
     local pageTitle="$2"
     local pageBreadcrumbs="$3"
@@ -440,7 +440,7 @@ function buildPage() {
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
 }
 
-function buildCategory() {
+buildCategory() {
     local kind="$1"
     local identifier="$2"
     case "$kind" in
