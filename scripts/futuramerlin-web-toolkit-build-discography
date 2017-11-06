@@ -162,7 +162,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         local nextIdentifier
         nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
-        listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
+        [[ -n "$nextIdentifier" ]] && listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
     fi
 }
 
