@@ -402,7 +402,7 @@ listRecursive() {
 listAlphabetical() {
     kind="$1"
     itemList=""
-    for item in "$(getKindFolderName "$1")"/*.conf; do
+    for item in *.conf; do
         buildCategory "$kind" "$item"
         itemList="$itemList$(listItem "kind" "$item")"
     done
