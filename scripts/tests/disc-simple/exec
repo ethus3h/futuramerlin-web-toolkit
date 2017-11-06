@@ -9,4 +9,4 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 ../../futuramerlin-web-toolkit-build-discography "in" "run"
 
-assert directoryEquals "out" "run"
+assert --verbose directoryEquals "out" "run"
