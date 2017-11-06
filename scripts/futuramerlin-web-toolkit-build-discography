@@ -404,7 +404,7 @@ listAlphabetical() {
     itemList=""
     for item in *.conf; do
         itemName="${item%\.conf}"
-        buildPage "$itemName"
+        buildPage "$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$kind")"
         itemList="$itemList$(listItem "kind" "$itemName")"
     done
 }
