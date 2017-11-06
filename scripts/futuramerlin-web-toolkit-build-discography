@@ -148,6 +148,7 @@ getEntryPoint() {
 }
 
 listItem() {
+    echo "Building list $1 for an item: $2 $3" 1>&2
     if [[ "$1" == "--recursive" ]]; then
         local recursive="true"
         shift
@@ -395,6 +396,7 @@ listRecursive() {
     if [[ -z "$entryPointFile" ]]; then
         listAlphabetical "$1"
     else
+        # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.s
         listItem --recursive "$kind" "$(getEntryPoint "$kind")"
     fi
 }
