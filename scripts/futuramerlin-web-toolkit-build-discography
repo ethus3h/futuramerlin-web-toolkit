@@ -113,6 +113,9 @@ linkToItem() {
     if [[ "$kind" == "kind" ]]; then
         name="$(getKindLabel "$identifier")"
         extension=""
+    elif [[ "$kind" == "session" ]]; then
+        name="$identifier: $(discReadConf location "$kind" "$identifier")"
+        extension=""
     else
         name="$(discReadConf name "$kind" "$identifier")"
         extension=".htm"
