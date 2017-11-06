@@ -443,6 +443,7 @@ buildLeafContents() {
 }
 
 listRecursive() {
+    echo "listRecursive called with args $1 $2 $3 $4" 1>&2
     kind="$1"
     local filtered=""
     local filterKey
@@ -456,9 +457,9 @@ listRecursive() {
     entryPoint="$(getEntryPoint)"
     if [[ -z "$entryPoint" ]]; then
         if [[ "$filtered" == "true" ]]; then
-            listAlphabetical "$1" --filter "$filterKey" "$filterValue"
+            listAlphabetical "$kind" --filter "$filterKey" "$filterValue"
         else
-            listAlphabetical "$1"
+            listAlphabetical "$kind"
         fi
     else
         # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
