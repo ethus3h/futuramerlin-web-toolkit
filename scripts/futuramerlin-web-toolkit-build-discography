@@ -411,6 +411,13 @@ traitToHtm() {
     esac
 }
 
+buildLeafContents() {
+    kind="$1"
+    identifier="$2"
+    print '<h2>Releases</h2>'
+    releasesList="$(listRecursive release --filter "$kind" "$identifier")"
+}
+
 listRecursive() {
     kind="$1"
     local entryPoint
@@ -430,7 +437,7 @@ listAlphabetical() {
     for item in *.conf; do
         itemName="${item%\.conf}"
         # This causes the recursive page building, and doesn't have any effect on what this function returns.
-        buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(listRecursive release --filter artist "$itemName")"
+        buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$itemName")"
         # This appends the current item to the list that this function will return.
         itemList="$itemList$(listItem "$kind" "$itemName")"
     done
