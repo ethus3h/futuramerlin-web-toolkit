@@ -49,7 +49,7 @@ mergeConfFile() {
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
-            if ! grep -P "^$key," "$dir/$1"; then
+            if ! grep -P "^$key," "$dir/$1" > /dev/null; then
                 printf "%s\n" "$line" >> "$dir/$1"
             fi
         fi
