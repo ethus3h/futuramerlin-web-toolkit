@@ -404,7 +404,7 @@ listRecursive() {
     kind="$1"
     local entryPoint
     entryPoint="$(getEntryPoint)"
-    if [[ -z "$entryPointFile" ]]; then
+    if [[ -z "$entryPoint" ]]; then
         listAlphabetical "$1"
     else
         # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
