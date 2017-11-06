@@ -526,7 +526,7 @@ buildList() {
 buildPage() {
     local destinationFile="$1"
     local pageTitle="$2"
-    echo "Building page $pageTitle: $destinationFile.htm" 1>&2
+    echo "Building page $(pwd)/$pageTitle: $destinationFile.htm" 1>&2
     local pageBreadcrumbs="$3"
     local pageContent="$4"
     cp "$assets/template.htm" "$destinationFile.htm" || die
