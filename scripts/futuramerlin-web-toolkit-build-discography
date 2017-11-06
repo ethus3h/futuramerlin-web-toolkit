@@ -20,7 +20,7 @@ if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
 fi
 
 # Where the discography assets are located
-da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
+assets="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 
 # Variables
 indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
@@ -437,10 +437,10 @@ buildList() {
 buildPage() {
     local destinationFile="$1"
     local pageTitle="$2"
-    echo "Building page $pageTitle $destinationFile" 1>&2
+    echo "Building page $pageTitle: $destinationFile.htm" 1>&2
     local pageBreadcrumbs="$3"
     local pageContent="$4"
-    cp "$da/template.htm" "$destinationFile.htm" || die
+    cp "$assets/template.htm" "$destinationFile.htm" || die
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
