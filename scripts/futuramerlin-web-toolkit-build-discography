@@ -199,7 +199,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$identifier" "$(getItemName "$kind" "$identifier")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$identifier" "$(getItemName "$kind" "$identifier")" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
