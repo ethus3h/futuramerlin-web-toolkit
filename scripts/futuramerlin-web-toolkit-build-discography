@@ -179,7 +179,9 @@ listItem() {
     print $'\n'"    <li>$(linkToItem "$@")</li>"
     if [[ "$recursive" == "true" ]]; then
         # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
+        set +x
         buildPage "$identifier" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
+        set -x
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
         nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
