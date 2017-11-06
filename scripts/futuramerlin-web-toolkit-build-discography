@@ -403,7 +403,7 @@ listAlphabetical() {
     kind="$1"
     itemList=""
     for item in *.conf; do
-        buildCategory "$kind" "$item"
+        buildPage "$item"
         itemList="$itemList$(listItem "kind" "$item")"
     done
 }
@@ -459,7 +459,7 @@ buildCategory() {
             )
             ;;
         *)
-            buildPage "$identifier" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
+            error-notify "Unknown type: $kind."
             ;;
     esac
 }
