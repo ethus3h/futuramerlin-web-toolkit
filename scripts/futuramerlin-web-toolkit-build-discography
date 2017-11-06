@@ -403,8 +403,9 @@ listAlphabetical() {
     kind="$1"
     itemList=""
     for item in *.conf; do
-        buildPage "$item"
-        itemList="$itemList$(listItem "kind" "$item")"
+        itemName="${item%\.conf}"
+        buildPage "$itemName"
+        itemList="$itemList$(listItem "kind" "$itemName")"
     done
 }
 
