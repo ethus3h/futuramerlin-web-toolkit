@@ -151,13 +151,14 @@ getEntryPoint() {
 listItem() {
     local recursive="false"
     if [[ "$1" == "--recursive" ]]; then
+        # It's recursive, so the outermost call to listItem will actually return the results for *all* items in the chain.
         recursive="true"
         shift
     fi
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
     local identifier="$2"
-    echo "Building list for an item: $kind $identifier. Recursive: $recursive" 1>&2
+    echo "Building list entry for an item: $kind $identifier. Recursive: $recursive" 1>&2
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
     print $'\n'"    <li>$(linkToItem "$@")</li>"
@@ -468,7 +469,7 @@ buildCategory() {
             (
                 cd "$(getKindFolderName "$identifier")" || die
                 identifierCategoryName="$(getKindFolderName "$item")"
-                buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
+                buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
             )
             ;;
         *)
