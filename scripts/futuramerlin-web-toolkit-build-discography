@@ -480,9 +480,10 @@ listAlphabetical() {
         filterValue="$4"
     fi
     itemList=""
-    echo "Building alphabetical list of $kind" 1>&2
-    for item in *.conf; do
-        itemName="${item%\.conf}"
+    echo "Building alphabetical list of $kind (filtered: $filtered $filterKey $filterValue)" 1>&2
+    for item in ../"$(getKindFolderName "$kind")"/*.conf; do
+        itemName="$(basename "$item")"
+        itemName="${itemName%\.conf}"
         # This causes the recursive page building, and doesn't have any effect on what this function returns.
         buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$itemName")"
         # This appends the current item to the list that this function will return.
