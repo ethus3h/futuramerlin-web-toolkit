@@ -5,6 +5,16 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 # set -x
 
+sourceDir="$(readlink -f "$1")"
+
+destDir="$(readlink -f "$2")"
+
+[[ -e "$destDir" ]] && rm -r "$destDir"
+
+rsync -a --checksum "$sourceDir/" "$destDir"
+
+cd "$destDir" || die
+
 if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
     die "Couldn't find discography configuration file!"
 fi
