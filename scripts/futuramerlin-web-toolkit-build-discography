@@ -459,7 +459,7 @@ buildCategory() {
             )
             ;;
         *)
-            #die "Unknown type $kind!"
+            buildPage "$identifier" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
             ;;
     esac
 }
