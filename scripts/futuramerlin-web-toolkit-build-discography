@@ -529,11 +529,11 @@ buildPage() {
     echo "Building page $(pwd)/$pageTitle: $destinationFile.htm" 1>&2
     local pageBreadcrumbs="$3"
     local pageContent="$4"
-    print "$pageContent" | xxd 1>&2
     cp "$assets/template.htm" "$destinationFile.htm" || die
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
+    xxd "$destinationFile.htm"
 }
 
 buildCategory() {
