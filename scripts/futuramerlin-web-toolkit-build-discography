@@ -184,7 +184,7 @@ listItem() {
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
     local identifier="$2"
-    echo "Building list entry for an item: $kind $identifier. Recursive: $recursive" 1>&2
+    echo "Building list entry for an item: $kind $identifier. Recursive: $recursive. Filtered: $filtered $filterKey $filterValue" 1>&2
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local matchedFilter=""
@@ -490,6 +490,7 @@ listAlphabetical() {
         if [[ "$filtered" == "true" ]]; then
             itemList="$itemList$(listItem --filter "$filterKey" "$filterValue" "$kind" "$itemName")"
         else
+            echo "Entered else claues" 1>&2
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
             body="$(buildLeafContents "$kind" "$itemName")"
