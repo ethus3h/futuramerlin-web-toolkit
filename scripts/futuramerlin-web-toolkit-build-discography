@@ -409,6 +409,7 @@ listAlphabetical() {
 
 buildList() {
     local kind="$1"
+    warn "Building list for $kind"
     print "<ul>"
     case "$kind" in
     kind)
@@ -430,9 +431,9 @@ buildList() {
 }
 
 buildPage() {
-    warn "Building page $*"
     local destinationFile="$1"
     local pageTitle="$2"
+    warn "Building page $pageTitle $destinationFile"
     local pageBreadcrumbs="$3"
     local pageContent="$4"
     cp "$da/template.htm" "$destinationFile.htm" || die
@@ -444,6 +445,7 @@ buildPage() {
 buildCategory() {
     local kind="$1"
     local identifier="$2"
+    warn "Building category for the $kind $identifier"
     case "$kind" in
     index)
         buildPage "$discographyPageName" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
