@@ -407,7 +407,7 @@ listAlphabetical() {
     kind="$1"
     itemList=""
     echo "Building alphabetical list of $kind" 1>&2
-    pwd
+    pwd 1>&2
     cd "$(getKindFolderName "$kind")" || die
     for item in *.conf; do
         itemName="${itemName%\.conf}"
