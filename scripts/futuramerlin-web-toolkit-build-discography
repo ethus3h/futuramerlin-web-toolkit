@@ -24,6 +24,8 @@ da="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 
 # Variables
 indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
+indexBreadcrumbs="    ${indexBreadcrumbs//$'\n'/$'\n'    }"
+indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
 
