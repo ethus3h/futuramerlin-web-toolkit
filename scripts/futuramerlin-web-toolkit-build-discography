@@ -402,7 +402,7 @@ listRecursive() {
 listAlphabetical() {
     kind="$1"
     itemList=""
-    for item in *.conf; do
+    for item in "$(getKindFolderName "$kind")"/*.conf; do
         itemName="${item%\.conf}"
         echo "Building alphabetical list for the $kind $itemName" 1>&2
         buildPage "$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$item")"
