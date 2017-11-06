@@ -448,19 +448,19 @@ buildCategory() {
     local identifier="$2"
     echo "Building category for the $kind $identifier"
     case "$kind" in
-    index)
-        buildPage "$discographyPageName" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
-        ;;
-    kind)
-        (
-            cd "$(getKindFolderName "$identifier")" || die
-            identifierCategoryName="$(getKindFolderName "$item")"
-            buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
-        )
-        ;;
-    *)
-        die "Unknown type!"
-        ;;
+        index)
+            buildPage "$discographyPageName" "Discography" "$indexBreadcrumbs" "$(buildList kind)"
+            ;;
+        kind)
+            (
+                cd "$(getKindFolderName "$identifier")" || die
+                identifierCategoryName="$(getKindFolderName "$item")"
+                buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
+            )
+            ;;
+        *)
+            #die "Unknown type $kind!"
+            ;;
     esac
 }
 
