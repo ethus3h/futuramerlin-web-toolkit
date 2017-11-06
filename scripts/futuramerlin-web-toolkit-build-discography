@@ -156,7 +156,7 @@ listItem() {
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
     local identifier="$2"
-    echo "Building list for an item: $kind $idenifier. Recursive: $recursive" 1>&2
+    echo "Building list for an item: $kind $identifier. Recursive: $recursive" 1>&2
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
     print $'\n'"    <li>$(linkToItem "$@")</li>"
@@ -410,7 +410,7 @@ listAlphabetical() {
         itemName="${itemName%\.conf}"
         echo "Building alphabetical list for the $kind $itemName" 1>&2
         buildPage "$(getKindFolderName "$kind")/$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
-        itemList="$itemList$(listItem "$kind" "${itemName:?}")"
+        itemList="$itemList$(listItem "$kind" "$itemName")"
     done
 }
 
