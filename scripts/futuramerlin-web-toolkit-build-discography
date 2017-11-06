@@ -494,6 +494,7 @@ listAlphabetical() {
             buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
+    print "$itemList" | xxd 1>&2
     print "$itemList"
 }
 
