@@ -148,9 +148,9 @@ getEntryPoint() {
 }
 
 listItem() {
-    set -x
     local recursive="false"
     if [[ "$1" == "--recursive" ]]; then
+        set -x
         recursive="true"
         shift
     fi
