@@ -393,7 +393,6 @@ traitToHtm() {
 
 listRecursive() {
     kind="$1"
-    echo "Bocemi"
     local entryPointFile
     entryPointFile="$(getEntryPoint "$kind")"
     if [[ -z "$entryPointFile" ]]; then
@@ -414,6 +413,7 @@ listAlphabetical() {
         buildPage "$(getKindFolderName "$kind")/$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
         itemList="$itemList$(listItem "$kind" "$itemName")"
     done
+    print "$itemList"
 }
 
 buildList() {
