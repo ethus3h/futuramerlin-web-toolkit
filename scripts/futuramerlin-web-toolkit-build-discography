@@ -454,9 +454,8 @@ buildCategory() {
             ;;
         kind)
             (
-                cd "$(getKindFolderName "$identifier")" || die
                 identifierCategoryName="$(getKindFolderName "$item")"
-                buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
+                buildPage "$(getKindFolderName "$identifier")/index" "${identifierCategoryName^}" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
             )
             ;;
         *)
