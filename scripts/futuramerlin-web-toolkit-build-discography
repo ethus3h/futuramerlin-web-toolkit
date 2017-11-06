@@ -126,6 +126,7 @@ linkToItem() {
         # .m.png = 50px; .t.png = 150px
         picturePathName="$(getItemPath "$kind" "$identifier").m.png"
         echo "$picturePathName" 1>&2
+        echo "$pwd" 1>&2
         if [[ -e "$picturePathName" ]]; then
             picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" /> "
         fi
