@@ -157,7 +157,7 @@ listItem() {
     local identifier="$2"
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
-    print "<li>$(linkToItem "$@")</li>"
+    print $'\n'"    <li>$(linkToItem "$@")</li>"
     if [[ "$recursive" == "true" ]]; then
         local nextIdentifier
         nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
