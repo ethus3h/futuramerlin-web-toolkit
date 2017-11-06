@@ -405,7 +405,7 @@ listRecursive() {
     kind="$1"
     local entryPoint
     set -x
-    pwd
+    pwd 1>&2
     entryPoint="$(getEntryPoint "$kind")"
     echo "Entry point: $entryPoint" 1>&2
     set +x
