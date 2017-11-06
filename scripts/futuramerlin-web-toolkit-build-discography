@@ -148,6 +148,7 @@ getEntryPoint() {
 }
 
 listItem() {
+    set -x
     local recursive="false"
     if [[ "$1" == "--recursive" ]]; then
         recursive="true"
@@ -165,6 +166,7 @@ listItem() {
         nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
         [[ -n "$nextIdentifier" ]] && listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
     fi
+    set +x
 }
 
 simpleIaLink() {
