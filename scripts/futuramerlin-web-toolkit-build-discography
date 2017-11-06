@@ -459,7 +459,7 @@ buildCategory() {
             )
             ;;
         *)
-            error-notify "Unknown type: $kind."
+            error-notify "buildCategory requested for unknown type $kind."
             ;;
     esac
 }
