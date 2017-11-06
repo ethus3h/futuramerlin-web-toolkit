@@ -430,7 +430,7 @@ buildList() {
 }
 
 buildPage() {
-    warn 'Building page $*'
+    warn "Building page $*"
     local destinationFile="$1"
     local pageTitle="$2"
     local pageBreadcrumbs="$3"
