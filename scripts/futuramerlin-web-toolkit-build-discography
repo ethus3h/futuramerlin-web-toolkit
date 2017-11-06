@@ -176,18 +176,16 @@ listItem() {
     echo "Building list entry for an item: $kind $identifier. Recursive: $recursive" 1>&2
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
-    set -x
     print $'\n'"    <li>$(linkToItem "$@")</li>"
     if [[ "$recursive" == "true" ]]; then
         # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-        buildPage "$identifier" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
+        buildPage "$identifier" "$(getItemName "$kind" "$identifier")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
         nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
         [[ -n "$nextIdentifier" ]] && listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
         true # needed because the if statement executes with the exit status of the last command executed
     fi
-    set +x
 }
 
 simpleIaLink() {
