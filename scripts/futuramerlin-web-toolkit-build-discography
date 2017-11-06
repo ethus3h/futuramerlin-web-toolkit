@@ -128,6 +128,7 @@ linkToItem() {
         echo "$picturePathName" 1>&2
         pwd 1>&2
         if [[ -e "$picturePathName" ]]; then
+            echo "BOcrMIERMC" 1>&2
             picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" /> "
         fi
     fi
