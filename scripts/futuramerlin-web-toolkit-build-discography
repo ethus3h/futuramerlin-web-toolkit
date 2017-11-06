@@ -118,10 +118,14 @@ linkToItem() {
         extension=".htm"
     fi
     if [[ "$usePicture" != "false" ]]; then
+        local pictureType
+        if [[ "$kind" == "release" ]]; then
+            pictureType="album artwork"
+        fi
         local picturePathName
         picturePathName="$(getItemPath "$kind" "$identifier").m.png"
         if [[ -e "$picturePathName" ]]; then
-            picture="<img src=\"$picturePathName\" alt=\"$name: $usePicture thumbnail image\" /> "
+            picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" /> "
         fi
     fi
     # TODO: Implement extraInfo
