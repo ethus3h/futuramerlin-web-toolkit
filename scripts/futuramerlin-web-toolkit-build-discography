@@ -148,14 +148,15 @@ getEntryPoint() {
 }
 
 listItem() {
-    echo "Building list $1 for an item: $2 $3" 1>&2
+    local recursive="false"
     if [[ "$1" == "--recursive" ]]; then
-        local recursive="true"
+        recursive="true"
         shift
     fi
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
     local identifier="$2"
+    echo "Building list for an item: $kind $idenifier. Recursive: $recursive" 1>&2
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
     print $'\n'"    <li>$(linkToItem "$@")</li>"
