@@ -148,9 +148,8 @@ simpleReference() {
 }
 
 getEntryPoint() {
-    local kind="$1"
     local entryPointFile
-    entryPointFile="$(getKindFolderName "$1")/futuramerlin-web-toolkit-discography.entry-point"
+    entryPointFile="futuramerlin-web-toolkit-discography.entry-point"
     if [[ -e "$entryPointFile" ]]; then
         print "$(<"$entryPointFile")"
     fi
@@ -404,11 +403,7 @@ traitToHtm() {
 listRecursive() {
     kind="$1"
     local entryPoint
-    set -x
-    pwd 1>&2
-    entryPoint="$(getEntryPoint "$kind")"
-    echo "Entry point: $entryPoint" 1>&2
-    set +x
+    entryPoint="$(getEntryPoint)"
     if [[ -z "$entryPointFile" ]]; then
         listAlphabetical "$1"
     else
