@@ -409,7 +409,7 @@ listAlphabetical() {
         itemName="$(basename "$item")"
         itemName="${itemName%\.conf}"
         echo "Building alphabetical list for the $kind $itemName" 1>&2
-        buildPage "$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
+        buildPage "$(getKindFolderName "$kind")/$itemName" "$(discReadConf name "$kind" "$itemName")" "$indexBreadcrumbs <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "Boo"
         itemList="$itemList$(listItem "kind" "$itemName")"
     done
 }
