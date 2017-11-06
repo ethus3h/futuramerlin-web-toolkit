@@ -108,13 +108,6 @@ linkToItem() {
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local picture=""
-    if [[ "$usePicture" != "false" ]]; then
-        local picturePathName
-        picturePathName="$(getItemPath "$kind" "$identifier").t.png"
-        if [[ -e "$picturePathName" ]]; then
-            picture="<img src=\"$picturePathName\" alt=\"$2: thumbnail image\" /> "
-        fi
-    fi
     local name
     local extension
     if [[ "$kind" == "kind" ]]; then
@@ -123,6 +116,13 @@ linkToItem() {
     else
         name="$(discReadConf name "$kind" "$identifier")"
         extension=".htm"
+    fi
+    if [[ "$usePicture" != "false" ]]; then
+        local picturePathName
+        picturePathName="$(getItemPath "$kind" "$identifier").m.png"
+        if [[ -e "$picturePathName" ]]; then
+            picture="<img src=\"$picturePathName\" alt=\"$name: $usePicture thumbnail image\" /> "
+        fi
     fi
     # TODO: Implement extraInfo
     print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">$picture$name</a>"
