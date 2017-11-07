@@ -629,11 +629,10 @@ buildLeafContents() {
         fi
         true # needed because the if statement executes with the exit status of the last command executed
     fi
-    setClosingTag ''
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
-        print '<h2>Instances</h2>'$'\n'"<ul>"
+        print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
         listRecursive "$kind/$identifier"
         print $'\n'"</ul>"
     fi
