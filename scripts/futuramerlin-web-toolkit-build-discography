@@ -87,9 +87,17 @@ getKindFolderName() {
 
 getKindLabel() {
     local kind="$1"
-    local res
-    res="$(getKindFolderName "$kind")"
-    print "${res^}"
+    local kindFolderName
+    kindFolderName="$(getKindFolderName "$kind")"
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        # This kind is for a sub-item
+        local key="${kind%%\/*}"
+        local value="${kind#*\/}"
+        print "$(getKindFolderName "$key")/$value"
+    else
+        print "${kindFolderName^}"
+    fi
 }
 
 getItemPath() {
