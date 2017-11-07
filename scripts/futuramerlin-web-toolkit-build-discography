@@ -164,8 +164,10 @@ linkToItem() {
         extension=".htm"
     fi
     if [[ "$kind" =~ $pattern ]]; then
-        traitToHtm "$kind" "$identifier" "context" "$(discReadConf context "$kind" "$identifier")"
-        print ': '
+        local contextValue
+        contextValue="$(discReadConf context "$kind" "$identifier")"
+        local contextKind="${contextValue%%,*}"
+        print "${contextKind^}: $(linkToItem --with-date "$contextKind" "${contextValue#*,}" false): "
     fi
     linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
     local artistNameInsert
