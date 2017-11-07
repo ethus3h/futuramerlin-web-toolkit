@@ -204,8 +204,9 @@ simpleReference() {
 }
 
 getEntryPoint() {
+    local kind="$1"
     local entryPointFile
-    entryPointFile="futuramerlin-web-toolkit-discography.entry-point"
+    entryPointFile="$(getRelativeDiscographyDir)/$kind/futuramerlin-web-toolkit-discography.entry-point"
     if [[ -e "$entryPointFile" ]]; then
         print "$(<"$entryPointFile")"
     fi
@@ -594,7 +595,7 @@ listRecursive() {
         filterValue="$4"
     fi
     local entryPoint
-    entryPoint="$(getEntryPoint)"
+    entryPoint="$(getEntryPoint "$kind")"
     if [[ -z "$entryPoint" ]]; then
         if [[ "$filtered" == "true" ]]; then
             listAlphabetical "$kind" --filter "$filterKey" "$filterValue"
