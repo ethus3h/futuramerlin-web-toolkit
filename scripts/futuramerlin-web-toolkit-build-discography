@@ -494,7 +494,7 @@ buildLeafContents() {
 }
 
 listRecursive() {
-    discogDebug echo "listRecursive called with args $1 $2 $3 $4"
+    discogDebug "listRecursive called with args $1 $2 $3 $4"
     local kind="$1"
     local filtered=""
     local filterKey
