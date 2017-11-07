@@ -28,6 +28,7 @@ indexBreadcrumbs="    ${indexBreadcrumbs//$'\n'/$'\n'    }"
 indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
+needInfoSectionClosingDl=""
 
 discogDebug() {
     echo "$@" 1>&2
@@ -446,6 +447,7 @@ traitToHtm() {
         ;;
     "* Identifiers *")
         print $'\n'"</dl>"$'\n\n'"<h2>Identifiers</h2>"$'\n'"<ul>"
+        currentClosingTagNeeded="</ul>"
         ;;
     "* Relationships *")
         print ""
@@ -455,9 +457,11 @@ traitToHtm() {
         ;;
     "* Files *")
         print $'\n'"</ul>"$'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
+        currentClosingTagNeeded="</ul>"
         ;;
     "* Tracks *")
         print $'\n'"</ul>"$'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
+        currentClosingTagNeeded="    </tbody>"$'\n'"</table>"
         ;;
     mbid)
         simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
@@ -475,6 +479,7 @@ buildInfoTable() {
     local kind="$1"
     local identifier="$2"
     local foundInfo=""
+    currentClosingTagNeeded="</dl>"
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="${line%%,*}"
@@ -490,6 +495,9 @@ buildInfoTable() {
             fi
         fi
     done < "$(getItemPath "$kind" "$identifier").conf"
+    if [[ "$foundInfo" == "true" ]]; then
+        print "$currentClosingTagNeeded"
+    fi
 }
 
 buildLeafContents() {
