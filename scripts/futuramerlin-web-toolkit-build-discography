@@ -446,8 +446,8 @@ traitToHtm() {
         simpleReference "$key" artist "$value"
         ;;
     "* Identifiers *")
-        print $'\n'"</dl>"$'\n\n'"<h2>Identifiers</h2>"$'\n'"<ul>"
-        currentClosingTagNeeded="</ul>"
+        print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
+        currentClosingTagNeeded="</dl>"
         ;;
     "* Relationships *")
         print ""
@@ -456,11 +456,11 @@ traitToHtm() {
         print ""
         ;;
     "* Files *")
-        print $'\n'"</ul>"$'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
+        print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
         currentClosingTagNeeded="</ul>"
         ;;
     "* Tracks *")
-        print $'\n'"</ul>"$'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
+        print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
         currentClosingTagNeeded="    </tbody>"$'\n'"</table>"
         ;;
     mbid)
