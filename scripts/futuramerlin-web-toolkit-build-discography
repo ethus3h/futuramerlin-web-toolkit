@@ -247,6 +247,14 @@ getBreadcrumbs() {
     getLeafBreadcrumbs "$kind"
 }
 
+getSubKind() {
+    local kind="$1"
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        print "${kind#*\/}/"
+    fi
+}
+
 listItem() {
     local filtered=""
     local filterKey
@@ -267,11 +275,6 @@ listItem() {
     fi
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
-    local subKind=""
-    local pattern='.*\/.*'
-    if [[ "$kind" =~ $pattern ]]; then
-        local subKind="${kind#*\/}/"
-    fi
     local identifier="$2"
     discogDebug "Building list entry for an item: $kind $identifier. Recursive: $recursive. Filtered: $filtered $filterKey $filterValue"
     local usePicture="$3"
@@ -297,7 +300,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$subKind$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$(subKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -664,7 +667,7 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
+            buildPage "$(subKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
     print "$itemList"
