@@ -146,6 +146,9 @@ linkToItem() {
         if [[ "$includeDate" == "true" ]]; then
             shortDate="$(discReadConf shortDate "$kind" "$identifier")"
             if [[ -n "$shortDate" ]]; then
+                shortDate="$(discReadConf date "$kind" "$identifier")"
+            fi
+            if [[ -n "$shortDate" ]]; then
                 shortDate=" ($shortDate)"
             else
                 shortDate=""
@@ -523,13 +526,13 @@ buildInfoTable() {
     local kind="$1"
     local identifier="$2"
     local foundInfo=""
-    setClosingTag "</dl>"
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
             local key="${line%%,*}"
             if [[ -n "$key" ]]; then
                 if [[ "$foundInfo" != "true" ]]; then
+                    setClosingTag "</dl>"
                     foundInfo="true"
                     print '<dl>'
                 fi
