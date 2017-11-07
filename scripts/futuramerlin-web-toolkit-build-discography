@@ -434,10 +434,10 @@ traitToHtm() {
         simpleReference "$key" artist "$value"
         ;;
     shortDate)
-        print ""
+        true
         ;;
     name)
-        print ""
+        true
         ;;
     hasAlias)
         simpleReference "$key" artist "$value"
@@ -450,10 +450,10 @@ traitToHtm() {
         currentClosingTagNeeded="</dl>"
         ;;
     "* Relationships *")
-        print ""
+        true
         ;;
     "* Specs *")
-        print ""
+        true
         ;;
     "* Files *")
         print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
