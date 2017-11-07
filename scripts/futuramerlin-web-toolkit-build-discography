@@ -225,7 +225,13 @@ getLeafBreadcrumbs() {
             getLeafBreadcrumbs "$key"
             getLeafBreadcrumbs "$value" "$key"
         else
-            print $'\n'"    <span><a href=\"index.htm\">"
+            print $'\n'"    <span><a href=\""
+            if [[ -n "$superKind" ]]; then
+                
+            else
+                print "index.htm"
+            fi
+            print "\">"
             if [[ -n "$superKind" ]]; then
                 getItemName "$superKind" "$kind"
             else
