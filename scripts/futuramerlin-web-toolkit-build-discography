@@ -438,7 +438,7 @@ traitToHtm() {
         simpleReference "$key" artist "$value"
         ;;
     work)
-        simpleReference "$key" work "$value"
+        simpleReference "$key" work "${value/,/\/}"
         ;;
     shortDate)
         true
