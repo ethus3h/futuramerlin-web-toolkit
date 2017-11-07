@@ -58,7 +58,7 @@ mergeConfFile() {
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
-            key="$(cut -f1 -d, <<< "$line")"
+            local key="${line%%,*}"
             if ! grep -P "^$key," "$inheritInto" > /dev/null; then
                 printf "%s\\n" "$line" >> "$inheritInto"
             fi
@@ -75,7 +75,9 @@ getKindFolderName() {
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
         # This kind is for a sub-item
-        print "$kind"
+        local key="${line%%\/*}"
+        local value="${line#*\/}"
+        print "$(getKindFolderName "$key")/$value"
     fi
     if [[ "$kind" == "press" ]]; then
         print "press"
