@@ -120,6 +120,10 @@ getItemName() {
 }
 
 linkToItem() {
+    local includeArtistName=""
+    if [[ "$1" == "--with-artist-name" ]]; then
+        includeArtistName="true"
+    fi
     local kind="$1"
     local identifier="$2"
     local usePicture="$3"
@@ -132,6 +136,14 @@ linkToItem() {
         extension=""
     else
         extension=".htm"
+    fi
+    local linkFirstPart
+    linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
+    local artistNameInsert
+    if [[ "$includeArtistName" == "true" ]]; then
+        local artistId
+        artistId="$(discReadConf artist "$kind" "$identifier")"
+        artistNameInsert="</a> $(discReadConf name artist "$artistId"): $linkFirstPart"
     fi
     if [[ "$usePicture" != "false" ]]; then
         local pictureType
@@ -146,7 +158,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">$picture$name</a>"
+    print "$linkFirstPart$picture$artistNameInsert$name</a>"
 }
 
 simpleMetadata() {
@@ -208,7 +220,12 @@ listItem() {
         fi
     fi
     if [[ "$filtered" != "true" ]] || [[ "$matchedFilter" == "true" ]]; then
-        print $'\n'"    <li>$(linkToItem "$@")</li>"
+        if [[ "$filterKey" == "label" ]]; then
+            # Also print the artist name
+            print $'\n'"    <li>$(linkToItem --with-artist-name "$@")</li>"
+        else
+            print $'\n'"    <li>$(linkToItem "$@")</li>"
+        fi
     fi
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
