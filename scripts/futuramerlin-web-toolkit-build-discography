@@ -364,22 +364,22 @@ buildTrackPlayer() {
         local hasOgg="true"
     fi
     if ! [[ "$hasMp3" == "true" ]]; then
-        simpleIaLink "$filename".mp3 "$releaseIdentifier" "MP3"
+        simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
         print " "
     fi
     if ! [[ "$hasFlac" == "true" ]]; then
-        simpleIaLink "$filename".flac "$releaseIdentifier" "FLAC"
+        simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
         print " "
     fi
     if ! [[ "$hasOgg" == "true" ]]; then
-        simpleIaLink "$filename".ogg "$releaseIdentifier" "OGA"
+        simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
     fi
     print "<br />"
     print "<audio controls preload=\"none\">"
     local formats=(flac ogg mp3)
     for format in "${formats[@]}"; do
         print "<source src=\""
-        simpleIaLink "$filename.$format" "$releaseIdentifier"
+        simpleIaUrl release "$releaseIdentifier" "$filename.$format"
         print "\" type=\"audio/"
         if [[ "$format" == "mp3" ]]; then
             print "mpeg"
@@ -398,7 +398,7 @@ traitToHtm() {
     local value="$4"
     case "$key" in
     file)
-        print "<li>$(simpleIaLink "$(cut -f2- -d, <<< "$value")" "$identifier" "$(keyToLabel "$(cut -f1 -d, <<< "$value")")")</li>"
+        print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
         ;;
     nonPngArtwork)
         simpleMetadata "$(keyToLabel "$key")" "$(simpleIaLink "$value" "$identifier" "$value")"
