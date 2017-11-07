@@ -449,6 +449,7 @@ traitToHtm() {
         closeCurrentSection
         print $'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
         currentClosingTagNeeded="</dl>"
+        discogDebug "Set closing tag to $currentClosingTagNeeded"
         ;;
     "* Relationships *")
         true
@@ -460,11 +461,13 @@ traitToHtm() {
         closeCurrentSection
         print $'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
         currentClosingTagNeeded="</ul>"
+        discogDebug "Set closing tag to $currentClosingTagNeeded"
         ;;
     "* Tracks *")
         closeCurrentSection
         print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
         currentClosingTagNeeded="    </tbody>"$'\n'"</table>"
+        discogDebug "Set closing tag to $currentClosingTagNeeded"
         ;;
     mbid)
         simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
