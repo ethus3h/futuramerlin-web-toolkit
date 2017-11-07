@@ -142,9 +142,10 @@ linkToItem() {
     local usePicture="$3"
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local picture=""
-    local name
     local shortDate=""
     local extension
+    local pattern='work\/.*'
+    local name
     name="$(getItemName "$kind" "$identifier")"
     if [[ "$kind" == "kind" ]]; then
         extension=""
@@ -162,8 +163,11 @@ linkToItem() {
         fi
         extension=".htm"
     fi
-    local linkFirstPart
-    linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
+    if [[ "$kind" =~ $pattern ]]; then
+        traitToHtm "$kind" "$identifier" "context" "$(discReadConf context "$kind" "$identifier")"
+        print ': '
+    fi
+    print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
     local artistNameInsert
     if [[ "$includeArtistName" == "true" ]]; then
         local artistId
@@ -188,7 +192,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "$linkFirstPart$picture$artistNameInsert$name</a>$shortDate"
+    print "$picture$artistNameInsert$name</a>$shortDate"
 }
 
 simpleMetadata() {
