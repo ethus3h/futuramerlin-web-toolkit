@@ -459,14 +459,12 @@ traitToHtm() {
     "* Files *")
         closeCurrentSection
         print $'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
-        currentClosingTagNeeded="</ul>"
-        discogDebug "Set closing tag to $currentClosingTagNeeded"
+        setClosingTag "</ul>"
         ;;
     "* Tracks *")
         closeCurrentSection
         print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
-        currentClosingTagNeeded="    </tbody>"$'\n'"</table>"
-        discogDebug "Set closing tag to $currentClosingTagNeeded"
+        setClosingTag "    </tbody>"$'\n'"</table>"
         ;;
     mbid)
         simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
@@ -480,17 +478,19 @@ traitToHtm() {
     esac
 }
 
+setClosingTag() {
+    print "$1" > "$closingTagFile"
+}
+
 closeCurrentSection() {
-    discogDebug "Closing section with $currentClosingTagNeeded"
-    print $'\n'"$currentClosingTagNeeded"
+    print $'\n'"$(<"$closingTagFile")"
 }
 
 buildInfoTable() {
     local kind="$1"
     local identifier="$2"
     local foundInfo=""
-    currentClosingTagNeeded="</dl>"
-    discogDebug "Set closing tag to $currentClosingTagNeeded"
+    setClosingTag "</dl>"
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
@@ -504,7 +504,7 @@ buildInfoTable() {
                 local traitHtm
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
                 if [[ -n "$traitHtm" ]]; then
-                    discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'. Current closing tag: $currentClosingTagNeeded"
+                    discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'"
                     local pattern='^'$'\n''<\/'
                     if [[ "$traitHtm" =~ $pattern ]]; then
                         print "$traitHtm"
