@@ -138,7 +138,13 @@ linkToItem() {
     if [[ "$kind" == "kind" ]]; then
         extension=""
     else
-        shortDate="$(discReadConf shortDate "$kind" "$identifier")"
+        if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "session" ]]; then
+            shortDate="$(discReadConf shortDate "$kind" "$identifier")"
+            if [[ -n "$shortDate" ]]; then
+                shortDate=" ($shortDate)"
+            else
+                shortDate=""
+            fi
         extension=".htm"
     fi
     local linkFirstPart
