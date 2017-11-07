@@ -494,8 +494,8 @@ buildInfoTable() {
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
                 traitHtm="${traitHtm%$'\n'}"
                 if [[ -n "$traitHtm" ]]; then
-                    discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
-                    local pattern='^<\/'
+                    discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'"
+                    local pattern='^\n<\/'
                     if [[ "$traitHtm" =~ $pattern ]]; then
                         print "$traitHtm"
                     else
