@@ -142,7 +142,7 @@ linkToItem() {
     if [[ "$includeArtistName" == "true" ]]; then
         local artistId
         artistId="$(discReadConf artist "$kind" "$identifier")"
-        artistNameInsert="</a> $(discReadConf name artist "$artistId"): $linkFirstPart"
+        artistNameInsert="</a> $(discReadConf fmCatNum "$kind" "$identifier") — $(discReadConf name artist "$artistId"): $linkFirstPart"
     else
         artistNameInsert=""
     fi
