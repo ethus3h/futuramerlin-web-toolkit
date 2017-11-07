@@ -229,7 +229,7 @@ getLeafBreadcrumbs() {
             if [[ -n "$superKind" ]]; then
                 print "$(getKindFolderName "$superKind")/$kind.htm"
             else
-                print "$(getRelativeDiscographyDir)/$kind"
+                print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")"
             fi
             print "\">"
             if [[ -n "$superKind" ]]; then
