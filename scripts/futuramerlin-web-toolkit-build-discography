@@ -71,21 +71,18 @@ for file in works/*/*.conf; do
 done
 
 getKindFolderName() {
-    set -x
     local kind="$1"
-    local pattern='.*/.*'
+    local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
         # This kind is for a sub-item
-        local key="${line%%\/*}"
-        local value="${line#*\/}"
+        local key="${kind%%\/*}"
+        local value="${kind#*\/}"
         print "$(getKindFolderName "$key")/$value"
-    fi
-    if [[ "$kind" == "press" ]]; then
+    elif [[ "$kind" == "press" ]]; then
         print "press"
     else
         print "${kind}s"
     fi
-    set +x
 }
 
 getKindLabel() {
