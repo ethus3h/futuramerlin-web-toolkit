@@ -213,7 +213,6 @@ getEntryPoint() {
 }
 
 getLeafBreadcrumbs() {
-    set -x
     local kind="$1"
     local superKind="$2"
     local pattern='.*\/.*'
@@ -241,7 +240,6 @@ getLeafBreadcrumbs() {
             print "</a></span>"
         fi
     fi
-    set +x
 }
 
 getBreadcrumbs() {
