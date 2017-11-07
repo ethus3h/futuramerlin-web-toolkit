@@ -474,10 +474,15 @@ traitToHtm() {
 buildInfoTable() {
     local kind="$1"
     local identifier="$2"
+    local foundInfo=""
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="${line%%,*}"
             if [[ -n "$key" ]]; then
+                if [[ foundInfo != "true" ]]; then
+                    print '<dl>'
+                    foundInfo="true"
+                fi
                 value="${line#*,}"
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
                 discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
