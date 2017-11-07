@@ -245,20 +245,22 @@ listItem() {
 }
 
 simpleIaLink() {
-    local filename="$1"
-    local localident="$2"
-    local label="$3"
+    local kind="$1"
+    local identifier="$2"
+    local iafilename="$3"
+    local label="$4"
     local iaident
-    iaident="$(preadconf ia "$localident")"
-    print "<a href=\"https://archive.org/download/$iaident/$filename\">$label</a>"
+    iaident="$(discReadConf ia "$kind" "$identifier")"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename\">$label</a>"
 }
 
 simpleIaUrl() {
-    local filename="$1"
-    local localident="$2"
+    local kind="$1"
+    local identifier="$2"
+    local iafilename="$3"
     local iaident
-    iaident="$(preadconf ia "$localident")"
-    print "https://archive.org/download/$iaident/$filename"
+    iaident="$(discReadConf ia "$kind" "$identifier")"
+    print "https://archive.org/download/$iaident/$iafilename"
 }
 
 simpleIaImage() {
