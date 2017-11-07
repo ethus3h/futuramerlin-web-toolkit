@@ -579,7 +579,7 @@ buildList() {
 buildPage() {
     local destinationFile="$1"
     local pageTitle="$2"
-    discogDebug "Building page $(pwd)/$pageTitle: $destinationFile.htm"
+    discogDebug "Building page $pageTitle in $(pwd): $destinationFile.htm"
     local pageBreadcrumbs="$3"
     local pageContent="$4"
     cp "$assets/template.htm" "$destinationFile.htm" || die
