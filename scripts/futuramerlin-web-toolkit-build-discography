@@ -29,7 +29,6 @@ indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
 currentClosingTagNeeded=""
-discogDebug "Set closing tag to $currentClosingTagNeeded"
 
 discogDebug() {
     echo "$@" 1>&2
