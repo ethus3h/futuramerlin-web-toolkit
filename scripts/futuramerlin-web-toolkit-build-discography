@@ -334,25 +334,24 @@ keyToLabel() {
 }
 
 buildTrackPlayer() {
-    local kind="$1"
     local workIdentifier="$2"
     local releaseIdentifier="$3"
     local filename
-    filename="$(discReadConf filename "$kind" "$identifier")"
+    filename="$(discReadConf filename work "$identifier")"
     local extA
-    extA="$(discReadConf origExt "$kind" "$identifier")"
+    extA="$(discReadConf origExt work "$identifier")"
     if [[ -n "$extA" ]]; then
         simpleIaLink "$releaseIdentifier" "$filename.$extA" "Orig. ($extA)"
         print " "
     fi
     local extB
-    extB="$(discReadConf origExtB "$kind" "$identifier")"
+    extB="$(discReadConf origExtB work "$identifier")"
     if [[ -n "$extB" ]]; then
         simpleIaLink "$filename.$extB" "$releaseIdentifier" "Orig. ($extB)"
         print " "
     fi
     local extC
-    extC="$(discReadConf origExtC "$kind" "$identifier")"
+    extC="$(discReadConf origExtC work "$identifier")"
     if [[ -n "$extC" ]]; then
         simpleIaLink "$filename.$extC" "$releaseIdentifier" "Orig. ($extC)"
         print " "
@@ -421,7 +420,7 @@ traitToHtm() {
         work="$(cut -f1 -d, <<< "$value")"
         subWork="$(cut -f2 -d, <<< "$value")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "work" "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
