@@ -145,7 +145,7 @@ linkToItem() {
     else
         if [[ "$includeDate" == "true" ]]; then
             shortDate="$(discReadConf shortDate "$kind" "$identifier")"
-            if [[ -n "$shortDate" ]]; then
+            if [[ -z "$shortDate" ]]; then
                 shortDate="$(discReadConf date "$kind" "$identifier")"
             fi
             if [[ -n "$shortDate" ]]; then
