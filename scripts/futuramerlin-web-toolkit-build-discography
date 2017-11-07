@@ -217,14 +217,20 @@ getLeafBreadcrumbs() {
     local kind="$1"
     local superKind="$2"
     local pattern='.*\/.*'
-    if [[ "$kind" =~ $pattern ]]; then
-        # This kind is for a sub-item
-        local key="${kind%%\/*}"
-        local value="${kind#*\/}"
-        getLeafBreadcrumbs "$value" "$key"
-    else
-        if [[ "$kind" != "kind" ]] && [[ "$kind" != "index" ]]; then
-            print $'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
+    if [[ "$kind" != "kind" ]] && [[ "$kind" != "index" ]]; then
+        if [[ "$kind" =~ $pattern ]]; then
+            # This kind is for a sub-item
+            local key="${kind%%\/*}"
+            local value="${kind#*\/}"
+            getLeafBreadcrumbs "$value" "$key"
+        else
+            print $'\n'"    <span><a href=\"index.htm\">"
+            if [[ -n "$superKind" ]]; then
+                getItemName "$superKind" "$kind"
+            else
+                getKindLabel "$kind"
+            fi
+            print "</a></span>"
         fi
     fi
     set +x
