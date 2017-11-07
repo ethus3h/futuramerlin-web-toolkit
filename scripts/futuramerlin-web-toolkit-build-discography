@@ -226,10 +226,11 @@ getLeafBreadcrumbs() {
             getLeafBreadcrumbs "$value" "$key"
         else
             print $'\n'"    <span><a href=\""
+            getRelativeDiscographyDir
             if [[ -n "$superKind" ]]; then
                 print "$(getKindFolderName "$superKind")/$kind.htm"
             else
-                print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")"
+                print "$(getKindFolderName "$kind")"
             fi
             print "\">"
             if [[ -n "$superKind" ]]; then
