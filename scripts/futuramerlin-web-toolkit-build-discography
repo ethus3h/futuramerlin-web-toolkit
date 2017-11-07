@@ -126,6 +126,11 @@ linkToItem() {
         includeArtistName="true"
         shift
     fi
+    local includeDate=""
+    if [[ "$1" == "--with-date" ]]; then
+        includeDate="true"
+        shift
+    fi
     local kind="$1"
     local identifier="$2"
     local usePicture="$3"
@@ -138,13 +143,14 @@ linkToItem() {
     if [[ "$kind" == "kind" ]]; then
         extension=""
     else
-        if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "session" ]]; then
+        if [[ "$includeDate" == "true" ]]; then
             shortDate="$(discReadConf shortDate "$kind" "$identifier")"
             if [[ -n "$shortDate" ]]; then
                 shortDate=" ($shortDate)"
             else
                 shortDate=""
             fi
+        fi
         extension=".htm"
     fi
     local linkFirstPart
@@ -239,7 +245,11 @@ listItem() {
             # Also print the artist name
             print $'\n'"    <li>$(linkToItem --with-artist-name "$@")</li>"
         else
-            print $'\n'"    <li>$(linkToItem "$@")</li>"
+            if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "session" ]]; then
+                print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
+            else
+                print $'\n'"    <li>$(linkToItem "$@")</li>"
+            fi
         fi
     fi
     if [[ "$recursive" == "true" ]]; then
