@@ -222,6 +222,7 @@ getLeafBreadcrumbs() {
             # This kind is for a sub-item
             local key="${kind%%\/*}"
             local value="${kind#*\/}"
+            getLeafBreadcrumbs "$key"
             getLeafBreadcrumbs "$value" "$key"
         else
             print $'\n'"    <span><a href=\"index.htm\">"
