@@ -417,8 +417,9 @@ traitToHtm() {
         ;;
     track)
         trackCounter=$(( trackCounter + 1 ))
-        work="${value%%,*}"
-        subWork="${value#*,}"
+        local work="${value%%,*}"
+        local subWork="${value#*,}"
+        local workPrefix
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
         print "    <tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
