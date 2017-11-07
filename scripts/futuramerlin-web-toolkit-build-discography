@@ -470,10 +470,10 @@ buildInfoTable() {
     local kind="$1"
     local identifier="$2"
     local configFile
-    local configLi
+    local configLinesCount
     configFile="$(getItemPath "$kind" "$identifier").conf"
     configLinesCount="$(wc -l < "$configFile")"
-    while configLinesCount; do
+    while [[ "$configLinesCount" -gt 0 ]]; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! grep -P "^$key," "$inheritInto" > /dev/null; then
