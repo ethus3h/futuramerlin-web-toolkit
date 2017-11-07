@@ -56,7 +56,8 @@ mergeConfFile() {
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom into $inheritInto"
     while IFS= read -r line; do
-        if ! [[ "$line" =~ ^# ]]; then
+        local pattern='^#'
+        if ! [[ "$line" =~ $pattern ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! grep -P "^$key," "$inheritInto" > /dev/null; then
                 printf "%s\\n" "$line" >> "$inheritInto"
@@ -71,6 +72,11 @@ done
 
 getKindFolderName() {
     local kind="$1"
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        # This kind is for a sub-item
+        print "$kind"
+    fi
     if [[ "$kind" == "press" ]]; then
         print "press"
     else
