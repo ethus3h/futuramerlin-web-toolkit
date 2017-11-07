@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
-#set -x
+set -x
 
 sourceDir="$(readlink -f "$1")"
 
