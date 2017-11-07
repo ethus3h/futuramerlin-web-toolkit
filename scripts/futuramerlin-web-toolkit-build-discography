@@ -334,8 +334,8 @@ keyToLabel() {
 }
 
 buildTrackPlayer() {
-    local workIdentifier="$2"
-    local releaseIdentifier="$3"
+    local workIdentifier="$1"
+    local releaseIdentifier="$2"
     local filename
     filename="$(discReadConf filename work "$workIdentifier")"
     local extA
