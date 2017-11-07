@@ -27,7 +27,8 @@ indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 indexBreadcrumbs="    ${indexBreadcrumbs//$'\n'/$'\n'    }"
 indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
-trackCounter=0
+trackCounterFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
+echo "0" > "$trackCounterFile"
 closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
@@ -418,12 +419,14 @@ traitToHtm() {
         done
         ;;
     track)
-        trackCounter=$(( trackCounter + 1 ))
+        local trackCounter
+        trackCounter="$(getTrackCounter)"
+        setTrackCounter $(( trackCounter + 1 ))
         local work="${value%%,*}"
         local subWork="${value#*,}"
         local workPrefix
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "    <tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+        print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
@@ -477,6 +480,14 @@ traitToHtm() {
         simpleMetadata "$(keyToLabel "$key")" "$value"
         ;;
     esac
+}
+
+setTrackCounter() {
+    print "$1" > "$closingTagFile"
+}
+
+getTrackCounter() {
+    cat "$closingTagFile"
 }
 
 setClosingTag() {
