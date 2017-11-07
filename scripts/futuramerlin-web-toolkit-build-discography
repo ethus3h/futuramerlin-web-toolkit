@@ -48,9 +48,10 @@ getRelativeDiscographyDir() {
 }
 
 mergeConfFile() {
-    local dir
-    dir="$(getRelativeDiscographyDir)"
-    inheritFrom="$dir"/works/"$(basename "$(pwd)")".conf
+    inheritInto="$1"
+    local discogDir
+    discogDir="$(getRelativeDiscographyDir)"
+    inheritFrom="$discogDir"/works/"$(basename "$(pwd)")".conf
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
@@ -469,9 +470,16 @@ traitToHtm() {
     esac
 }
 
+buildInfoTable() {
+    kind="$1"
+    identifier="$2"
+}
+
 buildLeafContents() {
     kind="$1"
     identifier="$2"
+    infoTable="$(buildInfoTable "$kind" "$identifier")"
+    [[ -n "$infoTable" ]] && print '<h2>Information</h2>'$'\n'"<dl>$infoTable"$'\n'"</dl>"
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
         [[ -n "$releasesList" ]] && print '<h2>Releases</h2>'$'\n'"<ul>$releasesList"$'\n'"</ul>"
