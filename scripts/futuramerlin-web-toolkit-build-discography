@@ -215,7 +215,7 @@ getEntryPoint() {
 getLeafBreadcrumbs() {
     set -x
     local kind="$1"
-    local superKind="$1"
+    local superKind="$2"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
         # This kind is for a sub-item
@@ -224,7 +224,7 @@ getLeafBreadcrumbs() {
         getLeafBreadcrumbs "$value" "$key"
     else
         if [[ "$kind" != "kind" ]] && [[ "$kind" != "index" ]]; then
-            print=$'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
+            print $'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
         fi
     fi
     set +x
