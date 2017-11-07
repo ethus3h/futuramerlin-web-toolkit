@@ -243,7 +243,7 @@ listItem() {
     if [[ "$filtered" != "true" ]] || [[ "$matchedFilter" == "true" ]]; then
         if [[ "$filterKey" == "label" ]]; then
             # Also print the artist name
-            print $'\n'"    <li>$(linkToItem --with-artist-name "$@")</li>"
+            print $'\n'"    <li>$(linkToItem --with-artist-name --with-date "$@")</li>"
         else
             if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]]; then
                 print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
