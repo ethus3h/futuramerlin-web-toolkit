@@ -3,7 +3,7 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
-set -x
+#set -x
 
 sourceDir="$(readlink -f "$1")"
 
@@ -262,13 +262,14 @@ simpleIaUrl() {
 }
 
 simpleIaImage() {
-    local filename="$1"
-    local localident="$2"
+    local kind="$1"
+    local identifier="$2"
+    local iafilename="$3"
     local iaident
-    iaident="$(preadconf ia "$localident")"
+    iaident="$(discReadConf ia "$kind" "$identifier")"
     local relname
-    relname="$(preadconf name "$localident")"
-    print "<a href=\"https://archive.org/download/$iaident/$filename.png\"><img src=\"https://archive.org/download/$iaident/t$filename.png\" alt=\"$relname: album artwork\" /></a>"
+    relname="$(discReadConf name "$kind" "$identifier")"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"https://archive.org/download/$iaident/t$iafilename.png\" alt=\"$relname: album artwork\" /></a>"
 }
 
 keyToLabel() {
@@ -408,7 +409,7 @@ traitToHtm() {
     artworkcount)
         local end="$value"
         for (( i=1; i<=end; i++ )); do
-            simpleIaImage "$i" "$identifier"
+            simpleIaImage "$kind" "$identifier" "$i"
             print ' '
         done
         ;;
