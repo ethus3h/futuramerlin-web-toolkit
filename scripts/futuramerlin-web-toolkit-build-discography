@@ -471,8 +471,13 @@ buildInfoTable() {
     local kind="$1"
     local identifier="$2"
     while IFS= read -r line; do
-        key="${line%%,*}"
-        value="${line#*,}"
+        if ! [[ "$line" =~ ^# ]]; then
+            key="${line%%,*}"
+            value="${line#*,}"
+            if [[ "$key" != "name" ]]; then
+                traitToHtm "$kind" "$identifier" "$key" "$value"
+            fi
+        fi
     done < "$(getItemPath "$kind" "$identifier").conf"
 }
 
