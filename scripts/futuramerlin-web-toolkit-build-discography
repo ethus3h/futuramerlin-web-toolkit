@@ -135,7 +135,9 @@ linkToItem() {
     local shortDate
     local extension
     name="$(getItemName "$kind" "$identifier")"
+    set -x
     shortDate="$(discReadConf shortDate "$kind" "$identifier")"
+    set +x
     if [[ "$kind" == "kind" ]]; then
         extension=""
     else
