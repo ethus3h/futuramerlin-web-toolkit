@@ -482,6 +482,7 @@ traitToHtm() {
 }
 
 closeCurrentSection() {
+    discogDebug "Closing section with $currentClosingTagNeeded"
     print $'\n'"$currentClosingTagNeeded"
 }
 
