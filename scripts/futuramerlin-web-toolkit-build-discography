@@ -577,12 +577,10 @@ buildLeafContents() {
         true # needed because the if statement executes with the exit status of the last command executed
     fi
 
-    set -x
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
         listRecursive "$kind/$identifier"
     fi
-    set +x
 }
 
 listRecursive() {
