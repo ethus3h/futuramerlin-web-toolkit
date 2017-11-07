@@ -48,7 +48,8 @@ getRelativeDiscographyDir() {
 }
 
 mergeConfFile() {
-    inheritInto="$1"
+    local inheritInto="$1"
+    local inheritFrom
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom"
     while IFS= read -r line; do
@@ -66,7 +67,7 @@ for file in works/*/*.conf; do
 done
 
 getKindFolderName() {
-    kind="$1"
+    local kind="$1"
     if [[ "$kind" == "press" ]]; then
         print "press"
     else
@@ -493,7 +494,7 @@ buildLeafContents() {
 
 listRecursive() {
     discogDebug echo "listRecursive called with args $1 $2 $3 $4"
-    kind="$1"
+    local kind="$1"
     local filtered=""
     local filterKey
     local filterValue
@@ -521,7 +522,7 @@ listRecursive() {
 }
 
 listAlphabetical() {
-    kind="$1"
+    local kind="$1"
     local filtered=""
     local filterKey
     local filterValue
@@ -530,7 +531,7 @@ listAlphabetical() {
         filterKey="$3"
         filterValue="$4"
     fi
-    itemList=""
+    local itemList=""
     discogDebug "Building alphabetical list of $kind (filtered: $filtered $filterKey $filterValue)"
     for item in ../"$(getKindFolderName "$kind")"/*.conf; do
         itemName="$(basename "$item")"
