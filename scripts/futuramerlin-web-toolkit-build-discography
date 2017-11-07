@@ -251,7 +251,7 @@ getSubKind() {
     local kind="$1"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
-        getKindFolderName "${kind#*\/}"
+        getKindFolderName "$kind"
         print "/"
     fi
 }
