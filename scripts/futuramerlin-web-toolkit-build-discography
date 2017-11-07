@@ -213,6 +213,7 @@ getEntryPoint() {
 }
 
 getLeafBreadcrumbs() {
+    set -x
     local kind="$1"
     local superKind="$1"
     local pattern='.*\/.*'
@@ -226,11 +227,13 @@ getLeafBreadcrumbs() {
             print=$'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
         fi
     fi
+    set +x
 }
 
 getBreadcrumbs() {
     local kind="$1"
-    print "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>$(getLeafBreadcrumbs "$kind")"
+    print "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>"
+    getLeafBreadcrumbs "$kind"
 }
 
 listItem() {
