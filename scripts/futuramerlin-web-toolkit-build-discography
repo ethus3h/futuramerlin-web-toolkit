@@ -28,7 +28,7 @@ indexBreadcrumbs="    ${indexBreadcrumbs//$'\n'/$'\n'    }"
 indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
-needInfoSectionClosingDl=""
+currentClosingTagNeeded=""
 
 discogDebug() {
     echo "$@" 1>&2
