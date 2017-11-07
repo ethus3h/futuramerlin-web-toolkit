@@ -49,7 +49,9 @@ getRelativeDiscographyDir() {
 
 mergeConfFile() {
     inheritInto="$1"
-    inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
+    local discogDir
+    discogDir="$(getRelativeDiscographyDir)"
+    inheritFrom="$discogDir/works/$(basename "$(pwd)").conf"
     discogDebug "Merging from $inheritFrom"
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
@@ -62,7 +64,10 @@ mergeConfFile() {
 }
 
 for file in works/*/*.conf; do
-    mergeConfFile "$file"
+    (
+        cd "$(dirname "$file")" || die
+        mergeConfFile "$file"
+    )
 done
 
 getKindFolderName() {
@@ -467,21 +472,13 @@ traitToHtm() {
 }
 
 buildInfoTable() {
-    local kind="$1"
-    local identifier="$2"
-    while IFS= read -r line; do
-        if ! [[ "$line" =~ ^# ]]; then
-            key="$(cut -f1 -d, <<< "$line")"
-            if ! grep -P "^$key," "$inheritInto" > /dev/null; then
-                printf "%s\\n" "$line" >> "$inheritInto"
-            fi
-        fi
-    done < "$(getItemPath "$kind" "$identifier").conf"
+    kind="$1"
+    identifier="$2"
 }
 
 buildLeafContents() {
-    local kind="$1"
-    local identifier="$2"
+    kind="$1"
+    identifier="$2"
     infoTable="$(buildInfoTable "$kind" "$identifier")"
     [[ -n "$infoTable" ]] && print '<h2>Information</h2>'$'\n'"<dl>$infoTable"$'\n'"</dl>"
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
