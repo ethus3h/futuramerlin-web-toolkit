@@ -167,7 +167,7 @@ linkToItem() {
         traitToHtm "$kind" "$identifier" "context" "$(discReadConf context "$kind" "$identifier")"
         print ': '
     fi
-    print "<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
+    linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
     local artistNameInsert
     if [[ "$includeArtistName" == "true" ]]; then
         local artistId
@@ -192,7 +192,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "$picture$artistNameInsert$name</a>$shortDate"
+    print "$linkFirstPart$picture$artistNameInsert$name</a>$shortDate"
 }
 
 simpleMetadata() {
