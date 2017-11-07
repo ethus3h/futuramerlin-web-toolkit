@@ -664,4 +664,5 @@ buildCategory() {
 
 buildCategory "index"
 
+rm "${trackCounterFile:?}"
 rm "${closingTagFile:?}"
