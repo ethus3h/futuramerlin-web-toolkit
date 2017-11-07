@@ -341,19 +341,19 @@ buildTrackPlayer() {
     local extA
     extA="$(discReadConf origExt work "$workIdentifier")"
     if [[ -n "$extA" ]]; then
-        simpleIaLink "$releaseIdentifier" "$filename.$extA" "Orig. ($extA)"
+        simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($extA)"
         print " "
     fi
     local extB
     extB="$(discReadConf origExtB work "$workIdentifier")"
     if [[ -n "$extB" ]]; then
-        simpleIaLink "$filename.$extB" "$releaseIdentifier" "Orig. ($extB)"
+        simpleIaLink release "$releaseIdentifier" "$filename.$extB" "Orig. ($extB)"
         print " "
     fi
     local extC
     extC="$(discReadConf origExtC work "$workIdentifier")"
     if [[ -n "$extC" ]]; then
-        simpleIaLink "$filename.$extC" "$releaseIdentifier" "Orig. ($extC)"
+        simpleIaLink release "$releaseIdentifier" "$filename.$extC" "Orig. ($extC)"
         print " "
     fi
     if [[ "$extA" == "flac" || "$extB" == "flac" || "$extC" == "flac" ]]; then
