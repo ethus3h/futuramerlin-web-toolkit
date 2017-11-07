@@ -89,15 +89,7 @@ getKindLabel() {
     local kind="$1"
     local kindFolderName
     kindFolderName="$(getKindFolderName "$kind")"
-    local pattern='.*\/.*'
-    if [[ "$kind" =~ $pattern ]]; then
-        # This kind is for a sub-item
-        local key="${kind%%\/*}"
-        local value="${kind#*\/}"
-        print "$(getKindFolderName "$key")/$value"
-    else
-        print "${kindFolderName^}"
-    fi
+    print "${kindFolderName^}"
 }
 
 getItemPath() {
@@ -223,8 +215,16 @@ getEntryPoint() {
 getBreadcrumbs() {
     local kind="$1"
     local secondLevelBreadcrumb=""
-    if [[ "$kind" != "kind" ]] && [[ "$kind" != "index" ]]; then
-        secondLevelBreadcrumb=$'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        # This kind is for a sub-item
+        local key="${kind%%\/*}"
+        local value="${kind#*\/}"
+        print "$(getKindFolderName "$key")/$value"
+    else
+        if [[ "$kind" != "kind" ]] && [[ "$kind" != "index" ]]; then
+            secondLevelBreadcrumb=$'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
+        fi
     fi
     print "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>$secondLevelBreadcrumb"
 }
