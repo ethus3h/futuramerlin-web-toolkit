@@ -71,6 +71,7 @@ for file in works/*/*.conf; do
 done
 
 getKindFolderName() {
+    set -x
     local kind="$1"
     local pattern='.*/.*'
     if [[ "$kind" =~ $pattern ]]; then
@@ -84,6 +85,7 @@ getKindFolderName() {
     else
         print "${kind}s"
     fi
+    set +x
 }
 
 getKindLabel() {
