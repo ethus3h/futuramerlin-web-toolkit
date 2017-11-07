@@ -471,8 +471,8 @@ buildInfoTable() {
     local kind="$1"
     local identifier="$2"
     while IFS= read -r line; do
-        if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
+            value="$(cut -f2 -d, <<< "$line")"
             if ! grep -P "^$key," "$inheritInto" > /dev/null; then
                 printf "%s\\n" "$line" >> "$inheritInto"
             fi
