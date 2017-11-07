@@ -167,7 +167,7 @@ linkToItem() {
         local contextValue
         contextValue="$(discReadConf context "$kind" "$identifier")"
         local contextKind="${contextValue%%,*}"
-        print "${contextKind^}: $(linkToItem --with-date "$contextKind" "${contextValue#*,}" false): "
+        print "${contextKind^} $(linkToItem --with-date "$contextKind" "${contextValue#*,}" false): "
     fi
     linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
     local artistNameInsert
@@ -628,7 +628,9 @@ buildLeafContents() {
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
+        print '<h2>Instances</h2>'$'\n'"<ul>"
         listRecursive "$kind/$identifier"
+        print $'\n'"</ul>"
     fi
 }
 
