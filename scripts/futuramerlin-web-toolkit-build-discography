@@ -96,14 +96,13 @@ getItemPath() {
     # Returns the prefix pathname (e.g. releases/sylfan) of the referenced item, relative to the current directory.
     local kind="$1"
     local identifier="$2"
-    # TODO: Make this able to handle more cases (it won't work for e.g. kind=work/sylfan)
     case "$kind" in
-    kind)
-        print "$(getRelativeDiscographyDir)$(getKindFolderName "$identifier")"
-        ;;
-    *)
-        print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")/$identifier"
-        ;;
+        kind)
+            print "$(getRelativeDiscographyDir)$(getKindFolderName "$identifier")"
+            ;;
+        *)
+            print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")/$identifier"
+            ;;
     esac
 }
 
@@ -268,6 +267,11 @@ listItem() {
     fi
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
+    local subKind=""
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        local subKind="${kind#*\/}/"
+    fi
     local identifier="$2"
     discogDebug "Building list entry for an item: $kind $identifier. Recursive: $recursive. Filtered: $filtered $filterKey $filterValue"
     local usePicture="$3"
@@ -293,7 +297,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$subKind$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -335,60 +339,60 @@ simpleIaImage() {
 
 keyToLabel() {
     case $1 in
-    dateBegun)
-        print "Date begun"
-        ;;
-    mbid)
-        print "MusicBrainz"
-        ;;
-    alac)
-        print "M4A: Apple Lossless Audio Codec"
-        ;;
-    cdRip)
-        print "CD Rip"
-        ;;
-    zipRelease)
-        print "ZIP release <small>(historic packing)</small>"
-        ;;
-    artSource)
-        print "Artwork production files"
-        ;;
-    soundSource)
-        print "Music production files"
-        ;;
-    releaseTracks)
-        print "Original release tracks <small>(packing not original)</small>"
-        ;;
-    nonPngArtwork)
-        print "Nonstandard artwork"
-        ;;
-    fileIsSemanticallySignificant)
-        print "File is semantically significant"
-        ;;
-    fmCatNum)
-        print "Catalog number"
-        ;;
-    oldFmCatNum)
-        print "Original catalog number"
-        ;;
-    hypFmCatNum)
-        print "Two-part old catalog number"
-        ;;
-    isAliasOf)
-        print "Is alias of"
-        ;;
-    hasAlias)
-        print "Has alias"
-        ;;
-    legalName)
-        print "Legal name"
-        ;;
-    ia)
-        print "Internet Archive"
-        ;;
-    *)
-        print "${1^}"
-        ;;
+        dateBegun)
+            print "Date begun"
+            ;;
+        mbid)
+            print "MusicBrainz"
+            ;;
+        alac)
+            print "M4A: Apple Lossless Audio Codec"
+            ;;
+        cdRip)
+            print "CD Rip"
+            ;;
+        zipRelease)
+            print "ZIP release <small>(historic packing)</small>"
+            ;;
+        artSource)
+            print "Artwork production files"
+            ;;
+        soundSource)
+            print "Music production files"
+            ;;
+        releaseTracks)
+            print "Original release tracks <small>(packing not original)</small>"
+            ;;
+        nonPngArtwork)
+            print "Nonstandard artwork"
+            ;;
+        fileIsSemanticallySignificant)
+            print "File is semantically significant"
+            ;;
+        fmCatNum)
+            print "Catalog number"
+            ;;
+        oldFmCatNum)
+            print "Original catalog number"
+            ;;
+        hypFmCatNum)
+            print "Two-part old catalog number"
+            ;;
+        isAliasOf)
+            print "Is alias of"
+            ;;
+        hasAlias)
+            print "Has alias"
+            ;;
+        legalName)
+            print "Legal name"
+            ;;
+        ia)
+            print "Internet Archive"
+            ;;
+        *)
+            print "${1^}"
+            ;;
     esac
 }
 
@@ -456,88 +460,88 @@ traitToHtm() {
     local key="$3"
     local value="$4"
     case "$key" in
-    file)
-        print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
-        ;;
-    nonPngArtwork)
-        simpleMetadata "$(keyToLabel "$key")" "$(simpleIaLink "$value" "$identifier" "$value")"
-        ;;
-    fileIsSemanticallySignificant)
-        if [[ "$value" == "yes" ]]; then
-            simpleMetadata "$(keyToLabel "$key")" "yes"
-        fi
-        ;;
-    artworkcount)
-        local end="$value"
-        for (( i=1; i<=end; i++ )); do
-            simpleIaImage "$kind" "$identifier" "$i"
-            print ' '
-        done
-        ;;
-    track)
-        local trackCounter
-        trackCounter="$(getTrackCounter)"
-        setTrackCounter $(( trackCounter + 1 ))
-        local work="${value%%,*}"
-        local subWork="${value#*,}"
-        local workPrefix
-        workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
-        ;;
-    medium)
-        simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
-        ;;
-    label)
-        simpleReference "$key" label "$value"
-        ;;
-    artist)
-        simpleReference "$key" artist "$value"
-        ;;
-    work)
-        simpleReference "$key" work "${value/,/\/}"
-        ;;
-    shortDate)
-        true
-        ;;
-    name)
-        true
-        ;;
-    hasAlias)
-        simpleReference "$key" artist "$value"
-        ;;
-    isAliasOf)
-        simpleReference "$key" artist "$value"
-        ;;
-    "* Identifiers *")
-        closeCurrentSection
-        print $'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
-        setClosingTag "</dl>"
-        ;;
-    "* Relationships *")
-        true
-        ;;
-    "* Specs *")
-        true
-        ;;
-    "* Files *")
-        closeCurrentSection
-        print $'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
-        setClosingTag "</ul>"
-        ;;
-    "* Tracks *")
-        closeCurrentSection
-        print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
-        setClosingTag "    </tbody>"$'\n'"</table>"
-        ;;
-    mbid)
-        simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
-        ;;
-    ia)
-        simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://archive.org/details/$value\">$value</a>"
-        ;;
-    *)
-        simpleMetadata "$(keyToLabel "$key")" "$value"
-        ;;
+        file)
+            print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
+            ;;
+        nonPngArtwork)
+            simpleMetadata "$(keyToLabel "$key")" "$(simpleIaLink "$value" "$identifier" "$value")"
+            ;;
+        fileIsSemanticallySignificant)
+            if [[ "$value" == "yes" ]]; then
+                simpleMetadata "$(keyToLabel "$key")" "yes"
+            fi
+            ;;
+        artworkcount)
+            local end="$value"
+            for (( i=1; i<=end; i++ )); do
+                simpleIaImage "$kind" "$identifier" "$i"
+                print ' '
+            done
+            ;;
+        track)
+            local trackCounter
+            trackCounter="$(getTrackCounter)"
+            setTrackCounter $(( trackCounter + 1 ))
+            local work="${value%%,*}"
+            local subWork="${value#*,}"
+            local workPrefix
+            workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
+            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+            ;;
+        medium)
+            simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
+            ;;
+        label)
+            simpleReference "$key" label "$value"
+            ;;
+        artist)
+            simpleReference "$key" artist "$value"
+            ;;
+        work)
+            simpleReference "$key" work "${value/,/\/}"
+            ;;
+        shortDate)
+            true
+            ;;
+        name)
+            true
+            ;;
+        hasAlias)
+            simpleReference "$key" artist "$value"
+            ;;
+        isAliasOf)
+            simpleReference "$key" artist "$value"
+            ;;
+        "* Identifiers *")
+            closeCurrentSection
+            print $'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
+            setClosingTag "</dl>"
+            ;;
+        "* Relationships *")
+            true
+            ;;
+        "* Specs *")
+            true
+            ;;
+        "* Files *")
+            closeCurrentSection
+            print $'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
+            setClosingTag "</ul>"
+            ;;
+        "* Tracks *")
+            closeCurrentSection
+            print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
+            setClosingTag "    </tbody>"$'\n'"</table>"
+            ;;
+        mbid)
+            simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
+            ;;
+        ia)
+            simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://archive.org/details/$value\">$value</a>"
+            ;;
+        *)
+            simpleMetadata "$(keyToLabel "$key")" "$value"
+            ;;
     esac
 }
 
