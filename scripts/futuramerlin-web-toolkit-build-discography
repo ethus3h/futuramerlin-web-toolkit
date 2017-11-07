@@ -72,7 +72,7 @@ done
 
 getKindFolderName() {
     local kind="$1"
-    local pattern='.*\/.*'
+    local pattern='.*/.*'
     if [[ "$kind" =~ $pattern ]]; then
         # This kind is for a sub-item
         local key="${line%%\/*}"
