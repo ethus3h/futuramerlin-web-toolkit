@@ -511,6 +511,9 @@ traitToHtm() {
         name)
             true
             ;;
+        nextId)
+            true
+            ;;
         context)
             simpleReference "$key" "${value%%,*}" "${value#*,}"
             ;;
