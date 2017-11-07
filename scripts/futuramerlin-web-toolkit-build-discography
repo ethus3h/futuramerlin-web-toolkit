@@ -168,6 +168,15 @@ getEntryPoint() {
     fi
 }
 
+getBreadcrumbs() {
+    local kind="$1"
+    local secondLevelBreadcrumb=""
+    if [[ "$kind" != "kind" ]] && [[ "$kind" != "index" ]]; then
+        secondLevelBreadcrumb=$'\n'"    <span><a href=\"index.htm\">$(getKindLabel "$kind")</a></span>"
+    fi
+    print "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>$secondLevelBreadcrumb"
+}
+
 listItem() {
     local filtered=""
     local filterKey
@@ -204,7 +213,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$identifier" "$(getItemName "$kind" "$identifier")" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -497,7 +506,7 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildLeafContents "$kind" "$itemName")"
+            buildPage "$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
     print "$itemList"
@@ -554,7 +563,7 @@ buildCategory() {
             (
                 cd "$(getKindFolderName "$identifier")" || die
                 identifierCategoryName="$(getKindFolderName "$item")"
-                buildPage "index" "${identifierCategoryName^}" "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>" "$(buildList "$identifier")"
+                buildPage "index" "${identifierCategoryName^}" "$(getBreadcrumbs "$kind")" "$(buildList "$identifier")"
             )
             ;;
         *)
