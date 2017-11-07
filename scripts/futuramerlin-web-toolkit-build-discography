@@ -420,7 +420,7 @@ traitToHtm() {
         work="${value%%,*}"
         subWork="${value#*,}"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "        <tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+        print "    <tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
