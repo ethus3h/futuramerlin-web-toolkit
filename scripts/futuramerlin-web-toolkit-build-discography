@@ -477,10 +477,8 @@ buildInfoTable() {
         if ! [[ "$line" =~ ^# ]]; then
             key="${line%%,*}"
             value="${line#*,}"
-            if [[ "$key" != "name" ]]; then
-                print $'\n    '
-                traitToHtm "$kind" "$identifier" "$key" "$value"
-            fi
+            traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
+            [[ -n "$traitHtm" ]] && print $'\n    '"$traitHtm"
         fi
     done < "$(getItemPath "$kind" "$identifier").conf"
 }
@@ -488,8 +486,7 @@ buildInfoTable() {
 buildLeafContents() {
     local kind="$1"
     local identifier="$2"
-    infoTable="$(buildInfoTable "$kind" "$identifier")"
-    [[ -n "$infoTable" ]] && print '<h2>Information</h2>'$'\n'"<dl>$infoTable"$'\n'"</dl>"
+    buildInfoTable "$kind" "$identifier"
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
         if [[ -n "$releasesList" ]]; then
