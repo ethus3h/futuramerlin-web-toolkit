@@ -298,8 +298,7 @@ listItem() {
             # Also print the artist name
             print $'\n'"    <li>$(linkToItem --with-artist-name --with-date "$@")</li>"
         else
-            local pattern='work\/.*'
-            if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]] || [[ "$kind" =~ $pattern ]]; then
+            if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]]; then
                 print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
             else
                 print $'\n'"    <li>$(linkToItem "$@")</li>"
