@@ -496,7 +496,7 @@ buildInfoTable() {
         fi
     done < "$(getItemPath "$kind" "$identifier").conf"
     if [[ "$foundInfo" == "true" ]]; then
-        print "$currentClosingTagNeeded"
+        print $'\n'"$currentClosingTagNeeded"
     fi
 }
 
