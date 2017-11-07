@@ -483,11 +483,11 @@ traitToHtm() {
 }
 
 setTrackCounter() {
-    print "$1" > "$closingTagFile"
+    print "$1" > "$trackCounterFile"
 }
 
 getTrackCounter() {
-    cat "$closingTagFile"
+    cat "$trackCounterFile"
 }
 
 setClosingTag() {
@@ -516,7 +516,7 @@ buildInfoTable() {
                 local traitHtm
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
                 if [[ -n "$traitHtm" ]]; then
-                    discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'"
+                    #discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'"
                     local pattern='^'$'\n''<\/'
                     if [[ "$traitHtm" =~ $pattern ]]; then
                         print "$traitHtm"
