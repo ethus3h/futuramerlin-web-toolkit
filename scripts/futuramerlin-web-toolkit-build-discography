@@ -446,7 +446,8 @@ traitToHtm() {
         simpleReference "$key" artist "$value"
         ;;
     "* Identifiers *")
-        print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
+        closeCurrentSection
+        print $'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
         currentClosingTagNeeded="</dl>"
         ;;
     "* Relationships *")
@@ -456,11 +457,13 @@ traitToHtm() {
         true
         ;;
     "* Files *")
-        print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
+        closeCurrentSection
+        print $'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
         currentClosingTagNeeded="</ul>"
         ;;
     "* Tracks *")
-        print $'\n'"$currentClosingTagNeeded"$'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
+        closeCurrentSection
+        print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
         currentClosingTagNeeded="    </tbody>"$'\n'"</table>"
         ;;
     mbid)
@@ -473,6 +476,10 @@ traitToHtm() {
         simpleMetadata "$(keyToLabel "$key")" "$value"
         ;;
     esac
+}
+
+closeCurrentSection() {
+    print $'\n'"$currentClosingTagNeeded"
 }
 
 buildInfoTable() {
@@ -505,7 +512,7 @@ buildInfoTable() {
         fi
     done < "$(getItemPath "$kind" "$identifier").conf"
     if [[ "$foundInfo" == "true" ]]; then
-        print $'\n'"$currentClosingTagNeeded"
+        closeCurrentSection
     fi
 }
 
