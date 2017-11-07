@@ -469,11 +469,7 @@ traitToHtm() {
 buildInfoTable() {
     local kind="$1"
     local identifier="$2"
-    local configFile
-    local configLinesCount
-    configFile="$(getItemPath "$kind" "$identifier").conf"
-    configLinesCount="$(wc -l < "$configFile")"
-    while [[ "$configLinesCount" -gt 0 ]]; do
+    while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
             if ! grep -P "^$key," "$inheritInto" > /dev/null; then
@@ -484,8 +480,8 @@ buildInfoTable() {
 }
 
 buildLeafContents() {
-    kind="$1"
-    identifier="$2"
+    local kind="$1"
+    local identifier="$2"
     infoTable="$(buildInfoTable "$kind" "$identifier")"
     [[ -n "$infoTable" ]] && print '<h2>Information</h2>'$'\n'"<dl>$infoTable"$'\n'"</dl>"
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
