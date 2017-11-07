@@ -490,7 +490,7 @@ buildInfoTable() {
                 fi
                 value="${line#*,}"
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
-                discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
+                [[ -n "$traitHtm" ]] && discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
                 [[ -n "$traitHtm" ]] && print $'\n    '"$traitHtm"
             fi
         fi
