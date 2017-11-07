@@ -507,7 +507,7 @@ buildLeafContents() {
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
         if [[ -n "$releasesList" ]]; then
-            [[ -n "$infoTable" ]] && print $'\n\n'
+            print $'\n\n'
             print '<h2>Releases</h2>'$'\n'"<ul>$releasesList"$'\n'"</ul>"
         fi
         true # needed because the if statement executes with the exit status of the last command executed
