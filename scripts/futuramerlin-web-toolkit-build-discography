@@ -28,7 +28,7 @@ indexBreadcrumbs="    ${indexBreadcrumbs//$'\n'/$'\n'    }"
 indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
-currentClosingTagNeeded=""
+closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 
 discogDebug() {
     echo "$@" 1>&2
@@ -448,8 +448,7 @@ traitToHtm() {
     "* Identifiers *")
         closeCurrentSection
         print $'\n\n'"<h2>Identifiers</h2>"$'\n'"<dl>"
-        currentClosingTagNeeded="</dl>"
-        discogDebug "Set closing tag to $currentClosingTagNeeded"
+        setClosingTag "</dl>"
         ;;
     "* Relationships *")
         true
