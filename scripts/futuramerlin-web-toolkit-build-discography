@@ -51,20 +51,20 @@ getRelativeDiscographyDir() {
 }
 
 mergeConfFile() {
+    set -x
     local inheritInto="$1"
     local inheritFrom
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom"
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
-            set -x
             key="$(cut -f1 -d, <<< "$line")"
             if ! grep -P "^$key," "$inheritInto" > /dev/null; then
                 printf "%s\\n" "$line" >> "$inheritInto"
             fi
-            set +x
         fi
     done < "$inheritFrom"
+    set +x
 }
 
 for file in works/*/*.conf; do
