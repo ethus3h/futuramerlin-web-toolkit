@@ -479,9 +479,8 @@ buildInfoTable() {
         if ! [[ "$line" =~ ^# ]]; then
             key="${line%%,*}"
             if [[ -n "$key" ]]; then
-                if [[ foundInfo != "true" ]]; then
+                if [[ "$foundInfo" != "true" ]]; then
                     foundInfo="true"
-                    discogDebug "Found info."
                     print '<dl>'
                 fi
                 value="${line#*,}"
