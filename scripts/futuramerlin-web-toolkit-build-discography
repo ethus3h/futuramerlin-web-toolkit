@@ -535,6 +535,7 @@ buildPage() {
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
+    ereplace $'\n\n\n' '' "$destinationFile.htm" # If $pageContent was empty, there will be some line breaks left over, so remove them
 }
 
 buildCategory() {
