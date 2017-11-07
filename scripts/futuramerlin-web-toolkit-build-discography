@@ -227,7 +227,7 @@ getLeafBreadcrumbs() {
         else
             print $'\n'"    <span><a href=\""
             if [[ -n "$superKind" ]]; then
-                
+                print "$(getKindFolderName "$superKind")/$kind.htm"
             else
                 print "index.htm"
             fi
