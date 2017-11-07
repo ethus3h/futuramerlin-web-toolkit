@@ -146,7 +146,7 @@ linkToItem() {
         artistId="$(discReadConf artist "$kind" "$identifier")"
         artistNameInsert="</a> $(discReadConf name artist "$artistId"): $linkFirstPart"
     else
-        artistNameInsert=" "
+        artistNameInsert=""
     fi
     if [[ "$usePicture" != "false" ]]; then
         local pictureType
@@ -158,6 +158,9 @@ linkToItem() {
         picturePathName="$(getItemPath "$kind" "$identifier").m.png"
         if [[ -e "$picturePathName" ]]; then
             picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" />"
+            if [[ "$artistNameInsert" == "" ]]; then
+                artistNameInsert=" "
+            fi
         fi
     fi
     # TODO: Implement extraInfo
