@@ -479,7 +479,7 @@ buildInfoTable() {
             key="${line%%,*}"
             value="${line#*,}"
             traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
-            discogDebug "Got trait $traitHtm: $kind $identifier $key $value"
+            discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
             [[ -n "$traitHtm" ]] && print $'\n    '"$traitHtm"
         fi
     done < "$(getItemPath "$kind" "$identifier").conf"
