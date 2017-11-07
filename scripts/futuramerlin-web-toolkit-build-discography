@@ -511,6 +511,9 @@ traitToHtm() {
         name)
             true
             ;;
+        context)
+            simpleReference "$key" "${value%%\/*}" "${value#*\/}"
+            ;;
         hasAlias)
             simpleReference "$key" artist "$value"
             ;;
