@@ -444,7 +444,7 @@ traitToHtm() {
         simpleReference "$key" artist "$value"
         ;;
     "* Identifiers *")
-        print "<h2>Identifiers</h2>"
+        print $'\n'"</dl>"$'\n\n'"<h2>Identifiers</h2>"$'\n'"<ul>"
         ;;
     "* Relationships *")
         print ""
@@ -453,10 +453,10 @@ traitToHtm() {
         print ""
         ;;
     "* Files *")
-        print "<h2>Files</h2><ul>"
+        print $'\n'"</ul>"$'\n\n'"<h2>Files</h2>"$'\n'"<ul>"
         ;;
     "* Tracks *")
-        print "</ul><h2>Track listing</h2><table><thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead><tbody>"
+        print $'\n'"</ul>"$'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
         ;;
     mbid)
         simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
