@@ -51,7 +51,8 @@ mergeConfFile() {
     inheritInto="$1"
     local discogDir
     discogDir="$(getRelativeDiscographyDir)"
-    inheritFrom="$discogDir"/works/"$(basename "$(pwd)")".conf
+    inheritFrom="$discogDir/works/$(basename "$(pwd)").conf"
+    discogDebug "Merging from $inheritFrom"
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
             key="$(cut -f1 -d, <<< "$line")"
