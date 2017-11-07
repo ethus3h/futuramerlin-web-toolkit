@@ -481,17 +481,26 @@ buildInfoTable() {
     local foundInfo=""
     currentClosingTagNeeded="</dl>"
     while IFS= read -r line; do
-        if ! [[ "$line" =~ ^# ]]; then
-            key="${line%%,*}"
+        local pattern='^#'
+        if ! [[ "$line" =~ $pattern ]]; then
+            local key="${line%%,*}"
             if [[ -n "$key" ]]; then
                 if [[ "$foundInfo" != "true" ]]; then
                     foundInfo="true"
                     print '<dl>'
                 fi
-                value="${line#*,}"
+                local value="${line#*,}"
+                local traitHtm
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
-                [[ -n "$traitHtm" ]] && discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
-                [[ -n "$traitHtm" ]] && print $'\n    '"$traitHtm"
+                if [[ -n "$traitHtm" ]]; then
+                    discogDebug "Got trait from $kind $identifier $key $value: $traitHtm"
+                    local pattern='^<\/'
+                    if [[ "$traitHtm" =~ $pattern ]]; then
+                        print "$traitHtm"
+                    else
+                        print $'\n    '"$traitHtm"
+                    fi
+                fi
             fi
         fi
     done < "$(getItemPath "$kind" "$identifier").conf"
