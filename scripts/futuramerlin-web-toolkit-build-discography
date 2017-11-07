@@ -480,8 +480,8 @@ buildInfoTable() {
             key="${line%%,*}"
             if [[ -n "$key" ]]; then
                 if [[ foundInfo != "true" ]]; then
-                    print '<dl>'
                     foundInfo="true"
+                    print '<dl>'
                 fi
                 value="${line#*,}"
                 traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
