@@ -576,7 +576,11 @@ setClosingTag() {
 }
 
 closeCurrentSection() {
-    print $'\n'"$(<"$closingTagFile")"
+    closingTag="$(<"$closingTagFile")"
+    if [[ -n "$closingTag" ]]; then
+        print $'\n'"$closingTag"
+        setClosingTag ''
+    fi
 }
 
 buildInfoTable() {
@@ -625,6 +629,7 @@ buildLeafContents() {
         fi
         true # needed because the if statement executes with the exit status of the last command executed
     fi
+    closeCurrentSection
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
