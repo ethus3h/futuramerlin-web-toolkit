@@ -49,7 +49,7 @@ getRelativeDiscographyDir() {
 
 mergeConfFile() {
     inheritInto="$1"
-    inheritFrom="works/$(basename "$(pwd)").conf"
+    inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom"
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
