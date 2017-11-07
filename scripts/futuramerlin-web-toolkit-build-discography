@@ -29,6 +29,7 @@ indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
 trackCounter=0
 closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
+touch "$closingTagFile"
 
 discogDebug() {
     echo "$@" 1>&2
@@ -651,3 +652,5 @@ buildCategory() {
 }
 
 buildCategory "index"
+
+rm "${closingTagFile:?}"
