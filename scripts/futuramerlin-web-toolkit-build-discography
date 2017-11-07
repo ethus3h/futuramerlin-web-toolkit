@@ -335,25 +335,26 @@ keyToLabel() {
 
 buildTrackPlayer() {
     local kind="$1"
-    local identifier="$2"
+    local workIdentifier="$2"
+    local releaseIdentifier="$3"
     local filename
     filename="$(discReadConf filename "$kind" "$identifier")"
     local extA
     extA="$(discReadConf origExt "$kind" "$identifier")"
     if [[ -n "$extA" ]]; then
-        simpleIaLink "$filename.$extA" "$3" "Orig. ($extA)"
+        simpleIaLink "$releaseIdentifier" "$filename.$extA" "Orig. ($extA)"
         print " "
     fi
     local extB
     extB="$(discReadConf origExtB "$kind" "$identifier")"
     if [[ -n "$extB" ]]; then
-        simpleIaLink "$filename.$extB" "$3" "Orig. ($extB)"
+        simpleIaLink "$filename.$extB" "$releaseIdentifier" "Orig. ($extB)"
         print " "
     fi
     local extC
     extC="$(discReadConf origExtC "$kind" "$identifier")"
     if [[ -n "$extC" ]]; then
-        simpleIaLink "$filename.$extC" "$3" "Orig. ($extC)"
+        simpleIaLink "$filename.$extC" "$releaseIdentifier" "Orig. ($extC)"
         print " "
     fi
     if [[ "$extA" == "flac" || "$extB" == "flac" || "$extC" == "flac" ]]; then
@@ -364,22 +365,22 @@ buildTrackPlayer() {
         local hasOgg="true"
     fi
     if ! [[ "$hasMp3" == "true" ]]; then
-        simpleIaLink "$filename".mp3 "$3" "MP3"
+        simpleIaLink "$filename".mp3 "$releaseIdentifier" "MP3"
         print " "
     fi
     if ! [[ "$hasFlac" == "true" ]]; then
-        simpleIaLink "$filename".flac "$3" "FLAC"
+        simpleIaLink "$filename".flac "$releaseIdentifier" "FLAC"
         print " "
     fi
     if ! [[ "$hasOgg" == "true" ]]; then
-        simpleIaLink "$filename".ogg "$3" "OGA"
+        simpleIaLink "$filename".ogg "$releaseIdentifier" "OGA"
     fi
     print "<br />"
     print "<audio controls preload=\"none\">"
     local formats=(flac ogg mp3)
     for format in "${formats[@]}"; do
         print "<source src=\""
-        simpleIaLink "$filename.$format" "$3"
+        simpleIaLink "$filename.$format" "$releaseIdentifier"
         print "\" type=\"audio/"
         if [[ "$format" == "mp3" ]]; then
             print "mpeg"
@@ -420,7 +421,7 @@ traitToHtm() {
         work="$(cut -f1 -d, <<< "$value")"
         subWork="$(cut -f2 -d, <<< "$value")"
         workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "$work" "$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
+        print "<tr><td>$trackCounter</td><td>$(buildTrackPlayer "work" "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
         ;;
     medium)
         simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
