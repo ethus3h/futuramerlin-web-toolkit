@@ -475,6 +475,7 @@ buildInfoTable() {
             key="${line%%,*}"
             value="${line#*,}"
             if [[ "$key" != "name" ]]; then
+                print $'\n    '
                 traitToHtm "$kind" "$identifier" "$key" "$value"
             fi
         fi
