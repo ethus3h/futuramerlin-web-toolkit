@@ -467,8 +467,20 @@ traitToHtm() {
 }
 
 buildInfoTable() {
-    kind="$1"
-    identifier="$2"
+    local kind="$1"
+    local identifier="$2"
+    local configFile
+    local configLi
+    configFile="$(getItemPath "$kind" "$identifier").conf"
+    configLinesCount="$(wc -l < "$configFile")"
+    while configLinesCount; do
+        if ! [[ "$line" =~ ^# ]]; then
+            key="$(cut -f1 -d, <<< "$line")"
+            if ! grep -P "^$key," "$inheritInto" > /dev/null; then
+                printf "%s\\n" "$line" >> "$inheritInto"
+            fi
+        fi
+    done < "$(getItemPath "$kind" "$identifier").conf"
 }
 
 buildLeafContents() {
