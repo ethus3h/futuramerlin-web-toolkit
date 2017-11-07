@@ -179,7 +179,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "$linkFirstPart$picture$artistNameInsert$name</a> ($shortDate)"
+    print "$linkFirstPart$picture$artistNameInsert$name</a>$shortDate"
 }
 
 simpleMetadata() {
