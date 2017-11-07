@@ -132,15 +132,15 @@ linkToItem() {
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local picture=""
     local name
-    local shortDate
+    local shortDate=""
     local extension
     name="$(getItemName "$kind" "$identifier")"
     set -x
-    shortDate="$(discReadConf shortDate "$kind" "$identifier")"
     set +x
     if [[ "$kind" == "kind" ]]; then
         extension=""
     else
+        shortDate="$(discReadConf shortDate "$kind" "$identifier")"
         extension=".htm"
     fi
     local linkFirstPart
