@@ -123,6 +123,7 @@ linkToItem() {
     local includeArtistName=""
     if [[ "$1" == "--with-artist-name" ]]; then
         includeArtistName="true"
+        shift
     fi
     local kind="$1"
     local identifier="$2"
