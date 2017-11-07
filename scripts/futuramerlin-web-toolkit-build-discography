@@ -520,7 +520,8 @@ traitToHtm() {
             true
             ;;
         context)
-            simpleMetadata "$(keyToLabel "$key")" "$(getKindLabel "${value%%,*}"): $(linkToItem "${value%%,*}" "${value#*,}")"
+            local contextKind="${value%%,*}"
+            simpleMetadata "$(keyToLabel "$key")" "${contextKind^}: $(linkToItem "$contextKind" "${value#*,}")"
             ;;
         hasAlias)
             simpleReference "$key" artist "$value"
