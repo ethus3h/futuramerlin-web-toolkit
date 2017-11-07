@@ -49,9 +49,7 @@ getRelativeDiscographyDir() {
 
 mergeConfFile() {
     inheritInto="$1"
-    local discogDir
-    discogDir="$(getRelativeDiscographyDir)"
-    inheritFrom="$discogDir/works/$(basename "$(pwd)").conf"
+    inheritFrom="works/$(basename "$(pwd)").conf"
     discogDebug "Merging from $inheritFrom"
     while IFS= read -r line; do
         if ! [[ "$line" =~ ^# ]]; then
@@ -64,10 +62,7 @@ mergeConfFile() {
 }
 
 for file in works/*/*.conf; do
-    (
-        cd "$(dirname "$file")" || die
-        mergeConfFile "$file"
-    )
+    mergeConfFile "$file"
 done
 
 getKindFolderName() {
