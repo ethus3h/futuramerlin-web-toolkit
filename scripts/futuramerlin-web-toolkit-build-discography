@@ -132,8 +132,10 @@ linkToItem() {
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local picture=""
     local name
+    local shortDate
     local extension
     name="$(getItemName "$kind" "$identifier")"
+    shortDate="$(discReadConf shortDate "$kind" "$identifier")"
     if [[ "$kind" == "kind" ]]; then
         extension=""
     else
@@ -165,7 +167,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "$linkFirstPart$picture$artistNameInsert$name</a>"
+    print "$linkFirstPart$picture$artistNameInsert$name</a> ($shortDate)"
 }
 
 simpleMetadata() {
