@@ -681,7 +681,7 @@ listAlphabetical() {
     fi
     local itemList=""
     discogDebug "Building alphabetical list of $kind (filtered: $filtered $filterKey $filterValue)"
-    for item in ../"$(getKindFolderName "$kind")"/*.conf; do
+    for item in "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")"/*.conf; do
         itemName="$(basename "$item")"
         itemName="${itemName%\.conf}"
         # This appends the current item to the list that this function will return.
