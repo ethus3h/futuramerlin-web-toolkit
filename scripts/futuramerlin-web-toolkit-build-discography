@@ -263,7 +263,7 @@ getSubKindFolderName() {
         getKindFolderName "$kind"
         print "/"
     else
-        print "../"
+        print "../$kind/"
     fi
 }
 
