@@ -257,7 +257,7 @@ getSubKind() {
     local kind="$1"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
-        print "../"
+        print "$(getRelativeDiscographyDir)"
         getKindFolderName "$kind"
         print "/"
     fi
