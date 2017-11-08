@@ -96,14 +96,24 @@ getItemPath() {
     # Returns the prefix pathname (e.g. releases/sylfan) of the referenced item, relative to the current directory.
     local kind="$1"
     local identifier="$2"
-    case "$kind" in
-        kind)
-            print "$(getRelativeDiscographyDir)$(getKindFolderName "$identifier")"
-            ;;
-        *)
-            print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")/$identifier"
-            ;;
-    esac
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        set -x
+        # This kind is for a sub-item
+        local key="${kind%%\/*}"
+        local value="${kind#*\/}"
+        print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")/$identifier"
+        set +x
+    else
+        case "$kind" in
+            kind)
+                print "$(getRelativeDiscographyDir)$(getKindFolderName "$identifier")"
+                ;;
+            *)
+                print "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")/$identifier"
+                ;;
+        esac
+    fi
 }
 
 discReadConf() {
