@@ -262,6 +262,8 @@ getSubKindFolderName() {
         getRelativeDiscographyDir
         getKindFolderName "$kind"
         print "/"
+    else
+        print "../"
     fi
 }
 
