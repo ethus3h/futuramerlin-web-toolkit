@@ -308,15 +308,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            local pattern='.*\/.*'
-            if [[ "$kind" =~ $pattern ]]; then
-                local superKind="${kind%%\/*}"
-                cd "$(getRelativeDiscographyDir)$(getKindFolderName "$superKind")" || die
-            fi
             buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
-            if [[ "$kind" =~ $pattern ]]; then
-                cd ..
-            fi
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -640,9 +632,12 @@ buildLeafContents() {
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
-        print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
-        listRecursive "$kind/$identifier"
-        print $'\n'"</ul>"
+        (
+            cd "$identifier" || die
+            print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
+            listRecursive "$kind/$identifier"
+            print $'\n'"</ul>"
+        )
     fi
 }
 
@@ -696,15 +691,7 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            local pattern='.*\/.*'
-            if [[ "$kind" =~ $pattern ]]; then
-                local superKind="${kind%%\/*}"
-                cd "$(getRelativeDiscographyDir)$(getKindFolderName "$superKind")" || die
-            fi
             buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
-            if [[ "$kind" =~ $pattern ]]; then
-                cd ..
-            fi
         fi
     done
     print "$itemList"
