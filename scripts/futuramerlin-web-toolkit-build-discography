@@ -253,13 +253,21 @@ getBreadcrumbs() {
     getLeafBreadcrumbs "$kind"
 }
 
-getSubKind() {
+getSubKindFolderName() {
     local kind="$1"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
         getRelativeDiscographyDir
         getKindFolderName "$kind"
         print "/"
+    fi
+}
+
+getSubKind() {
+    local kind="$1"
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        print "${kind#*\/}"
     fi
 }
 
@@ -308,10 +316,8 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            set -x
-            cd "$(getKindFolderName "${kind#*\/}")" || die
-            set +x
-            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            cd "$(getKindFolderName "$(getSubKind "$kind")")" || die
+            buildPage "$(getSubKindFolderName "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -694,10 +700,8 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            set -x
-            cd "$(getKindFolderName "${kind#*\/}")" || die
-            set +x
-            buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
+            cd "$(getKindFolderName "$(getSubKind "$kind")")" || die
+            buildPage "$(getSubKindFolderName "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
     print "$itemList"
