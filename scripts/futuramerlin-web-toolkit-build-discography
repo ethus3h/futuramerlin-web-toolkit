@@ -636,7 +636,7 @@ buildLeafContents() {
             cd "$identifier" || die
             print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
             listRecursive "$kind/$identifier" | while IFS= read -r line; do
-                print "${line/..\/}"
+                print $'\n'"${line/..\/}"
             done
             print "${recursiveListBody//../}"
             print $'\n'"</ul>"
