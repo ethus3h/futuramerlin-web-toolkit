@@ -622,6 +622,17 @@ buildLeafContents() {
     local kind="$1"
     local identifier="$2"
     buildInfoTable "$kind" "$identifier"
+
+    local pattern='.*\/.*'
+    if [[ "$kind" =~ $pattern ]]; then
+        # This kind is for a sub-item
+        local key="${kind%%\/*}"
+        local value="${kind#*\/}"
+        print '<p>This is an instance of the work '
+        linkToItem --with-date "$key" "$value" false
+        print '.</p>'$'\n'
+    fi
+
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
         if [[ -n "$releasesList" ]]; then
