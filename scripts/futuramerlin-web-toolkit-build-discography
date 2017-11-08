@@ -308,9 +308,8 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            set -x
+            
             cd "$(getKindFolderName "${kind#*\/}")" || die
-            set +x
             buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
@@ -694,7 +693,7 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            cd "$(getKindFolderName "$kind")" || die
+            cd "$(getKindFolderName "${kind#*\/}")" || die
             buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
