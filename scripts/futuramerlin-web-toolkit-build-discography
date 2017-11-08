@@ -699,7 +699,7 @@ listAlphabetical() {
             local pattern='.*\/.*'
             if [[ "$kind" =~ $pattern ]]; then
                 local superKind="${kind%%\/*}"
-                cd ""$(getKindFolderName "$superKind")"" || die
+                cd "$(getKindFolderName "$superKind")" || die
             fi
             buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
             if [[ "$kind" =~ $pattern ]]; then
