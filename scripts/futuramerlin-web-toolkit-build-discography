@@ -249,7 +249,7 @@ getLeafBreadcrumbs() {
 
 getBreadcrumbs() {
     local kind="$1"
-    print "$indexBreadcrumbs"$'\n'"    <span><a href=\"../$discographyPageName.htm\">Discography</a></span>"
+    print "$indexBreadcrumbs"$'\n'"    <span><a href=\"$(getRelativeDiscographyDir)$discographyPageName.htm\">Discography</a></span>"
     getLeafBreadcrumbs "$kind"
 }
 
@@ -632,9 +632,11 @@ buildLeafContents() {
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
+        pushd "$identifier" || die
         print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
         listRecursive "$kind/$identifier"
         print $'\n'"</ul>"
+        popd || die
     fi
 }
 
