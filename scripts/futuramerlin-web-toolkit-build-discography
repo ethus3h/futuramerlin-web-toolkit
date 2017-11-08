@@ -210,6 +210,7 @@ simpleReference() {
 
 getEntryPoint() {
     local kind="$1"
+    kind="$(getKindFolderName "$kind")"
     local entryPointFile
     entryPointFile="$(getRelativeDiscographyDir)/$kind/futuramerlin-web-toolkit-discography.entry-point"
     if [[ -e "$entryPointFile" ]]; then
