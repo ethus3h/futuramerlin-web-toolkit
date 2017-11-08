@@ -635,7 +635,17 @@ buildLeafContents() {
         (
             cd "$identifier" || die
             print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
-            listRecursive "$kind/$identifier"
+            recursiveListBody="$(listRecursive "$kind/$identifier")"
+            while IFS= read -r line; do
+                local pattern='^#'
+                if ! [[ "$line" =~ $pattern ]]; then
+                    local key="${line%%,*}"
+                    if ! grep -P "^$key," "$inheritInto" > /dev/null; then
+                        printf "%s\\n" "$line" >> "$inheritInto"
+                    fi
+                fi
+            done < "$recursiveListBody"
+            print "${recursiveListBody//../}"
             print $'\n'"</ul>"
         )
     fi
