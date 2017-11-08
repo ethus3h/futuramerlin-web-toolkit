@@ -80,8 +80,6 @@ getKindFolderName() {
         print "$(getKindFolderName "$key")/$value"
     elif [[ "$kind" == "press" ]]; then
         print "press"
-    elif [[ -z "$kind" ]]; then
-        print "${kind}"
     else
         print "${kind}s"
     fi
@@ -255,21 +253,13 @@ getBreadcrumbs() {
     getLeafBreadcrumbs "$kind"
 }
 
-getSubKindFolderName() {
+getSubKind() {
     local kind="$1"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
-        getRelativeDiscographyDir
-    fi
-    getKindFolderName "$kind"
-    print "/"
-}
-
-getSuperKind() {
-    local kind="$1"
-    local pattern='.*\/.*'
-    if [[ "$kind" =~ $pattern ]]; then
-        print "${kind%%\/*}"
+        print "../"
+        getKindFolderName "$kind"
+        print "/"
     fi
 }
 
@@ -318,8 +308,7 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            cd "$(getRelativeDiscographyDir)$(getKindFolderName "$(getSuperKind "$kind")")" || die
-            buildPage "$(getSubKindFolderName "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -690,7 +679,7 @@ listAlphabetical() {
     fi
     local itemList=""
     discogDebug "Building alphabetical list of $kind (filtered: $filtered $filterKey $filterValue)"
-    for item in "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")"/*.conf; do
+    for item in ../"$(getKindFolderName "$kind")"/*.conf; do
         itemName="$(basename "$item")"
         itemName="${itemName%\.conf}"
         # This appends the current item to the list that this function will return.
@@ -699,8 +688,7 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            cd "$(getRelativeDiscographyDir)$(getKindFolderName "$(getSuperKind "$kind")")" || die
-            buildPage "$(getSubKindFolderName "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
+            buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
     print "$itemList"
@@ -742,7 +730,6 @@ buildPage() {
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
-    ereplace "@DISCOGRAPHYROOT@" "$(getRelativeDiscographyDir)" "$destinationFile.htm"
     ereplace $'\n\n\n' $'\n' "$destinationFile.htm" # If $pageContent was empty, there will be some line breaks left over, so remove them
 }
 
