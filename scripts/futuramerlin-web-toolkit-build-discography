@@ -257,7 +257,7 @@ getSubKind() {
     local kind="$1"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
-        print "$(getRelativeDiscographyDir)"
+        getRelativeDiscographyDir
         getKindFolderName "$kind"
         print "/"
     fi
@@ -632,11 +632,12 @@ buildLeafContents() {
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
-        pushd "$identifier" || die
-        print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
-        listRecursive "$kind/$identifier"
-        print $'\n'"</ul>"
-        popd || die
+        (
+            cd "$identifier" || die
+            print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
+            listRecursive "$kind/$identifier"
+            print $'\n'"</ul>"
+        )
     fi
 }
 
