@@ -621,7 +621,6 @@ buildInfoTable() {
 buildLeafContents() {
     local kind="$1"
     local identifier="$2"
-    buildInfoTable "$kind" "$identifier"
 
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
@@ -632,6 +631,8 @@ buildLeafContents() {
         linkToItem --with-date "$key" "$value" false
         print '.</p>'$'\n'
     fi
+
+    buildInfoTable "$kind" "$identifier"
 
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
