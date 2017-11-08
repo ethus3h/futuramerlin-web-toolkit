@@ -80,6 +80,8 @@ getKindFolderName() {
         print "$(getKindFolderName "$key")/$value"
     elif [[ "$kind" == "press" ]]; then
         print "press"
+    elif [[ -z "$kind" ]]; then
+        print "${kind}"
     else
         print "${kind}s"
     fi
