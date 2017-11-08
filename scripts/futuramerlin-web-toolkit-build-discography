@@ -629,7 +629,7 @@ buildLeafContents() {
         local value="${kind#*\/}"
         print '<p>This is an instance of the work '
         linkToItem --with-date "$key" "$value" false
-        print '.</p>'$'\n'
+        print '.</p>'$'\n\n'
     fi
 
     buildInfoTable "$kind" "$identifier"
