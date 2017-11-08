@@ -257,7 +257,7 @@ getSubKind() {
     local kind="$1"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
-        print "../"
+        getRelativeDiscographyDir
         getKindFolderName "$kind"
         print "/"
     fi
@@ -632,9 +632,12 @@ buildLeafContents() {
 
     if [[ -d "$(getItemPath "$kind" "$identifier")" ]]; then
         # This item has sub-items (e.g. instances of works), so build them now
-        print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
-        listRecursive "$kind/$identifier"
-        print $'\n'"</ul>"
+        (
+            cd "$identifier" || die
+            print $'\n\n''<h2>Instances</h2>'$'\n'"<ul>"
+            listRecursive "$kind/$identifier"
+            print $'\n'"</ul>"
+        )
     fi
 }
 
@@ -679,7 +682,7 @@ listAlphabetical() {
     fi
     local itemList=""
     discogDebug "Building alphabetical list of $kind (filtered: $filtered $filterKey $filterValue)"
-    for item in ../"$(getKindFolderName "$kind")"/*.conf; do
+    for item in "$(getRelativeDiscographyDir)$(getKindFolderName "$kind")"/*.conf; do
         itemName="$(basename "$item")"
         itemName="${itemName%\.conf}"
         # This appends the current item to the list that this function will return.
@@ -730,6 +733,7 @@ buildPage() {
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
     ereplace "@BODY@" "$pageContent" "$destinationFile.htm"
+    ereplace "@DISCOGRAPHYROOT@" "$(getRelativeDiscographyDir)" "$destinationFile.htm"
     ereplace $'\n\n\n' $'\n' "$destinationFile.htm" # If $pageContent was empty, there will be some line breaks left over, so remove them
 }
 
