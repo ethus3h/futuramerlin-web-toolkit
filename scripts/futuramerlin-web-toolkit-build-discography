@@ -556,6 +556,7 @@ traitToHtm() {
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
             ;;
         ia)
+            echo "$value" > "$(getRelativeDiscographyDir)/futuramerlin-web-toolkit-discography.iaidentifiers"
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://archive.org/details/$value\">$value</a>"
             ;;
         *)
