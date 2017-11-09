@@ -630,6 +630,15 @@ buildLeafContents() {
     local kind="$1"
     local identifier="$2"
 
+    local disambig
+    disambig="$(discReadConf disambig "$kind" "$identifier")"
+    if [[ -n "$disambig" ]]; then
+        disambig="<p><strong>($disambig)</strong></p>"
+    else
+        disambig=""
+    fi
+    print "$disambig"$'\n\n'
+
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
         # This kind is for a sub-item
