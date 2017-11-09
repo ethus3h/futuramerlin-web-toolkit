@@ -143,6 +143,7 @@ linkToItem() {
     local extraInfo="$4" # a formatting string like (@shortDate@)
     local picture=""
     local shortDate=""
+    local disambig=""
     local extension
     local pattern='work\/.*'
     local name
@@ -160,6 +161,12 @@ linkToItem() {
             else
                 shortDate=""
             fi
+        fi
+        disambig="$(discReadConf disambig "$kind" "$identifier")"
+        if [[ -n "$disambig" ]]; then
+            disambig=" <small>($disambig)</small>"
+        else
+            disambig=""
         fi
         extension=".htm"
     fi
@@ -194,7 +201,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "$linkFirstPart$picture$artistNameInsert$name</a>$shortDate"
+    print "$linkFirstPart$picture$artistNameInsert$name</a>$disambig$shortDate"
 }
 
 simpleMetadata() {
