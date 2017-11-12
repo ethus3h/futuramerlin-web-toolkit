@@ -15,7 +15,7 @@ trap finish EXIT
 
 destDir="$(dirname "$(readlink -f "$1")")"
 tempDir="$(tempDir)"
-futuramerlin-web-toolkit-build-blog "$destDir" "$tempDir"
+futuramerlin-web-toolkit-build-discography "$destDir" "$tempDir"
 rm -r "$destDir"
 mv "$tempDir" "$destDir"
 
