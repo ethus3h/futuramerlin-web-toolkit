@@ -24,18 +24,18 @@ ereplaceRegEx '(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)' '\1<!-- toc -->' "../../built/
 ereplaceRegEx '(<p class=\"breadcrumbs\">(((?!<\/p>)[\S\s])*)<\/p>)' '\1<!-- toc -->' "../../built/$1"
 ereplaceRegEx '<!-- toc -->([\S\s]*)<!-- toc -->' '\1<!-- toc -->/g' "../../built/$1"
 hypertoc --inline --make_anchors --ol --ol_num_levels 0 --make_toc --bak "" --outfile "../../built/0.tmp" --toc_label "<h2>Table of Contents</h2>" --toc_tag "!-- toc --" --toc_tag_replace --quiet --header '<nav id="toc">' --footer "</nav>" --use_id --ignore_sole_first --toc_entry H2=1 --toc_entry H3=2 --toc_entry H4=3 --toc_entry H5=4 --toc_entry H6=5 --toc_end H2=/H2 --toc_end H3=/H3 --toc_end H4=/H4 --toc_end H5=/H5 --toc_end H6=/H6 "../../built/$1"
-#This handles <pre> tags correctly, AFAICT.
+# This handles <pre> tags correctly, AFAICT.
 html-minifier --output "../../built/$1" --remove-comments --collapse-whitespace --conservative-collapse --use-short-doctype "../../built/0.tmp"
 tr '\n' ' ' < "../../built/$1" > "../../built/1.tmp"
 tr '\t' ' ' < "../../built/1.tmp" > "../../built/2.tmp"
 tr '\r' ' ' < "../../built/2.tmp" > "../../built/3.tmp"
 ereplace "nav-item-inactive $Page\"" 'nav-item-selected"' "../../built/$1"
 cp "../content/$1" "../../built/4.tmp"
-#For debugging: wc -l ../../built/$1
-#Working on the title
+# For debugging: wc -l ../../built/$1
+# Working on the title
 perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "../../built/4.tmp"
 perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "../../built/4.tmp"
-#"it's looking for a non-empty <h1 class="title> tag" —go|dfish
+# "it's looking for a non-empty <h1 class="title> tag" —go|dfish
 ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "../../built/4.tmp"
 ereplaceRegEx '(?i)<[^>]*>' ' ' "../../built/4.tmp"
 ereplaceRegEx '\s+' ' ' "../../built/4.tmp"
@@ -48,7 +48,7 @@ if [[ -n "$title" ]]; then
 fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
-#Work on home page
+# Work on home page
 if [[ "$Page" == "." ]]; then
     ereplaceRegEx '<p class="logo">(((?!<\/p>)[\S\s])*)<\/p>' '<h1 class="logo">\1<\/h1>' "../../built/$1"
     ereplace 'nav-item-inactive index"' 'nav-item-selected"' "../../built/$1"
