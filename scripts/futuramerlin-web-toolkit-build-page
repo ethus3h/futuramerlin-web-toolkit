@@ -57,9 +57,9 @@ if [[ "$Page" == "." ]]; then
     ereplace '<label' '<label class="expanded"' "../../built/$1"
     ereplace '<body>' '<body class="expanded">' "../../built/$1"
 fi
-perl -0777 -p -i -e "s/nav-item-inactive [^\"]+/nav-item-inactive/g" "../../built/$1"
+ereplaceRegEx 'nav-item-inactive [^\"]+' 'nav-item-inactive' "../../built/$1"
 shopt -u extglob
 StrMatch="s/href=\"(..\/)?..\/(.\/)*\//href=\"\//g"
-perl -0777 -p -i -e "$StrMatch" "../../built/$1"
+ereplaceRegEx 'href="(..\/)?..\/(.\/)*\/' 'href="\/' "../../built/$1"
 shopt -s extglob
 rm -f ../../built/*.tmp
