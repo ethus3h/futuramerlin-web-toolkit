@@ -20,7 +20,7 @@ cp "../assets/1_start.html" "../../built/$1"
 ereplace "@FMWTK_VERSION@" "$futuramerlinWebToolkitVersion" "../../built/$1"
 cat "../content/$1" >> "../../built/$1"
 cat "../assets/2_end.html" >> "../../built/$1"
-perl -0777 -p -i -e "s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\\1<!-- toc -->/g" "../../built/$1"
+ereplaceRegEx "(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)" "\\1<!-- toc -->" "../../built/$1"
 perl -0777 -p -i -e 's/(<p class=\"breadcrumbs\">(((?!<\/p>)[\S\s])*)<\/p>)/\1<!-- toc -->/g' "../../built/$1"
 perl -0777 -p -i -e "s/<!-- toc -->([\S\s]*)<!-- toc -->/\\1<!-- toc -->/g" "../../built/$1"
 hypertoc --inline --make_anchors --ol --ol_num_levels 0 --make_toc --bak "" --outfile "../../built/0.tmp" --toc_label "<h2>Table of Contents</h2>" --toc_tag "!-- toc --" --toc_tag_replace --quiet --header '<nav id="toc">' --footer "</nav>" --use_id --ignore_sole_first --toc_entry H2=1 --toc_entry H3=2 --toc_entry H4=3 --toc_entry H5=4 --toc_entry H6=5 --toc_end H2=/H2 --toc_end H3=/H3 --toc_end H4=/H4 --toc_end H5=/H5 --toc_end H6=/H6 "../../built/$1"
@@ -51,10 +51,9 @@ perl_ere_quote() {
     shopt -s failglob
 }
 export -f perl_ere_quote
-title="$(perl_ere_quote $title)"
+#title="$(perl_ere_quote $title)"
 if [[ -n "$title" ]]; then
-    replace="s/<title>\@FMWTK_SITE_NAME\@<\/title>/<title>$title &mdash; \@FMWTK_SITE_NAME\@<\/title>/g"
-    perl -0777 -p -i -e "$replace" "../../built/$1"
+    ereplaceRegEx "<title>\@FMWTK_SITE_NAME\@<\/title>" "<title>$title &mdash; \@FMWTK_SITE_NAME\@<\/title>" "../../built/$1"
 fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
