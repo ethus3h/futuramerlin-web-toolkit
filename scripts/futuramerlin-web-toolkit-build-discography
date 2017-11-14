@@ -237,14 +237,14 @@ getLeafBreadcrumbs() {
             getLeafBreadcrumbs "$key"
             getLeafBreadcrumbs "$value" "$key"
         else
-            print $'\n'"    <span><a href=\""
+            print $'\n''    <span><a href="'
             getRelativeDiscographyDir
             if [[ -n "$superKind" ]]; then
                 print "$(getKindFolderName "$superKind")/$kind.htm"
             else
                 print "$(getKindFolderName "$kind")"
             fi
-            print "\">"
+            print '">'
             if [[ -n "$superKind" ]]; then
                 getItemName "$superKind" "$kind"
             else
@@ -456,19 +456,19 @@ buildTrackPlayer() {
     if ! [[ "$hasOgg" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
     fi
-    print "<br />"
-    print "<audio controls preload=\"none\">"
+    print '<br />'
+    print '<audio controls preload="none">'
     local formats=(flac ogg mp3)
     for format in "${formats[@]}"; do
-        print "<source src=\""
+        print '<source src="'
         simpleIaUrl release "$releaseIdentifier" "$filename.$format"
-        print "\" type=\"audio/"
+        print '" type="audio/'
         if [[ "$format" == "mp3" ]]; then
             print "mpeg"
         else
             print "$format"
         fi
-        print "\">"
+        print '">'
     done
     print "Could not start audio player.</audio>"
 }
