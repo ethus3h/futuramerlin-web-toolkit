@@ -29,12 +29,11 @@ html-minifier --output "../../built/$1" --remove-comments --collapse-whitespace 
 tr '\n' ' ' < "../../built/$1" > "../../built/1.tmp"
 tr '\t' ' ' < "../../built/1.tmp" > "../../built/2.tmp"
 tr '\r' ' ' < "../../built/2.tmp" > "../../built/3.tmp"
-#tr -s " " < "../../built/3.tmp" > "../../built/$1"
-perl -0777 -p -i -e "s/nav-item-inactive $Page\"/nav-item-selected\"/g" "../../built/$1"
+ereplace "nav-item-inactive $Page\"" 'nav-item-selected"' "../../built/$1"
 cp "../content/$1" "../../built/4.tmp"
 #For debugging: wc -l ../../built/$1
 #Working on the title
-perl -ni -e "print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\\1/sg" "../../built/4.tmp"
+perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "../../built/4.tmp"
 perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "../../built/4.tmp"
 #"it's looking for a non-empty <h1 class="title> tag" —go|dfish
 ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "../../built/4.tmp"
