@@ -41,12 +41,9 @@ if ! git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
     echo "(Done preparing local toolkit copy; now continuing)"
 fi
 mkdir built
+shopt -s dotglob
 mv ./futuramerlin-web-toolkit/support/assets/* ./built/
-trap - ERR
-shopt -u failglob
-mv ./futuramerlin-web-toolkit/support/assets/.[^.]* ./built/
-shopt -s failglob
-trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
+shopt -u dotglob
 cp -r ./built ./source/assets
 mv ./futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
 rm -rf ./futuramerlin-web-toolkit
