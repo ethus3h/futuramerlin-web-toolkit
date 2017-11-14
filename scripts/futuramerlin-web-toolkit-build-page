@@ -51,8 +51,7 @@ ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
 #Work on home page
 if [[ "$Page" == "." ]]; then
-    replace="s/<p class=\"logo\">(((?!<\/p>)[\S\s])*)<\/p>/<h1 class=\"logo\">\1<\/h1>/g"
-    perl -0777 -p -i -e "$replace" "../../built/$1"
+    ereplaceRegEx '<p class="logo">(((?!<\/p>)[\S\s])*)<\/p>' '<h1 class="logo">\1<\/h1>' "../../built/$1"
     ereplace 'nav-item-inactive index"' 'nav-item-selected"' "../../built/$1"
     ereplace '<nav>' '<nav class="expanded">' "../../built/$1"
     ereplace '<label' '<label class="expanded"' "../../built/$1"
