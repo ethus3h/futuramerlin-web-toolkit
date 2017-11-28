@@ -1515,6 +1515,10 @@
         background-color: rgba(226, 218, 241, .7);
     }
 
+    body > main.lessChrome::before {
+        height: 100%;
+    }
+
     body > main:not(.lessChrome)::before {
         height: calc(100% - 8rem);
     }
@@ -1740,6 +1744,11 @@
                 width: 100%;
                 left: 0;
             }
+            body:not(.expanded) > main.lessChrome::before,
+            body:not(.expanded) > main.lessChrome::after {
+                top: 0;
+                height: 100%;
+            }
             body:not(.expanded) > main:not(.lessChrome)::before,
             body:not(.expanded) > main:not(.lessChrome)::after {
                 top: 4rem;
@@ -1860,6 +1869,11 @@
                 margin-top: 0;
                 width: 100%;
                 left: 0;
+            }
+            body.expanded > main.lessChrome::before,
+            body.expanded > main.lessChrome::after {
+                top: 0rem;
+                height: 100%;
             }
             body.expanded > main:not(.lessChrome)::before,
             body.expanded > main:not(.lessChrome)::after {
