@@ -51,6 +51,12 @@
         color: #2a1657;
     }
 
+    body > main > * {
+        /* Set a maximum content column width to avoid overly long lines */
+        max-width: 50rem;
+        margin: 0 auto;
+    }
+
     body > main:not(.lessChrome) {
         margin-top: 4rem;
     }
