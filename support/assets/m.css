@@ -52,7 +52,7 @@
     }
 
     body > main:not(.lessChrome) {
-        margin: 4rem;
+        margin-top: 4rem;
     }
 
     img {
