@@ -1492,10 +1492,7 @@
                 transition: all .2s;
             }
             body:not(.expanded) > main {
-                margin-right: 0;
                 margin-bottom: 0;
-                margin-left: 0;
-                width: 100%;
                 transition: all .2s;
             }
             body:not(.expanded) > main::before,
