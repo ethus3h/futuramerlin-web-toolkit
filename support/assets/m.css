@@ -1730,11 +1730,14 @@
             }
             body:not(.expanded) > main::before,
             body:not(.expanded) > main::after {
-                top: 4rem;
                 margin-top: 0;
                 width: 100%;
                 left: 0;
                 height: calc(100% - 4rem);
+            }
+            body:not(.expanded) > main:not(.lessChrome)::before,
+            body:not(.expanded) > main:not(.lessChrome)::after {
+                top: 4rem;
             }
             body:not(.expanded) > nav::after {
                 bottom: -4rem;
@@ -1848,11 +1851,14 @@
             }
             body.expanded > main::before,
             body.expanded > main::after {
-                top: 4rem;
                 margin-top: 0;
                 width: 100%;
                 left: 0;
                 height: calc(100% - 4rem);
+            }
+            body.expanded > main:not(.lessChrome)::before,
+            body.expanded > main:not(.lessChrome)::after {
+                top: 4rem;
             }
             body.expanded > nav::after {
                 bottom: -4rem;
