@@ -39,7 +39,6 @@
     body > main {
         font-family: wreatherweb;
         font-size: 1.45rem;
-        position: absolute;
         z-index: 1;
         top: 0;
         padding: 1rem;
