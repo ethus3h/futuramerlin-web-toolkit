@@ -1654,16 +1654,15 @@
             }
             body.expanded > main {
                 padding-left: 1rem;
-            }
-            body.expanded::before {
-                left: 0;
+                width: 100%;
             }
             body.expanded > main,
             body.expanded::before {
-                max-width: 100%;
                 transition: all .2s;
             }
             body.expanded::before {
+                left: 0;
+                max-width: 100%;
                 left: calc(-1 * (25vw + 4rem));
             }
             body.expanded::after {
@@ -1774,6 +1773,9 @@
 
         }
 
+    /* We need to not specify width for 
+        @media only screen and (max-width: 680px) and (min-resolution:
+            
     /* extra-small screen */
         @media only screen and (max-width: 561px) and (min-resolution: 192dpi), only screen and (max-width: 281px) and (max-resolution: 191dpi) {
             p {
