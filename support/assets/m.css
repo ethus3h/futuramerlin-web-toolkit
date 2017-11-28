@@ -42,7 +42,6 @@
         z-index: 1;
         top: 0;
         padding: 1rem;
-        padding-left: calc(25vw + 1rem);
         padding-bottom: 7rem;
         transition: all .2s;
         color: #2a1657;
@@ -52,8 +51,9 @@
         margin: 0 auto;
     }
 
-    body > main:not(.lessChrome) {
+    body:not(.lessChrome) > main {
         margin-top: 4rem;
+        padding-left: calc(25vw + 1rem);
     }
 
     img {
@@ -1271,7 +1271,6 @@
         position: fixed;
         z-index: -1;
         top: 0;
-        left: 25vw;
         content: ' ';
         box-sizing: border-box;
         max-height: 100%;
@@ -1282,11 +1281,13 @@
         background-color: rgba(226, 218, 241, .7);
     }
 
-    body > main.lessChrome::before {
+    body.lessChrome > main::before {
+        left: 0;
         height: 100%;
     }
 
-    body > main:not(.lessChrome)::before {
+    body:not(.lessChrome) > main::before {
+        left: 25vw;
         height: calc(100% - 8rem);
     }
 
@@ -1358,6 +1359,10 @@
         height: 100%;
         width: calc(25vw + 4rem);
         transition: font-size .2s, left .2s, width .2s, opacity .2s;
+    }
+
+    body.lessChrome::before {
+        left: calc(-1 * (25vw + 4rem));
     }
 
     body::after {
@@ -1515,8 +1520,8 @@
                 top: 0;
                 height: 100%;
             }
-            body:not(.expanded) > main:not(.lessChrome)::before,
-            body:not(.expanded) > main:not(.lessChrome)::after {
+            body:not(.expanded):not(.lessChrome) > main::before,
+            body:not(.expanded):not(.lessChrome) > main::after {
                 top: 4rem;
                 height: calc(100% - 4rem);
             }
@@ -1644,8 +1649,8 @@
                 top: 0rem;
                 height: 100%;
             }
-            body.expanded > main:not(.lessChrome)::before,
-            body.expanded > main:not(.lessChrome)::after {
+            body.expanded:not(.lessChrome) > main::before,
+            body.expanded:not(.lessChrome) > main::after {
                 top: 4rem;
                 height: calc(100% - 4rem);
             }
