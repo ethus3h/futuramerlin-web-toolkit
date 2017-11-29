@@ -1508,10 +1508,18 @@
             body:not(.lessChrome) > main {
                 margin: 0 auto;
                 margin-top: 0;
-                position: unset;
                 padding: 0rem;
                 padding-top: 4.063rem;
                 padding-bottom: 1.063rem;
+
+                /* Set a maximum content column width to avoid overly long lines */
+                max-width: calc(75% - 8rem);
+            }
+            body:not(.expanded):not(.lessChrome) > main {
+                position: unset;
+            }
+            body.expanded:not(.lessChrome) > main {
+                position: unset;
                 padding-left: calc(25vw + 4rem);
                 padding-right: 4rem;
                 max-width: unset;
