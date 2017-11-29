@@ -1682,7 +1682,7 @@
             body.expanded:not(.lessChrome) > main::before,
             body.expanded:not(.lessChrome) > main::after {
                 top: 4rem;
-                height: calc(100% - 6.5rem);
+                height: calc(-50% - 2rem);
                 transition: top 0.2s;
             }
             body.expanded > nav::after {
@@ -1801,6 +1801,7 @@
             body.expanded:not(.lessChrome) .nav-trigger:checked ~ main::before,
             body.expanded:not(.lessChrome) .nav-trigger:checked ~ main::after {
                 top: 6.5rem;
+                height: calc(100% - 6.5rem);
                 transition: top 0.2s;
             }
 

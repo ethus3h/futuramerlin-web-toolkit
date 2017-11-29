@@ -2231,12 +2231,12 @@
             body.expanded:not(.lessChrome) > main:after {
                 top: 64px;
                 top: 4rem;
-                height: -webkit-calc(-50% - 32px);
-                height: -moz-calc(-50% - 32px);
-                height: calc(-50% - 32px);
-                height: -webkit-calc(-50% - 2rem);
-                height: -moz-calc(-50% - 2rem);
-                height: calc(-50% - 2rem);
+                height: -webkit-calc(100% - 104px);
+                height: -moz-calc(100% - 104px);
+                height: calc(100% - 104px);
+                height: -webkit-calc(100% - 6.5rem);
+                height: -moz-calc(100% - 6.5rem);
+                height: calc(100% - 6.5rem);
                 -webkit-transition: top 0.2s;
                 -moz-transition: top 0.2s;
                 transition: top 0.2s;
@@ -2312,10 +2312,10 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav.expanded > .logo {
-                -webkit-transform: translateX(-webkit-calc(50% - 2rem));
-                   -moz-transform: translateX(-moz-calc(50% - 2rem));
-                    -ms-transform: translateX(calc(50% - 2rem));
-                        transform: translateX(calc(50% - 2rem));
+                -webkit-transform: translateX(-webkit-calc(-50% - 2rem));
+                   -moz-transform: translateX(-moz-calc(-50% - 2rem));
+                    -ms-transform: translateX(calc(-50% - 2rem));
+                        transform: translateX(calc(-50% - 2rem));
                 left: 100%;
                 top: 14.4px;
                 top: .9rem;
