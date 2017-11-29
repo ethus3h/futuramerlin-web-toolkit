@@ -1982,18 +1982,17 @@
             body:not(.lessChrome) > main {
                 margin: 0 auto;
                 margin-top: 0;
-                /* position: unset; */
+                position: unset;
                 padding: 0px;
                 padding: 0rem;
                 padding-top: 65.007px;
                 padding-top: 4.063rem;
                 padding-bottom: 17.008px;
                 padding-bottom: 1.063rem;
-
-                /* Set a maximum content column width to avoid overly long lines */
-                max-width: -webkit-calc(75% - 8rem);
-                max-width: -moz-calc(75% - 8rem);
-                max-width: calc(75% - 8rem);
+                padding-left: -webkit-calc(25vw + 4rem);
+                padding-left: -moz-calc(25vw + 4rem);
+                padding-left: calc(25vw + 4rem);
+                max-width: unset;
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
