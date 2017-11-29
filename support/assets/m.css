@@ -1636,6 +1636,7 @@
                 max-width: unset;
                 padding-left: 0;
                 padding-right: 0;
+                padding-top: 4rem;
             }
             body.expanded > nav > .logo {
                 left: 50%;
