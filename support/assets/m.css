@@ -40,19 +40,17 @@
         font-family: wreatherweb;
         font-size: 1.45rem;
         z-index: 1;
+        positon: relative;
         top: 4rem;
         left: calc(25vw + 4rem);
-        right: -4rem;
-        bottom: -4rem;
         transition: all .2s;
         color: #2a1657;
         margin: 0 auto;
     }
 
-    body:not(.lessChrome) > main > * {
+    body:not(.lessChrome) > main {
         /* Set a maximum content column width to avoid overly long lines */
         max-width: calc(55rem + 25vw);
-        margin: 0 auto;
     }
 
     body.lessChrome > main {
