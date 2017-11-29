@@ -1655,8 +1655,6 @@
                 margin-bottom: 0;
                 margin-left: 0;
                 transition: all .2s;
-                padding-left: 1rem;
-                padding-right: 1rem;
                 width: 100%;
             }
             body.expanded > main::before,
