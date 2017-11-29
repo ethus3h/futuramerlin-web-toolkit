@@ -56,7 +56,7 @@
 
     body.lessChrome > main {
         margin-top: 0;
-        padding: 1rem;
+        padding: 0rem;
         padding-top: 1.063rem;
         padding-bottom: 1.063rem;
         max-width: 50rem;
@@ -1292,7 +1292,7 @@
         height: 100vh;
         margin: 0;
         padding: 0;
-        max-width: 48rem;
+        max-width: 50rem;
     }
 
     body:not(.lessChrome) > main::before {
@@ -1418,7 +1418,7 @@
     }
 
     @media only screen and (max-width: 50rem) {
-        /* The screen is small enough that the 48rem maximum is too big. */
+        /* The screen is small enough that the 50rem maximum is too big. */
         body.lessChrome > main::before,
         body.lessChrome > main::after {
             max-width: calc(100% - 2rem)
