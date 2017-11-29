@@ -74,8 +74,8 @@
         padding-top: 1.063rem;
         padding-bottom: 17.008px;
         padding-bottom: 1.063rem;
-        max-width: 880px;
-        max-width: 55rem;
+        max-width: 800px;
+        max-width: 50rem;
     }
 
     main > *:not(.page-title):not(h1) {
@@ -1727,21 +1727,13 @@
         height: 100vh;
         margin: 0;
         padding: 0;
-        max-width: -webkit-calc(896px + 25vw);
-        max-width: -moz-calc(896px + 25vw);
-        max-width: calc(896px + 25vw);
-        max-width: -webkit-calc(56rem + 25vw);
-        max-width: -moz-calc(56rem + 25vw);
-        max-width: calc(56rem + 25vw);
+        max-width: 896px;
+        max-width: 56rem;
     }
 
     body.lessChrome > main:after {
-        max-width: -webkit-calc(898.016px + 25vw);
-        max-width: -moz-calc(898.016px + 25vw);
-        max-width: calc(898.016px + 25vw);
-        max-width: -webkit-calc(56.126rem + 25vw);
-        max-width: -moz-calc(56.126rem + 25vw);
-        max-width: calc(56.126rem + 25vw);
+        max-width: 898.016px;
+        max-width:56.126rem;
     }
 
     body:not(.lessChrome) > main:before {
