@@ -1778,7 +1778,6 @@
             body > nav > .logo {
                 left: 100%;
                 transform: translateX(calc(-50% - 2rem));
-                top: .9rem;
             }
             .nav-trigger:checked + label {
                 left: calc(75vw + 1rem);
