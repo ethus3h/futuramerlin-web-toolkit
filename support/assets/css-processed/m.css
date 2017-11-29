@@ -2387,8 +2387,6 @@
                    -moz-transform: translateX(-moz-calc(-50% - 2rem));
                     -ms-transform: translateX(calc(-50% - 2rem));
                         transform: translateX(calc(-50% - 2rem));
-                top: 14.4px;
-                top: .9rem;
             }
             .nav-trigger:checked + label {
                 left: -webkit-calc(75vw + 1rem);
