@@ -2332,10 +2332,10 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav.expanded > .logo {
-                -webkit-transform: translateX(-webkit-calc(-50% - 2rem)) translateY(2.5rem);
-                   -moz-transform: translateX(-moz-calc(-50% - 2rem)) translateY(2.5rem);
-                    -ms-transform: translateX(calc(-50% - 2rem)) translateY(2.5rem);
-                        transform: translateX(calc(-50% - 2rem)) translateY(2.5rem);
+                -webkit-transform: translateX(-webkit-calc(-50% - 2rem)) translateY(1.75rem);
+                   -moz-transform: translateX(-moz-calc(-50% - 2rem)) translateY(1.75rem);
+                    -ms-transform: translateX(calc(-50% - 2rem)) translateY(1.75rem);
+                        transform: translateX(calc(-50% - 2rem)) translateY(1.75rem);
                 left: 100%;
                 top: 14.4px;
                 top: .9rem;
