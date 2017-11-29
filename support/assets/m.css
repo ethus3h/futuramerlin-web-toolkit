@@ -48,10 +48,12 @@
         padding-bottom: 7.063rem;
         transition: all .2s;
         color: #2a1657;
+        margin: 0 auto;
+    }
 
+    body:not(.lessChrome) > main > * {
         /* Set a maximum content column width to avoid overly long lines */
         max-width: calc(55rem + 25vw);
-        margin: 0 auto;
     }
 
     body.lessChrome > main {
@@ -432,6 +434,7 @@
     .page-title {
         background: linear-gradient(90deg, rgba(199, 130, 229, 1) 0, rgba(199, 130, 229, 1) 1%, rgba(162, 130, 229, 0.9) 15%, rgba(129, 145, 226, 0.78) 23%, rgba(129, 134, 226, 0.66) 34%, rgba(142, 129, 226, 0.44) 47%, rgba(130, 152, 229, 0.34) 59%, rgba(0, 150, 255, 0) 100%);
         left: 0;
+        padding-right: 2rem;
     }
 
     .single-post > header.entry-header > h1 {
@@ -1413,7 +1416,7 @@
     body > main,
     body > main::before,
     body > main::after {
-        padding-left: 25vw;
+        padding-left: calc(25vw + 4rem);
         width: 100%;
     }
 
@@ -1644,8 +1647,10 @@
                 margin-right: 0;
                 margin-bottom: 0;
                 margin-left: 0;
-                width: 100%;
                 transition: all .2s;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                width: 100%;
             }
             body.expanded > main::before,
             body.expanded > nav::before,
@@ -1673,10 +1678,6 @@
             body.expanded > nav::after {
                 bottom: -4rem;
                 transition: all .2s;
-            }
-            body.expanded > main {
-                padding-left: 1rem;
-                width: 100%;
             }
             body.expanded > main,
             body.expanded::before {

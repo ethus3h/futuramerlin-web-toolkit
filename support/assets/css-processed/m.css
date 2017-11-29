@@ -1885,12 +1885,7 @@
         /* The screen is small enough that the 50rem maximum is too big. */
         body.lessChrome > main:before,
         body.lessChrome > main:after {
-            max-width: -webkit-calc(100% - 32px);
-            max-width: -moz-calc(100% - 32px);
-            max-width: calc(100% - 32px);
-            max-width: -webkit-calc(100% - 2rem);
-            max-width: -moz-calc(100% - 2rem);
-            max-width: calc(100% - 2rem)
+            max-width: 100%;
         }
     }
 
