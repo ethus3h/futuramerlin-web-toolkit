@@ -1682,7 +1682,7 @@
             body.expanded:not(.lessChrome) > main::before,
             body.expanded:not(.lessChrome) > main::after {
                 top: 4rem;
-                height: calc(-50% - 2rem);
+                height: calc(100% - 6.5rem);
                 transition: top 0.2s;
             }
             body.expanded > nav::after {
@@ -1726,7 +1726,7 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav.expanded > .logo {
-                transform: translateX(calc(50% - 2rem));
+                transform: translateX(calc(-50% - 2rem));
                 left: 100%;
                 top: .9rem;
             }
