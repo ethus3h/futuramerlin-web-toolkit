@@ -994,6 +994,8 @@
             padding: 0.5rem;
             margin: 16px;
             margin: 1rem;
+            margin-left: 32px;
+            margin-left: 2rem;
             overflow-x: scroll;
         }
 

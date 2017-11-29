@@ -1325,6 +1325,7 @@
         left: unset;
         margin: 0;
         max-width: calc(56rem + 25vw);
+        height: 100vh;
     }
 
     body > nav::before {
