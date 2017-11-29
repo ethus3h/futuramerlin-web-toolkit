@@ -1592,8 +1592,8 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                transform: translateX(calc(-100% - 1rem));
-                left: calc(100%);
+                transform: translateX(calc(-50% - 2rem));
+                left: 100%;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {
                 left: 0;
@@ -1682,7 +1682,7 @@
             body.expanded:not(.lessChrome) > main::before,
             body.expanded:not(.lessChrome) > main::after {
                 top: 4rem;
-                height: calc(100% - 4rem);
+                height: calc(-50% - 2rem);
                 transition: top 0.2s;
             }
             body.expanded > nav::after {
@@ -1726,8 +1726,8 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav.expanded > .logo {
-                transform: translateX(calc(-100% - 1rem));
-                left: calc(100%);
+                transform: translateX(calc(50% - 2rem));
+                left: 100%;
                 top: .9rem;
             }
             .nav-trigger:checked ~ nav.expanded > ul > li:first-of-type {
@@ -1774,8 +1774,8 @@
             }
             body > nav > .logo {
                 font-size: 1.2rem;
-                left: calc(100%);
-                transform: translateX(calc(-100% - 1rem));
+                left: 100%;
+                transform: translateX(calc(-50% - 2rem));
                 top: .9rem;
             }
             .nav-trigger:checked + label {
