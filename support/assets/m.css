@@ -1799,7 +1799,12 @@
                 height: calc(100% - 6.5rem);
                 transition: all 0.2s;
             }
-
+            body:not(expanded):not(.lessChrome) .nav-trigger:checked ~ main::before,
+            body:not(expanded):not(.lessChrome) .nav-trigger:checked ~ main::after {
+                top: 6.5rem;
+                height: calc(100% - 6.5rem);
+                transition: all 0.2s;
+            }
         }
 
     /* extra-small screen */
