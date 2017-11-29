@@ -1295,13 +1295,14 @@
         max-width: 48rem;
     }
 
-    body.lessChrome > main::after {
-        max-width:48.063rem;
-    }
-
     body:not(.lessChrome) > main::before {
         left: 25vw;
         height: calc(100% - 8rem);
+        width: calc(75vw - 8rem);
+    }
+
+    body:not(.lessChrome) > main::after {
+        width: calc(75vw - 8rem);
     }
 
     body > main::after {

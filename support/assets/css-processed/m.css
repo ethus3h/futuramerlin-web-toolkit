@@ -1681,9 +1681,6 @@
         margin: 64px;
         margin: 4rem;
         padding: 0;
-        -webkit-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
-        -moz-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
-        transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
         border: none;
         background-color: #e2daf1;
         background-color: rgba(226, 218, 241, .7);
@@ -1737,9 +1734,6 @@
         margin: 64px;
         margin: 4rem;
         padding: 0;
-        -webkit-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
-        -moz-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
-        transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
         pointer-events: none;
         border: 1.008px solid white;
         border: .063rem solid white;
@@ -2003,9 +1997,6 @@
                 margin-right: 0;
                 margin-bottom: 0;
                 margin-left: 0;
-                -webkit-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
-                -moz-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
-                transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
             }
             body:not(.expanded) > main:before,
             body:not(.expanded) > main:after {
@@ -2189,9 +2180,6 @@
                 margin-right: 0;
                 margin-bottom: 0;
                 margin-left: 0;
-                -webkit-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
-                -moz-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
-                transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
             }
             body.expanded > main:before,
             body.expanded > main:after {
@@ -2405,9 +2393,6 @@
             .nav-trigger:checked ~ main:after {
                 top: 104px;
                 top: 6.5rem;
-                -webkit-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
-                -moz-transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
-                transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
             }
 
         }
