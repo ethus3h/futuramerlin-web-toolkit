@@ -1601,7 +1601,7 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                transform: translateX(calc(-50% - 2rem));
+                transform: translateX(calc(-100% - 1rem));
                 left: 100%;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {
