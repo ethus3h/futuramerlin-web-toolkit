@@ -49,9 +49,9 @@
         left: -webkit-calc(25vw + 4rem);
         left: -moz-calc(25vw + 4rem);
         left: calc(25vw + 4rem);
-        -webkit-transition: all .2s;
-        -moz-transition: all .2s;
-        transition: all .2s;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        transition: all 0.2s;
         color: #2a1657;
     }
 
@@ -387,9 +387,9 @@
         border-bottom: 0.063rem dotted rgba(42, 22, 87, 0.4);
         color: #520f22;
         text-decoration: none;
-        -webkit-transition: border-bottom .2s;
-        -moz-transition: border-bottom .2s;
-        transition: border-bottom .2s;
+        -webkit-transition: border-bottom 0.2s;
+        -moz-transition: border-bottom 0.2s;
+        transition: border-bottom 0.2s;
     }
 
     .nodecorate {
@@ -400,9 +400,9 @@
     a:hover {
         border-bottom: 1.008px solid #520f22;
         border-bottom: 0.063rem solid #520f22;
-        -webkit-transition: border-bottom .2s;
-        -moz-transition: border-bottom .2s;
-        transition: border-bottom .2s;
+        -webkit-transition: border-bottom 0.2s;
+        -moz-transition: border-bottom 0.2s;
+        transition: border-bottom 0.2s;
     }
 
     a[href^="//"]:not([href*="futuramerlin.com"]):after,
@@ -764,9 +764,9 @@
         border: 1.52px solid #ddd;
         border: .095rem solid #ddd;
         position: relative;
-        -webkit-transition: width .2s, margin .2s, left .2s;
-        -moz-transition: width .2s, margin .2s, left .2s;
-        transition: width .2s, margin .2s, left .2s;
+        -webkit-transition: width 0.2s, margin 0.2s, left 0.2s;
+        -moz-transition: width 0.2s, margin 0.2s, left 0.2s;
+        transition: width 0.2s, margin 0.2s, left 0.2s;
     }
 
     .content-area > article:not(.single-post) > .entry-content:after {
@@ -851,9 +851,9 @@
         border: 1.52px solid #ddd;
         border: .095rem solid #ddd;
         position: relative;
-        -webkit-transition: width .2s, margin .2s, right .2s;
-        -moz-transition: width .2s, margin .2s, right .2s;
-        transition: width .2s, margin .2s, right .2s;
+        -webkit-transition: width 0.2s, margin 0.2s, right 0.2s;
+        -moz-transition: width 0.2s, margin 0.2s, right 0.2s;
+        transition: width 0.2s, margin 0.2s, right 0.2s;
     }
 
     figure.thumbnail-left > figcaption:after,
@@ -1080,9 +1080,9 @@
             float: left;
             padding: 16px 32px;
             padding: 1rem 2rem;
-            -webkit-transition: all .2s;
-            -moz-transition: all .2s;
-            transition: all .2s;
+            -webkit-transition: all 0.2s;
+            -moz-transition: all 0.2s;
+            transition: all 0.2s;
             width: 100%;
             height: 100%;
         }
@@ -1292,9 +1292,9 @@
             width: -moz-calc(25vw + .095rem);
             width: calc(25vw + .095rem);
             height: 100%;
-            -webkit-transition: left .2s;
-            -moz-transition: left .2s;
-            transition: left .2s;
+            -webkit-transition: left 0.2s;
+            -moz-transition: left 0.2s;
+            transition: left 0.2s;
             border-right: 1.008px solid white;
             border-right: 0.063rem solid white;
             background: #e2daf1;
@@ -1319,9 +1319,9 @@
                     box-sizing: border-box;
             padding: 12px;
             padding: .75rem;
-            -webkit-transition: color .2s, border .2s;
-            -moz-transition: color .2s, border .2s;
-            transition: color .2s, border .2s;
+            -webkit-transition: color 0.2s, border 0.2s;
+            -moz-transition: color 0.2s, border 0.2s;
+            transition: color 0.2s, border 0.2s;
             text-decoration: none;
             text-overflow: clip;
             border-bottom: none;
@@ -1330,9 +1330,9 @@
 
         .nav-item-inactive:hover,
         .nav-item-inactive:active {
-            -webkit-transition: color .2s, border .2s;
-            -moz-transition: color .2s, border .2s;
-            transition: color .2s, border .2s;
+            -webkit-transition: color 0.2s, border 0.2s;
+            -moz-transition: color 0.2s, border 0.2s;
+            transition: color 0.2s, border 0.2s;
             border-top: 1.52px solid #87769d;
             border-top: .095rem solid #87769d;
             border-bottom: 1.52px solid #87769d;
@@ -1366,9 +1366,9 @@
             width: 100%;
             height: 100%;
             content: ' ';
-            -webkit-transition: color .2s, background .2s, border .2s;
-            -moz-transition: color .2s, background .2s, border .2s;
-            transition: color .2s, background .2s, border .2s;
+            -webkit-transition: color 0.2s, background 0.2s, border 0.2s;
+            -moz-transition: color 0.2s, background 0.2s, border 0.2s;
+            transition: color 0.2s, background 0.2s, border 0.2s;
             pointer-events: none;
             border-right: 1.52px solid transparent;
             border-right: .095rem solid transparent;
@@ -1389,9 +1389,9 @@
             width: 100%;
             height: 100%;
             content: ' ';
-            -webkit-transition: color .2s, background .2s, border .2s;
-            -moz-transition: color .2s, background .2s, border .2s;
-            transition: color .2s, background .2s, border .2s;
+            -webkit-transition: color 0.2s, background 0.2s, border 0.2s;
+            -moz-transition: color 0.2s, background 0.2s, border 0.2s;
+            transition: color 0.2s, background 0.2s, border 0.2s;
             pointer-events: none;
             border-right: 1.52px solid #87769d;
             border-right: .095rem solid #87769d;
@@ -1406,9 +1406,9 @@
             -webkit-box-sizing: border-box;
                -moz-box-sizing: border-box;
                     box-sizing: border-box;
-            -webkit-transition: color .2s, border .2s;
-            -moz-transition: color .2s, border .2s;
-            transition: color .2s, border .2s;
+            -webkit-transition: color 0.2s, border 0.2s;
+            -moz-transition: color 0.2s, border 0.2s;
+            transition: color 0.2s, border 0.2s;
             border-top: 1.52px solid transparent;
             border-top: .095rem solid transparent;
             border-bottom: 1.52px solid transparent;
@@ -1446,9 +1446,9 @@
         }
 
         .nav-item-selected {
-            -webkit-transition: color .2s, border .2s;
-            -moz-transition: color .2s, border .2s;
-            transition: color .2s, border .2s;
+            -webkit-transition: color 0.2s, border 0.2s;
+            -moz-transition: color 0.2s, border 0.2s;
+            transition: color 0.2s, border 0.2s;
         }
 
         .nav-item-selected,
@@ -1481,9 +1481,9 @@
             font-size: 1.2rem;
             font-family: wreatherweb;
             width: 25vw;
-            -webkit-transition: all .2s;
-            -moz-transition: all .2s;
-            transition: all .2s;
+            -webkit-transition: all 0.2s;
+            -moz-transition: all 0.2s;
+            transition: all 0.2s;
             color: #2a1657;
         }
 
@@ -1514,11 +1514,11 @@
             height: 30px;
             height: 1.875rem;
             cursor: pointer;
-            -webkit-transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-            transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-            -moz-transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -moz-box-shadow .2s;
-            transition: left .2s, box-shadow .2s, width .2s, opacity .2s;
-            transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -webkit-box-shadow .2s, -moz-box-shadow .2s;
+            -webkit-transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+            transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+            -moz-transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -moz-box-shadow 0.2s;
+            transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
+            transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s, -moz-box-shadow 0.2s;
             opacity: 0;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path fill="%23013220" d="M0 0h30v6H0zm0 24h30v6H0zm0-12h30v6H0z"/></svg>');
             -moz-background-size: contain;
@@ -1593,17 +1593,17 @@
             z-index: 1000;
             border: 1.008px dotted transparent;
             border: 0.063rem dotted transparent;
-            -webkit-transition: all .2s;
-            -moz-transition: all .2s;
-            transition: all .2s;
+            -webkit-transition: all 0.2s;
+            -moz-transition: all 0.2s;
+            transition: all 0.2s;
         }
 
         body > nav > a:last-of-type:hover {
             border: 1.008px dotted #520f22;
             border: 0.063rem dotted #520f22;
-            -webkit-transition: all .2s;
-            -moz-transition: all .2s;
-            transition: all .2s;
+            -webkit-transition: all 0.2s;
+            -moz-transition: all 0.2s;
+            transition: all 0.2s;
         }
 
 /* Page sections */
@@ -1782,9 +1782,9 @@
         width: 100vw;
         height: 64px;
         height: 4rem;
-        -webkit-transition: font-size .2s, left .2s, width .2s, bottom .2s, opacity .2s;
-        -moz-transition: font-size .2s, left .2s, width .2s, bottom .2s, opacity .2s;
-        transition: font-size .2s, left .2s, width .2s, bottom .2s, opacity .2s;
+        -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s, bottom 0.2s, opacity 0.2s;
+        -moz-transition: font-size 0.2s, left 0.2s, width 0.2s, bottom 0.2s, opacity 0.2s;
+        transition: font-size 0.2s, left 0.2s, width 0.2s, bottom 0.2s, opacity 0.2s;
     }
 
     body:before {
@@ -1810,9 +1810,9 @@
         width: -webkit-calc(25vw + 4rem);
         width: -moz-calc(25vw + 4rem);
         width: calc(25vw + 4rem);
-        -webkit-transition: font-size .2s, left .2s, width .2s, opacity .2s;
-        -moz-transition: font-size .2s, left .2s, width .2s, opacity .2s;
-        transition: font-size .2s, left .2s, width .2s, opacity .2s;
+        -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
+        -moz-transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
+        transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
     }
 
     body.lessChrome:before {
@@ -1843,9 +1843,9 @@
         height: 100%;
         width: 60.24px;
         width: 3.765rem; /* what the fuck? */
-        -webkit-transition: font-size .2s, right .2s, width .2s, opacity .2s;
-        -moz-transition: font-size .2s, right .2s, width .2s, opacity .2s;
-        transition: font-size .2s, right .2s, width .2s, opacity .2s;
+        -webkit-transition: font-size 0.2s, right 0.2s, width 0.2s, opacity 0.2s;
+        -moz-transition: font-size 0.2s, right 0.2s, width 0.2s, opacity 0.2s;
+        transition: font-size 0.2s, right 0.2s, width 0.2s, opacity 0.2s;
         top: 0
     }
 
@@ -1882,15 +1882,15 @@
 
     body,
     body > nav:before {
-        -webkit-transition: font-size .2s, left .2s, width .2s, opacity .2s;
-        -moz-transition: font-size .2s, left .2s, width .2s, opacity .2s;
-        transition: font-size .2s, left .2s, width .2s, opacity .2s;
+        -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
+        -moz-transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
+        transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
     }
 
     body > nav:after {
-        -webkit-transition: font-size .2s, left .2s, width .2s, opacity .2s, bottom .2s;
-        -moz-transition: font-size .2s, left .2s, width .2s, opacity .2s, bottom .2s;
-        transition: font-size .2s, left .2s, width .2s, opacity .2s, bottom .2s;
+        -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s, bottom 0.2s;
+        -moz-transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s, bottom 0.2s;
+        transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s, bottom 0.2s;
     }
 
     body > nav > .logo {
@@ -2006,15 +2006,15 @@
             }
             body:not(.expanded) > nav > ul > li:first-of-type {
                 left: -25%;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body:not(.expanded) > main {
                 margin-bottom: 0;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body:not(.expanded) > main:before,
             body:not(.expanded) > nav:before,
@@ -2044,13 +2044,16 @@
                 height: calc(100% - 4rem);
                 left: unset;
                 width: 100%;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body:not(.expanded) > nav:after {
                 bottom: -64px;
                 bottom: -4rem;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body:not(.expanded) > main {
                 max-width: 800px;
@@ -2058,9 +2061,9 @@
             }
             body:not(.expanded) > main,
             body:not(.expanded):before {
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body:not(.expanded):before {
                 max-width: 100%;
@@ -2074,9 +2077,9 @@
             body:not(.expanded):after {
                 right: -64px;
                 right: -4rem;
-                -webkit-transition: width .2s, right .2s;
-                -moz-transition: width .2s, right .2s;
-                transition: width .2s, right .2s;
+                -webkit-transition: width 0.2s, right 0.2s;
+                -moz-transition: width 0.2s, right 0.2s;
+                transition: width 0.2s, right 0.2s;
             }
             label[for='nav-trigger']:not(.expanded) {
                 position: fixed;
@@ -2090,11 +2093,11 @@
                 height: 30px;
                 height: 1.875rem;
                 cursor: pointer;
-                -webkit-transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                -moz-transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -moz-box-shadow .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -webkit-box-shadow .2s, -moz-box-shadow .2s;
+                -webkit-transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                -moz-transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -moz-box-shadow 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s, -moz-box-shadow 0.2s;
                 opacity: 1;
                 background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path fill="%23013220" d="M0 0h30v6H0zm0 24h30v6H0zm0-12h30v6H0z"/></svg>');
                 -moz-background-size: contain;
@@ -2102,16 +2105,16 @@
             }
             .nav-trigger + label:not(.expanded),
             nav:not(.expanded) > ul {
-                -webkit-transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                -moz-transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -moz-box-shadow .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -webkit-box-shadow .2s, -moz-box-shadow .2s;
+                -webkit-transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                -moz-transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -moz-box-shadow 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s, -moz-box-shadow 0.2s;
             }
             body:not(.expanded) {
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             .nav-trigger:checked + label:not(.expanded) {
                 left: -webkit-calc(25% + 1rem);
@@ -2127,16 +2130,16 @@
             }
             .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {
                 left: 0;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > ul {
                 left: 0;
                 width: 25%;
-                -webkit-transition: font-size .2s, left .2s, width .2s;
-                -moz-transition: font-size .2s, left .2s, width .2s;
-                transition: font-size .2s, left .2s, width .2s;
+                -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s;
+                -moz-transition: font-size 0.2s, left 0.2s, width 0.2s;
+                transition: font-size 0.2s, left 0.2s, width 0.2s;
                 -webkit-box-shadow: .250rem 0 .250rem -.16rem #fff;
                    -moz-box-shadow: .250rem 0 .250rem -.16rem #fff;
                         box-shadow: .250rem 0 .250rem -.16rem #fff;
@@ -2194,17 +2197,17 @@
             }
             body.expanded > nav > ul > li:first-of-type {
                 left: -25%;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body.expanded > main {
                 margin-right: 0;
                 margin-bottom: 0;
                 margin-left: 0;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
                 width: 100%;
             }
             body.expanded > main:before,
@@ -2243,15 +2246,15 @@
             body.expanded > nav:after {
                 bottom: -64px;
                 bottom: -4rem;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body.expanded > main,
             body.expanded:before {
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body.expanded:before {
                 left: 0;
@@ -2266,9 +2269,9 @@
             body.expanded:after {
                 right: -64px;
                 right: -4rem;
-                -webkit-transition: width .2s, right .2s;
-                -moz-transition: width .2s, right .2s;
-                transition: width .2s, right .2s;
+                -webkit-transition: width 0.2s, right 0.2s;
+                -moz-transition: width 0.2s, right 0.2s;
+                transition: width 0.2s, right 0.2s;
             }
             label[for='nav-trigger'].expanded {
                 position: fixed;
@@ -2282,11 +2285,11 @@
                 height: 30px;
                 height: 1.875rem;
                 cursor: pointer;
-                -webkit-transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                -moz-transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -moz-box-shadow .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -webkit-box-shadow .2s, -moz-box-shadow .2s;
+                -webkit-transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                -moz-transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -moz-box-shadow 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s, -moz-box-shadow 0.2s;
                 opacity: 1;
                 background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path fill="%23013220" d="M0 0h30v6H0zm0 24h30v6H0zm0-12h30v6H0z"/></svg>');
                 -moz-background-size: contain;
@@ -2294,16 +2297,16 @@
             }
             .nav-trigger + label.expanded,
             nav.expanded > ul {
-                -webkit-transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                transition: left .2s, width .2s, opacity .2s, -webkit-box-shadow .2s;
-                -moz-transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -moz-box-shadow .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s;
-                transition: left .2s, box-shadow .2s, width .2s, opacity .2s, -webkit-box-shadow .2s, -moz-box-shadow .2s;
+                -webkit-transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                transition: left 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+                -moz-transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -moz-box-shadow 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
+                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s, -moz-box-shadow 0.2s;
             }
             body.expanded {
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             .nav-trigger:checked + label.expanded {
                 left: -webkit-calc(25% + 1rem);
@@ -2321,16 +2324,16 @@
             }
             .nav-trigger:checked ~ nav.expanded > ul > li:first-of-type {
                 left: 0;
-                -webkit-transition: all .2s;
-                -moz-transition: all .2s;
-                transition: all .2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             .nav-trigger:checked ~ nav.expanded > ul {
                 left: 0;
                 width: 25%;
-                -webkit-transition: font-size .2s, left .2s, width .2s;
-                -moz-transition: font-size .2s, left .2s, width .2s;
-                transition: font-size .2s, left .2s, width .2s;
+                -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s;
+                -moz-transition: font-size 0.2s, left 0.2s, width 0.2s;
+                transition: font-size 0.2s, left 0.2s, width 0.2s;
                 -webkit-box-shadow: .250rem 0 .250rem -.16rem #fff;
                    -moz-box-shadow: .250rem 0 .250rem -.16rem #fff;
                         box-shadow: .250rem 0 .250rem -.16rem #fff;
@@ -2367,9 +2370,9 @@
                 padding: 0.5rem;
                 border: 1.52px solid #ddd;
                 border: .095rem solid #ddd;
-                -webkit-transition: width .2s, margin .2s, left .2s;
-                -moz-transition: width .2s, margin .2s, left .2s;
-                transition: width .2s, margin .2s, left .2s;
+                -webkit-transition: width 0.2s, margin 0.2s, left 0.2s;
+                -moz-transition: width 0.2s, margin 0.2s, left 0.2s;
+                transition: width 0.2s, margin 0.2s, left 0.2s;
                 float: none;
             }
             body > nav > .logo {
@@ -2387,9 +2390,9 @@
             .nav-trigger:checked ~ nav > ul {
                 left: 0;
                 width: 75vw;
-                -webkit-transition: font-size .2s, left .2s, width .2s;
-                -moz-transition: font-size .2s, left .2s, width .2s;
-                transition: font-size .2s, left .2s, width .2s;
+                -webkit-transition: font-size 0.2s, left 0.2s, width 0.2s;
+                -moz-transition: font-size 0.2s, left 0.2s, width 0.2s;
+                transition: font-size 0.2s, left 0.2s, width 0.2s;
                 -webkit-box-shadow: .250rem 0 .250rem -.16rem #fff;
                    -moz-box-shadow: .250rem 0 .250rem -.16rem #fff;
                         box-shadow: .250rem 0 .250rem -.16rem #fff;
