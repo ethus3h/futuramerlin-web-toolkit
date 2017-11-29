@@ -1421,7 +1421,7 @@
         /* The screen is small enough that the 50rem maximum is too big. */
         body.lessChrome > main::before,
         body.lessChrome > main::after {
-            max-width: calc(100% - 2rem)
+            max-width: 100%;
         }
     }
 
