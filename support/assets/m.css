@@ -1417,6 +1417,14 @@
         width: 100%;
     }
 
+    @media only screen and (max-width: 50rem) {
+        /* The screen is small enough that the 
+        body > main::before,
+        body > main::after {
+            max-width: calc(100% - 2rem)
+        }
+    }
+
     body,
     body > nav::before {
         transition: font-size .2s, left .2s, width .2s, opacity .2s;
