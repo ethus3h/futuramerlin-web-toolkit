@@ -1315,6 +1315,7 @@
     body.lessChrome > main::after {
         left: unset;
         margin: 0;
+        max-width: calc(56rem + 25vw);
     }
 
     body > nav::before {
