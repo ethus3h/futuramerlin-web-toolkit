@@ -67,6 +67,7 @@
         max-width: -webkit-calc(55rem + 25vw);
         max-width: -moz-calc(55rem + 25vw);
         max-width: calc(55rem + 25vw);
+        margin: 0 auto;
     }
 
     body.lessChrome > main {
@@ -1895,6 +1896,20 @@
         body.lessChrome > main:before,
         body.lessChrome > main:after {
             max-width: 100%;
+        }
+    }
+
+    @media only screen and (max-width: 64.5rem) {
+        /* 50rem content column + 8rem content background = 75vw
+           58 / 4 = 14.5, so 64.5rem is the largest size at which
+           the content column should fill the space available to it */
+        body:not(.lessChrome) > main > * {
+            /* I wish I knew where that .25rem was coming from. */
+            max-width: -webkit-calc(100% - 4.5rem);
+            max-width: -moz-calc(100% - 4.5rem);
+            max-width: calc(100% - 4.5rem);
+            margin-right: 52px;
+            margin-right: 3.25rem;
         }
     }
 
