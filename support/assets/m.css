@@ -43,7 +43,7 @@
         top: 0;
         margin-top: 4rem;
         padding: 1rem;
-        padding-top: 1.063rem;
+        padding-top: 4.063rem;
         padding-left: calc(25vw + 1rem);
         padding-bottom: 7.063rem;
         transition: all .2s;
@@ -59,6 +59,7 @@
         padding: 0;
         padding-top: 1.063rem;
         padding-bottom: 1.063rem;
+        max-width: 55rem;
     }
 
     main > *:not(.page-title):not(h1) {
@@ -1423,7 +1424,7 @@
     body > main,
     body > main::before,
     body > main::after {
-        padding-left: calc(25vw + 5rem);
+        padding-left: 25vw;
         width: calc(75% - 8rem);
     }
 

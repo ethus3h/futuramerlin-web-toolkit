@@ -1719,9 +1719,27 @@
         display: none;
     }
 
-    body.lessChrome > main:before {
-        left: 0;
-        height: 100%;
+    body.lessChrome > main:before,
+    body.lessChrome > main:after {
+        left: unset;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        max-width: -webkit-calc(896px + 25vw);
+        max-width: -moz-calc(896px + 25vw);
+        max-width: calc(896px + 25vw);
+        max-width: -webkit-calc(56rem + 25vw);
+        max-width: -moz-calc(56rem + 25vw);
+        max-width: calc(56rem + 25vw);
+    }
+
+    body.lessChrome > main:after {
+        max-width: -webkit-calc(898.016px + 25vw);
+        max-width: -moz-calc(898.016px + 25vw);
+        max-width: calc(898.016px + 25vw);
+        max-width: -webkit-calc(56.126rem + 25vw);
+        max-width: -moz-calc(56.126rem + 25vw);
+        max-width: calc(56.126rem + 25vw);
     }
 
     body:not(.lessChrome) > main:before {
@@ -1760,18 +1778,6 @@
         border: 1.008px solid white;
         border: .063rem solid white;
         background: none;
-    }
-
-    body.lessChrome > main:after {
-        left: unset;
-        margin: 0;
-        max-width: -webkit-calc(896px + 25vw);
-        max-width: -moz-calc(896px + 25vw);
-        max-width: calc(896px + 25vw);
-        max-width: -webkit-calc(56rem + 25vw);
-        max-width: -moz-calc(56rem + 25vw);
-        max-width: calc(56rem + 25vw);
-        height: 100vh;
     }
 
     body > nav:before {
