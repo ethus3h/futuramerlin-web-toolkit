@@ -57,6 +57,7 @@
     body.lessChrome > main {
         margin-top: 0;
         padding: 0;
+        padding-left: 1rem;
         padding-top: 1.063rem;
         padding-bottom: 1.063rem;
         max-width: 50rem;
@@ -1553,7 +1554,6 @@
             }
             body:not(.expanded) > main {
                 max-width: 50rem;
-                padding-left: 1rem;
             }
             body:not(.expanded) > main,
             body:not(.expanded)::before {
