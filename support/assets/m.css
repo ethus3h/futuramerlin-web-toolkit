@@ -56,8 +56,7 @@
 
     body.lessChrome > main {
         margin-top: 0;
-        padding: 0;
-        padding-left: 1rem;
+        padding: 1rem;
         padding-top: 1.063rem;
         padding-bottom: 1.063rem;
         max-width: 50rem;
@@ -65,6 +64,7 @@
 
     main > *:not(.page-title):not(h1) {
         margin-left: 1rem;
+        margin-right: 1rem;
     }
 
     img {
@@ -421,23 +421,11 @@
         content: "§" counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6)
     }
 
-    .single-post > header.entry-header {
-        top: -1rem;
-        left: -1rem;
-        position: relative;
-        padding-top: 1rem;
-        padding-left: 1rem;
-        width: calc(100% + 2rem);
-        display: flex;
-        justify-content: space-between;
-        background: linear-gradient(90deg, rgba(199, 130, 229, 1) 0, rgba(199, 130, 229, 1) 1%, rgba(162, 130, 229, 0.9) 15%, rgba(129, 145, 226, 0.78) 23%, rgba(129, 134, 226, 0.66) 34%, rgba(142, 129, 226, 0.44) 47%, rgba(130, 152, 229, 0.34) 59%, rgba(0, 150, 255, 0) 100%);
-    }
-
     h1,
     .page-title {
         top: -1rem;
         left: -1rem;
-        width: calc(100% + 2rem);
+        width: calc(100% + 1rem);
     }
 
     h1:not(.logo),
@@ -777,6 +765,7 @@
             padding: 0.5rem;
             margin: 1rem;
             margin-left: 2rem;
+            margin-right: 2rem;
             overflow-x: scroll;
         }
 

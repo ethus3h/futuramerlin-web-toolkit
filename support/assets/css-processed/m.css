@@ -1734,8 +1734,8 @@
     }
 
     body.lessChrome > main:after {
-        max-width: 802.016px;
-        max-width:50.126rem;
+        max-width: 801.008px;
+        max-width:50.063rem;
     }
 
     body:not(.lessChrome) > main:before {
@@ -1904,12 +1904,7 @@
     body > main:before,
     body > main:after {
         padding-left: 25vw;
-        width: -webkit-calc(75% - 128px);
-        width: -moz-calc(75% - 128px);
-        width: calc(75% - 128px);
-        width: -webkit-calc(75% - 8rem);
-        width: -moz-calc(75% - 8rem);
-        width: calc(75% - 8rem);
+        width: 100%;
     }
 
     body,
