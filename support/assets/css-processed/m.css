@@ -48,8 +48,8 @@
         margin-top: 4rem;
         padding: 16px;
         padding: 1rem;
-        padding-top: 17.008px;
-        padding-top: 1.063rem;
+        padding-top: 65.007px;
+        padding-top: 4.063rem;
         padding-left: -webkit-calc(25vw + 1rem);
         padding-left: -moz-calc(25vw + 1rem);
         padding-left: calc(25vw + 1rem);
@@ -74,6 +74,8 @@
         padding-top: 1.063rem;
         padding-bottom: 17.008px;
         padding-bottom: 1.063rem;
+        max-width: 880px;
+        max-width: 55rem;
     }
 
     main > *:not(.page-title):not(h1) {
@@ -1907,12 +1909,7 @@
     body > main,
     body > main:before,
     body > main:after {
-        padding-left: -webkit-calc(25vw + 80px);
-        padding-left: -moz-calc(25vw + 80px);
-        padding-left: calc(25vw + 80px);
-        padding-left: -webkit-calc(25vw + 5rem);
-        padding-left: -moz-calc(25vw + 5rem);
-        padding-left: calc(25vw + 5rem);
+        padding-left: 25vw;
         width: -webkit-calc(75% - 128px);
         width: -moz-calc(75% - 128px);
         width: calc(75% - 128px);
