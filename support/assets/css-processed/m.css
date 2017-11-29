@@ -1750,6 +1750,12 @@
     body.lessChrome > main:after {
         left: unset;
         margin: 0;
+        max-width: -webkit-calc(896px + 25vw);
+        max-width: -moz-calc(896px + 25vw);
+        max-width: calc(896px + 25vw);
+        max-width: -webkit-calc(56rem + 25vw);
+        max-width: -moz-calc(56rem + 25vw);
+        max-width: calc(56rem + 25vw);
     }
 
     body > nav:before {
