@@ -1983,11 +1983,24 @@
             body > main {
                 width: unset;
             }
-            body:not(.lessChrome) > main {
+            body:not(.expanded):not(.lessChrome) > main {
                 /* Set a maximum content column width to avoid overly long lines */
                 max-width: -webkit-calc(75% - 8rem);
                 max-width: -moz-calc(75% - 8rem);
                 max-width: calc(75% - 8rem);
+            }
+            body:not(.lessChrome) > main {
+                margin: 0 auto;
+                margin-top: 0;
+                position: unset;
+                padding: 0px;
+                padding: 0rem;
+                padding-top: 17.008px;
+                padding-top: 1.063rem;
+                padding-bottom: 17.008px;
+                padding-bottom: 1.063rem;
+                max-width: 800px;
+                max-width: 50rem;
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
@@ -2116,10 +2129,10 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                -webkit-transform: translateX(-webkit-calc(-50% - 2rem)) translateY(2.5rem);
-                   -moz-transform: translateX(-moz-calc(-50% - 2rem)) translateY(2.5rem);
-                    -ms-transform: translateX(calc(-50% - 2rem)) translateY(2.5rem);
-                        transform: translateX(calc(-50% - 2rem)) translateY(2.5rem);
+                -webkit-transform: translateX(-webkit-calc(-50% - 2rem));
+                   -moz-transform: translateX(-moz-calc(-50% - 2rem));
+                    -ms-transform: translateX(calc(-50% - 2rem));
+                        transform: translateX(calc(-50% - 2rem));
                 left: 100%;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {

@@ -1507,18 +1507,16 @@
             body > main {
                 width: unset;
             }
-            body:not(.expanded):not(.lessChrome) > main {
-                /* Set a maximum content column width to avoid overly long lines */
-                max-width: calc(75% - 8rem);
-            }
             body:not(.lessChrome) > main {
                 margin: 0 auto;
                 margin-top: 0;
                 position: unset;
                 padding: 0rem;
-                padding-top: 1.063rem;
+                padding-top: 5.063rem;
                 padding-bottom: 1.063rem;
-                max-width: 50rem;
+
+                /* Set a maximum content column width to avoid overly long lines */
+                max-width: calc(75% - 8rem);
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
@@ -1557,6 +1555,7 @@
             body:not(.expanded):not(.lessChrome) > main::after {
                 top: 4rem;
                 height: calc(100% - 4rem);
+                left: unset;
             }
             body:not(.expanded) > nav::after {
                 bottom: -4rem;
