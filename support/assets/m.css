@@ -59,7 +59,7 @@
         padding-top: 1rem;
     }
 
-    main > *:not(h1:not(.logo).page-title) {
+    main > *:not(.page-title):not(h1) {
         margin-left: 1rem;
     }
 

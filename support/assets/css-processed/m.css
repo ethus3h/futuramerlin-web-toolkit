@@ -72,6 +72,11 @@
         padding-top: 1rem;
     }
 
+    main > *:not(h1:not(.logo).page-title) {
+        margin-left: 16px;
+        margin-left: 1rem;
+    }
+
     img {
         max-width: 80%;
         display: block;
