@@ -1727,7 +1727,7 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav.expanded > .logo {
-                transform: translateX(calc(-50% - 2rem)) translateY(2.5rem);
+                transform: translateX(calc(-50% - 2rem)) translateY(3rem);
                 left: 100%;
                 top: .9rem;
             }
