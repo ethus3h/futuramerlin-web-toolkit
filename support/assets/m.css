@@ -51,6 +51,8 @@
         /* Set a maximum content column width to avoid overly long lines */
         max-width: calc(50rem);
         padding-bottom: 5rem;
+        padding-left: calc(25vw + 4rem);
+        padding-right: 4rem;
         margin: 0 auto;
     }
 
