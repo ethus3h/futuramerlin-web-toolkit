@@ -2052,6 +2052,7 @@
                 height: -moz-calc(100% - 4rem);
                 height: calc(100% - 4rem);
                 left: unset;
+                width: 100%;
             }
             body:not(.expanded) > nav:after {
                 bottom: -64px;

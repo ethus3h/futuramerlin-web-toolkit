@@ -1621,9 +1621,6 @@
             /*body:not(.expanded) p {
                 text-align: left;
             }*/
-            .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                font-size: 1.2rem;
-            }
             .nav-trigger:checked ~ nav:not(.expanded) > ul {
                 width: 50%;
             }
