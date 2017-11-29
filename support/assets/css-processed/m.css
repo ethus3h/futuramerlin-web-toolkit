@@ -53,7 +53,6 @@
         -moz-transition: all .2s;
         transition: all .2s;
         color: #2a1657;
-        margin: 0 auto;
     }
 
     body:not(.lessChrome) > main {
@@ -64,6 +63,7 @@
     }
 
     body.lessChrome > main {
+        margin: 0 auto;
         margin-top: 0;
         position: unset;
         padding: 0px;
@@ -1980,6 +1980,12 @@
         @media only screen and (max-width: 1800px) and (-webkit-min-device-pixel-ratio: 2), only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (-webkit-max-device-pixel-ratio: 1.9895833333333333), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
             body > main {
                 width: unset;
+            }
+            body:not(.lessChrome) > main {
+                /* Set a maximum content column width to avoid overly long lines */
+                max-width: -webkit-calc(75% - 8rem);
+                max-width: -moz-calc(75% - 8rem);
+                max-width: calc(75% - 8rem);
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
