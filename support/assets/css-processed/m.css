@@ -2426,7 +2426,20 @@
                 -moz-transition: all 0.2s;
                 transition: all 0.2s;
             }
-
+            body:not(expanded):not(.lessChrome) .nav-trigger:checked ~ main:before,
+            body:not(expanded):not(.lessChrome) .nav-trigger:checked ~ main:after {
+                top: 104px;
+                top: 6.5rem;
+                height: -webkit-calc(100% - 104px);
+                height: -moz-calc(100% - 104px);
+                height: calc(100% - 104px);
+                height: -webkit-calc(100% - 6.5rem);
+                height: -moz-calc(100% - 6.5rem);
+                height: calc(100% - 6.5rem);
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
+            }
         }
 
     /* extra-small screen */
