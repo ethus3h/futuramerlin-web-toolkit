@@ -40,11 +40,14 @@
         font-family: wreatherweb;
         font-size: 1.45rem;
         z-index: 1;
+        position: relative;
         top: 0;
         padding: 1rem;
         padding-bottom: 7rem;
         transition: all .2s;
         color: #2a1657;
+        /* Hack to allow fake fixed positioning 
+        transform: translateX(0);
 
         /* Set a maximum content column width to avoid overly long lines */
         max-width: calc(55rem + 25vw);
