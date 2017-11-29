@@ -1419,8 +1419,8 @@
 
     @media only screen and (max-width: 50rem) {
         /* The screen is small enough that the 48rem maximum is too big. */
-        body > main::before,
-        body > main::after {
+        body.lessChrome > main::before,
+        body.lessChrome > main::after {
             max-width: calc(100% - 2rem)
         }
     }
