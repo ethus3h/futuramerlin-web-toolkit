@@ -1992,6 +1992,8 @@
                 padding-left: -webkit-calc(25vw + 4rem);
                 padding-left: -moz-calc(25vw + 4rem);
                 padding-left: calc(25vw + 4rem);
+                padding-right: 64px;
+                padding-right: 4rem;
                 max-width: unset;
             }
             body:not(.expanded) > nav > .logo {
