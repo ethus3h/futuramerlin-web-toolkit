@@ -1804,7 +1804,8 @@
                 height: 6.5rem;
                 transition: all 0.2s;
             }
-            .nav-trigger:checked ~ main {
+            .nav-trigger:checked ~ main,
+            body.expanded:not(.lessChrome) .nav-trigger:checked ~ main {
                 padding-top: 6.5rem;
                 transition: all 0.2s;
             }
