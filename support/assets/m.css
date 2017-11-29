@@ -44,7 +44,7 @@
         margin-top: 4rem;
         padding: 1rem;
         padding-top: 4.063rem;
-        padding-left: calc(25vw + 1rem);
+        padding-left: calc(25vw + 4rem);
         padding-bottom: 7.063rem;
         transition: all .2s;
         color: #2a1657;
@@ -1417,7 +1417,6 @@
     body > main,
     body > main::before,
     body > main::after {
-        padding-left: calc(25vw + 4rem);
         width: 100%;
     }
 
