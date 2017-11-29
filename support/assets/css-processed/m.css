@@ -1696,8 +1696,12 @@
         height: 100vh;
         margin: 0;
         padding: 0;
-        max-width: 768px;
-        max-width: 48rem;
+        max-width: -webkit-calc(100% - 32px);
+        max-width: -moz-calc(100% - 32px);
+        max-width: calc(100% - 32px);
+        max-width: -webkit-calc(100% - 2rem);
+        max-width: -moz-calc(100% - 2rem);
+        max-width: calc(100% - 2rem);
     }
 
     body:not(.lessChrome) > main:before {
