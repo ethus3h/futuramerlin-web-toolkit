@@ -1713,21 +1713,21 @@
         height: -webkit-calc(100% - 8rem);
         height: -moz-calc(100% - 8rem);
         height: calc(100% - 8rem);
-        width: -webkit-calc(75vw - 128px);
-        width: -moz-calc(75vw - 128px);
-        width: calc(75vw - 128px);
-        width: -webkit-calc(75vw - 8rem);
-        width: -moz-calc(75vw - 8rem);
-        width: calc(75vw - 8rem);
+        width: -webkit-calc(75% - 128px);
+        width: -moz-calc(75% - 128px);
+        width: calc(75% - 128px);
+        width: -webkit-calc(75% - 8rem);
+        width: -moz-calc(75% - 8rem);
+        width: calc(75% - 8rem);
     }
 
     body:not(.lessChrome) > main:after {
-        width: -webkit-calc(75vw - 128px);
-        width: -moz-calc(75vw - 128px);
-        width: calc(75vw - 128px);
-        width: -webkit-calc(75vw - 8rem);
-        width: -moz-calc(75vw - 8rem);
-        width: calc(75vw - 8rem);
+        width: -webkit-calc(75% - 128px);
+        width: -moz-calc(75% - 128px);
+        width: calc(75% - 128px);
+        width: -webkit-calc(75% - 8rem);
+        width: -moz-calc(75% - 8rem);
+        width: calc(75% - 8rem);
     }
 
     body > main:after {
