@@ -40,23 +40,23 @@
         font-family: wreatherweb;
         font-size: 1.45rem;
         z-index: 1;
-        position: relative;
         top: 0;
-        padding: 1rem;
+        margin-top: 4rem;
+        padding-left: calc(25vw + 1rem);
+        padding-top: 1rem
         padding-bottom: 7rem;
         transition: all .2s;
         color: #2a1657;
-        /* Hack to allow fake fixed positioning 
-        transform: translateX(0);
 
         /* Set a maximum content column width to avoid overly long lines */
         max-width: calc(55rem + 25vw);
         margin: 0 auto;
     }
 
-    body:not(.lessChrome) > main {
-        margin-top: 4rem;
-        padding-left: calc(25vw + 1rem);
+    body.lessChrome > main {
+        margin-top: 0;
+        padding: 0;
+        padding-top: 1rem
     }
 
     img {
@@ -1364,8 +1364,8 @@
         transition: font-size .2s, left .2s, width .2s, opacity .2s;
     }
 
-    body.lessChrome::before {
-        left: calc(-1 * (25vw + 4rem));
+    body.lessChrome)::before {
+        width: calc(25vw + 4rem);
     }
 
     body::after {
@@ -1515,8 +1515,8 @@
             body:not(.expanded) > main::before,
             body:not(.expanded) > main::after {
                 margin-top: 0;
-                max-width: 50rem;
                 width: 100%;
+                left: 0;
             }
             body:not(.expanded) > main.lessChrome::before,
             body:not(.expanded) > main.lessChrome::after {
