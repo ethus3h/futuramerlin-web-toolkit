@@ -2051,8 +2051,6 @@
             body:not(.expanded) > main:before,
             body:not(.expanded) > main:after {
                 margin-top: 0;
-                width: 100%;
-                left: 0;
             }
             body:not(.expanded) > main.lessChrome:before,
             body:not(.expanded) > main.lessChrome:after {
