@@ -54,6 +54,7 @@
         padding-left: calc(25vw + 4rem);
         padding-right: 4rem;
         margin: 0 auto;
+        left: unset;
     }
 
     body.lessChrome > main {
