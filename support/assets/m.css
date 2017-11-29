@@ -435,6 +435,7 @@
     h1:not(.logo),
     .page-title {
         background: linear-gradient(90deg, rgba(199, 130, 229, 1) 0, rgba(199, 130, 229, 1) 1%, rgba(162, 130, 229, 0.9) 15%, rgba(129, 145, 226, 0.78) 23%, rgba(129, 134, 226, 0.66) 34%, rgba(142, 129, 226, 0.44) 47%, rgba(130, 152, 229, 0.34) 59%, rgba(0, 150, 255, 0) 100%);
+        left: 0;
     }
 
     .single-post > header.entry-header > h1 {
@@ -1309,6 +1310,11 @@
         pointer-events: none;
         border: .063rem solid white;
         background: none;
+    }
+
+    body.lessChrome > main::after {
+        left: unset;
+        margin: 0;
     }
 
     body > nav::before {
