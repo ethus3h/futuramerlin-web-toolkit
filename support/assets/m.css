@@ -1516,7 +1516,8 @@
                 max-width: calc(75% - 8rem);
             }
             body:not(.expanded):not(.lessChrome) > main {
-                position: unset;
+                position: absolute;
+                top: 0;
             }
             body.expanded:not(.lessChrome) > main {
                 position: unset;
