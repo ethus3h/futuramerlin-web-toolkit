@@ -50,9 +50,9 @@
         padding: 1rem;
         padding-top: 65.007px;
         padding-top: 4.063rem;
-        padding-left: -webkit-calc(25vw + 1rem);
-        padding-left: -moz-calc(25vw + 1rem);
-        padding-left: calc(25vw + 1rem);
+        padding-left: -webkit-calc(25vw + 4rem);
+        padding-left: -moz-calc(25vw + 4rem);
+        padding-left: calc(25vw + 4rem);
         padding-bottom: 113.008px;
         padding-bottom: 7.063rem;
         -webkit-transition: all .2s;
@@ -1882,12 +1882,6 @@
     body > main,
     body > main:before,
     body > main:after {
-        padding-left: -webkit-calc(25vw + 64px);
-        padding-left: -moz-calc(25vw + 64px);
-        padding-left: calc(25vw + 64px);
-        padding-left: -webkit-calc(25vw + 4rem);
-        padding-left: -moz-calc(25vw + 4rem);
-        padding-left: calc(25vw + 4rem);
         width: 100%;
     }
 

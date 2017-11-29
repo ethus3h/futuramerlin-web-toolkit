@@ -1302,11 +1302,11 @@
     body:not(.lessChrome) > main::before {
         left: 25vw;
         height: calc(100% - 8rem);
-        width: calc(75vw - 8rem);
+        width: calc(75% - 8rem);
     }
 
     body:not(.lessChrome) > main::after {
-        width: calc(75vw - 8rem);
+        width: calc(75% - 8rem);
     }
 
     body > main::after {
