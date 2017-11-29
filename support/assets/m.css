@@ -1297,7 +1297,7 @@
     }
 
     body.lessChrome > main::after {
-        max-width:50.063rem;
+        max-width:48.063rem;
     }
 
     body:not(.lessChrome) > main::before {
