@@ -1776,7 +1776,6 @@
                 float: none;
             }
             body > nav > .logo {
-                font-size: 1.2rem;
                 left: 100%;
                 transform: translateX(calc(-50% - 2rem));
                 top: .9rem;
