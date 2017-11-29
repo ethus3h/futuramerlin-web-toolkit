@@ -2382,8 +2382,6 @@
                 float: none;
             }
             body > nav > .logo {
-                font-size: 19.2px;
-                font-size: 1.2rem;
                 left: 100%;
                 -webkit-transform: translateX(-webkit-calc(-50% - 2rem));
                    -moz-transform: translateX(-moz-calc(-50% - 2rem));
