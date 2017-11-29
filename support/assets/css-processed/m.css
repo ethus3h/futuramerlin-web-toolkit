@@ -1704,6 +1704,10 @@
         background-color: rgba(226, 218, 241, .7);
     }
 
+    body.lessChrome:before {
+        display: none;
+    }
+
     body.lessChrome > main:before {
         left: 0;
         height: 100%;
