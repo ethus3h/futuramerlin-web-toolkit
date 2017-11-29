@@ -995,7 +995,7 @@
             display: block;
         }
 
-        nav > ul > li::after:not(.dummy) {
+        nav > ul > li:not(.dummy)::after {
             content: none;
         }
 
@@ -1364,7 +1364,7 @@
         transition: font-size .2s, left .2s, width .2s, opacity .2s;
     }
 
-    body.lessChrome)::before {
+    body.lessChrome::before {
         width: calc(25vw + 4rem);
     }
 
