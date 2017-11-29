@@ -2237,9 +2237,9 @@
                 height: -webkit-calc(100% - 4rem);
                 height: -moz-calc(100% - 4rem);
                 height: calc(100% - 4rem);
-                -webkit-transition: top 0.2s;
-                -moz-transition: top 0.2s;
-                transition: top 0.2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
             body.expanded > nav:after {
                 bottom: -64px;
@@ -2431,9 +2431,9 @@
                 height: -webkit-calc(100% - 6.5rem);
                 height: -moz-calc(100% - 6.5rem);
                 height: calc(100% - 6.5rem);
-                -webkit-transition: top 0.2s;
-                -moz-transition: top 0.2s;
-                transition: top 0.2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                transition: all 0.2s;
             }
 
         }
