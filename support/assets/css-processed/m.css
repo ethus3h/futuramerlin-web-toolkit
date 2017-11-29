@@ -60,8 +60,8 @@
         max-width: -webkit-calc(55rem + 25vw);
         max-width: -moz-calc(55rem + 25vw);
         max-width: calc(55rem + 25vw);
-        padding-bottom: 64px;
-        padding-bottom: 4rem;
+        padding-bottom: 80px;
+        padding-bottom: 5rem;
     }
 
     body.lessChrome > main {
