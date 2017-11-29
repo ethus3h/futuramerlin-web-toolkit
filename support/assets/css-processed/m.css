@@ -1983,24 +1983,21 @@
             body > main {
                 width: unset;
             }
-            body:not(.expanded):not(.lessChrome) > main {
-                /* Set a maximum content column width to avoid overly long lines */
-                max-width: -webkit-calc(75% - 8rem);
-                max-width: -moz-calc(75% - 8rem);
-                max-width: calc(75% - 8rem);
-            }
             body:not(.lessChrome) > main {
                 margin: 0 auto;
                 margin-top: 0;
                 position: unset;
                 padding: 0px;
                 padding: 0rem;
-                padding-top: 17.008px;
-                padding-top: 1.063rem;
+                padding-top: 81.008px;
+                padding-top: 5.063rem;
                 padding-bottom: 17.008px;
                 padding-bottom: 1.063rem;
-                max-width: 800px;
-                max-width: 50rem;
+
+                /* Set a maximum content column width to avoid overly long lines */
+                max-width: -webkit-calc(75% - 8rem);
+                max-width: -moz-calc(75% - 8rem);
+                max-width: calc(75% - 8rem);
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
@@ -2054,6 +2051,7 @@
                 height: -webkit-calc(100% - 4rem);
                 height: -moz-calc(100% - 4rem);
                 height: calc(100% - 4rem);
+                left: unset;
             }
             body:not(.expanded) > nav:after {
                 bottom: -64px;
