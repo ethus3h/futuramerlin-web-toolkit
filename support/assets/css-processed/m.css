@@ -2231,12 +2231,12 @@
             body.expanded:not(.lessChrome) > main:after {
                 top: 64px;
                 top: 4rem;
-                height: -webkit-calc(-50% - 32px);
-                height: -moz-calc(-50% - 32px);
-                height: calc(-50% - 32px);
-                height: -webkit-calc(-50% - 2rem);
-                height: -moz-calc(-50% - 2rem);
-                height: calc(-50% - 2rem);
+                height: -webkit-calc(100% - 64px);
+                height: -moz-calc(100% - 64px);
+                height: calc(100% - 64px);
+                height: -webkit-calc(100% - 4rem);
+                height: -moz-calc(100% - 4rem);
+                height: calc(100% - 4rem);
                 -webkit-transition: top 0.2s;
                 -moz-transition: top 0.2s;
                 transition: top 0.2s;
