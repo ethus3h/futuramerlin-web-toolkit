@@ -1700,11 +1700,6 @@
         max-width: 48rem;
     }
 
-    body.lessChrome > main:after {
-        max-width: 769.008px;
-        max-width:48.063rem;
-    }
-
     body:not(.lessChrome) > main:before {
         left: 25vw;
         height: -webkit-calc(100% - 128px);
@@ -1713,6 +1708,21 @@
         height: -webkit-calc(100% - 8rem);
         height: -moz-calc(100% - 8rem);
         height: calc(100% - 8rem);
+        width: -webkit-calc(75vw - 128px);
+        width: -moz-calc(75vw - 128px);
+        width: calc(75vw - 128px);
+        width: -webkit-calc(75vw - 8rem);
+        width: -moz-calc(75vw - 8rem);
+        width: calc(75vw - 8rem);
+    }
+
+    body:not(.lessChrome) > main:after {
+        width: -webkit-calc(75vw - 128px);
+        width: -moz-calc(75vw - 128px);
+        width: calc(75vw - 128px);
+        width: -webkit-calc(75vw - 8rem);
+        width: -moz-calc(75vw - 8rem);
+        width: calc(75vw - 8rem);
     }
 
     body > main:after {
