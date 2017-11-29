@@ -1727,13 +1727,13 @@
         height: 100vh;
         margin: 0;
         padding: 0;
-        max-width: 896px;
-        max-width: 56rem;
+        max-width: 800px;
+        max-width: 50rem;
     }
 
     body.lessChrome > main:after {
-        max-width: 898.016px;
-        max-width:56.126rem;
+        max-width: 802.016px;
+        max-width:50.126rem;
     }
 
     body:not(.lessChrome) > main:before {
