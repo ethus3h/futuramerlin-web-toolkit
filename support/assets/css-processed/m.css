@@ -2347,10 +2347,6 @@
             body:not(.expanded) p {
                 text-align: left;
             }
-            .nav-trigger:checked ~ nav.expanded > .logo {
-                font-size: 19.2px;
-                font-size: 1.2rem;
-            }
             .nav-trigger:checked ~ nav.expanded > ul {
                 width: 50%;
             }
