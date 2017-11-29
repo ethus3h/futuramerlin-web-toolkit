@@ -1513,6 +1513,7 @@
                 padding-top: 4.063rem;
                 padding-bottom: 1.063rem;
                 padding-left: calc(25vw + 4rem);
+                padding-right: 4rem;
                 max-width: unset;
             }
             body:not(.expanded) > nav > .logo {
