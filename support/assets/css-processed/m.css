@@ -534,17 +534,6 @@
         content: "§" counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6)
     }
 
-    h1,
-    .page-title {
-        top: -16px;
-        top: -1rem;
-        left: -16px;
-        left: -1rem;
-        width: -webkit-calc(100% + 1rem);
-        width: -moz-calc(100% + 1rem);
-        width: calc(100% + 1rem);
-    }
-
     h1:not(.logo),
     .page-title {
         background: -webkit-gradient(linear, left top, right top, color-stop(0, #c782e5), color-stop(1%, #c782e5), color-stop(15%, #a282e5), color-stop(23%, #8191e2), color-stop(34%, #8186e2), color-stop(47%, #8e81e2), color-stop(59%, #8298e5), to(#0096ff));
