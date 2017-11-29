@@ -1846,16 +1846,16 @@
              background-size: cover;
         position: fixed;
         z-index: 2;
-        right: -3.056px;
-        right: -0.191rem;
+        right: 0;
         content: ' ';
         overflow: hidden;
         height: 100%;
-        width: 64px;
-        width: 4rem;
+        width: 60.24px;
+        width: 3.765rem; /* what the fuck? */
         -webkit-transition: font-size .2s, right .2s, width .2s, opacity .2s;
         -moz-transition: font-size .2s, right .2s, width .2s, opacity .2s;
         transition: font-size .2s, right .2s, width .2s, opacity .2s;
+        top: 0
     }
 
     body {

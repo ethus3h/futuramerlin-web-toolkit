@@ -1794,11 +1794,11 @@
                 transition: all 0.2s;
             }
             .nav-trigger:checked ~ main {
-                top: 2.5rem;
+                padding-top: 6.5rem;
                 transition: all .2s;
             }
-            .nav-trigger:checked ~ main::before,
-            .nav-trigger:checked ~ main::after {
+            body.expanded:not(.lessChrome) .nav-trigger:checked ~ main::before,
+            body.expanded:not(.lessChrome) .nav-trigger:checked ~ main::after {
                 top: 6.5rem;
             }
 
