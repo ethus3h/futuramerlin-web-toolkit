@@ -2393,8 +2393,8 @@
                         box-shadow: .250rem 0 .250rem -.16rem #fff;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                top: 54.4px;
-                top: 3.4rem;
+                top: 36px;
+                top: 2.25rem;
             }
             .nav-trigger:checked ~ nav:before {
                 height: 104px;
