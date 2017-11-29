@@ -2412,14 +2412,14 @@
                 transition: all 0.2s;
             }
             .nav-trigger:checked ~ main {
-                top: 40px;
-                top: 2.5rem;
+                padding-top: 104px;
+                padding-top: 6.5rem;
                 -webkit-transition: all .2s;
                 -moz-transition: all .2s;
                 transition: all .2s;
             }
-            .nav-trigger:checked ~ main:before,
-            .nav-trigger:checked ~ main:after {
+            body.expanded:not(.lessChrome) .nav-trigger:checked ~ main:before,
+            body.expanded:not(.lessChrome) .nav-trigger:checked ~ main:after {
                 top: 104px;
                 top: 6.5rem;
             }
