@@ -1727,7 +1727,7 @@
                 left: calc(25% + 1rem);
             }
             .nav-trigger:checked ~ nav.expanded > .logo {
-                transform: translateX(calc(-50% - 2rem)) translateY(3rem);
+                transform: translateX(calc(-50% - 2rem)) translateY(2.5rem);
                 left: 100%;
                 top: .9rem;
             }
@@ -1784,7 +1784,7 @@
                 box-shadow: .250rem 0 .250rem -.16rem #fff;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                top: 2.25rem;
+                top: 2.75rem;
             }
             .nav-trigger:checked ~ nav::before {
                 height: 6.5rem;
