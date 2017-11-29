@@ -50,7 +50,7 @@
     body:not(.lessChrome) > main {
         /* Set a maximum content column width to avoid overly long lines */
         max-width: calc(55rem + 25vw);
-        padding-bottom: 4rem;
+        padding-bottom: 5rem;
     }
 
     body.lessChrome > main {
