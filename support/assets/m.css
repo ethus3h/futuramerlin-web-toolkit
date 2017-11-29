@@ -1782,7 +1782,7 @@
                 box-shadow: .250rem 0 .250rem -.16rem #fff;
             }
             .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                top: 3.4rem;
+                top: 2.25rem;
             }
             .nav-trigger:checked ~ nav::before {
                 height: 6.5rem;
