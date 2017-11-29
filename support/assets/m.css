@@ -772,6 +772,7 @@
             background-color: rgba(0, 0, 0, 0.07);
             padding: 0.5rem;
             margin: 1rem;
+            margin-left: 2rem;
             overflow-x: scroll;
         }
 
