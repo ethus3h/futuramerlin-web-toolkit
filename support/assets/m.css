@@ -42,21 +42,6 @@
         z-index: 1;
         top: 0;
         margin-top: 4rem;
-        padding: 1rem;
-        padding-left: calc(25vw + 1rem);
-        padding-bottom: 7rem;
-        transition: all .2s;
-        color: #2a1657;
-
-        /* Set a maximum content column width to avoid overly long lines */
-        max-width: calc(55rem + 25vw);
-        margin: 0 auto;
-    }
-
-    body.lessChrome > main {
-        margin-top: 0;
-        padding: 0;
-        padding-top: 1rem;
     }
 
     img {
