@@ -1278,7 +1278,6 @@
         max-height: 100%;
         margin: 4rem;
         padding: 0;
-        transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
         border: none;
         background-color: rgba(226, 218, 241, .7);
     }
@@ -1316,7 +1315,6 @@
         max-height: 100%;
         margin: 4rem;
         padding: 0;
-        transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s, width .2s, left .2s;
         pointer-events: none;
         border: .063rem solid white;
         background: none;
@@ -1521,7 +1519,6 @@
                 margin-right: 0;
                 margin-bottom: 0;
                 margin-left: 0;
-                transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
             }
             body:not(.expanded) > main::before,
             body:not(.expanded) > main::after {
@@ -1647,7 +1644,6 @@
                 margin-right: 0;
                 margin-bottom: 0;
                 margin-left: 0;
-                transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
             }
             body.expanded > main::before,
             body.expanded > main::after {
@@ -1785,7 +1781,6 @@
             .nav-trigger:checked ~ main::before,
             .nav-trigger:checked ~ main::after {
                 top: 6.5rem;
-                transition: margin .2s, top .2s, bottom .2s, height .2s, top .2s;
             }
 
         }
