@@ -1767,6 +1767,7 @@
         max-width: -webkit-calc(56rem + 25vw);
         max-width: -moz-calc(56rem + 25vw);
         max-width: calc(56rem + 25vw);
+        height: 100vh;
     }
 
     body > nav:before {
