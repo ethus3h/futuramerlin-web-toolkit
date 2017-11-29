@@ -59,7 +59,7 @@
         padding: 1rem;
         padding-top: 1.063rem;
         padding-bottom: 1.063rem;
-        max-width: 54rem;
+        max-width: 50rem;
     }
 
     main > *:not(.page-title):not(h1) {
@@ -1293,11 +1293,11 @@
         height: 100vh;
         margin: 0;
         padding: 0;
-        max-width: 52rem;
+        max-width: 48rem;
     }
 
     body.lessChrome > main::after {
-        max-width:52.063rem;
+        max-width:50.063rem;
     }
 
     body:not(.lessChrome) > main::before {
@@ -1542,7 +1542,7 @@
                 transition: all .2s;
             }
             body:not(.expanded) > main {
-                max-width: 54rem;
+                max-width: 50rem;
             }
             body:not(.expanded) > main,
             body:not(.expanded)::before {
