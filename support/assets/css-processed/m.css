@@ -43,15 +43,12 @@
         font-size: 23.2px;
         font-size: 1.45rem;
         z-index: 1;
+        positon: relative;
         top: 64px;
         top: 4rem;
         left: -webkit-calc(25vw + 4rem);
         left: -moz-calc(25vw + 4rem);
         left: calc(25vw + 4rem);
-        right: -64px;
-        right: -4rem;
-        bottom: -64px;
-        bottom: -4rem;
         -webkit-transition: all .2s;
         -moz-transition: all .2s;
         transition: all .2s;
@@ -59,12 +56,11 @@
         margin: 0 auto;
     }
 
-    body:not(.lessChrome) > main > * {
+    body:not(.lessChrome) > main {
         /* Set a maximum content column width to avoid overly long lines */
         max-width: -webkit-calc(55rem + 25vw);
         max-width: -moz-calc(55rem + 25vw);
         max-width: calc(55rem + 25vw);
-        margin: 0 auto;
     }
 
     body.lessChrome > main {
