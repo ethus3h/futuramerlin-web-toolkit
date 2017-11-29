@@ -547,6 +547,8 @@
         left: 0;
         padding-right: 32px;
         padding-right: 2rem;
+        margin-bottom: 16px;
+        margin-bottom: 1rem;
     }
 
     .single-post > header.entry-header > h1 {
