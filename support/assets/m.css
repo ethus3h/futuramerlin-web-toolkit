@@ -1647,7 +1647,8 @@
     /* small screen */
 
         @media only screen and (max-width: 680px) and (min-resolution: 192dpi), only screen and (max-width: 341px) and (max-resolution: 191dpi) {
-            body:not(.lessChrome) > main {
+            body:not(.lessChrome) > main,
+            body.expanded:not(.lessChrome) > main {
                 position: unset;
                 max-width: unset;
                 padding-left: 0;
