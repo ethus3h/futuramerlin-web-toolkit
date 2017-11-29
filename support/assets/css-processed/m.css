@@ -48,11 +48,13 @@
         margin-top: 4rem;
         padding: 16px;
         padding: 1rem;
-        padding-top: 65.007px;
-        padding-top: 4.063rem;
-        padding-left: -webkit-calc(25vw + 4rem);
-        padding-left: -moz-calc(25vw + 4rem);
-        padding-left: calc(25vw + 4rem);
+        padding-top: 81.008px;
+        padding-top: 5.063rem;
+        padding-right: 65.007px;
+        padding-right: 4.063rem;
+        padding-left: -webkit-calc(25vw + 4.063rem);
+        padding-left: -moz-calc(25vw + 4.063rem);
+        padding-left: calc(25vw + 4.063rem);
         padding-bottom: 113.008px;
         padding-bottom: 7.063rem;
         -webkit-transition: all .2s;
