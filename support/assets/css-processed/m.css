@@ -67,6 +67,7 @@
         padding-right: 64px;
         padding-right: 4rem;
         margin: 0 auto;
+        left: unset;
     }
 
     body.lessChrome > main {
