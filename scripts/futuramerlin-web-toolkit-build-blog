@@ -85,9 +85,8 @@ makeIndexPage() {
         currentPostTitle="${currentPostTitle%<\/h1>}"
         ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
         local currentPostSnippet=""
-        local currentPostText=""
         if [[ "$useSnippets" == "useSnippets" ]]; then
-            currentPostText="$(htmlToText.pl < "$currentPostPath")"
+            currentPostSnippet=$'\n'"<p>$(htmlToText.pl < "$currentPostPath" | head -c 256)</p>"
         fi
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
