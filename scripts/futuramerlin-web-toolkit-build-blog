@@ -76,12 +76,19 @@ makeIndexPage() {
         local previousPostTitle="$currentPostTitle"
 
         # Find the first unprocessed file
+        currentPostPath=""
         currentPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$currentPostNumber"p)"
         echo "$currentPostPath"
+        currentPostTitle=""
         currentPostTitle="$(head -n 1 "$currentPostPath")"
         currentPostTitle="${currentPostTitle/<h1>/}"
         currentPostTitle="${currentPostTitle%<\/h1>}"
         ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
+        local currentPostSnippet=""
+        local currentPostText=""
+        if [[ "$useSnippets" == "useSnippets" ]]; then
+            currentPostText="$(htmlToText.pl < "$currentPostPath")"
+        fi
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
         local currentPostDay
@@ -174,9 +181,9 @@ makeIndexPage() {
             echo '    <ul>'
             getPageFromPageNumber() {
                 if [[ "$1" == "1" ]]; then
-                    printf "."
+                    print "."
                 else
-                    printf "page-$1.htm"
+                    print "page-$1.htm"
                 fi
             }
             if [[ "$currentPageNumber" != "1" ]] && [[ "$currentPageNumber" != "2" ]]; then
