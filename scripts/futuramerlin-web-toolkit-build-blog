@@ -86,7 +86,8 @@ makeIndexPage() {
         ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
         local currentPostSnippet=""
         if [[ "$useSnippets" == "useSnippets" ]]; then
-            currentPostSnippet=$'\n'"<p>$(htmlToText.pl < "$currentPostPath" | head -c 256)</p>"
+            currentPostSnippet="$(htmlToText.pl < "$currentPostPath")"
+            currentPostSnippet=$'\n'"<p>${currentPostSnippet:0:256}</p>"
         fi
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
@@ -166,7 +167,7 @@ makeIndexPage() {
         if [[ "$loopPostNumber" == "$maxPostsPerPage" ]] && [[ "$numPosts" -le "$maxPostsPerPage" ]]; then
             postIndexLineSuffix=""
         fi
-        echo '<p class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"'] </span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></p>'"$postIndexLineSuffix" >> "$indexPageName"
+        echo '<p class="entry-title"><span class="post-index-date">['"$currentPostYear"m"$currentPostMonth"d"$currentPostDay"'] </span><a href="'"$currentPostYear/$currentPostMonth/$currentPostDay/$currentPostFilename"'">'"$currentPostTitle"'</a></p>'"$currentPostSnippet$postIndexLineSuffix" >> "$indexPageName"
 
         currentPostNumber=$(( currentPostNumber + 1 ))
         loopPostNumber=$(( loopPostNumber + 1 ))
