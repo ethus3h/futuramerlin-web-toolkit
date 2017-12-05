@@ -374,9 +374,7 @@
 
     :not(#toc) > h2 {
         counter-reset: h3;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
+        padding-bottom: 1rem;
     }
 
     h3 {
