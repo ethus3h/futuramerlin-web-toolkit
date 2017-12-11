@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
-#set -x
+set -x
 
 ((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
 cd tests || die
 
-runTest blog-1page
-runTest blog-2page
-runTest blog-3page
+#runTest blog-1page
+#runTest blog-2page
+#runTest blog-3page
 runTest -vv blog-withsnippets
 #runTest -v discography
 
