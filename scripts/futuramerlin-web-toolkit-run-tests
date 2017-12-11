@@ -8,9 +8,9 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 cd tests || die
 
-runTest blog-1page
-runTest blog-2page
-runTest blog-3page
+#runTest blog-1page
+#runTest blog-2page
+#runTest blog-3page
 runTest -v blog-withsnippets
 #runTest -v discography
 
