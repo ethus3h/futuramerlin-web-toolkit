@@ -89,7 +89,7 @@ makeIndexPage() {
         local currentPostSnippet=""
         if [[ "$useSnippets" == "useSnippets" ]]; then
             currentPostSnippet="$(htmlToText.pl <<< "$currentPostBody" | xargs)" # xargs cleans up the whitespace
-            currentPostSnippet=$'\n'"<p>${currentPostSnippet:0:256}…</p>"
+            currentPostSnippet=$'\n'"<p class=\"article-snippet\">${currentPostSnippet:0:256}…</p>"
         fi
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
