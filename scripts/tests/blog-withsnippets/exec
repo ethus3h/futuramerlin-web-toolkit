@@ -9,4 +9,6 @@ set -x
 
 ../../futuramerlin-web-toolkit-build-blog "in" "run"
 
+echo "VERBOSITY: $emberSharedAssertInheritVerbose"
+
 assert directoryEquals "out" "run"
