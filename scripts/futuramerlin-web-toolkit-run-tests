@@ -11,7 +11,7 @@ cd tests || die
 runTest blog-1page
 runTest blog-2page
 runTest blog-3page
-runTest -vv blog-withsnippets
+runTest blog-withsnippets
 #runTest -v discography
 
 reportTests
