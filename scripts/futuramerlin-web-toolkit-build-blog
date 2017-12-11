@@ -84,10 +84,12 @@ makeIndexPage() {
         currentPostTitle="${currentPostTitle/<h1>/}"
         currentPostTitle="${currentPostTitle%<\/h1>}"
         ereplace "</h1>" " — $blogTitle</h1>" "$currentPostPath"
+        local currentPostBody
+        currentPostBody="$(tail -n +2 "$currentPostPath")"
         local currentPostSnippet=""
         if [[ "$useSnippets" == "useSnippets" ]]; then
-            currentPostSnippet="$(htmlToText.pl < "$currentPostPath" | xargs)" # xargs cleans up the whitespace
-            currentPostSnippet=$'\n'"<p>${currentPostSnippet:0:256}</p>"
+            currentPostSnippet="$(htmlToText.pl <<< "$currentPostBody" | xargs)" # xargs cleans up the whitespace
+            currentPostSnippet=$'\n'"<p>${currentPostSnippet:0:256}…</p>"
         fi
         local currentPostFilename
         currentPostFilename="$(basename "$currentPostPath")"
@@ -102,8 +104,6 @@ makeIndexPage() {
 
         local currentPostFirstLine
         currentPostFirstLine="$(head -n 1 "$currentPostPath")"
-        local currentPostBody
-        currentPostBody="$(tail -n +2 "$currentPostPath")"
         # Post page breadcrumbs
         {
             echo "$currentPostFirstLine"
