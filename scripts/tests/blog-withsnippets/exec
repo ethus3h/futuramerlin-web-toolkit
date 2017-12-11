@@ -3,12 +3,10 @@
 source ember_bash_setup &> /dev/null
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
 
-set -x
+#set -x
 
 [[ -e "run" ]] && rm -r "run"
 
 ../../futuramerlin-web-toolkit-build-blog "in" "run"
-
-echo "VERBOSITY: $emberSharedAssertInheritVerbose"
 
 assert directoryEquals "out" "run"
