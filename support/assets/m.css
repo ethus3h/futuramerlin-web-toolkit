@@ -306,6 +306,18 @@
             top: -4.75rem;
         }
 
+        .entry-title {
+            font-size: 2rem;
+        }
+
+        .entry-title::before {
+            font-size: 2rem;
+        }
+
+        .article-snippet {
+            padding: 1rem;
+        }
+
 /* Links */
 
     a {
