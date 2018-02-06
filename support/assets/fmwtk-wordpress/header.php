@@ -7,9 +7,9 @@
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
- * @since 1.0
- * @version 1.0
+ * @subpackage FMWTK_Wordpress
+ * @since 0.0.1
+ * @version 0.0.1
  */
 
 ?><!DOCTYPE html>
