@@ -67,17 +67,6 @@ function twentyseventeen_setup() {
 
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
-
-	/**
-	 * Filters Twenty Seventeen array of starter content.
-	 *
-	 * @since Twenty Seventeen 1.1
-	 *
-	 * @param array $starter_content Array of starter content.
-	 */
-	$starter_content = apply_filters( 'twentyseventeen_starter_content', $starter_content );
-
-	add_theme_support( 'starter-content', $starter_content );
 }
 add_action( 'after_setup_theme', 'twentyseventeen_setup' );
 
