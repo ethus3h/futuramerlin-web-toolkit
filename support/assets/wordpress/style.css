@@ -48,3 +48,7 @@ h2, h3 {
     top: 2rem;
     position: relative;
 }
+.post-navigation {
+    top: 4rem;
+    position: relative;
+}
