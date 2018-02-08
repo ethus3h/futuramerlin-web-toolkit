@@ -16,3 +16,9 @@ html {
     width: unset;
     height: unset;
 }
+h2 {
+    border-top: none;
+}
+.edit-link {
+    display: none;
+}
