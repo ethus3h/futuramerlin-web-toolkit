@@ -45,10 +45,11 @@ h2, h3 {
     padding: 0.5rem;
 }
 .entry-footer {
-    top: 2rem;
+    top: 1rem;
     position: relative;
 }
 .post-navigation {
-    top: 4rem;
+    top: 2rem;
     position: relative;
+    padding-bottom: 1rem;
 }
