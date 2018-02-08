@@ -11,3 +11,6 @@
  Tags:         responsive-layout, accessibility-ready
  Text Domain:  fmwtk-wordpress
 */
+html {
+    margin: 1rem !important;
+}
