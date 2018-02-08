@@ -22,3 +22,6 @@ h2 {
 .edit-link {
     display: none;
 }
+.entry-title {
+    padding-bottom: 1rem;
+}
