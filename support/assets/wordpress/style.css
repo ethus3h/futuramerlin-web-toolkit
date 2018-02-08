@@ -28,3 +28,12 @@ h2, h3 {
 .entry-meta {
     padding-top: 0.5rem;
 }
+.post-navigation::before {
+    content: unset;
+}
+.screen-reader-text {
+    display: none;
+}
+.nav-subtitle::after {
+    content: ': ';
+}
