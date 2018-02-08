@@ -12,7 +12,6 @@
 
 get_header(); ?>
 
-<div class="wrap">
 
 	<?php if ( have_posts() ) : ?>
 		<header class="page-header">
@@ -22,9 +21,6 @@ get_header(); ?>
 			?>
 		</header><!-- .page-header -->
 	<?php endif; ?>
-
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
 
 		<?php
 		if ( have_posts() ) : ?>
@@ -52,9 +48,5 @@ get_header(); ?>
 			get_template_part( 'template-parts/post/content', 'none' );
 
 		endif; ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
-</div><!-- .wrap -->
 
 <?php get_footer();
