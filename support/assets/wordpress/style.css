@@ -37,3 +37,6 @@ h2, h3 {
 .nav-subtitle::after {
     content: ': ';
 }
+.icon {
+    display: none;
+}
