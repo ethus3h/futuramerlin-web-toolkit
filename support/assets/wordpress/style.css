@@ -46,4 +46,5 @@ h2, h3 {
 }
 .entry-footer {
     top: 2rem;
+    position: relative;
 }
