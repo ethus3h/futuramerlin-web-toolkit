@@ -12,5 +12,7 @@
  Text Domain:  fmwtk-wordpress
 */
 html {
-    margin: 1rem !important;
+    margin: 1rem;
+    width: unset;
+    height: unset;
 }
