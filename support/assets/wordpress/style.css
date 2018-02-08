@@ -16,7 +16,7 @@ html {
     width: unset;
     height: unset;
 }
-h2 {
+h2, h3 {
     border-top: none;
 }
 .edit-link {
@@ -24,4 +24,7 @@ h2 {
 }
 .entry-title {
     padding-bottom: 1rem;
+}
+article {
+    border-top: 0.1rem solid white;
 }
