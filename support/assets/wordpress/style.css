@@ -61,11 +61,7 @@ time.updated::before {
     justify-content: space-around;
     padding: 1rem;
     background-color: rgba(255,255,255,0.8);
-    list-style: none;
 }
-.menu li {
-    list-style: none;
-}
-ul, li {
-    list-style: none;
+.menu li::before {
+    content: none;
 }
