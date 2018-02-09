@@ -23,7 +23,7 @@ get_header(); ?>
 		</header>
 	<?php else : ?>
 	<header class="page-header">
-		<h2 class="page-title"><?php _e( 'Posts', 'twentyseventeen' ); ?></h2>
+		<h2 class="page-title"><?php _e( 'Posts', 'fmwtk-wordpress' ); ?></h2>
 	</header>
 	<?php endif; ?>
 
@@ -43,9 +43,9 @@ get_header(); ?>
 				endwhile;
 
 				the_posts_pagination( array(
-					'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
-					'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
-					'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
+					'prev_text' => fmwtk-wordpress_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'fmwtk-wordpress' ) . '</span>',
+					'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'fmwtk-wordpress' ) . '</span>' . fmwtk-wordpress_get_svg( array( 'icon' => 'arrow-right' ) ),
+					'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'fmwtk-wordpress' ) . ' </span>',
 				) );
 
 			else :

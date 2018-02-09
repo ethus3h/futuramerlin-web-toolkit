@@ -12,35 +12,35 @@
 /**
  * Set up the WordPress core custom header feature.
  *
- * @uses twentyseventeen_header_style()
+ * @uses fmwtk-wordpress_header_style()
  */
-function twentyseventeen_custom_header_setup() {
-	add_theme_support( 'custom-header', apply_filters( 'twentyseventeen_custom_header_args', array(
+function fmwtk-wordpress_custom_header_setup() {
+	add_theme_support( 'custom-header', apply_filters( 'fmwtk-wordpress_custom_header_args', array(
 		'default-image'      => get_parent_theme_file_uri( '/assets/images/header.jpg' ),
 		'default-text-color' => 'ffffff',
 		'width'              => 2000,
 		'height'             => 1200,
 		'flex-height'        => true,
-		'wp-head-callback'   => 'twentyseventeen_header_style',
+		'wp-head-callback'   => 'fmwtk-wordpress_header_style',
 	) ) );
 
 	register_default_headers( array(
 		'default-image' => array(
 			'url'           => '%s/assets/images/header.jpg',
 			'thumbnail_url' => '%s/assets/images/header.jpg',
-			'description'   => __( 'Default Header Image', 'twentyseventeen' ),
+			'description'   => __( 'Default Header Image', 'fmwtk-wordpress' ),
 		),
 	) );
 }
-add_action( 'after_setup_theme', 'twentyseventeen_custom_header_setup' );
+add_action( 'after_setup_theme', 'fmwtk-wordpress_custom_header_setup' );
 
-if ( ! function_exists( 'twentyseventeen_header_style' ) ) :
+if ( ! function_exists( 'fmwtk-wordpress_header_style' ) ) :
 /**
  * Styles the header image and text displayed on the blog.
  *
- * @see twentyseventeen_custom_header_setup().
+ * @see fmwtk-wordpress_custom_header_setup().
  */
-function twentyseventeen_header_style() {
+function fmwtk-wordpress_header_style() {
 	$header_text_color = get_header_textcolor();
 
 	// If no custom options for text are set, let's bail.
@@ -66,14 +66,14 @@ function twentyseventeen_header_style() {
 		else :
 	?>
 		.site-title a,
-		.twentyseventeen-front-page:not(.no-header-image) .site-title,
-		.twentyseventeen-front-page:not(.no-header-image) .site-title a,
+		.fmwtk-wordpress-front-page:not(.no-header-image) .site-title,
+		.fmwtk-wordpress-front-page:not(.no-header-image) .site-title a,
 		.site-description,
-		.twentyseventeen-front-page:not(.no-header-image) .site-description {
+		.fmwtk-wordpress-front-page:not(.no-header-image) .site-description {
 			color: #<?php echo esc_attr( $header_text_color ); ?>;
 		}
 	<?php endif; ?>
 	</style>
 	<?php
 }
-endif; // End of twentyseventeen_header_style.
+endif; // End of fmwtk-wordpress_header_style.

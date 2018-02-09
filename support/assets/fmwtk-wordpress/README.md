@@ -1,6 +1,6 @@
 # Twenty Seventeen
 
-[![Build Status](https://travis-ci.org/WordPress/twentyseventeen.svg?branch=master)](https://travis-ci.org/WordPress/twentyseventeen)
+[![Build Status](https://travis-ci.org/WordPress/fmwtk-wordpress.svg?branch=master)](https://travis-ci.org/WordPress/fmwtk-wordpress)
 
 ## This Repository is No Longer Maintained
 

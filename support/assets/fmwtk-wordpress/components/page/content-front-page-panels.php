@@ -8,22 +8,22 @@
  * @version 1.0
  */
 
-global $twentyseventeencounter;
+global $fmwtk-wordpresscounter;
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'twentyseventeen-panel ' ); ?> >
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'fmwtk-wordpress-panel ' ); ?> >
 
-	<span class="panel twentyseventeen-panel<?php echo esc_attr( $twentyseventeencounter ); ?>" id="panel<?php echo esc_attr( $twentyseventeencounter ); ?>">
-		<span class="twentyseventeen-panel-title"><?php printf( __( 'Panel %1$s', 'twentyseventeen' ), esc_attr( $twentyseventeencounter ) ); ?></span>
+	<span class="panel fmwtk-wordpress-panel<?php echo esc_attr( $fmwtk-wordpresscounter ); ?>" id="panel<?php echo esc_attr( $fmwtk-wordpresscounter ); ?>">
+		<span class="fmwtk-wordpress-panel-title"><?php printf( __( 'Panel %1$s', 'fmwtk-wordpress' ), esc_attr( $fmwtk-wordpresscounter ) ); ?></span>
 	</span>
 
 	<?php if ( has_post_thumbnail() ) :
-		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'twentyseventeen-featured-image' );
+		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'fmwtk-wordpress-featured-image' );
 
 		$post_thumbnail_id = get_post_thumbnail_id( $post->ID );
 
-		$thumbnail_attributes = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'twentyseventeen-featured-image' );
+		$thumbnail_attributes = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'fmwtk-wordpress-featured-image' );
 
 		// Calculate aspect ratio: h / w * 100%.
 		$ratio = $thumbnail_attributes[2] / $thumbnail_attributes[1] * 100;
@@ -40,7 +40,7 @@ global $twentyseventeencounter;
 			<header class="entry-header">
 				<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
 
-				<?php twentyseventeen_edit_link( get_the_ID() ); ?>
+				<?php fmwtk-wordpress_edit_link( get_the_ID() ); ?>
 
 			</header><!-- .entry-header -->
 
@@ -48,7 +48,7 @@ global $twentyseventeencounter;
 				<?php
 					/* translators: %s: Name of current post */
 					the_content( sprintf(
-						__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
+						__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'fmwtk-wordpress' ),
 						get_the_title()
 					) );
 				?>
