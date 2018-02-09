@@ -85,7 +85,6 @@ time.updated::before {
     left: 0;
     text-align: center;
     height: 3rem;
-    overflow-x: hidden;
     color: #ffffff;
     z-index: 1000;
     white-space: nowrap;
