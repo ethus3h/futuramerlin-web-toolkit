@@ -73,6 +73,7 @@ time.updated::before {
     top: 0;
     text-align: center;
     height: 3rem;
+    overflow-x: hidden;
 }
 .menu li::before {
     content: none;
