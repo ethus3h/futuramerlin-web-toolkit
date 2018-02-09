@@ -13,6 +13,7 @@
 */
 html {
     padding: 1rem;
+    padding-top: 3rem;
     width: unset;
     height: unset;
 }
@@ -70,6 +71,8 @@ time.updated::before {
     width: 100vw;
     position: fixed;
     top: 0;
+    text-align: center;
+    height: 2rem;
 }
 .menu li::before {
     content: none;
