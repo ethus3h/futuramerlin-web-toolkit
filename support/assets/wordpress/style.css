@@ -20,6 +20,9 @@ html {
 h2, h3 {
     border-top: none;
 }
+h2 {
+    padding: 0.5rem;
+}
 h2:first-of-type::before {
     content: none;
 }
