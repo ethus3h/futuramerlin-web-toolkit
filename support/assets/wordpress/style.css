@@ -53,3 +53,6 @@ h2, h3 {
     position: relative;
     padding-bottom: 1rem;
 }
+time.updated::before {
+    content: ' — Updated: '
+}
