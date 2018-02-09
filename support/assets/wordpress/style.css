@@ -63,6 +63,12 @@ time.updated::before {
     background-color: rgba(255,255,255,0.8);
     font-size: 1.75rem;
 }
+.menu::before {
+    content: 'The Fruit of the Faery Tree: Elliot Chandler\'s New Media Portfolio';
+    background-color: rgba(255,0,255,0.5);
+    padding: 0.5rem;
+    width: 100vw;
+}
 .menu li::before {
     content: none;
 }
