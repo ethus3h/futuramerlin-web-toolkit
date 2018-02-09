@@ -10,5 +10,5 @@
 
 ?>
 <div class="site-info">
-	<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'fmwtk-wordpress' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'fmwtk-wordpress' ), 'WordPress' ); ?></a>
+	<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'fmwtkwordpress' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'fmwtkwordpress' ), 'WordPress' ); ?></a>
 </div><!-- .site-info -->

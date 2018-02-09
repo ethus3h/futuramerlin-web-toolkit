@@ -12,35 +12,35 @@
 /**
  * Set up the WordPress core custom header feature.
  *
- * @uses fmwtk-wordpress_header_style()
+ * @uses fmwtkwordpress_header_style()
  */
-function fmwtk-wordpress_custom_header_setup() {
-	add_theme_support( 'custom-header', apply_filters( 'fmwtk-wordpress_custom_header_args', array(
+function fmwtkwordpress_custom_header_setup() {
+	add_theme_support( 'custom-header', apply_filters( 'fmwtkwordpress_custom_header_args', array(
 		'default-image'      => get_parent_theme_file_uri( '/assets/images/header.jpg' ),
 		'default-text-color' => 'ffffff',
 		'width'              => 2000,
 		'height'             => 1200,
 		'flex-height'        => true,
-		'wp-head-callback'   => 'fmwtk-wordpress_header_style',
+		'wp-head-callback'   => 'fmwtkwordpress_header_style',
 	) ) );
 
 	register_default_headers( array(
 		'default-image' => array(
 			'url'           => '%s/assets/images/header.jpg',
 			'thumbnail_url' => '%s/assets/images/header.jpg',
-			'description'   => __( 'Default Header Image', 'fmwtk-wordpress' ),
+			'description'   => __( 'Default Header Image', 'fmwtkwordpress' ),
 		),
 	) );
 }
-add_action( 'after_setup_theme', 'fmwtk-wordpress_custom_header_setup' );
+add_action( 'after_setup_theme', 'fmwtkwordpress_custom_header_setup' );
 
-if ( ! function_exists( 'fmwtk-wordpress_header_style' ) ) :
+if ( ! function_exists( 'fmwtkwordpress_header_style' ) ) :
 /**
  * Styles the header image and text displayed on the blog.
  *
- * @see fmwtk-wordpress_custom_header_setup().
+ * @see fmwtkwordpress_custom_header_setup().
  */
-function fmwtk-wordpress_header_style() {
+function fmwtkwordpress_header_style() {
 	$header_text_color = get_header_textcolor();
 
 	// If no custom options for text are set, let's bail.
@@ -66,14 +66,14 @@ function fmwtk-wordpress_header_style() {
 		else :
 	?>
 		.site-title a,
-		.fmwtk-wordpress-front-page:not(.no-header-image) .site-title,
-		.fmwtk-wordpress-front-page:not(.no-header-image) .site-title a,
+		.fmwtkwordpress-front-page:not(.no-header-image) .site-title,
+		.fmwtkwordpress-front-page:not(.no-header-image) .site-title a,
 		.site-description,
-		.fmwtk-wordpress-front-page:not(.no-header-image) .site-description {
+		.fmwtkwordpress-front-page:not(.no-header-image) .site-description {
 			color: #<?php echo esc_attr( $header_text_color ); ?>;
 		}
 	<?php endif; ?>
 	</style>
 	<?php
 }
-endif; // End of fmwtk-wordpress_header_style.
+endif; // End of fmwtkwordpress_header_style.

@@ -20,13 +20,13 @@
 		<?php if ( 'post' === get_post_type() ) : ?>
 			<div class="entry-meta">
 				<?php
-					echo fmwtk-wordpress_time_link();
-					fmwtk-wordpress_edit_link();
+					echo fmwtkwordpress_time_link();
+					fmwtkwordpress_edit_link();
 				?>
 			</div><!-- .entry-meta -->
 		<?php elseif ( 'page' === get_post_type() && get_edit_post_link() ) : ?>
 			<div class="entry-meta">
-				<?php fmwtk-wordpress_edit_link(); ?>
+				<?php fmwtkwordpress_edit_link(); ?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
 

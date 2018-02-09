@@ -12,7 +12,7 @@
 
 get_header(); ?>
 
-					<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'fmwtk-wordpress' ); ?></h1>
-					<p><?php _e( 'It looks like nothing was found at this location. Maybe try a search?', 'fmwtk-wordpress' ); ?></p>
+					<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'fmwtkwordpress' ); ?></h1>
+					<p><?php _e( 'It looks like nothing was found at this location. Maybe try a search?', 'fmwtkwordpress' ); ?></p>
 
 <?php get_footer();

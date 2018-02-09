@@ -31,11 +31,11 @@ get_header(); ?>
 		$panels = array( '1', '2', '3', '4' );
 		$titles = array();
 
-		global $fmwtk-wordpresscounter; // Used in components/page/content-front-page-panels.php file.
+		global $fmwtkwordpresscounter; // Used in components/page/content-front-page-panels.php file.
 
-		if ( 0 !== fmwtk-wordpress_panel_count() || is_customize_preview() ) : // If we have pages to show.
+		if ( 0 !== fmwtkwordpress_panel_count() || is_customize_preview() ) : // If we have pages to show.
 
-			$fmwtk-wordpresscounter = 1;
+			$fmwtkwordpresscounter = 1;
 
 			foreach ( $panels as $panel ) :
 				if ( get_theme_mod( 'panel_' . $panel ) ) :
@@ -49,14 +49,14 @@ get_header(); ?>
 					wp_reset_postdata();
 				else :
 					// The output placeholder anchor.
-					echo '<article class="panel-placeholder panel fmwtk-wordpress-panel fmwtk-wordpress-panel' . esc_attr( $fmwtk-wordpresscounter ) . '" id="panel' . esc_attr( $fmwtk-wordpresscounter ) . '"><span class="fmwtk-wordpress-panel-title">' . sprintf( __( 'Panel %1$s Placeholder', 'fmwtk-wordpress' ), esc_attr( $fmwtk-wordpresscounter ) ) . '</span></article>';
+					echo '<article class="panel-placeholder panel fmwtkwordpress-panel fmwtkwordpress-panel' . esc_attr( $fmwtkwordpresscounter ) . '" id="panel' . esc_attr( $fmwtkwordpresscounter ) . '"><span class="fmwtkwordpress-panel-title">' . sprintf( __( 'Panel %1$s Placeholder', 'fmwtkwordpress' ), esc_attr( $fmwtkwordpresscounter ) ) . '</span></article>';
 				endif;
 
-				$fmwtk-wordpresscounter++;
+				$fmwtkwordpresscounter++;
 			endforeach;
 			?>
 
-	<?php endif; // The if ( 0 !== fmwtk-wordpress_panel_count() ) ends here.
+	<?php endif; // The if ( 0 !== fmwtkwordpress_panel_count() ) ends here.
 	?>
 
 	</main><!-- #main -->

@@ -15,7 +15,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
 		if ( is_sticky() && is_home() ) :
-			echo fmwtk-wordpress_get_svg( array( 'icon' => 'pinned' ) );
+			echo fmwtkwordpress_get_svg( array( 'icon' => 'pinned' ) );
 		endif;
 	?>
 	<header class="entry-header">
@@ -23,10 +23,10 @@
 			if ( 'post' === get_post_type() ) :
 				echo '<div class="entry-meta">';
 					if ( is_single() ) :
-						fmwtk-wordpress_posted_on();
+						fmwtkwordpress_posted_on();
 					else :
-						echo fmwtk-wordpress_time_link();
-						fmwtk-wordpress_edit_link();
+						echo fmwtkwordpress_time_link();
+						fmwtkwordpress_edit_link();
 					endif;
 				echo '</div><!-- .entry-meta -->';
 			endif;
@@ -42,7 +42,7 @@
 	<?php if ( '' !== get_the_post_thumbnail() && ! is_single() ) : ?>
 		<div class="post-thumbnail">
 			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'fmwtk-wordpress-featured-image' ); ?>
+				<?php the_post_thumbnail( 'fmwtkwordpress-featured-image' ); ?>
 			</a>
 		</div><!-- .post-thumbnail -->
 	<?php endif; ?>
@@ -51,12 +51,12 @@
 		<?php
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
-				__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'fmwtk-wordpress' ),
+				__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'fmwtkwordpress' ),
 				get_the_title()
 			) );
 
 			wp_link_pages( array(
-				'before'      => '<div class="page-links">' . __( 'Pages:', 'fmwtk-wordpress' ),
+				'before'      => '<div class="page-links">' . __( 'Pages:', 'fmwtkwordpress' ),
 				'after'       => '</div>',
 				'link_before' => '<span class="page-number">',
 				'link_after'  => '</span>',
@@ -65,7 +65,7 @@
 	</div><!-- .entry-content -->
 
 	<?php if ( is_single() ) : ?>
-		<?php fmwtk-wordpress_entry_footer(); ?>
+		<?php fmwtkwordpress_entry_footer(); ?>
 	<?php endif; ?>
 
 </article><!-- #post-## -->

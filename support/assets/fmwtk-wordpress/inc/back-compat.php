@@ -18,12 +18,12 @@
  *
  * @since Twenty Seventeen 1.0
  */
-function fmwtk-wordpress_switch_theme() {
+function fmwtkwordpress_switch_theme() {
 	switch_theme( WP_DEFAULT_THEME );
 	unset( $_GET['activated'] );
-	add_action( 'admin_notices', 'fmwtk-wordpress_upgrade_notice' );
+	add_action( 'admin_notices', 'fmwtkwordpress_upgrade_notice' );
 }
-add_action( 'after_switch_theme', 'fmwtk-wordpress_switch_theme' );
+add_action( 'after_switch_theme', 'fmwtkwordpress_switch_theme' );
 
 /**
  * Adds a message for unsuccessful theme switch.
@@ -35,8 +35,8 @@ add_action( 'after_switch_theme', 'fmwtk-wordpress_switch_theme' );
  *
  * @global string $wp_version WordPress version.
  */
-function fmwtk-wordpress_upgrade_notice() {
-	$message = sprintf( __( 'Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'fmwtk-wordpress' ), $GLOBALS['wp_version'] );
+function fmwtkwordpress_upgrade_notice() {
+	$message = sprintf( __( 'Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'fmwtkwordpress' ), $GLOBALS['wp_version'] );
 	printf( '<div class="error"><p>%s</p></div>', $message );
 }
 
@@ -47,12 +47,12 @@ function fmwtk-wordpress_upgrade_notice() {
  *
  * @global string $wp_version WordPress version.
  */
-function fmwtk-wordpress_customize() {
-	wp_die( sprintf( __( 'Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'fmwtk-wordpress' ), $GLOBALS['wp_version'] ), '', array(
+function fmwtkwordpress_customize() {
+	wp_die( sprintf( __( 'Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'fmwtkwordpress' ), $GLOBALS['wp_version'] ), '', array(
 		'back_link' => true,
 	) );
 }
-add_action( 'load-customize.php', 'fmwtk-wordpress_customize' );
+add_action( 'load-customize.php', 'fmwtkwordpress_customize' );
 
 /**
  * Prevents the Theme Preview from being loaded on WordPress versions prior to 4.7.
@@ -61,9 +61,9 @@ add_action( 'load-customize.php', 'fmwtk-wordpress_customize' );
  *
  * @global string $wp_version WordPress version.
  */
-function fmwtk-wordpress_preview() {
+function fmwtkwordpress_preview() {
 	if ( isset( $_GET['preview'] ) ) {
-		wp_die( sprintf( __( 'Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'fmwtk-wordpress' ), $GLOBALS['wp_version'] ) );
+		wp_die( sprintf( __( 'Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again.', 'fmwtkwordpress' ), $GLOBALS['wp_version'] ) );
 	}
 }
-add_action( 'template_redirect', 'fmwtk-wordpress_preview' );
+add_action( 'template_redirect', 'fmwtkwordpress_preview' );

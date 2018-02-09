@@ -10,9 +10,9 @@
 /**
  * Generate the CSS for the current custom color scheme.
  */
-function fmwtk-wordpress_custom_colors_css() {
+function fmwtkwordpress_custom_colors_css() {
 	$hue = get_theme_mod( 'colorscheme_hue', 250 );
-	$saturation = apply_filters( 'fmwtk-wordpress_custom_colors_saturation', 50 );
+	$saturation = apply_filters( 'fmwtkwordpress_custom_colors_saturation', 50 );
 	$reduced_saturation = ( .8 * $saturation ) . '%';
 	$saturation = $saturation . '%';
 	$css = '
@@ -59,7 +59,7 @@ function fmwtk-wordpress_custom_colors_css() {
 .colors-custom .menu-toggle,
 .colors-custom .page .panel-content .entry-title,
 .colors-custom .page-title,
-.colors-custom.page:not(.fmwtk-wordpress-front-page) .entry-title,
+.colors-custom.page:not(.fmwtkwordpress-front-page) .entry-title,
 .colors-custom .page-links a .page-number,
 .colors-custom .comment-metadata a.comment-edit-link,
 .colors-custom .comment-reply-link .icon,
@@ -78,7 +78,7 @@ body.colors-custom,
 .colors-custom h6,
 .colors-custom label,
 .colors-custom .entry-title a,
-.colors-custom.fmwtk-wordpress-front-page .panel-content .recent-posts article,
+.colors-custom.fmwtkwordpress-front-page .panel-content .recent-posts article,
 .colors-custom .entry-footer .cat-links a,
 .colors-custom .entry-footer .tags-links a,
 .colors-custom .format-quote blockquote,
@@ -299,7 +299,7 @@ body.colors-custom,
 	border-color: hsl( ' . esc_attr( $hue ) . ', ' . esc_attr( $saturation ) . ', 87% ); /* base: #ddd; */
 }
 
-.colors-custom.fmwtk-wordpress-front-page article:not(.has-post-thumbnail):not(:first-child),
+.colors-custom.fmwtkwordpress-front-page article:not(.has-post-thumbnail):not(:first-child),
 .colors-custom .widget ul li {
 	border-top-color: hsl( ' . esc_attr( $hue ) . ', ' . esc_attr( $saturation ) . ', 87% ); /* base: #ddd; */
 }

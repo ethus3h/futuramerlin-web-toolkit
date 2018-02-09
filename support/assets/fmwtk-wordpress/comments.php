@@ -33,7 +33,7 @@ if ( post_password_required() ) {
 				$comments_number = get_comments_number();
 				if ( '1' === $comments_number ) {
 					/* translators: %s: post title */
-					printf( _x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'fmwtk-wordpress' ), get_the_title() );
+					printf( _x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'fmwtkwordpress' ), get_the_title() );
 				} else {
 					printf(
 						/* translators: 1: number of comments, 2: post title */
@@ -42,7 +42,7 @@ if ( post_password_required() ) {
 							'%1$s Replies to &ldquo;%2$s&rdquo;',
 							$comments_number,
 							'comments title',
-							'fmwtk-wordpress'
+							'fmwtkwordpress'
 						),
 						number_format_i18n( $comments_number ),
 						get_the_title()
@@ -57,14 +57,14 @@ if ( post_password_required() ) {
 					'avatar_size' => 100,
 					'style'       => 'ol',
 					'short_ping'  => true,
-					'reply_text'  => fmwtk-wordpress_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'Reply', 'fmwtk-wordpress' ),
+					'reply_text'  => fmwtkwordpress_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'Reply', 'fmwtkwordpress' ),
 				) );
 			?>
 		</ol>
 
 		<?php the_comments_pagination( array(
-			'prev_text' => fmwtk-wordpress_get_svg( array( 'icon' => 'previous' ) ) . '<span class="screen-reader-text">' . __( 'Previous', 'fmwtk-wordpress' ) . '</span>',
-			'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'fmwtk-wordpress' ) . '</span>' . fmwtk-wordpress_get_svg( array( 'icon' => 'next' ) ),
+			'prev_text' => fmwtkwordpress_get_svg( array( 'icon' => 'previous' ) ) . '<span class="screen-reader-text">' . __( 'Previous', 'fmwtkwordpress' ) . '</span>',
+			'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'fmwtkwordpress' ) . '</span>' . fmwtkwordpress_get_svg( array( 'icon' => 'next' ) ),
 		) );
 
 	endif; // Check for have_comments().
@@ -72,7 +72,7 @@ if ( post_password_required() ) {
 	// If comments are closed and there are comments, let's leave a little note, shall we?
 	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
 
-		<p class="no-comments"><?php _e( 'Comments are closed.', 'fmwtk-wordpress' ); ?></p>
+		<p class="no-comments"><?php _e( 'Comments are closed.', 'fmwtkwordpress' ); ?></p>
 	<?php
 	endif;
 
