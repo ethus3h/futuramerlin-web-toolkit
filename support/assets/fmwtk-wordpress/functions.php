@@ -1,7 +1,7 @@
 <?php
 function my_theme_enqueue_styles() {
-    wp_enqueue_style( 'm', get_template_directory_uri() . '/m.css' );
-    wp_enqueue_style( 'child-style', get_template_directory_uri() . '/style.css' );
+    wp_enqueue_style( 'fmwtk-wordpress-inherit-style', get_template_directory_uri() . '/fmwtk-wordpress-inherit-style.css' );
+    wp_enqueue_style( 'fmwtk-wordpress', get_template_directory_uri() . '/style.css' );
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 

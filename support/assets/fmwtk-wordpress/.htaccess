@@ -1,0 +1,2 @@
+RewriteEngine  on
+RewriteRule    "fmwtk-wordpress-inherit-style\.css$"  "/m.css" [PT]
