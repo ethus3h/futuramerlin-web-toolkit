@@ -26,6 +26,9 @@ h2 {
 h2:first-of-type::before {
     content: none;
 }
+img {
+    display: initial;
+}
 .edit-link {
     display: none;
 }
