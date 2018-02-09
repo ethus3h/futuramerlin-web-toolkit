@@ -23,6 +23,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+	<?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?>
 	<?php if ( has_nav_menu( 'top' ) ) : ?>
 			<?php get_template_part( 'template-parts/navigation/navigation', 'top' ); ?>
 	<?php endif; ?>
