@@ -107,9 +107,12 @@ p, ul {
     background-color: royalblue;
     padding: 0 1rem 0.5rem 1rem;
     border-right: 1rem solid rebeccapurple;
-    color: white;
 }
 
 li:hover > .sub-menu {
     display: block;
+}
+
+.sub-menu a {
+    color: white;
 }
