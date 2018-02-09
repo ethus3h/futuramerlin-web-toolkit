@@ -111,6 +111,8 @@ li:hover > .sub-menu {
 .sub-menu a {
     color: white;
     backdrop-filter: blur(0.1rem);
+    border-bottom: 0.063rem dotted rgba(255,255,255,0.4);
+    border-bottom: 0.063rem solid white;
 }
 body::before, body::after {
     display: none;
