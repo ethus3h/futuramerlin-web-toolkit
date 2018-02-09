@@ -84,6 +84,7 @@ time.updated::before {
     overflow-x: hidden;
     color: #ffffff;
     z-index: 1000;
+    white-space: nowrap;
 }
 .menu li::before {
     content: none;
