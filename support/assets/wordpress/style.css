@@ -78,6 +78,7 @@ time.updated::before {
     height: 3rem;
     overflow-x: hidden;
     color: #ffffff;
+    z-index: 1000;
 }
 .menu li::before {
     content: none;
