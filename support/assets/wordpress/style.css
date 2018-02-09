@@ -68,6 +68,8 @@ time.updated::before {
     background-color: rgba(255,0,255,0.5);
     padding: 0.5rem;
     width: 100vw;
+    position: fixed;
+    top: 0;
 }
 .menu li::before {
     content: none;
