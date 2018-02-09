@@ -34,7 +34,7 @@ if ( post_password_required() ) {
 			$comments_number = get_comments_number();
 			if ( '1' === $comments_number ) {
 				/* translators: %s: post title */
-				printf( _x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'twentyseventeen' ), get_the_title() );
+				printf( _x( 'One Reply to &ldquo;%s&rdquo;', 'comments title', 'fmwtkwordpress' ), get_the_title() );
 			} else {
 				printf(
 					/* translators: 1: number of comments, 2: post title */
@@ -43,7 +43,7 @@ if ( post_password_required() ) {
 						'%1$s Replies to &ldquo;%2$s&rdquo;',
 						$comments_number,
 						'comments title',
-						'twentyseventeen'
+						'fmwtkwordpress'
 					),
 					number_format_i18n( $comments_number ),
 					get_the_title()
@@ -59,7 +59,7 @@ if ( post_password_required() ) {
 						'avatar_size' => 100,
 						'style'       => 'ol',
 						'short_ping'  => true,
-						'reply_text'  => twentyseventeen_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'Reply', 'twentyseventeen' ),
+						'reply_text'  => fmwtkwordpress_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'Reply', 'fmwtkwordpress' ),
 					)
 				);
 			?>
@@ -68,8 +68,8 @@ if ( post_password_required() ) {
 		<?php
 		the_comments_pagination(
 			array(
-				'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous', 'twentyseventeen' ) . '</span>',
-				'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
+				'prev_text' => fmwtkwordpress_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous', 'fmwtkwordpress' ) . '</span>',
+				'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'fmwtkwordpress' ) . '</span>' . fmwtkwordpress_get_svg( array( 'icon' => 'arrow-right' ) ),
 			)
 		);
 
@@ -79,7 +79,7 @@ if ( post_password_required() ) {
 	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
 	?>
 
-		<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyseventeen' ); ?></p>
+		<p class="no-comments"><?php _e( 'Comments are closed.', 'fmwtkwordpress' ); ?></p>
 	<?php
 	endif;
 
