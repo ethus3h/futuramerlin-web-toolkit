@@ -101,7 +101,7 @@ p, ul {
     display: none;
     position: fixed;
     background-color: rgba(65,105,225,0.9);
-    padding: 0 1rem 0.5rem 1rem;
+    padding: 0 1rem 1rem 1rem;
     border-right: 1rem solid #9600e1;
     z-index: 1;
 }
@@ -114,4 +114,7 @@ li:hover > .sub-menu {
 }
 body::before, body::after {
     display: none;
+}
+.main-navigation ul {
+    list-style: none;
 }
