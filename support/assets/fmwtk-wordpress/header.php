@@ -23,7 +23,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-	<div id="navlogo">bloginfo( 'name' );</div>
+	<div id="navlogo"><?php bloginfo( 'name' ); ?></div>
 	<?php wp_nav_menu( array( 'theme_location' => 'header-menu' ) ); ?>
 	<?php if ( has_nav_menu( 'top' ) ) : ?>
 			<?php get_template_part( 'components/navigation/navigation', 'top' ); ?>
