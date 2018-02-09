@@ -91,6 +91,9 @@ time.updated::before {
 .status-private {
     display: none;
 }
+p, ul {
+        font-size: 1.5rem;
+}
 
 /* from https://stackoverflow.com/questions/37340208/does-wordpress-drop-down-menu-always-default-to-not-hidden */
 .sub-menu {
