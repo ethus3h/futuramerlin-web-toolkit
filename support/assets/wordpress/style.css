@@ -37,6 +37,7 @@ img {
 }
 .entry-meta {
     padding-top: 0.5rem;
+    font-size: 1.25rem;
 }
 .post-navigation::before {
     content: unset;
