@@ -1,7 +1,5 @@
 <?php
 function my_theme_enqueue_styles() {
-    $parent_style = 'twentyseventeen-style';
-
     wp_enqueue_style( 'm', get_template_directory_uri() . '/m.css' );
     wp_enqueue_style( 'child-style', get_template_directory_uri() . '/style.css' );
 }
