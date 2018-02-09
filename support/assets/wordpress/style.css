@@ -56,3 +56,8 @@ h2, h3 {
 time.updated::before {
     content: ' — Updated: '
 }
+.menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+}
