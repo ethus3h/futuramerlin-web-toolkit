@@ -103,6 +103,7 @@ p, ul {
 /* from https://stackoverflow.com/questions/37340208/does-wordpress-drop-down-menu-always-default-to-not-hidden */
 .sub-menu {
     display: none;
+    position: fixed;
 }
 
 li:hover > .sub-menu {
