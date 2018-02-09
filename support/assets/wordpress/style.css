@@ -88,3 +88,12 @@ time.updated::before {
 .menu li::before {
     content: none;
 }
+
+/* from https://stackoverflow.com/questions/37340208/does-wordpress-drop-down-menu-always-default-to-not-hidden */
+.sub-menu {
+    display: none;
+}
+
+li:hover > .sub-menu {
+    display: block;
+}
