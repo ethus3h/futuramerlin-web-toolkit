@@ -36,6 +36,10 @@
         height: 100%;
     }
 
+    body {
+        font-family: wreatherweb;
+    }
+
     body > main {
         font-family: wreatherweb;
         font-size: 1.45rem;
