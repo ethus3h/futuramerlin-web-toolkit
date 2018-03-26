@@ -326,7 +326,11 @@ listItem() {
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
         nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
-        [[ -n "$nextIdentifier" ]] && listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
+        if [[ "$filtered" == "true" ]]; then
+            [[ -n "$nextIdentifier" ]] && listItem --filter "$filterKey" "$filterValue" --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
+        else
+            [[ -n "$nextIdentifier" ]] && listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
+        fi
         true # needed because the if statement executes with the exit status of the last command executed
     fi
 }
