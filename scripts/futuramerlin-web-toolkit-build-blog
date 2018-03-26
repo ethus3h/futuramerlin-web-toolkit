@@ -77,7 +77,7 @@ makeIndexPage() {
 
         # Find the first unprocessed file
         currentPostPath=""
-        currentPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$currentPostNumber"p)"
+        currentPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$currentPostNumber"p | tr -d '\0')"
         echo "$currentPostPath"
         currentPostTitle=""
         currentPostTitle="$(head -n 1 "$currentPostPath")"
@@ -129,7 +129,7 @@ makeIndexPage() {
             if [[ "$currentPostNumber" != "$numPosts" ]]; then
                 local nextPostNumber=$(( currentPostNumber + 1 ))
                 local nextPostPath
-                nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$nextPostNumber"p)"
+                nextPostPath="$(find "$destDir" -type f -name "*.htm" -not -path "$destDir/index.htm" -not -path "$destDir/page-*.htm" -print0 | sort -z -r | sed -z -n "$nextPostNumber"p | tr -d '\0')"
                 local nextPostFilename
                 nextPostFilename="$(basename "$nextPostPath")"
                 local nextPostDay
