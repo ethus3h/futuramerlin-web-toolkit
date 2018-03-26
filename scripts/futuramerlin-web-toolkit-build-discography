@@ -561,6 +561,7 @@ traitToHtm() {
             ;;
         "* Tracks *")
             closeCurrentSection
+            setTrackCounter "0"
             print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
             setClosingTag "    </tbody>"$'\n'"</table>"
             ;;
