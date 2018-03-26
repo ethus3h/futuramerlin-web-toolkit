@@ -115,7 +115,7 @@ discReadConf() {
     if [[ -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
         preadconf "$key" "$(getItemPath "$kind" "$identifier").conf"
     else
-        print "$3"
+        print "<!-- placeholder: discReadConf for $1 $2 $3 is undefined. -->"
     fi
 }
 
