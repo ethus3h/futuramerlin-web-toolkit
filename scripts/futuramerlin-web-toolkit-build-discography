@@ -112,7 +112,11 @@ discReadConf() {
     local kind="$2"
     local identifier="$3"
     #discogDebug "Reading configuration value $key from the $kind $identifier"
-    preadconf "$key" "$(getItemPath "$kind" "$identifier").conf"
+    if [[ -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
+        preadconf "$key" "$(getItemPath "$kind" "$identifier").conf"
+    else
+        print "$3"
+    fi
 }
 
 getItemName() {
