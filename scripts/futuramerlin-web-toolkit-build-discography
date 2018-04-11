@@ -508,8 +508,14 @@ traitToHtm() {
             fi
             ;;
         artworkcount)
+            local reverseThumbnailPattern=""
+            local artcountValue="$value"
+            if [[ "${value: -1}" == "t" ]]; then
+                reverseThumbnailPattern="true"
+                artcountValue="${value:: -1}"
+            fi
             simpleMetadata "$(keyToLabel "$key")" "$(
-                local end="$value"
+                local end="$artcountValue"
                 for (( i=1; i<=end; i++ )); do
                     simpleIaImage "$kind" "$identifier" "$i"
                     [[ "$i" != "$end" ]] && print ' '
