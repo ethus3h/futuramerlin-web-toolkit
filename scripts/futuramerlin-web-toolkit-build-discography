@@ -505,11 +505,13 @@ traitToHtm() {
             fi
             ;;
         artworkcount)
-            local end="$value"
-            for (( i=1; i<=end; i++ )); do
-                simpleIaImage "$kind" "$identifier" "$i"
-                print ' '
-            done
+            simpleMetadata "$(keyToLabel "$key")" "$(
+                local end="$value"
+                for (( i=1; i<=end; i++ )); do
+                    simpleIaImage "$kind" "$identifier" "$i"
+                    print ' '
+                done
+            )"
             ;;
         track)
             local trackCounter
