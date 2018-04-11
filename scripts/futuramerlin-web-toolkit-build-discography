@@ -363,11 +363,16 @@ simpleIaImage() {
     local kind="$1"
     local identifier="$2"
     local iafilename="$3"
+    local reverseThumbnailPattern="$4"
     local iaident
     iaident="$(discReadConf ia "$kind" "$identifier")"
+    local thumbnailName="t$iafilename"
+    if [[ "$reverseThumbnailPattern" = "true" ]]; then
+        thumbnailName="$iafilename"t
+    fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"https://archive.org/download/$iaident/$iafilename.png\" alt=\"$relname: album artwork\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"https://archive.org/download/$iaident/$thumbnailName.png\" alt=\"$relname: album artwork\" /></a>"
 }
 
 keyToLabel() {
@@ -517,7 +522,7 @@ traitToHtm() {
             simpleMetadata "$(keyToLabel "$key")" "$(
                 local end="$artcountValue"
                 for (( i=1; i<=end; i++ )); do
-                    simpleIaImage "$kind" "$identifier" "$i"
+                    simpleIaImage "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
                     [[ "$i" != "$end" ]] && print ' '
                 done
             )"
