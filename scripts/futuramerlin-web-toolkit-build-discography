@@ -366,9 +366,9 @@ simpleIaImage() {
     local reverseThumbnailPattern="$4"
     local iaident
     iaident="$(discReadConf ia "$kind" "$identifier")"
-    local thumbnailName="t$iafilename"
+    local thumbnailName="$iafilename"t
     if [[ "$reverseThumbnailPattern" == "true" ]]; then
-        thumbnailName="$iafilename"t
+        thumbnailName="t$iafilename"
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
