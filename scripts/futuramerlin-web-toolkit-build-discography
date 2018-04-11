@@ -375,6 +375,9 @@ keyToLabel() {
         dateBegun)
             print "Date begun"
             ;;
+        artworkcount)
+            print "Artwork"
+            ;;
         mbid)
             print "MusicBrainz"
             ;;
@@ -509,7 +512,7 @@ traitToHtm() {
                 local end="$value"
                 for (( i=1; i<=end; i++ )); do
                     simpleIaImage "$kind" "$identifier" "$i"
-                    print ' '
+                    [[ "$i" != "$end" ]] && print ' '
                 done
             )"
             ;;
