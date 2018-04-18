@@ -57,9 +57,12 @@
         let trackRows=document.getElementsByTagName('tr');
         trackRowToPlay=trackRows[trackNumber+1];
         audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
-        let tagsToCopy=audioTag.childNodes;
+        while(audioTag.childNodes.length > 0) {
+            audioTag.removeChild();
+        }
+        let tagsToCopy=trackRowToPlay.getElementsByTagName('source');
         for (let i=0; i<tagsToCopy.length; i++) {
-            audioTag.appendChild
+            audioTag.appendChild(tagsToCopy[i].cloneNode(true));
         }
     }
     function playTrackFromTrackButton(trackClickedElement) {
