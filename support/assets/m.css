@@ -78,7 +78,7 @@ left: 0;
     .audioScrubber {
         position:absolute; bottom:0;
         left:4rem; margin: 1rem;margin-bottom:0;bottom:1rem;
-        width:inherit;
+        width:calc(100% - 10rem);
     }
     .audioVolume {
         position: absolute;
