@@ -372,7 +372,7 @@ simpleIaImage() {
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"https://archive.org/download/$iaident/$thumbnailName.png\" alt=\"$relname: album artwork\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$identifier/$thumbnailName.png\" alt=\"$relname: album artwork\" /></a>"
 }
 
 keyToLabel() {
