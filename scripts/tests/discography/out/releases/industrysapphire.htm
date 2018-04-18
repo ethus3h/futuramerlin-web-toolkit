@@ -48,6 +48,21 @@
     audioTag.addEventListener('ended',reachedEndOfTrack,false);
     audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
+
+    let audioTitle=document.createElement('div');
+    let audioDuration=document.createElement('div');
+    let audioPlayhead=document.createElement('div');
+    let audioCurrentTime=document.createElement('div');
+    let audioWaveform=document.createElement('div');
+    let audioMainPlayButton=document.createElement('button');
+
+    audioContainer.appendChild(audioTitle);
+    audioContainer.appendChild(audioDuration);
+    audioContainer.appendChild(audioPlayhead);
+    audioContainer.appendChild(audioCurrentTime);
+    audioContainer.appendChild(audioWaveform);
+    audioContainer.appendChild(audioMainPlayButton);
+
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
     loadTrack(1);
