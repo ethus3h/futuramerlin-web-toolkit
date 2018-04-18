@@ -21,7 +21,7 @@ if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
 fi
 
 # Where the discography assets are located
-assets="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
+assets="/usr/local/share/futuramerlin-web-toolkit/assets/discography-dist"
 
 # Variables
 indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
@@ -589,7 +589,7 @@ traitToHtm() {
             closeCurrentSection
             setTrackCounter "0"
             print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
-            setClosingTag "    </tbody>"$'\n'"</table>"$'\n\n''<script src="/assets/discography.assets/player.js" />'
+            setClosingTag "    </tbody>"$'\n'"</table>"$'\n\n''<script src="/assets/discography-dist/player.js" />'
             ;;
         mbid)
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
