@@ -78,6 +78,12 @@
     audioScrubber.type='range';
     audioVolume.type='range';
 
+    audioScrubber.onchange=seekInAudio();
+
+    function seekInAudio() {
+        audioTag.currentTime=(audioScrubber.value / 100) * audioTag.duration;
+    }
+
     audioContainer.appendChild(audioMainPlayButton);
     audioContainer.appendChild(audioTitle);
     audioContainer.appendChild(audioDuration);
@@ -111,6 +117,8 @@
         let percentage = currTime / duration;
 
         audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + '; ' + '-' + formatSecondsAsTime(remaining) + ' (' + percentage.toFixed(3) + '%)';
+
+        audioScrubber.value=parseInt(((currTime / duration) * 100), 10);
 
         if (isNaN(duration)){
             audioDuration.innerHTML = '??:??';
