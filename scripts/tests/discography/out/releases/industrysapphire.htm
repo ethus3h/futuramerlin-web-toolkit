@@ -118,6 +118,7 @@
     audioTag.addEventListener("durationchange", updateCurrentTime);
 
     function loadTrack(trackNumber) {
+        currentTrack=trackNumber;
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
         let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
@@ -144,10 +145,10 @@
         }
     }
 
-    function syncPlayLabel(trackNumber) {
+    function syncPlayLabel() {
+        trackNumber=currentTrack;
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
-        currentTrack=trackNumber;
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Pause";
         trackPlayButton.className='playButton playing';
