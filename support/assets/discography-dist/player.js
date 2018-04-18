@@ -90,7 +90,10 @@ audioVolume.style.transform='rotate(270deg)';
 document.body.appendChild(audioContainer);
 let trackRows=document.getElementsByTagName('tr');
 loadTrack(1);
-
+function convertRemToPixels(rem) {    
+    /* from https://stackoverflow.com/questions/36532307/rem-px-in-javascript */
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
 function updateCurrentTime() {
     /* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
     let currTime = Math.floor(audioTag.currentTime).toString(); 
@@ -100,7 +103,11 @@ function updateCurrentTime() {
 
     audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + '; ' + '-' + formatSecondsAsTime(remaining) + ' (' + percentage.toFixed(3) + '%)';
 
+    let progressPercentage=(currTime / duration);
     audioScrubber.value=parseInt(((currTime / duration) * 100), 10);
+    let timelineWidth=audioScrubber.offsetWidth;
+    audioPlayhead.left=(timelineWidth * progressPercentage)+;
+    audioCurrentTime.right= 
 
     if (isNaN(duration)){
         audioDuration.innerHTML = '??:??';
