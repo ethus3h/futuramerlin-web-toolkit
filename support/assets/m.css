@@ -60,6 +60,48 @@
         transition: all 0.2s;
         background-color: red;
     }
+    .audioContainer audio {
+        margin: 0;
+    }
+    .audioMainPlayButton {
+        height:8rem;width:4rem;
+    }
+    .audioWaveform {
+        display:inline-block;
+        position:absolute;left:4rem;margin:0;top:0;width:inherit;height:8rem;
+    }
+    .audioPlayNextButton {
+        position:absolute;right:0;top:0;height:8rem;width:4rem;
+    }
+    .audioScrubber {
+        position:absolute; bottom:0;
+        left:4rem; margin: 1rem;
+        width:inherit;
+    }
+    .audioVolume {
+        position: absolute;
+        top:3rem;right:1rem;width:8rem;
+    }
+    .audioTitle{
+        position:absolute;top:0;text-align: center;
+width: 100%;
+    }
+    .audioDuration{
+        position:absolute;top:2rem;right:4rem;margin:1rem;
+    }
+    .audioCurrentTime {
+        position:absolute;top:2rem;right:10rem;margin:1rem;
+    }
+    .audioPlayhead {
+        position: absolute;
+    background-color: green;
+    width: 0.3rem;
+    top: 0;
+    height: 8rem;
+    left: 5rem;
+    z-index: 1;
+    }
+    
 
     body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
         /* Set a maximum content column width to avoid overly long lines */

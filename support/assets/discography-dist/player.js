@@ -24,16 +24,25 @@ audioContainer.className="audioContainer";
 audioContainer.appendChild(audioTag);
 
 let audioMainPlayButton=document.createElement('button');
+audioMainPlayButton.className="audioMainPlayButton";
 let audioTitle=document.createElement('div');
+audioTitle.className="audioTitle";
 let audioDuration=document.createElement('div');
+audioDuration.className="audioDuration";
 let audioPlayhead=document.createElement('div');
+audioPlayhead.className="audioPlayhead";
 let audioCurrentTime=document.createElement('div');
+audioCurrentTime.className="audioCurrentTime";
 let audioWaveform=document.createElement('img');
+audioWaveform.className="audioWaveform";
 let audioScrubber=document.createElement('input');
+audioScrubber.className="audioScrubber";
 let audioVolume=document.createElement('input');
+audioVolume.className="audioVolume";
 audioScrubber.type='range';
 audioVolume.type='range';
 let audioPlayNextButton=document.createElement('button');
+audioPlayNextButton.className="audioPlayNextButton";
 
 audioScrubber.onchange=seekInAudio;
 
@@ -54,8 +63,8 @@ function updateVolume() {
 audioMainPlayButton.innerHTML="▶";
 audioPlayNextButton.innerHTML="⏭";
 
-audioContainer.appendChild(audioMainPlayButton);
 audioContainer.appendChild(audioTitle);
+audioContainer.appendChild(audioMainPlayButton);
 audioContainer.appendChild(audioDuration);
 audioContainer.appendChild(audioPlayhead);
 audioContainer.appendChild(audioCurrentTime);
