@@ -45,6 +45,7 @@
     let audioContainer=document.createElement('div');
     let audioTag=document.createElement('audio');
     audioTag.setAttribute("controls","controls");
+    audioTag.addEventListener('ended',reachedEndOfTrack,false);
     audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
     document.body.appendChild(audioContainer);
