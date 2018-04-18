@@ -159,7 +159,7 @@
             /* skip first row: it is header */
             let trackRowToClear=trackRows[i];
             trackPlayButton=trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
-            trackPlayButton.innerHTML="Play";
+            trackPlayButton.innerHTML="▶";
             trackPlayButton.className='playButton';
         }
     }
@@ -169,7 +169,7 @@
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
-        trackPlayButton.innerHTML="Pause";
+        trackPlayButton.innerHTML="⏸";
         trackPlayButton.className='playButton playing';
         trackPlayButton.onclick=function(){pauseTrackFromTrackButton(this);};
     }
@@ -189,7 +189,7 @@
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
-        trackPlayButton.innerHTML="Play";
+        trackPlayButton.innerHTML="▶";
         trackPlayButton.className='playButton';
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
     }
@@ -242,7 +242,7 @@
         trackAudioCellAudioElement.pause();
         trackPlayButton=document.createElement('button');
         trackPlayButton.className='playButton';
-        trackPlayButton.innerHTML="Play";
+        trackPlayButton.innerHTML="▶";
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
         trackAudioCell.appendChild(trackPlayButton);
     }
