@@ -87,7 +87,7 @@ audioMainPlayButton.onclick=function(){togglePlayPause();};
 audioPlayNextButton.onclick=function(){reachedEndOfTrack(true);};
 audioVolume.style.transform='rotate(270deg)';
 
-document.body.appendChild(audioContainer);
+document.body.insertBefore(audioContainer);
 let trackRows=document.getElementsByTagName('tr');
 loadTrack(1);
 function convertRemToPixels(rem) {    
