@@ -240,5 +240,5 @@ for(let i=1;i<trackRows.length;i++) {
     trackPlayButton.className='playButton';
     trackPlayButton.innerHTML="▶";
     trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
-    trackAudioCell.appendChild(trackPlayButton);
+    trackAudioCell.insertBefore(trackPlayButton, trackAudioCell.firstChild);
 }
