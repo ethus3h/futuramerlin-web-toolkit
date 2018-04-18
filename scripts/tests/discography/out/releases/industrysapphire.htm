@@ -65,26 +65,19 @@
     audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
 
+    let audioMainPlayButton=document.createElement('button');
     let audioTitle=document.createElement('div');
     let audioDuration=document.createElement('div');
     let audioPlayhead=document.createElement('div');
     let audioCurrentTime=document.createElement('div');
     let audioWaveform=document.createElement('div');
-    let audioMainPlayButton=document.createElement('button');
 
-    audioTitle.style.padding='1rem';
-    audioDuration.style.padding='1rem';
-    audioPlayhead.style.padding='1rem';
-    audioCurrentTime.style.padding='1rem';
-    audioWaveform.style.padding='1rem';
-    audioMainPlayButton.style.padding='1rem';
-
+    audioContainer.appendChild(audioMainPlayButton);
     audioContainer.appendChild(audioTitle);
     audioContainer.appendChild(audioDuration);
     audioContainer.appendChild(audioPlayhead);
     audioContainer.appendChild(audioCurrentTime);
     audioContainer.appendChild(audioWaveform);
-    audioContainer.appendChild(audioMainPlayButton);
 
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
