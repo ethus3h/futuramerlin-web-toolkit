@@ -62,7 +62,7 @@
 
     let audioContainer=document.createElement('div');
     let audioTag=document.createElement('audio');
-    audioTag.setAttribute("controls","controls");
+    // audioTag.setAttribute("controls","controls");
     audioTag.addEventListener('ended',reachedEndOfTrack,false);
     audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
@@ -78,10 +78,12 @@
     audioScrubber.type='range';
     audioVolume.type='range';
 
-    audioScrubber.onchange=seekInAudio();
+    audioScrubber.onchange=seekInAudio;
 
     function seekInAudio() {
         let newVal=Math.floor((audioScrubber.value / 100) * audioTag.duration);
+        console.log(audioScrubber.value);
+        console.log(audioTag.duration);
         if(! isNaN(newVal)){
             audioTag.currentTime=newVal;
         }
