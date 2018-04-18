@@ -106,8 +106,8 @@ function updateCurrentTime() {
     let progressPercentage=(currTime / duration);
     audioScrubber.value=parseInt(((currTime / duration) * 100), 10);
     let timelineWidth=audioScrubber.offsetWidth;
-    audioPlayhead.style.left=(timelineWidth * progressPercentage)+convertRemToPixels(4);
-    audioCurrentTime.style.right= (timelineWidth * (1 - progressPercentage))-convertRemToPixels(10);
+    audioPlayhead.style.left=((timelineWidth * progressPercentage)+convertRemToPixels(4))+'px';
+    audioCurrentTime.style.right=((timelineWidth * (1 - progressPercentage))-convertRemToPixels(10))+'px';
 
     if (isNaN(duration)){
         audioDuration.innerHTML = '??:??';
