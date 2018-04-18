@@ -63,12 +63,12 @@ function updateVolume() {
 audioMainPlayButton.innerHTML="▶";
 audioPlayNextButton.innerHTML="⏭";
 
+audioContainer.appendChild(audioWaveform);
+audioContainer.appendChild(audioPlayhead);
 audioContainer.appendChild(audioTitle);
 audioContainer.appendChild(audioMainPlayButton);
 audioContainer.appendChild(audioDuration);
-audioContainer.appendChild(audioPlayhead);
 audioContainer.appendChild(audioCurrentTime);
-audioContainer.appendChild(audioWaveform);
 audioContainer.appendChild(audioScrubber);
 audioContainer.appendChild(audioVolume);
 audioContainer.appendChild(audioPlayNextButton);
