@@ -127,7 +127,7 @@ function loadTrack(trackNumber) {
     let file = path.split("/").pop();
     let name = file.split(".").shift();
 
-    audioWaveform.src=trackNumber+'w.png'
+    audioWaveform.src=name+'/'+trackNumber+'w.png'
     let trackRows=document.getElementsByTagName('tr');
     let trackRowToPlay=trackRows[trackNumber];
     let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
