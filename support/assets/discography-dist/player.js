@@ -110,6 +110,7 @@ function updateCurrentTime() {
     let desiredRightPosition=((timelineWidth * (1 - progressPercentage))-convertRemToPixels(10));
     let maximumRightPosition=(timelineWidth - convertRemToPixels(10));
     if(desiredRightPosition>maximumRightPosition) {
+        console.log("Constrained "+desiredRightPosition+" to "+maximumRightPosition);
         desiredRightPosition=maximumRightPosition;
     }
     audioCurrentTime.style.right=desiredRightPosition+'px';
@@ -123,6 +124,7 @@ function updateCurrentTime() {
     }
 }
 
+addEventListener("resize", updateCurrentTime);
 audioTag.addEventListener("timeupdate", updateCurrentTime);
 audioTag.addEventListener("durationchange", updateCurrentTime);
 
@@ -227,7 +229,7 @@ function reachedEndOfTrack(eventParameter) {
         nextTrack=1;
     }
     audioTag.currentTime=0;
-    if(trackPlayButton.class.contains('playing')) {
+    if(audioMainPlayButton.class.contains('playing')) {
         playTrack(nextTrack);
     }
     else {
