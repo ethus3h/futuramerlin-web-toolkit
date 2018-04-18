@@ -52,8 +52,10 @@
     audioContainer.style.height="5rem";
     document.body.appendChild(audioContainer);
     trackRows=document.getElementsByTagName('tr');
+    console.log(trackRows);
     for(i=0;i<trackRows.length;i++) {
         cells=trackRows[i].getElementsByTagName('td');
+        console.log(cells);
         cells[0].style.color="green";
     }
 </script>
