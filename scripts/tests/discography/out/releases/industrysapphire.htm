@@ -51,11 +51,30 @@
     audioContainer.style.width="5rem";
     audioContainer.style.height="5rem";
     document.body.appendChild(audioContainer);
-    trackRows=document.getElementsByTagName('tr');
+    let trackRows=document.getElementsByTagName('tr');
     console.log(trackRows);
-    for(i=0;i<trackRows.length;i++) {
-        cells=trackRows[i].getElementsByTagName('td');
-        console.log(cells);
-        cells[0].style.color="green";
+    function playTrack(trackNumber) {
+        let trackRows=document.getElementsByTagName('tr');
+        trackRowToPlay=trackRows[trackNumber+1];
+        audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        let tagsToCopy=audioTag.childNodes;
+        for (let i=0; i<tagsToCopy.length; i++) {
+            audioTag.appendChild
+        }
+    }
+    function playTrackFromTrackButton(trackClickedElement) {
+        let trackRows=document.getElementsByTagName('tr');
+        for(let i=1;i<trackRows.length;i++) {
+            /* skip first row: it is header */
+            if (trackRows[i].getElementsByTagName('td')[0] === trackClickedElement) {
+                playTrack(i-1);
+            }
+        }
+    }
+    for(let i=1;i<trackRows.length;i++) {
+        /* skip first row: it is header */
+        trackNumber=trackRows[i].getElementsByTagName('td')[0];
+        trackNumber.style.color="green";
+        trackNumber.onclick="playTrackFromTrackButton(this);"
     }
 </script>
