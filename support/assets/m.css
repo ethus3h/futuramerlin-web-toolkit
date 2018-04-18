@@ -64,11 +64,13 @@
         margin: 0;
     }
     .audioMainPlayButton {
-        height:8rem;width:4rem;
+        height:8rem;width:4rem;position: absolute;
+left: 0;
     }
     .audioWaveform {
         display:inline-block;
-        position:absolute;left:4rem;margin:0;top:0;width:inherit;height:8rem;
+        position:absolute;left:4rem;margin:0;top:0;width:inherit;height:8rem;padding:0;
+        max-width:calc(100% - 8rem);
     }
     .audioPlayNextButton {
         position:absolute;right:0;top:0;height:8rem;width:4rem;
@@ -112,6 +114,9 @@ width: 100%;
         margin: 0 auto;
         left: unset;
     }
+    body:not(.lessChrome) > main ~ .audioContainer {
+        padding-bottom: 13rem;
+    }
 
     body.lessChrome > main, body.lessChrome > .audioContainer {
         margin: 0 auto;
@@ -121,6 +126,9 @@ width: 100%;
         padding-top: 0.063rem;
         padding-bottom: 1.063rem;
         max-width: 50rem;
+    }
+    body.lessChrome > main ~ .audioContainer {
+        padding-bottom: 9.063rem;
     }
 
     main > *:not(.page-title):not(h1) {
@@ -1579,8 +1587,12 @@ width: 100%;
     /* medium screen */
 
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
-            body > main, .audioContainer {
+            body > main {
                 width: unset;
+            }
+            .audioContainer{
+                width:100%;
+                bottom:0;
             }
             body:not(.lessChrome) > main {
                 margin: 0 auto;
@@ -1591,6 +1603,9 @@ width: 100%;
 
                 /* Set a maximum content column width to avoid overly long lines */
                 max-width: calc(75% - 8rem);
+            }
+            body:not(.lessChrome) > main ~ .audioContainer {
+                padding-bottom: 9.063rem;
             }
             body:not(.expanded):not(.lessChrome) > main {
                 position: absolute;
