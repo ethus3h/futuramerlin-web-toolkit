@@ -92,24 +92,20 @@
 
     function updateCurrentTime() {
         /* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
-  let currTime = Math.floor(track.currentTime).toString(); 
-  let duration = Math.floor(track.duration).toString();
+        let currTime = Math.floor(track.currentTime).toString(); 
+        let duration = Math.floor(track.duration).toString();
 
-  audioCurrentTime.innerHTML = formatSecondsAsTime(currTime);
+        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime);
 
-  if (isNaN(duration)){
-    durationDiv.innerHTML = '00:00';
-  } 
-  else{
-    durationDiv.innerHTML = formatSecondsAsTime(duration);
-  }
-        audioDuration.innerHTML=audioTag.currentTime;
+        if (isNaN(duration)){
+            audioDuration.innerHTML = '00:00';
+        } 
+        else{
+            audioDuration.innerHTML = formatSecondsAsTime(duration);
+        }
     }
+
     audioTag.addEventListener("timeupdate", updateCurrentTime);
-
-    function updateDuration() {
-        audioDuration.innerHTML=audioTag.duration;
-    }
     audioTag.addEventListener("durationchange", updateCurrentTime);
 
     function loadTrack(trackNumber) {
