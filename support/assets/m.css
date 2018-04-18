@@ -93,7 +93,7 @@ left: 0;
 width: 100%;
     }
     .audioDuration{
-        position:absolute;top:2rem;right:4rem;margin:1rem;
+        position:absolute;top:2rem;right:4rem;margin:1rem;margin-right:2rem;
     }
     .audioCurrentTime {
         position:absolute;top:2rem;right:100%;margin:1rem;display:none;
