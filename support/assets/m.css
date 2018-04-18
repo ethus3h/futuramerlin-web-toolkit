@@ -84,6 +84,14 @@
         border: 0.063rem solid #ddd; 
     }
 
+    dd img {
+        margin: 0;
+        display: inline;
+    }
+    dd > a ~ ::after {
+        content: unset;
+    }
+
     a > img {
         transition: all 0.2s;
         border: 0.063rem dotted #ddd;
