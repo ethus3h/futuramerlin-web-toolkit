@@ -49,6 +49,7 @@
     audioContainer.appendChild(audioTag);
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
+
     function loadTrack(trackNumber) {
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber+1];
@@ -107,6 +108,10 @@
             }
         }
         return false;
+    }
+
+    function reachedEndOfTrack(eventParameter) {
+        playTrack();
     }
 
     for(let i=1;i<trackRows.length;i++) {
