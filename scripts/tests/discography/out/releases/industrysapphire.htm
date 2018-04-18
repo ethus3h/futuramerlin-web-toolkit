@@ -95,9 +95,9 @@
         let currTime = Math.floor(audioTag.currentTime).toString(); 
         let duration = Math.floor(audioTag.duration).toString();
         let remaining = duration - currTime;
-        let percentage = currentTime / duration;
+        let percentage = currTime / duration;
 
-        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + ' (' formatSecondsAsTime(percentage) + '%)';
+        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + ' (' + percentage + '%)';
 
         if (isNaN(duration)){
             audioDuration.innerHTML = '??:??';
