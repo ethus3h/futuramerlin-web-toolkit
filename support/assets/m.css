@@ -197,7 +197,31 @@
         content: unset;
     }
 
-    td > a[href^="https://archive.org/"]::after {
+    td > a[href^="https://archive.org/"][href$=".flac"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"][href$=".mp3"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"][href$=".ogg"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"][href$=".m4a"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"][href$=".zip"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"][href$=".tar.bz2"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"][href$=".flac"]::after {
         content: unset;
     }
 
