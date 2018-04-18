@@ -60,9 +60,8 @@
         audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         let childNodesCounter=0;
         while(audioTag.childNodes.length > 0) {
-            let node=audioTag.childNodes;
-            console.log(node);
-            audioTag.removeChild(node[0]);
+            let nodes=audioTag.childNodes;
+            audioTag.removeChild(nodes[0]);
             childNodesCounter=childNodesCounter+1;
         }
         let tagsToCopy=trackRowToPlay.getElementsByTagName('source');
