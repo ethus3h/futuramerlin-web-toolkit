@@ -78,7 +78,7 @@ audioMainPlayButton.onclick=function(){togglePlayPause();};
 audioPlayNextButton.onclick=function(){reachedEndOfTrack(true);};
 audioVolume.style.transform='rotate(270deg)';
 
-document.body.getElementsByTagName['main'][0].appendChild(audioContainer);
+document.body.appendChild(audioContainer);
 let trackRows=document.getElementsByTagName('tr');
 loadTrack(1);
 
