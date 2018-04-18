@@ -123,9 +123,9 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 function loadTrack(trackNumber) {
     currentTrack=trackNumber;
     // based on https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
-    var path = window.location.pathname;
-var file = path.split("/").pop();
-var name = file.split(".").shift();
+    let path = window.location.pathname;
+    let file = path.split("/").pop();
+    let name = file.split(".").shift();
 
     audioWaveform.src=trackNumber+'w.png'
     let trackRows=document.getElementsByTagName('tr');
