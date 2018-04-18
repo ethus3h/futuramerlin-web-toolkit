@@ -106,7 +106,7 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
     currentTrack=trackNumber;
-    audioWaveform.src='1w.png'
+    audioWaveform.src=trackNumber+'w.png'
     let trackRows=document.getElementsByTagName('tr');
     let trackRowToPlay=trackRows[trackNumber];
     let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
