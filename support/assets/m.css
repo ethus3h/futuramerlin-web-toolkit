@@ -51,6 +51,16 @@
         color: #2a1657;
     }
 
+    .audioContainer {
+        height: 8rem;
+        background-color: red;
+        position: fixed;
+        bottom: 4rem;
+        left: calc(25vw + 4rem);
+        transition: all 0.2s;
+        z-index: 1;
+    }
+
     body:not(.lessChrome) > main {
         /* Set a maximum content column width to avoid overly long lines */
         /* max-width: calc(50rem); can't do this here because we can't center this this way */
