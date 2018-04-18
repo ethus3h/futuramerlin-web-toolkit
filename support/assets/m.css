@@ -1504,8 +1504,7 @@ width: 100%;
 
     body > main,
     body > main::before,
-    body > main::after,
-    .audioContainer {
+    body > main::after {
         width: 100%;
     }
 
@@ -1600,7 +1599,11 @@ width: 100%;
             .audioContainer{
                 width:100%;
                 bottom:0;
-            }
+                left: 0;
+            }          
+              body:not(.lessChrome) > .audioContainer {
+                left: 0;
+}
             body:not(.lessChrome) > main {
                 margin: 0 auto;
                 margin-top: 0;
