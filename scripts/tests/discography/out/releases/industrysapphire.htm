@@ -44,7 +44,7 @@
 <script>
     let audioContainer=document.createElement('div');
     let audioTag=document.createElement('audio');
-    audioContainer.class="audioContainer";
+    audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
     audioContainer.style.position="absolute";
     audioContainer.style.backgroundColor="red";
@@ -52,7 +52,7 @@
     audioContainer.style.height="5rem";
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
-    console.log(trackRows);
+
     function playTrack(trackNumber) {
         let trackRows=document.getElementsByTagName('tr');
         trackRowToPlay=trackRows[trackNumber+1];
@@ -64,7 +64,20 @@
         for (let i=0; i<tagsToCopy.length; i++) {
             audioTag.appendChild(tagsToCopy[i].cloneNode(true));
         }
+        trackNumber=trackRowToPlay[i].getElementsByTagName('td')[0];
+        trackNumber.style.color="red";
+        trackNumber.onclick=function(){pauseTrackFromTrackButton(this);};
     }
+
+    function pauseTrack(trackNumber) {
+        let trackRows=document.getElementsByTagName('tr');
+        trackRowToPlay=trackRows[trackNumber+1];
+        audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        trackNumber=trackRowToPlay[i].getElementsByTagName('td')[0];
+        trackNumber.style.color="green";
+        trackNumber.onclick=function(){playTrackFromTrackButton(this);};
+    }
+
     function playTrackFromTrackButton(trackClickedElement) {
         let trackRows=document.getElementsByTagName('tr');
         for(let i=1;i<trackRows.length;i++) {
@@ -73,11 +86,23 @@
                 playTrack(i-1);
             }
         }
+        return false;
     }
+
+    function pauseTrackFromTrackButton(trackClickedElement) {
+        let trackRows=document.getElementsByTagName('tr');
+        for(let i=1;i<trackRows.length;i++) {
+            /* skip first row: it is header */
+            if (trackRows[i].getElementsByTagName('td')[0] === trackClickedElement) {
+                pauseTrack(i-1);
+            }
+        }
+        return false;
+    }
+
     for(let i=1;i<trackRows.length;i++) {
         /* skip first row: it is header */
         trackNumber=trackRows[i].getElementsByTagName('td')[0];
-        trackNumber.style.color="green";
-        trackNumber.onclick="playTrackFromTrackButton(this);"
+        trackNumber.onclick=function(){playTrackFromTrackButton(this);};
     }
 </script>
