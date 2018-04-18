@@ -34,7 +34,7 @@ closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
 discogDebug() {
-    echo "$@" 1>&2
+    #echo "$@" 1>&2
     true
 }
 
@@ -535,7 +535,7 @@ traitToHtm() {
             local subWork="${value#*,}"
             local workPrefix
             workPrefix="$(getRelativeDiscographyDir)/works/$work/$subWork"
-            discogDebug "Called preadconf name ""$workPrefix.conf"", got $(preadconf name "$workPrefix.conf")"
+            #discogDebug "Called preadconf name ""$workPrefix.conf"", got $(preadconf name "$workPrefix.conf")"
             print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td><td>$(preadconf instrumentation "$workPrefix.conf")</td></tr>"
             ;;
         medium)
