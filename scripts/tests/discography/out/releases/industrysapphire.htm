@@ -58,6 +58,8 @@
       return min + ':' + sec;
     }
 
+    let currentTrack=1;
+
     let audioContainer=document.createElement('div');
     let audioTag=document.createElement('audio');
     audioTag.setAttribute("controls","controls");
@@ -82,12 +84,14 @@
     function togglePlayPause() {
         if(audioTag.paused) {
             audioTag.play();
+            syncPlayLabel();
         }else{
             audioTag.pause();
+            clearTrackStatuses();
         }
     }
 
-    audioMainPlayButton.onclick=function(){togglePlayPause;};
+    audioMainPlayButton.onclick=function(){togglePlayPause();};
 
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
@@ -129,7 +133,8 @@
         }
     }
 
-    function clearTrackStatuses(trackRows) {
+    function clearTrackStatuses() {
+        let trackRows=document.getElementsByTagName('tr');
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
             let trackRowToClear=trackRows[i];
@@ -139,17 +144,22 @@
         }
     }
 
-    function playTrack(trackNumber) {
-        loadTrack(trackNumber);
-        let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
-        audioTag.play();
+    function syncPlayLabel(trackNumber) {
         let trackRows=document.getElementsByTagName('tr');
-        clearTrackStatuses(trackRows);
         let trackRowToPlay=trackRows[trackNumber];
+        currentTrack=trackNumber;
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Pause";
         trackPlayButton.className='playButton playing';
         trackPlayButton.onclick=function(){pauseTrackFromTrackButton(this);};
+    }
+
+    function playTrack(trackNumber) {
+        loadTrack(trackNumber);
+        let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        audioTag.play();
+        clearTrackStatuses();
+        syncPlayLabel(trackNumber);
     }
 
     function pauseTrack(trackNumber) {
