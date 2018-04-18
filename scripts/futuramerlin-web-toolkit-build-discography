@@ -21,7 +21,7 @@ if [[ ! -f "futuramerlin-web-toolkit-discography.conf" ]]; then
 fi
 
 # Where the discography assets are located
-assets="/usr/local/share/futuramerlin-web-toolkit/assets/discography-dist"
+assets="/usr/local/share/futuramerlin-web-toolkit/assets/discography.assets"
 
 # Variables
 indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
