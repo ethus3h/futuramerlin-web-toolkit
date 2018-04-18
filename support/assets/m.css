@@ -52,16 +52,16 @@
     }
 
     .audioContainer {
-        height: 8rem;
-        background-color: red;
+        z-index: 1;
         position: fixed;
         bottom: 4rem;
         left: calc(25vw + 4rem);
+        height: 8rem;
         transition: all 0.2s;
-        z-index: 1;
+        background-color: red;
     }
 
-    body:not(.lessChrome) > main {
+    body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
         /* Set a maximum content column width to avoid overly long lines */
         /* max-width: calc(50rem); can't do this here because we can't center this this way */
         padding-bottom: 5rem;
@@ -71,7 +71,7 @@
         left: unset;
     }
 
-    body.lessChrome > main {
+    body.lessChrome > main, body.lessChrome > .audioContainer {
         margin: 0 auto;
         margin-top: 0;
         position: unset;
@@ -1447,7 +1447,8 @@
 
     body > main,
     body > main::before,
-    body > main::after {
+    body > main::after,
+    .audioContainer {
         width: 100%;
     }
 
@@ -1536,7 +1537,7 @@
     /* medium screen */
 
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
-            body > main {
+            body > main, .audioContainer {
                 width: unset;
             }
             body:not(.lessChrome) > main {
