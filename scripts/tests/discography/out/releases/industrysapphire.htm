@@ -158,7 +158,7 @@
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
             let trackRowToClear=trackRows[i];
-            trackPlayButton=trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
+            trackPlayButton=trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
             trackPlayButton.innerHTML="Play";
             trackPlayButton.className='playButton';
         }
@@ -168,7 +168,7 @@
         trackNumber=currentTrack;
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
-        trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
+        trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
         trackPlayButton.innerHTML="Pause";
         trackPlayButton.className='playButton playing';
         trackPlayButton.onclick=function(){pauseTrackFromTrackButton(this);};
@@ -188,7 +188,7 @@
         audioTag.pause();
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
-        trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
+        trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
         trackPlayButton.innerHTML="Play";
         trackPlayButton.className='playButton';
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
@@ -198,7 +198,7 @@
         let trackRows=document.getElementsByTagName('tr');
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
-            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('div')[0] === trackClickedElement) {
+            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement) {
                 playTrack(i);
             }
         }
@@ -209,7 +209,7 @@
         let trackRows=document.getElementsByTagName('tr');
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
-            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('div')[0] === trackClickedElement) {
+            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement) {
                 pauseTrack(i);
             }
         }
@@ -222,7 +222,7 @@
         let trackRows=document.getElementsByTagName('tr');
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
-            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('div')[0] === currentTrackElement) {
+            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === currentTrackElement) {
                 currentTrack=i;
             }
         }
@@ -240,7 +240,7 @@
         trackAudioCellAudioElement=trackAudioCell.getElementsByTagName('audio')[0];
         trackAudioCellAudioElement.style.display="none";
         trackAudioCellAudioElement.pause();
-        trackPlayButton=document.createElement('div');
+        trackPlayButton=document.createElement('button');
         trackPlayButton.className='playButton';
         trackPlayButton.innerHTML="Play";
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
