@@ -79,6 +79,16 @@
     audioContainer.appendChild(audioCurrentTime);
     audioContainer.appendChild(audioWaveform);
 
+    function togglePlayPause() {
+        if(audioTag.paused) {
+            audioTag.play();
+        }else{
+            audioTag.pause();
+        }
+    }
+
+    audioMainPlayButton.onclick=function(){togglePlayPause;};
+
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
     loadTrack(1);
