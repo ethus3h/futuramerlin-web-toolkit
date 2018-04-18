@@ -34,7 +34,7 @@ closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
 discogDebug() {
-    echo "$@" 1>&2
+    #echo "$@" 1>&2
     true
 }
 
@@ -301,6 +301,9 @@ listItem() {
     fi
     # Remaining arguments are the same as for linkToItem
     local kind="$1"
+    if [[ "$kind" == "release" ]]; then
+        recursive="false" # Don't recurse into releases' data directories
+    fi
     local identifier="$2"
     discogDebug "Building list entry for an item: $kind $identifier. Recursive: $recursive. Filtered: $filtered $filterKey $filterValue"
     local usePicture="$3"
