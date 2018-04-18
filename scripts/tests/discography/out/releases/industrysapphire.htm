@@ -48,8 +48,11 @@
     audioContainer.appendChild(audioTag);
     audioContainer.style.position="absolute";
     audioContainer.style.backgroundColor="red";
-    audioContainer.style.width="50rem";
-    audioContainer.style.height="50rem";
-    document.body.appendChild(audioTag);
-    
+    audioContainer.style.width="5rem";
+    audioContainer.style.height="5rem";
+    document.body.appendChild(audioContainer);
+    trackRows=document.getElementsByTagName('tr');
+    for(i=0,i<trackRows.length,i++) {
+        trackRows[i].getElementsByTagName('td')[0].style.color="green";
+    }
 </script>
