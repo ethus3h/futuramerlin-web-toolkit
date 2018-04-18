@@ -42,6 +42,14 @@
 </table>
 
 <script>
+    let audioContainer=document.createElement('div');
     let audioTag=document.createElement('audio');
-    document.appendChild(audioTag);
+    audioContainer.class="audioContainer";
+    audioContainer.appendChild(audioTag);
+    audioContainer.style.position="absolute";
+    audioContainer.style.backgroundColor="red";
+    audioContainer.style.width="50rem";
+    audioContainer.style.height="50rem";
+    document.body.appendChild(audioTag);
+    
 </script>
