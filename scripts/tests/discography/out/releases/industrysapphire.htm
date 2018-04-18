@@ -81,7 +81,10 @@
     audioScrubber.onchange=seekInAudio();
 
     function seekInAudio() {
-        audioTag.currentTime=Math.floor((audioScrubber.value / 100) * audioTag.duration);
+        let newVal=Math.floor((audioScrubber.value / 100) * audioTag.duration);
+        if(! isNaN(newVal)){
+            audioTag.currentTime=newVal;
+        }
     }
 
     audioContainer.appendChild(audioMainPlayButton);
