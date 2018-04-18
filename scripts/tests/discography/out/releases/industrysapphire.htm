@@ -47,10 +47,6 @@
     audioTag.setAttribute("controls","controls");
     audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
-    audioContainer.style.position="absolute";
-    audioContainer.style.backgroundColor="red";
-    audioContainer.style.width="5rem";
-    audioContainer.style.height="5rem";
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
     function loadTrack(trackNumber) {
@@ -120,6 +116,7 @@
         trackAudioCellAudioElement.style.display="none";
         trackAudioCellAudioElement.pause();
         trackPlayButton=document.createElement('div');
+        trackPlayButton.className='playButton';
         trackPlayButton.innerHTML="Play";
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
         trackAudioCell.appendChild(trackPlayButton);
