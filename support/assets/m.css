@@ -106,7 +106,7 @@
         width: 6rem;
     }
     .audioDuration, .audioCurrentTime {
-        background-color: rgba(255,255,255,0.87);
+        background-color: rgba(255,255,255,0.95);
         padding: 0.5rem;
     }
     .audioTitle {
@@ -197,7 +197,7 @@
         content: unset;
     }
 
-    td > a[href^="https://archive.org/"]::after {
+    a[href^="https://archive.org/download/"]::after {
         content: unset;
     }
 
