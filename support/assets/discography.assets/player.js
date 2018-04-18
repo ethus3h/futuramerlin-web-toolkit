@@ -1,5 +1,5 @@
-/* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
 function formatSecondsAsTime(secs, format) {
+    /* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
     let hr  = Math.floor(secs / 3600);
     let min = Math.floor((secs - (hr * 3600))/60);
     let sec = Math.floor(secs - (hr * 3600) -  (min * 60));
