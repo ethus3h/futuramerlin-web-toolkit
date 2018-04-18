@@ -66,14 +66,26 @@
         }
     }
 
+    clearTrackStatuses(trackRows) {
+        for(let i=1;i<trackRows.length;i++) {
+            /* skip first row: it is header */
+            let trackRowToClear=trackRows[i];
+            trackPlayButton=trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
+            trackPlayButton.innerHTML="Play";
+            trackPlayButton.className='playButton';
+        }
+    }
+
     function playTrack(trackNumber) {
         loadTrack(trackNumber);
         let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         audioTag.play();
         let trackRows=document.getElementsByTagName('tr');
+        clearTrackStatuses(trackRows);
         let trackRowToPlay=trackRows[trackNumber+1];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Pause";
+        trackPlayButton.className='playButton playing';
         trackPlayButton.onclick=function(){pauseTrackFromTrackButton(this);};
     }
 
@@ -85,6 +97,7 @@
         let trackRowToPlay=trackRows[trackNumber+1];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Play";
+        trackPlayButton.className='playButton';
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
     }
 
@@ -111,7 +124,21 @@
     }
 
     function reachedEndOfTrack(eventParameter) {
-        playTrack();
+        currentTrackElement=getElementsByClassName('playing')[0];
+        let currentTrack=0;
+        let trackRows=document.getElementsByTagName('tr');
+        for(let i=1;i<trackRows.length;i++) {
+            /* skip first row: it is header */
+            if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('div')[0] === currentTrackElement) {
+                currentTrack=i-1;
+            }
+        }
+        nextTrack=i+1;
+        numberOfTracks=document.getElementsByTagName('tr').length-1;
+        if(nextTrack>numberOfTracks) {
+            nextTrack=1;
+        }
+        playTrack(nextTrack);
     }
 
     for(let i=1;i<trackRows.length;i++) {
