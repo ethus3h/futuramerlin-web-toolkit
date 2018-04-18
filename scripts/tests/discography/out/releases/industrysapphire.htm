@@ -67,6 +67,12 @@
     let trackRows=document.getElementsByTagName('tr');
     loadTrack(1);
 
+    function updateControls() {
+        
+    }
+
+    audioTag.addEventListener("timeupdate", updateControls);
+
     function loadTrack(trackNumber) {
         let trackRows=document.getElementsByTagName('tr');
         let trackRowToPlay=trackRows[trackNumber];
