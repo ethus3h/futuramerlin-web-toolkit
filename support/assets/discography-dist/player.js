@@ -25,13 +25,13 @@ audioContainer.appendChild(audioTag);
 
 let audioMainPlayButton=document.createElement('button');
 audioMainPlayButton.className="audioMainPlayButton";
-let audioTitle=document.createElement('div');
+let audioTitle=document.createElement('span');
 audioTitle.className="audioTitle";
-let audioDuration=document.createElement('div');
+let audioDuration=document.createElement('span');
 audioDuration.className="audioDuration";
 let audioPlayhead=document.createElement('div');
 audioPlayhead.className="audioPlayhead";
-let audioCurrentTime=document.createElement('div');
+let audioCurrentTime=document.createElement('span');
 audioCurrentTime.className="audioCurrentTime";
 let audioWaveform=document.createElement('img');
 audioWaveform.className="audioWaveform";
