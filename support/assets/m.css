@@ -85,29 +85,36 @@ left: 0;
         position: absolute;
         top:3rem;right:2rem;width:6rem;
     }
-    .audioDuration,.audioCurrentTime{
-        background-color:rgba(255,255,255,0.7);
+    .audioDuration, .audioCurrentTime {
+        background-color: rgba(255,255,255,0.7);
     }
-    .audioTitle{
-        position:absolute;top:0;text-align: center;left:0;
-width: 100%;
+    .audioTitle {
+        position: absolute;top:0;text-align: center;left:0;
+        width: 100%;
     }
-    .audioDuration{
-        position:absolute;top:2rem;right:4rem;margin:1rem;margin-right:2rem;
+    .audioDuration {
+        position: absolute;
+        top: 2rem;
+        right: 4rem;
+        margin: 1rem;
+        margin-right: 2rem;
     }
     .audioCurrentTime {
-        position:absolute;top:2rem;right:100%;margin:1rem;display:none;
+        position: absolute;
+        top: 2rem;
+        right: 100%;
+        margin: 1rem;
+        display: none;
     }
     .audioPlayhead {
         position: absolute;
-    background-color: green;
-    width: 0.3rem;
-    top: 0;
-    height: 4rem;
-    left: 5rem;
-    z-index: 1;
+        background-image: linear-gradient(green,rgba(255,255,255,0));
+        width: 0.3rem;
+        top: 0;
+        height: 4rem;
+        left: 5rem;
+        z-index: 1;
     }
-    
 
     body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
         /* Set a maximum content column width to avoid overly long lines */
