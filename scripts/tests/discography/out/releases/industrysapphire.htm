@@ -73,6 +73,10 @@
     let audioPlayhead=document.createElement('div');
     let audioCurrentTime=document.createElement('div');
     let audioWaveform=document.createElement('div');
+    let audioScrubber=document.createElement('input');
+    let audioVolume=document.createElement('input');
+    audioScrubber.type='range';
+    audioVolume.type='range';
 
     audioContainer.appendChild(audioMainPlayButton);
     audioContainer.appendChild(audioTitle);
@@ -80,6 +84,8 @@
     audioContainer.appendChild(audioPlayhead);
     audioContainer.appendChild(audioCurrentTime);
     audioContainer.appendChild(audioWaveform);
+    audioContainer.appendChild(audioScrubber);
+    audioContainer.appendChild(audioVolume);
 
     function togglePlayPause() {
         if(audioTag.paused) {
