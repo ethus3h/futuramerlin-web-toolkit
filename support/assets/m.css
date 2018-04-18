@@ -59,6 +59,7 @@
         height: 8rem;
         transition: all 0.2s;
         background-color: red;
+        width:calc(75vw - 9rem);
     }
     .audioContainer audio {
         margin: 0;
@@ -95,7 +96,7 @@ width: 100%;
         position:absolute;top:2rem;right:4rem;margin:1rem;
     }
     .audioCurrentTime {
-        position:absolute;top:2rem;right:100%;margin:1rem;
+        position:absolute;top:2rem;right:100%;margin:1rem;display:none;
     }
     .audioPlayhead {
         position: absolute;
@@ -116,6 +117,9 @@ width: 100%;
         padding-right: 4rem;
         margin: 0 auto;
         left: unset;
+    }
+    body:not(.lessChrome) > .audioContainer {
+        left: calc(25vw + 4rem);
     }
     .audioContainer ~ body:not(.lessChrome) > main {
         padding-bottom: 13rem;

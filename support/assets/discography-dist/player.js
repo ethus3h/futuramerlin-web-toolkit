@@ -108,6 +108,7 @@ function updateCurrentTime() {
     let timelineWidth=audioScrubber.offsetWidth;
     audioPlayhead.style.left=((timelineWidth * progressPercentage)+convertRemToPixels(4))+'px';
     audioCurrentTime.style.right=((timelineWidth * (1 - progressPercentage))-convertRemToPixels(10))+'px';
+    audioCurrentTime.style.display='block';
 
     if (isNaN(duration)){
         audioDuration.innerHTML = '??:??';
