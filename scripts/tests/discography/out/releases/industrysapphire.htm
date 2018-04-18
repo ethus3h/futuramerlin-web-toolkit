@@ -44,6 +44,7 @@
 <script>
     let audioContainer=document.createElement('div');
     let audioTag=document.createElement('audio');
+    audioTag.setAttribute("controls","controls");
     audioContainer.className="audioContainer";
     audioContainer.appendChild(audioTag);
     audioContainer.style.position="absolute";
@@ -64,7 +65,7 @@
         for (let i=0; i<tagsToCopy.length; i++) {
             audioTag.appendChild(tagsToCopy[i].cloneNode(true));
         }
-        trackNumber=trackRowToPlay[i].getElementsByTagName('td')[0];
+        trackNumber=trackRowToPlay.getElementsByTagName('td')[0];
         trackNumber.style.color="red";
         trackNumber.onclick=function(){pauseTrackFromTrackButton(this);};
     }
@@ -73,7 +74,7 @@
         let trackRows=document.getElementsByTagName('tr');
         trackRowToPlay=trackRows[trackNumber+1];
         audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
-        trackNumber=trackRowToPlay[i].getElementsByTagName('td')[0];
+        trackNumber=trackRowToPlay.getElementsByTagName('td')[0];
         trackNumber.style.color="green";
         trackNumber.onclick=function(){playTrackFromTrackButton(this);};
     }
