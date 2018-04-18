@@ -77,6 +77,7 @@
     let audioVolume=document.createElement('input');
     audioScrubber.type='range';
     audioVolume.type='range';
+    let audioPlayNextButton=document.createElement('button');
 
     audioScrubber.onchange=seekInAudio;
 
@@ -97,6 +98,7 @@
     audioContainer.appendChild(audioWaveform);
     audioContainer.appendChild(audioScrubber);
     audioContainer.appendChild(audioVolume);
+    audioContainer.appendChild(audioPlayNextButton);
 
     function togglePlayPause() {
         if(audioTag.paused) {
@@ -109,6 +111,7 @@
     }
 
     audioMainPlayButton.onclick=function(){togglePlayPause();};
+    audioPlayNextButton.onclick=function(){reachedEndOfTrack(true);};
 
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
@@ -162,6 +165,7 @@
             trackPlayButton.innerHTML="▶";
             trackPlayButton.className='playButton';
         }
+        audioMainPlayButton.innerHTML="▶";
     }
 
     function syncPlayLabel() {
