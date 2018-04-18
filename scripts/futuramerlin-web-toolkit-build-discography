@@ -34,7 +34,7 @@ closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
 discogDebug() {
-    echo "$@" 1>&2
+    #echo "$@" 1>&2
     true
 }
 
@@ -202,7 +202,7 @@ linkToItem() {
         fi
         local picturePathName
         # .m.png = 50px; .t.png = 150px
-        picturePathName="$(getItemPath "$kind" "$identifier").m.png"
+        picturePathName="$(getItemPath "$kind" "$identifier")/m.png"
         if [[ -e "$picturePathName" ]]; then
             picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" />"
             if [[ "$artistNameInsert" == "" ]]; then
