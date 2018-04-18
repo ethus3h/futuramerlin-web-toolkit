@@ -116,6 +116,12 @@
         left: 0;
         width: 100%;
     }
+    .playButton {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto;
+        display: block;
+    }
     .audioDuration {
         position: absolute;
         top: 2rem;
@@ -188,6 +194,10 @@
     }
 
     dd > a[href^="https://archive.org/"][href$=".png"]::after {
+        content: unset;
+    }
+
+    td > a[href^="https://archive.org/"]::after {
         content: unset;
     }
 
