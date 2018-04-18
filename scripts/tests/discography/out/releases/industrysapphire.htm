@@ -84,7 +84,7 @@
         audioTag.play();
         let trackRows=document.getElementsByTagName('tr');
         clearTrackStatuses(trackRows);
-        let trackRowToPlay=trackRows[trackNumber+1];
+        let trackRowToPlay=trackRows[trackNumber];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Pause";
         trackPlayButton.className='playButton playing';
@@ -96,7 +96,7 @@
         let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         audioTag.pause();
         let trackRows=document.getElementsByTagName('tr');
-        let trackRowToPlay=trackRows[trackNumber+1];
+        let trackRowToPlay=trackRows[trackNumber];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Play";
         trackPlayButton.className='playButton';
@@ -108,7 +108,7 @@
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
             if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('div')[0] === trackClickedElement) {
-                playTrack(i-1);
+                playTrack(i);
             }
         }
         return false;
@@ -119,7 +119,7 @@
         for(let i=1;i<trackRows.length;i++) {
             /* skip first row: it is header */
             if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('div')[0] === trackClickedElement) {
-                pauseTrack(i-1);
+                pauseTrack(i);
             }
         }
         return false;
