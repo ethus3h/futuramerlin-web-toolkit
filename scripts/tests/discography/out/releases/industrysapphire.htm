@@ -90,6 +90,11 @@
         }
     }
 
+    audioVolume.onchange=updateVolume;
+    function updateVolume() {
+        audioTag.volume = audioVolume.value / 100;
+    }
+
     audioMainPlayButton.innerHTML="▶";
     audioPlayNextButton.innerHTML="⏭";
 
