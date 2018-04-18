@@ -84,11 +84,12 @@
         border: 0.063rem solid #ddd; 
     }
 
-    dd img {
+    dd img, li img {
         margin: 0;
         display: inline;
     }
-    dd > a ~ ::after {
+
+    dd > a[href^="https://archive.org/"][href$=".png"]::after {
         content: unset;
     }
 
