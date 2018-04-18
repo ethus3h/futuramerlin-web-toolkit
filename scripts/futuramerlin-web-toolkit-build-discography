@@ -589,7 +589,7 @@ traitToHtm() {
             closeCurrentSection
             setTrackCounter "0"
             print $'\n\n'"<h2>Track listing</h2>"$'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
-            setClosingTag "    </tbody>"$'\n'"</table>"$'\n\n''<script src="/discography-dist/player.js" />'
+            setClosingTag "    </tbody>"$'\n'"</table>"$'\n\n''<script src="/discography-dist/player.js"></script>'
             ;;
         mbid)
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
