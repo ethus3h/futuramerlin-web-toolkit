@@ -58,13 +58,16 @@
         let trackRows=document.getElementsByTagName('tr');
         trackRowToPlay=trackRows[trackNumber+1];
         audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        let childNodesCounter=0;
         while(audioTag.childNodes.length > 0) {
-            audioTag.removeChild();
+            audioTag.removeChild(audioTag.childNodes[childNodesCounter]);
+            childNodesCounter=childNodesCounter+1;
         }
         let tagsToCopy=trackRowToPlay.getElementsByTagName('source');
         for (let i=0; i<tagsToCopy.length; i++) {
             audioTag.appendChild(tagsToCopy[i].cloneNode(true));
         }
+        audioTag.play();
         trackNumber=trackRowToPlay.getElementsByTagName('td')[0];
         trackNumber.style.color="red";
         trackNumber.onclick=function(){pauseTrackFromTrackButton(this);};
@@ -74,6 +77,7 @@
         let trackRows=document.getElementsByTagName('tr');
         trackRowToPlay=trackRows[trackNumber+1];
         audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        audioTag.pause();
         trackNumber=trackRowToPlay.getElementsByTagName('td')[0];
         trackNumber.style.color="green";
         trackNumber.onclick=function(){playTrackFromTrackButton(this);};
