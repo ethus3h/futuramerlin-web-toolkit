@@ -34,7 +34,7 @@ closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
 discogDebug() {
-    #echo "$@" 1>&2
+    echo "$@" 1>&2
     true
 }
 
