@@ -62,7 +62,7 @@
         while(audioTag.childNodes.length > 0) {
             let node=audioTag.childNodes;
             console.log(node);
-            audioTag.removeChild(node);
+            audioTag.removeChild(node[0]);
             childNodesCounter=childNodesCounter+1;
         }
         let tagsToCopy=trackRowToPlay.getElementsByTagName('source');
