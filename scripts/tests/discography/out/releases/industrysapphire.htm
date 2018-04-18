@@ -53,11 +53,10 @@
     audioContainer.style.height="5rem";
     document.body.appendChild(audioContainer);
     let trackRows=document.getElementsByTagName('tr');
-
-    function playTrack(trackNumber) {
+    function loadTrack(trackNumber) {
         let trackRows=document.getElementsByTagName('tr');
-        trackRowToPlay=trackRows[trackNumber+1];
-        audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        let trackRowToPlay=trackRows[trackNumber+1];
+        let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         let childNodesCounter=0;
         while(audioTag.childNodes.length > 0) {
             let nodes=audioTag.childNodes;
@@ -68,17 +67,25 @@
         for (let i=0; i<tagsToCopy.length; i++) {
             audioTag.appendChild(tagsToCopy[i].cloneNode(true));
         }
+    }
+
+    function playTrack(trackNumber) {
+        loadTrack(trackNumber);
+        let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         audioTag.play();
+        let trackRows=document.getElementsByTagName('tr');
+        let trackRowToPlay=trackRows[trackNumber+1];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Pause";
         trackPlayButton.onclick=function(){pauseTrackFromTrackButton(this);};
     }
 
     function pauseTrack(trackNumber) {
-        let trackRows=document.getElementsByTagName('tr');
-        trackRowToPlay=trackRows[trackNumber+1];
-        audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+        loadTrack(trackNumber);
+        let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         audioTag.pause();
+        let trackRows=document.getElementsByTagName('tr');
+        let trackRowToPlay=trackRows[trackNumber+1];
         trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('div')[0];
         trackPlayButton.innerHTML="Play";
         trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
