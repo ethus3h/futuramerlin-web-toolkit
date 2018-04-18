@@ -97,7 +97,7 @@
         let remaining = duration - currTime;
         let percentage = currTime / duration;
 
-        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + ' / ' + '-' + formatSecondsAsTime(remaining) + ' (' + percentage.toFixed(3) + '%)';
+        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + '; ' + '-' + formatSecondsAsTime(remaining) + ' (' + percentage.toFixed(3) + '%)';
 
         if (isNaN(duration)){
             audioDuration.innerHTML = '??:??';
