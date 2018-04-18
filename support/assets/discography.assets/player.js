@@ -28,7 +28,7 @@ let audioTitle=document.createElement('div');
 let audioDuration=document.createElement('div');
 let audioPlayhead=document.createElement('div');
 let audioCurrentTime=document.createElement('div');
-let audioWaveform=document.createElement('div');
+let audioWaveform=document.createElement('img');
 let audioScrubber=document.createElement('input');
 let audioVolume=document.createElement('input');
 audioScrubber.type='range';
@@ -106,6 +106,7 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
     currentTrack=trackNumber;
+    audioWaveform.src='1w.png'
     let trackRows=document.getElementsByTagName('tr');
     let trackRowToPlay=trackRows[trackNumber];
     let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
