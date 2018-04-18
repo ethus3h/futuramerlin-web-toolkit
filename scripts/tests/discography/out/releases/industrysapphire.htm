@@ -92,16 +92,18 @@
 
     function updateCurrentTime() {
         /* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
-        let currTime = Math.floor(track.currentTime).toString(); 
-        let duration = Math.floor(track.duration).toString();
+        let currTime = Math.floor(audioTag.currentTime).toString(); 
+        let duration = Math.floor(audioTag.duration).toString();
+        let remaining = duration - currTime;
+        let percentage = currentTime / duration;
 
-        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime);
+        audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + ' (' formatSecondsAsTime(percentage) + '%)';
 
         if (isNaN(duration)){
-            audioDuration.innerHTML = '00:00';
+            audioDuration.innerHTML = '??:??';
         } 
         else{
-            audioDuration.innerHTML = formatSecondsAsTime(duration);
+            audioDuration.innerHTML = formatSecondsAsTime(remaining) + ' / ' + formatSecondsAsTime(duration);
         }
     }
 
