@@ -90,7 +90,7 @@ audioVolume.style.transform='rotate(270deg)';
 document.body.insertBefore(audioContainer, document.body.firstChild);
 let trackRows=document.getElementsByTagName('tr');
 loadTrack(1);
-function convertRemToPixels(rem) {    
+function convertRemToPixels(rem) {
     /* from https://stackoverflow.com/questions/36532307/rem-px-in-javascript */
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
@@ -101,7 +101,7 @@ function updateCurrentTime() {
     let remaining = duration - currTime;
     let percentage = currTime / duration;
 
-    audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + '; ' + '-' + formatSecondsAsTime(remaining) + ' (' + percentage.toFixed(3) + '%)';
+    audioCurrentTime.innerHTML = formatSecondsAsTime(currTime) + '; ' + '-' + formatSecondsAsTime(remaining) + ' (' + (percentage * 100).toFixed(3) + '%)';
 
     let progressPercentage=(currTime / duration);
     audioScrubber.value=parseInt(((currTime / duration) * 100), 10);
