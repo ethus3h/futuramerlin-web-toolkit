@@ -191,12 +191,7 @@
         loadTrack(trackNumber);
         let audioTag=document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
         audioTag.pause();
-        let trackRows=document.getElementsByTagName('tr');
-        let trackRowToPlay=trackRows[trackNumber];
-        trackPlayButton=trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
-        trackPlayButton.innerHTML="▶";
-        trackPlayButton.className='playButton';
-        trackPlayButton.onclick=function(){playTrackFromTrackButton(this);};
+        clearTrackStatuses();
     }
 
     function playTrackFromTrackButton(trackClickedElement) {
