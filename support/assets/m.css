@@ -121,7 +121,7 @@ width: 100%;
     body:not(.lessChrome) > .audioContainer {
         left: calc(25vw + 4rem);
     }
-    .audioContainer ~ body:not(.lessChrome) > main {
+    body:not(.lessChrome) > .audioContainer ~ main {
         padding-bottom: 13rem;
     }
 
@@ -1601,9 +1601,9 @@ width: 100%;
                 bottom:0;
                 left: 0;
             }          
-              body:not(.lessChrome) > .audioContainer {
+            body:not(.lessChrome) > .audioContainer {
                 left: 0;
-}
+            }
             body:not(.lessChrome) > main {
                 margin: 0 auto;
                 margin-top: 0;
