@@ -197,7 +197,7 @@
         content: unset;
     }
 
-    html > body > main > a[href^="https://archive.org/download/"]::after {
+    html > body:not(#blah) a[href^="https://archive.org/download/"]::after {
         content: unset;
     }
 
