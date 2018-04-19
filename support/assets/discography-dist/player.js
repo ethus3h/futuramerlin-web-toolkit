@@ -108,7 +108,7 @@ function updateCurrentTime() {
     let desiredRightPosition=((timelineWidth * (1 - progressPercentage))-convertRemToPixels(10));
     let maximumRightPosition=convertRemToPixels(10);
     console.log("Constraining "+desiredRightPosition+" to "+maximumRightPosition);
-    if(desiredRightPosition>maximumRightPosition) {
+    if(desiredRightPosition<maximumRightPosition) {
         desiredRightPosition=maximumRightPosition;
     }
     audioCurrentTime.style.right=desiredRightPosition+'px';
