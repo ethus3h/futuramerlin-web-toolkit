@@ -153,6 +153,7 @@ linkToItem() {
     local pattern='work\/.*'
     local name
     name="$(getItemName "$kind" "$identifier")"
+    [[ -z "$name" ]] && name="<em><!-- Name was empty -->(No name given)</em>"
     if [[ "$kind" == "kind" ]]; then
         extension=""
     else
