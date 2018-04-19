@@ -390,6 +390,12 @@ keyToLabel() {
         mbid)
             print "MusicBrainz"
             ;;
+        upc)
+            print "UPC"
+            ;;
+        transcodedForSoundrop)
+            print "Transcoded for Soundrop distribution"
+            ;;
         alac)
             print "M4A: Apple Lossless Audio Codec"
             ;;
@@ -553,6 +559,9 @@ traitToHtm() {
             ;;
         work)
             simpleReference "$key" work "${value/,/\/}"
+            ;;
+        release)
+            simpleReference "$key" release "$value"
             ;;
         shortDate)
             true
