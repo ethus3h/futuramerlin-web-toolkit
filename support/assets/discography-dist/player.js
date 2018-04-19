@@ -48,8 +48,6 @@ audioScrubber.onchange=seekInAudio;
 
 function seekInAudio() {
     let newVal=Math.floor((audioScrubber.value / 100) * audioTag.duration);
-    console.log(audioScrubber.value);
-    console.log(audioTag.duration);
     if(! isNaN(newVal)){
         audioTag.currentTime=newVal;
     }
@@ -108,7 +106,7 @@ function updateCurrentTime() {
     let timelineWidth=audioScrubber.offsetWidth;
     audioPlayhead.style.left=((timelineWidth * progressPercentage)+convertRemToPixels(4))+'px';
     let desiredRightPosition=((timelineWidth * (1 - progressPercentage))-convertRemToPixels(10));
-    let maximumRightPosition=(timelineWidth - convertRemToPixels(10));
+    let maximumRightPosition=-convertRemToPixels(10);
     console.log("Constraining "+desiredRightPosition+" to "+maximumRightPosition);
     if(desiredRightPosition>maximumRightPosition) {
         desiredRightPosition=maximumRightPosition;
