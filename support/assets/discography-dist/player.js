@@ -229,7 +229,7 @@ function reachedEndOfTrack(eventParameter) {
         nextTrack=1;
     }
     audioTag.currentTime=0;
-    if(audioMainPlayButton.class.contains('playing')) {
+    if(audioMainPlayButton.className.contains('playing')) {
         playTrack(nextTrack);
     }
     else {
