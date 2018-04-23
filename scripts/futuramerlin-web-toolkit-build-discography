@@ -205,7 +205,7 @@ linkToItem() {
             pictureType="album artwork"
         fi
         local picturePathName
-        # .m.png = 50px; .t.png = 150px
+        # m.png = 50px; t.png = 150px
         picturePathName="$(getItemPath "$kind" "$identifier")/m.png"
         if [[ -e "$picturePathName" ]]; then
             picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" />"
@@ -376,7 +376,7 @@ simpleIaImage() {
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$identifier/$thumbnailName.png\" alt=\"$relname: album artwork\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$identifier/$thumbnailName.png\" alt=\"$relname: album artwork\" width=\"150\" /></a>"
 }
 
 keyToLabel() {
