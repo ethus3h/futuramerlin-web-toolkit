@@ -7,7 +7,136 @@
     <span><a href="../discography.htm">Discography</a></span>
 </p>
 
+<style type="text/css">
+    a#tl {
+        color: white !important;
+        z-index: 110 !important
+    }
+
+    div.floattb {
+        z-index: 110 !important;
+        color: white !important
+    }
+
+    div {
+        word-wrap: break-word;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: left
+    }
+
+    table,
+    tbody,
+    tr,
+    td {
+        table-layout: fixed
+    }
+
+    table {
+        border: 1px solid white !important
+    }
+
+    td {
+        border: 1px dotted white !important
+    }
+
+    div.floatbg {
+        z-index: 105 !important;
+        opacity: 0.25 !important
+    }
+
+    div#mconstraints {
+        position: fixed;
+        bottom: 0px;
+        top: 0px;
+        right: 0px;
+        left: 0px
+    }
+
+    div#musicwrapper {
+        max-width: 680px !important;
+        z-index: 100;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100vw;
+        bottom: 0;
+        height: 50vh;
+        min-height: 50rem;
+    }
+
+    div#intro {
+        left: -0px !important
+    }
+
+    div#musicthumbcontainer {
+        max-width: 30%;
+        width: 180px;
+        z-index: 110;
+        bottom: 0px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    div#musicthumbnails {
+        position: relative;
+        bottom: 0px;
+        height: 100%;
+    }
+
+    div.musicbig {
+        display: none;
+        bottom: 0px;
+        margin-left: 30%;
+        padding: 15px;
+        right: 0px;
+        overflow-y: scroll;
+    }
+
+    img.musicbigimage {
+        width: 100%;
+    }
+
+    img.musicthumb {
+        width: 80%;
+        max-width: 150px;
+        margin: 10%;
+        box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 1);
+        cursor: pointer;
+    }
+
+    img.musicthumb:hover {
+        border-left: 3px white solid
+    }
+
+    .mlefti {
+        text-align: left !important;
+        padding-left: 3px;
+    }
+</style>
+
+<script type="text/javascript">
+    function getElementsByClassName(classname, node) {
+        if (!node) node = document.getElementsByTagName("body")[0];
+        var a = [];
+        var re = new RegExp('\\b' + classname + '\\b');
+        var els = node.getElementsByTagName("*");
+        for (var i = 0, j = els.length; i < j; i++)
+            if (re.test(els[i].className)) a.push(els[i]);
+        return a;
+    }
+    
+    function hideAll() {
+        var elements = new Array();
+        elements = getElementsByClassName('musicbig');
+        for (i in elements) {
+            elements[i].style.display = "none";
+        }
+    }
+</script>
+
 <ul>
     <li><a href="../releases/industrysapphire.htm"><img src="../releases/industrysapphire/m.png" alt="industry / sapphire / industry: album artwork thumbnail image" width="50" /> industry / sapphire / industry</a> (30 November 2017)</li>
     <li><a href="../releases/sylfan2.htm"><img src="../releases/sylfan2/m.png" alt="Sylvan Fantasy: album artwork thumbnail image" width="50" /> Sylvan Fantasy</a> (~29 September 2009?)</li>
 </ul>
+
+<script src="/discography-dist/player.js"></script>
