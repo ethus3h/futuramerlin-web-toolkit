@@ -55,22 +55,11 @@
 </style>
 
 <script type="text/javascript">
-    function getElementsByClassName(classname, node) {
-        if (!node) node = document.getElementsByTagName("body")[0];
-        var a = [];
-        var re = new RegExp('\\b' + classname + '\\b');
-        var els = node.getElementsByTagName("*");
-        for (var i = 0, j = els.length; i < j; i++)
-            if (re.test(els[i].className)) a.push(els[i]);
-        return a;
+    function hide(elem) {
+        elem.style.display = 'none';
     }
-    
     function hideAll() {
-        var elements = new Array();
-        elements = getElementsByClassName('musicbig');
-        for (i in elements) {
-            elements[i].style.display = "none";
-        }
+        [].forEach.call(document.getElementsByClassName('musicbig'), elem => hide(elem));
     }
 </script>
 
