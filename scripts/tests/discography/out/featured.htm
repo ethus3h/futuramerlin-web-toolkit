@@ -12,6 +12,8 @@
     body {
         display: flex;
         flex-direction: column;
+        height:100vh;
+        margin: 0;
     }
 
     a#tl {
@@ -48,28 +50,6 @@
         opacity: 0.25 !important
     }
 
-    div#mconstraints {
-        position: fixed;
-        bottom: 0;
-        top: 0;
-        right: 0;
-        left: 0
-    }
-
-    div#musicwrapper {
-        z-index: 100;
-        margin-left: auto;
-        margin-right: auto;
-        width: 100vw;
-        bottom: 0;
-        height: 50vh;
-        min-height: 50rem;
-    }
-
-    div#intro {
-        left: -0px !important
-    }
-
     #musicthumbcontainer {
         max-width: 30%;
         width: 180px;
@@ -80,13 +60,13 @@
         float: left;
     }
 
-    div#musicthumbnails {
+    #musicthumbnails {
         position: relative;
         bottom: 0;
         height: 100%;
     }
 
-    div.musicbig {
+    .musicbig {
         display: none;
         bottom: 0;
         margin-left: 30%;
@@ -95,11 +75,7 @@
         overflow-y: scroll;
     }
 
-    img.musicbigimage {
-        width: 100%;
-    }
-
-    img.musicthumb {
+    .musicthumb {
         width: 80%;
         max-width: 150px;
         margin: 10%;
@@ -107,7 +83,7 @@
         cursor: pointer;
     }
 
-    img.musicthumb:hover {
+    .musicthumb:hover {
         border-left: 0.2rem white solid
     }
 </style>
