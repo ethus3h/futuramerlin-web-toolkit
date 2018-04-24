@@ -50,7 +50,7 @@
         transition: all 0.2s;
         color: #2a1657;
     }
-
+/* Audio Player */
     .audioContainer {
         z-index: 2;
         position: fixed;
@@ -145,7 +145,55 @@
         left: 5rem;
         z-index: 1;
     }
+/* Featured Releases */
+    #musicwrapper, #musicwrapper div {
+        word-wrap: break-word;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: left
+    }
 
+    .musicbig {
+        display: none;
+        margin: 0.5rem 1rem;
+    }
+
+    .musicbig:first-child {
+        display: block;
+    }
+
+    .musicthumb {
+        margin: 0.5rem 1rem;
+        box-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 1);
+        cursor: pointer;
+        max-width: 80%;
+    }
+
+    .musicthumb:hover {
+        border-left: 0.2rem white solid
+    }
+
+    #musicwrapper {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        overflow-y: hidden;
+    }
+
+    #musicthumbnails, #musiccontents {
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    #musiccontents {
+        width: 100%;
+    }
+
+    #musicthumbnails {
+        width: 30%;
+        overflow-x: hidden;
+    }
+/* End featured releases */
     body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
         /* Set a maximum content column width to avoid overly long lines */
         /* max-width: calc(50rem); can't do this here because we can't center this this way */
