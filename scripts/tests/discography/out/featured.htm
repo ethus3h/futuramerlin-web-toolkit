@@ -36,9 +36,10 @@
     }
 
     .musicthumb {
-        margin: 10%;
+        margin: 5% 10%;
         box-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 1);
         cursor: pointer;
+        max-width: 80%;
     }
 
     .musicthumb:hover {
@@ -55,6 +56,15 @@
     #musicthumbnails, #musiccontents {
         height: 100%;
         overflow-y: scroll;
+    }
+
+    #musiccontents {
+        width: 100%;
+    }
+
+    #musicthumbnails {
+        width: 30%;
+        overflow-x: hidden;
     }
 </style>
 
