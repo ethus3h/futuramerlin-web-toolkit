@@ -27,14 +27,8 @@
         table-layout: fixed
     }
 
-    #musicthumbnails {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
     .musicbig {
         display: none;
-        overflow-y: auto;
     }
 
     .musicbig:first-child {
@@ -55,11 +49,12 @@
         display: flex;
         flex-direction: row;
         height: 100%;
-        overflow-y: scroll;
+        overflow-y: hidden;
     }
 
-    #musicthumbnails, #musiccontent {
+    #musicthumbnails, #musiccontents {
         height: 100%;
+        overflow-y: scroll;
     }
 </style>
 
