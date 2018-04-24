@@ -60,13 +60,14 @@
 
 <script type="text/javascript">
     function toggle(id) {
-        [].forEach.call(document.getElementsByClassName('musicbig'), elem => { elem.style.display='none' })
+        [].forEach.call(document.getElementsByClassName('musicbig'), elem => { elem.style.display='none' });
+        document.getElementById(id).style.display='block'
     }
 </script>
 
 <div id="musicthumbnails">
-    <img src="releases/industrysapphire/1t.png" alt="industry / sapphire / industry: album artwork" width="150" onclick="hideAll();document.getElementById('industrysapphire').style.display='block';" class="musicthumb" />
-    <img src="releases/sylfan2/t1.png" alt="industry / sapphire / industry: album artwork" width="150" onclick="hideAll();document.getElementById('sylfan2').style.display='block';" class="musicthumb" />
+    <img src="releases/industrysapphire/1t.png" alt="industry / sapphire / industry: album artwork" width="150" onclick="toggle('industrysapphire')" class="musicthumb" />
+    <img src="releases/sylfan2/t1.png" alt="industry / sapphire / industry: album artwork" width="150" onclick="toggle('sylfan2')" class="musicthumb" />
 </div>
 
 <div id="musicbigcontainerb">
