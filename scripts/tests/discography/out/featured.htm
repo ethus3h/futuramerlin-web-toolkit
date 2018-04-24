@@ -59,11 +59,8 @@
 </style>
 
 <script type="text/javascript">
-    function hide(elem) {
-        elem.style.display = 'none';
-    }
-    function hideAll() {
-        [].forEach.call(document.getElementsByClassName('musicbig'), elem => hide(elem));
+    function toggle(id) {
+        [].forEach.call(document.getElementsByClassName('musicbig'), elem => { elem.style.display='none' })
     }
 </script>
 
