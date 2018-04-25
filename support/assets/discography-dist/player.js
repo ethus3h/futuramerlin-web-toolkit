@@ -133,6 +133,7 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
     currentTrack = trackNumber;
+    /* Figure out what the relative file name is of the waveform file */
     // based on https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
     let path = window.location.pathname;
     let file = path.split("/").pop();
