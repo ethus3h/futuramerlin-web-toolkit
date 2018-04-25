@@ -182,7 +182,7 @@
 
     #musicthumbnails, #musiccontents {
         height: 100%;
-        overflow-y: scroll;
+        border-right: 0.3rem dotted white;
     }
 
     #musiccontents {
@@ -210,6 +210,10 @@
         padding-bottom: 13rem;
     }
 
+    body > .audioContainer ~ main .breadcrumbs {
+        margin-bottom: 0;
+    }
+
     body.lessChrome > main, body.lessChrome > .audioContainer {
         margin: 0 auto;
         margin-top: 0;
@@ -220,7 +224,7 @@
         max-width: 50rem;
     }
     body.lessChrome >  .audioContainer ~ main {
-        padding-bottom: 9.063rem;
+        padding-bottom: 8rem;
     }
 
     main > *:not(.page-title):not(h1) {
@@ -1683,7 +1687,7 @@
 
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
             body > main {
-                width: unset;
+                /* width: unset; */
             }
             .audioContainer{
                 width:100%;
@@ -1704,7 +1708,7 @@
                 max-width: calc(75% - 8rem);
             }
             body:not(.lessChrome) > .audioContainer ~ main {
-                padding-bottom: 9.063rem;
+                padding-bottom: 8rem;
             }
             body:not(.expanded):not(.lessChrome) > main {
                 position: absolute;
