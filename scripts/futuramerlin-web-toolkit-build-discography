@@ -750,10 +750,11 @@ buildLeafContents() {
     fi
 
     if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
-        buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed 's/^/            /p'
+        buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed -En 's/^/            /p'
     else
         buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType"
     fi
+
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
         if [[ -n "$releasesList" ]]; then
