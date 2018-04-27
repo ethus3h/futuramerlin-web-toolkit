@@ -737,7 +737,11 @@ buildLeafContents() {
     else
         disambig=""
     fi
-    print "$disambig"$'\n\n'
+    if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
+        print "$disambig"
+    else
+        print "$disambig"$'\n\n'
+    fi
 
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
