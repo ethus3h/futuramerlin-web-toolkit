@@ -578,7 +578,11 @@ traitToHtm() {
             simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
             ;;
         label)
-            simpleReference "$key" label "$value"
+            if [[ "$outputMode" == "featured-content" ]]; then
+                simpleMetadata "$(keyToLabel "$key")" "$(discReadConf name label "$value")"
+            else
+                simpleReference "$key" label "$value"
+            fi
             ;;
         artist)
             simpleReference "$key" artist "$value"
