@@ -661,6 +661,7 @@ closeCurrentSection() {
 buildInfoTable() {
     local kind="$1"
     local identifier="$2"
+    local infoTableBuildRequestType="$3"
     local foundInfo=""
     while IFS= read -r line; do
         local pattern='^#'
@@ -712,7 +713,7 @@ buildLeafContents() {
             local thumbnailPrefix=""
             local thumbnailSuffix="t"
             local artcountValue="$(discReadConf artworkcount "$kind" "$identifier")"
-            if [[ "${value: -1}" == "t" ]]; then
+            if [[ "${artcountValue: -1}" == "t" ]]; then
                 thumbnailPrefix="t"
                 thumbnailSuffix=""
             fi
@@ -720,15 +721,24 @@ buildLeafContents() {
             return
         fi
     fi
-
     local disambig
     disambig="$(discReadConf disambig "$kind" "$identifier")"
-    if [[ -n "$disambig" ]]; then
-        disambig="<p><strong>($disambig)</strong></p>"
+    if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
+        if [[ -n "$disambig" ]]; then
+            disambig=" <span class=\"disambiguation-note\">($disambig)</span>"
+        else
+            disambig=""
+        fi
+        print "        <div class=\"musicbig\" id=\"$identifier\">"$'\n'"            <h2>$(discReadConf name "$kind" "$identifier")</h2>"
     else
-        disambig=""
+        if [[ -n "$disambig" ]]; then
+            disambig="<p><strong>($disambig)</strong></p>"
+        else
+            disambig=""
+        fi
+        print "$disambig"$'\n\n'
     fi
-    print "$disambig"$'\n\n'
+
 
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
@@ -740,7 +750,7 @@ buildLeafContents() {
         print '.</p>'$'\n\n'
     fi
 
-    buildInfoTable "$kind" "$identifier"
+    buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType"
 
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
         releasesList="$(listRecursive release --filter "$kind" "$identifier")"
