@@ -337,7 +337,7 @@ listItem() {
             if [[ "$kind" == "release" ]]; then
                 buildLeafContents --featured-navigation-link "$kind" "$identifier" >> "../featured.htm.navigation"
                 buildLeafContents --featured-content "$kind" "$identifier" > "../featured.htm.content.tmp"
-                ereplace '\' '\\' "../featured.htm.content.tmp"
+                ereplace '\\' '\\' "../featured.htm.content.tmp"
                 ereplace $'\n' '\n' "../featured.htm.content.tmp"
                 print $'\n' >> "../featured.htm.content.tmp"
                 cat "../featured.htm.content.tmp" >> "../featured.htm.content"
@@ -707,7 +707,14 @@ buildLeafContents() {
             return
         fi
         if [[ "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
-            print "        <img src=\"releases/$identifier/1t.png\" alt=\"$(discReadConf name "$kind" "$identifier"): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
+            local thumbnailPrefix=""
+            local thumbnailSuffix="t"
+            local artcountValue="$(discReadConf artcount "$kind" "$identifier")"
+            if [[ "${value: -1}" == "t" ]]; then
+                thumbnailPrefix="t"
+                thumbnailSuffix=""
+            fi
+            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(discReadConf name "$kind" "$identifier"): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
             return
         fi
     fi
