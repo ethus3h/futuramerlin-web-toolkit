@@ -329,8 +329,12 @@ listItem() {
     fi
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
+            local buildFeaturedArgument=""
+            if [[ "$kind" == "release" ]]; then
+                buildFeaturedArgument="--build-featured"
+            fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")" "$buildFeaturedArgument"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -809,6 +813,10 @@ buildPage() {
     discogDebug "Building page $pageTitle in $(pwd): $destinationFile.htm"
     local pageBreadcrumbs="$3"
     local pageContent="$4"
+    local buildFeaturedArgument="$5"
+    if [[ "$buildFeaturedArgument" == "--build-featured" ]]; then
+        cp "$assets/featured-template.htm" "../featured.htm" || die
+    fi
     cp "$assets/template.htm" "$destinationFile.htm" || die
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
     ereplace "@BREADCRUMBS@" "$pageBreadcrumbs" "$destinationFile.htm"
