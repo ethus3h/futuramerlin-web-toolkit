@@ -346,7 +346,7 @@ listItem() {
                 rm "../featured.htm.content.tmp"
             fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")" "$buildFeaturedArgument"
+            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -769,7 +769,8 @@ buildLeafContents() {
         if [[ "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
             local thumbnailPrefix=""
             local thumbnailSuffix="t"
-            local artcountValue="$(discReadConf artworkcount "$kind" "$identifier")"
+            local artcountValue
+            artcountValue="$(discReadConf artworkcount "$kind" "$identifier")"
             if [[ "${artcountValue: -1}" == "t" ]]; then
                 thumbnailPrefix="t"
                 thumbnailSuffix=""
