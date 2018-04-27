@@ -719,12 +719,11 @@ buildInfoTable() {
                 fi
                 if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
                     if [[ "$key" == '* Tracks *' ]]; then
-                        print $'\n'
+                        print $'\na'
                     fi
                     if [[ "$key" == 'date' ]]; then
                         local shortDateValue
                         shortDateValue=$(discReadConf shortDate "$kind" "$identifier")
-                        echo "Date $shortDateValue." 1>&2
                         if [[ -n "$shortDateValue" ]]; then
                             continue
                         fi
