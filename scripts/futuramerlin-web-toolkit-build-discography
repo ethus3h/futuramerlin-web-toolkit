@@ -335,7 +335,9 @@ listItem() {
                 ereplace "@BREADCRUMBS@" "$(getBreadcrumbs "$kind")" "../featured.htm"
             fi
             if [[ "$kind" == "release" ]]; then
-                
+                "$(buildLeafContents --featured-navigation-link "$kind" "$identifier")" >> "../featured.htm.navigation"
+                "$(buildLeafContents --featured-navigation-link "$kind" "$identifier")" >> "../featured.htm.content"
+            fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
             buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")" "$buildFeaturedArgument"
         fi
