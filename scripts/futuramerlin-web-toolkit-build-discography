@@ -815,7 +815,8 @@ buildPage() {
     local pageContent="$4"
     local buildFeaturedArgument="$5"
     if [[ "$buildFeaturedArgument" == "--build-featured" ]]; then
-        cp "$assets/featured-template.htm" "../featured.htm" || die
+        cp "$assets/featured-template-head.htm" "../featured.htm" || die
+        
     fi
     cp "$assets/template.htm" "$destinationFile.htm" || die
     ereplace "@TITLE@" "$pageTitle" "$destinationFile.htm"
