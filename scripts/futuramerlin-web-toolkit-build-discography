@@ -669,7 +669,7 @@ buildInfoTable() {
             local key="${line%%,*}"
             if [[ -n "$key" ]]; then
                 if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
-                    if [[ "$key" != "name" ]]; then
+                    if ( [[ "$key" != "artworkcount" ]] && [[ "$key" != "shortDate" ]] && [[ "$key" != "date" ]] && [[ "$key" != "duration" ]] && [[ "$key" != "label" ]] && [[ "$key" != "tracks" ]] ); then
                         continue
                     fi
                 fi
