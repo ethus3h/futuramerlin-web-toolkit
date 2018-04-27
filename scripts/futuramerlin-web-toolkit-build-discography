@@ -698,6 +698,10 @@ buildLeafContents() {
         if [[ "$(discReadConf featured "$kind" "$identifier")" != "true" ]]; then
             return
         fi
+        if [[ "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
+            
+            return
+        fi
     fi
 
     local disambig
