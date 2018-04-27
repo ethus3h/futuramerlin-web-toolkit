@@ -337,7 +337,9 @@ listItem() {
             if [[ "$kind" == "release" ]]; then
                 buildLeafContents --featured-navigation-link "$kind" "$identifier" >> "../featured.htm.navigation"
                 buildLeafContents --featured-content "$kind" "$identifier" > "../featured.htm.content.tmp"
-                ereplace '\\' '\\' "../featured.htm.content.tmp"
+                # FIXME: Workaround for a bug(?) in ereplace
+                # ereplace '\' '\\' "../featured.htm.content.tmp"
+                perl -0777 -p -i -e 's/\\/\\/g' "$3"
                 ereplace $'\n' '\n' "../featured.htm.content.tmp"
                 print $'\n' >> "../featured.htm.content.tmp"
                 cat "../featured.htm.content.tmp" >> "../featured.htm.content"
