@@ -875,13 +875,6 @@ buildCategory() {
                 cd "$itemKindFolderName" || die
                 identifierCategoryName="$itemKindFolderName"
                 buildPage "index" "${identifierCategoryName^}" "$(getBreadcrumbs "$kind")" "$(buildList "$identifier")"
-                if [[ "$identifier" == "release" ]]; then
-                    # Finish featured releases page
-                    tac "featured.htm.navigation" >> "featured.htm"
-                    tac "featured.htm.content" > "featured.htm.content.tmp"
-                    rm "featured.htm.content" "featured.htm.navigation"
-                    cat "$assets/featured-template-tail.htm" >> "featured.htm"
-                fi
             )
             ;;
         *)
@@ -891,6 +884,12 @@ buildCategory() {
 }
 
 buildCategory "index"
+
+# Finish featured releases page
+tac "featured.htm.navigation" >> "featured.htm"
+tac "featured.htm.content" > "featured.htm.content.tmp"
+rm "featured.htm.content" "featured.htm.navigation"
+cat "$assets/featured-template-tail.htm" >> "featured.htm"
 
 rm "${trackCounterFile:?}"
 rm "${closingTagFile:?}"
