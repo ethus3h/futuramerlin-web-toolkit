@@ -575,10 +575,10 @@ traitToHtm() {
             local nameColumn=""
             local extraColumns=""
             if [[ "$outputMode" != "featured-content" ]]; then
-                nameColumn="$(preadconf name "$workPrefix.conf")"
+                nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
                 extraColumns="<td>$(preadconf instrumentation "$workPrefix.conf")</td>"
             else
-                nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
+                nameColumn="$(preadconf name "$workPrefix.conf")"
             fi
             print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
