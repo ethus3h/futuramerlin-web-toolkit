@@ -1,0 +1,25 @@
+<h1 class="title">@TITLE@</h1>
+
+<p class="breadcrumbs">Page location:
+@BREADCRUMBS@
+</p>
+
+<style type="text/css">
+    body > main {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+    main #toc {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    function toggle(id) {
+        [].forEach.call(document.getElementsByClassName('musicbig'), elem => { elem.style.display='none' });
+        document.getElementById(id).style.display='block'
+    }
+</script>
+
+<div id="musicwrapper">
