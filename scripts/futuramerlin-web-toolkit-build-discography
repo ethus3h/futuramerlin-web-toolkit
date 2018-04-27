@@ -691,9 +691,6 @@ buildLeafContents() {
         leafContentsBuildRequestType="featured-content"
         shift
     fi
-    if [[ "$leafContentsBuildRequestType" == "featured-content" || "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
-        set -x
-    fi
     local kind="$1"
     local identifier="$2"
 
@@ -737,9 +734,6 @@ buildLeafContents() {
             done
             print "</ul>"
         )
-    fi
-    if [[ "$leafContentsBuildRequestType" == "featured-content" || "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
-        set +x
     fi
 }
 
