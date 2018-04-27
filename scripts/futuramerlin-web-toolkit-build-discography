@@ -601,6 +601,12 @@ traitToHtm() {
         release)
             simpleReference "$key" release "$value"
             ;;
+        date)
+            if [[ "$outputMode" == "featured-content" ]]; then
+                true
+            fi
+            simpleMetadata "$(keyToLabel "$key")" "$value"
+            ;;
         shortDate)
             true
             ;;
@@ -787,7 +793,7 @@ buildLeafContents() {
     fi
 
     if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
-        buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed -En 's/^/            /p'
+        buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed -En 's/^(.+)$/            $1/p'
     else
         buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType"
     fi
