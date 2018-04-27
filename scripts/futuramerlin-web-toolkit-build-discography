@@ -793,7 +793,7 @@ buildLeafContents() {
     fi
 
     if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
-        buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed -En 's/^(.+)$/            $1/p'
+        buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed -En 's/^(.+)$/            \1/p'
     else
         buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType"
     fi
