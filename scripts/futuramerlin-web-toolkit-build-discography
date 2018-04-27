@@ -683,7 +683,6 @@ buildInfoTable() {
 }
 
 buildLeafContents() {
-    set -x
     leafContentsBuildRequestType="normal"
     if [[ "$1" == "--featured-navigation-link" ]]; then
         leafContentsBuildRequestType="featured-navigation-link"
@@ -691,6 +690,9 @@ buildLeafContents() {
     elif [[ "$1" == "--featured-content" ]]; then
         leafContentsBuildRequestType="featured-content"
         shift
+    fi
+    if [[ "$leafContentsBuildRequestType" == "featured-content" || "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
+        set -x
     fi
     local kind="$1"
     local identifier="$2"
@@ -736,7 +738,9 @@ buildLeafContents() {
             print "</ul>"
         )
     fi
-    set +x
+    if [[ "$leafContentsBuildRequestType" == "featured-content" || "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
+        set +x
+    fi
 }
 
 listRecursive() {
