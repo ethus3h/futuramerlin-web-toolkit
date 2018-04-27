@@ -702,7 +702,7 @@ buildLeafContents() {
             return
         fi
         if [[ "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
-            print "        <img src=\"releases/$identifier/1t.png\" alt=\"$(discReadConf name "$kind" "$identifier"): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"
+            print "        <img src=\"releases/$identifier/1t.png\" alt=\"$(discReadConf name "$kind" "$identifier"): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
             return
         fi
     fi
@@ -861,7 +861,13 @@ buildCategory() {
                 cd "$itemKindFolderName" || die
                 identifierCategoryName="$itemKindFolderName"
                 buildPage "index" "${identifierCategoryName^}" "$(getBreadcrumbs "$kind")" "$(buildList "$identifier")"
-                #if [[ "$identifier" ]]
+                if [[ "$identifier" == "release" ]]; then
+                    # Finish featured releases page
+                    tac "featured.htm.navigation" >> "featured.htm"
+                    tac "featured.htm.content" > "featured.htm.content.tmp"
+                    rm "featured.htm.content" "featured.htm.navigation"
+                    cat "$assets/featured-template-tail.htm" >> "featured.htm"
+                fi
             )
             ;;
         *)
