@@ -721,24 +721,18 @@ buildLeafContents() {
             return
         fi
     fi
-    local disambig
-    disambig="$(discReadConf disambig "$kind" "$identifier")"
     if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
-        if [[ -n "$disambig" ]]; then
-            disambig=" <span class=\"disambiguation-note\">($disambig)</span>"
-        else
-            disambig=""
-        fi
         print "        <div class=\"musicbig\" id=\"$identifier\">"$'\n'"            <h2>$(discReadConf name "$kind" "$identifier")</h2>"
-    else
-        if [[ -n "$disambig" ]]; then
-            disambig="<p><strong>($disambig)</strong></p>"
-        else
-            disambig=""
-        fi
-        print "$disambig"$'\n\n'
     fi
 
+    local disambig
+    disambig="$(discReadConf disambig "$kind" "$identifier")"
+    if [[ -n "$disambig" ]]; then
+        disambig="<p><strong>($disambig)</strong></p>"
+    else
+        disambig=""
+    fi
+    print "$disambig"$'\n\n'
 
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
