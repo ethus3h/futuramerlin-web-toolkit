@@ -330,17 +330,13 @@ listItem() {
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
             if [[ "$kind" == "kind" && "$identifier" == "release" ]]; then
-                set -x
                 cp "$assets/featured-template-head.htm" "../featured.htm" || die
                 ereplace "@TITLE@" "Featured $(getItemName "$kind" "$identifier")" "../featured.htm"
                 ereplace "@BREADCRUMBS@" "$(getBreadcrumbs "$kind")" "../featured.htm"
-                set +x
             fi
             if [[ "$kind" == "release" ]]; then
-                set -x
-                "$(buildLeafContents --featured-navigation-link "$kind" "$identifier")" >> "../featured.htm.navigation"
-                "$(buildLeafContents --featured-content "$kind" "$identifier")" >> "../featured.htm.content"
-                set +x
+                buildLeafContents --featured-navigation-link "$kind" "$identifier" >> "../featured.htm.navigation"
+                buildLeafContents --featured-content "$kind" "$identifier" >> "../featured.htm.content"
             fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
             buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")" "$buildFeaturedArgument"
