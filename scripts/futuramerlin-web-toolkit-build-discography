@@ -650,7 +650,7 @@ traitToHtm() {
             setTrackCounter "0"
             local extraColumnsHeader="<th>Instrumentation</th>"
             if [[ "$outputMode" == "featured-content" ]]; then
-                print $'\n'
+                print $'\n\n'
                 extraColumnsHeader=""
             else
                 print $'\n\n'"<h2>Track listing</h2>"
