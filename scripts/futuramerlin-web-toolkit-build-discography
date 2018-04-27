@@ -713,14 +713,15 @@ buildInfoTable() {
                     fi
                 fi
                 if [[ "$foundInfo" != "true" ]]; then
-                    setClosingTag "</dl>"
+                    if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
+                        setClosingTag "</dl>"$'\n'
+                    else
+                        setClosingTag "</dl>"
+                    fi
                     foundInfo="true"
                     print '<dl>'
                 fi
                 if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
-                    if [[ "$key" == '* Tracks *' ]]; then
-                        print $'\na'
-                    fi
                     if [[ "$key" == 'date' ]]; then
                         local shortDateValue
                         shortDateValue=$(discReadConf shortDate "$kind" "$identifier")
