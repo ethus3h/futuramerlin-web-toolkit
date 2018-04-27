@@ -405,6 +405,9 @@ keyToLabel() {
         dateBegun)
             print "Date begun"
             ;;
+        shortDate)
+            print "Date"
+            ;;
         artworkcount)
             print "Artwork"
             ;;
@@ -721,6 +724,7 @@ buildInfoTable() {
                     if [[ "$key" == 'date' ]]; then
                         local shortDateHtm
                         shortDateHtm="$(traitToHtm "$kind" "$identifier" "shortDate" "$value" "$infoTableBuildRequestType")"
+                        echo "Date $shortDateHtm." 1>&2
                         if [[ -n "$shortDateHtm" ]]; then
                             continue
                         fi
