@@ -683,6 +683,7 @@ buildInfoTable() {
 }
 
 buildLeafContents() {
+    set -x
     leafContentsBuildRequestType="normal"
     if [[ "$1" == "--featured-navigation-link" ]]; then
         leafContentsBuildRequestType="featured-navigation-link"
@@ -735,6 +736,7 @@ buildLeafContents() {
             print "</ul>"
         )
     fi
+    set +x
 }
 
 listRecursive() {
