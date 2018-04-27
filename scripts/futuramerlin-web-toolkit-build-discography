@@ -572,11 +572,15 @@ traitToHtm() {
             local workPrefix
             workPrefix="$(getRelativeDiscographyDir)works/$work/$subWork"
             #discogDebug "Called preadconf name ""$workPrefix.conf"", got $(preadconf name "$workPrefix.conf")"
+            local nameColumn=""
             local extraColumns=""
             if [[ "$outputMode" != "featured-content" ]]; then
+                nameColumn="$(preadconf name "$workPrefix.conf")"
                 extraColumns="<td>$(preadconf instrumentation "$workPrefix.conf")</td>"
+            else
+                nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
             fi
-            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td><a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a></td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
+            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
         medium)
             simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
