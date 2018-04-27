@@ -722,10 +722,10 @@ buildInfoTable() {
                         print $'\n'
                     fi
                     if [[ "$key" == 'date' ]]; then
-                        local shortDateHtm
-                        shortDateHtm="$(traitToHtm "$kind" "$identifier" "shortDate" "$value" "$infoTableBuildRequestType")"
-                        echo "Date $shortDateHtm." 1>&2
-                        if [[ -n "$shortDateHtm" ]]; then
+                        local shortDateValue
+                        shortDateValue=$(discReadConf shortDate "$kind" "$identifier")
+                        echo "Date $shortDateValue." 1>&2
+                        if [[ -n "$shortDateValue" ]]; then
                             continue
                         fi
                     fi
