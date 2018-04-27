@@ -19,7 +19,11 @@ echo "Working on page: $Page"
 rm -rf "../../built/$1"
 mkdir -p "../../built/$1"
 rm -rf "../../built/$1"
-cp "../assets/1_start.html" "../../built/$1"
+if [[ -e "../../.futuramerlin-web-toolkit/start-override.htm" ]]; then
+    cp "../../.futuramerlin-web-toolkit/start-override.htm" "../../built/$1"
+else
+    cp "../assets/1_start.html" "../../built/$1"
+fi
 ereplace "@FMWTK_VERSION@" "$futuramerlinWebToolkitVersion" "../../built/$1"
 cat "../content/$1" >> "../../built/$1"
 cat "../assets/2_end.html" >> "../../built/$1"
