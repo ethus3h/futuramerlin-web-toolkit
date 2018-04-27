@@ -699,7 +699,7 @@ buildLeafContents() {
             return
         fi
         if [[ "$leafContentsBuildRequestType" == "featured-navigation-link" ]]; then
-            print "        <img src=\"releases/industrysapphire/1t.png\" alt=\"industry / sapphire / industry: album artwork\" width=\"150\" onclick=\"toggle('industrysapphire')\" class=\"musicthumb\" />"
+            print "        <img src=\"releases/$identifier/1t.png\" alt=\"$(discReadConf name "$kind" "$identifier"): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"
             return
         fi
     fi
