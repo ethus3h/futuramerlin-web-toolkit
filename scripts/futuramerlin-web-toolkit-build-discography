@@ -711,7 +711,7 @@ buildInfoTable() {
                         continue
                     fi
                     if [[ "$key" == '* Tracks *' ]]; then
-                        print $'\n'
+                        print $'\nACGBIMUCUECh'
                     fi
                 fi
                 if [[ "$foundInfo" != "true" ]]; then
