@@ -783,6 +783,7 @@ buildList() {
     case "$kind" in
     kind)
         itemList=""
+        itemList="$itemList"$'\n'"    <li><a href=\"./featured.htm\">Featured Releases</a></li>"
         indexItems=(artist label release work broadcast press session file)
         for item in "${indexItems[@]}"; do
             if [[ -e "$(getKindFolderName "$item")" ]]; then
