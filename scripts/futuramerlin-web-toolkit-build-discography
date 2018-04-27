@@ -642,13 +642,19 @@ traitToHtm() {
         "* Tracks *")
             closeCurrentSection
             setTrackCounter "0"
+            local extraColumnsHeader="<th>Instrumentation</th>"
             if [[ "$outputMode" == "featured-content" ]]; then
-                print $'\n\n'
+                print $'\n'
+                extraColumnsHeader=""
             else
                 print $'\n\n'"<h2>Track listing</h2>"
             fi
-            print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th><th>Instrumentation</th></tr></thead>"$'\n    '"<tbody>"
-            setClosingTag "    </tbody>"$'\n'"</table>"$'\n\n''<script src="/discography-dist/player.js"></script>'
+            print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
+            local newClosingTagSuffix=""
+            if [[ "$outputMode" == "featured-content" ]]; then
+            newClosingTagSuffix=$'\n''<script src="/discography-dist/player.js"></script>'
+            fi
+            setClosingTag "    </tbody>"$'\n'"</table>"$'\n'"$newClosingTagSuffix"
             ;;
         mbid)
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
