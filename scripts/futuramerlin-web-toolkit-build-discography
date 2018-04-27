@@ -380,9 +380,9 @@ simpleIaUrl() {
 }
 
 simpleIaImage() {
-    local isFeaturedContentPage="false"
+    local isFeaturedContentInsert=""
     if [[ "$1" == "--featured-content-page" ]]; then
-        isFeaturedContentPage="true"
+        isFeaturedContentInsert="releases/"
         shift
     fi
     local kind="$1"
@@ -397,7 +397,7 @@ simpleIaImage() {
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$identifier/$thumbnailName.png\" alt=\"$relname: album artwork\" width=\"150\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$relname: album artwork\" width=\"150\" /></a>"
 }
 
 keyToLabel() {
