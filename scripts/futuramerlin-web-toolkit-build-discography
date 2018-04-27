@@ -897,7 +897,7 @@ buildCategory "index"
 # Finish featured releases page
 print '    <div id="musicthumbnails">'$'\n' >> "featured.htm"
 tac "featured.htm.navigation" >> "featured.htm"
-print '    </div>'$'\n\n''    <div id="musiccontents">'$'\n''        <div class="musicbig" id="intro">'$'\n''            <h2>Music</h2>'$'\n''            <p class="mdate">Choose a release from the column to the left.<br /><br /><!-- TODO: put demo video here? --></p>'$'\n''        </div>' >> "featured.htm"
+print '    </div>'$'\n\n''    <div id="musiccontents">'$'\n''        <div class="musicbig" id="intro">'$'\n''            <h2>Music</h2>'$'\n''            <p class="mdate">Choose a release from the column to the left.<br /><br /><!-- TODO: put demo video here? --></p>'$'\n''        </div>'$'\n' >> "featured.htm"
 tac "featured.htm.content" > "featured.htm.content.tmp"
 ereplace '\n' $'\n' "featured.htm.content.tmp"
 cat "featured.htm.content.tmp" >> "featured.htm"
