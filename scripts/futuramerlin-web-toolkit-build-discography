@@ -650,12 +650,12 @@ traitToHtm() {
             setTrackCounter "0"
             local extraColumnsHeader="<th>Instrumentation</th>"
             if [[ "$outputMode" == "featured-content" ]]; then
-                print $'\n\n\n'
+                print $'\n'
                 extraColumnsHeader=""
             else
                 print $'\n\n'"<h2>Track listing</h2>"
             fi
-            print $'\n\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
+            print $'\n\n\n\n\n\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
             local newClosingTagSuffix=""
             if [[ "$outputMode" != "featured-content" ]]; then
                 newClosingTagSuffix=$'\n''<script src="/discography-dist/player.js"></script>'
