@@ -336,7 +336,12 @@ listItem() {
         if [[ "$filtered" != "true" ]]; then
             if [[ "$kind" == "release" ]]; then
                 buildLeafContents --featured-navigation-link "$kind" "$identifier" >> "../featured.htm.navigation"
-                buildLeafContents --featured-content "$kind" "$identifier" >> "../featured.htm.content"
+                buildLeafContents --featured-content "$kind" "$identifier" > "../featured.htm.content.tmp"
+                ereplace '\' '\\' "../featured.htm.content.tmp"
+                ereplace $'\n' '\n' "../featured.htm.content.tmp"
+                print $'\n' >> "../featured.htm.content.tmp"
+                cat "../featured.htm.content.tmp" >> "../featured.htm.content"
+                rm "../featured.htm.content.tmp"
             fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
             buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")" "$buildFeaturedArgument"
