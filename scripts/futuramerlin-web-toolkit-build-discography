@@ -707,11 +707,11 @@ buildInfoTable() {
             local key="${line%%,*}"
             if [[ -n "$key" ]]; then
                 if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
-                    if ( [[ "$key" != "artworkcount" ]] && [[ "$key" != "shortDate" ]] && [[ "$key" != "date" ]] && [[ "$key" != "duration" ]] && [[ "$key" != "label" ]] && [[ "$key" != "* Tracks *" ]] && [[ "$key" != "track" ]] ); then
-                        if [[ "$key" == "* Tracks *" ]]; then
-                            print $'\n'
-                        fi
+                    if ( [[ "$key" != "artworkcount" ]] && [[ "$key" != "shortDate" ]] && [[ "$key" != "date" ]] && [[ "$key" != "duration" ]] && [[ "$key" != "label" ]] && [[ "$key" != '* Tracks *' ]] && [[ "$key" != "track" ]] ); then
                         continue
+                    fi
+                    if [[ "$key" == '* Tracks *' ]]; then
+                        print $'\n'
                     fi
                 fi
                 if [[ "$foundInfo" != "true" ]]; then
