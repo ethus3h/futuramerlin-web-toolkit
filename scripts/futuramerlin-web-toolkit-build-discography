@@ -328,9 +328,9 @@ listItem() {
         fi
     fi
     if [[ "$kind" == "kind" && "$identifier" == "release" ]]; then
-        cp "$assets/featured-template-head.htm" "../featured.htm" || die
-        ereplace "@TITLE@" "Featured $(getItemName "$kind" "$identifier")" "../featured.htm"
-        ereplace "@BREADCRUMBS@" "$(getBreadcrumbs "$kind")" "../featured.htm"
+        cp "$assets/featured-template-head.htm" "featured.htm" || die
+        ereplace "@TITLE@" "Featured $(getItemName "$kind" "$identifier")" "featured.htm"
+        ereplace "@BREADCRUMBS@" "$(getBreadcrumbs "$kind")" "featured.htm"
     fi
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
