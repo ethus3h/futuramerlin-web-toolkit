@@ -380,6 +380,11 @@ simpleIaUrl() {
 }
 
 simpleIaImage() {
+    local isFeaturedContentPage="false"
+    if [[ "$1" == "--featured-content-page" ]]; then
+        isFeaturedContentPage="true"
+        shift
+    fi
     local kind="$1"
     local identifier="$2"
     local iafilename="$3"
@@ -549,7 +554,11 @@ traitToHtm() {
             simpleMetadata "$(keyToLabel "$key")" "$(
                 local end="$artcountValue"
                 for (( i=1; i<=end; i++ )); do
-                    simpleIaImage "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                    if [[ "$outputMode" == "featured-content" ]]; then
+                        simpleIaImage --featured-content-page "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                    else
+                        simpleIaImage "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                    fi
                     [[ "$i" != "$end" ]] && print ' '
                 done
             )"
@@ -761,7 +770,7 @@ buildLeafContents() {
     fi
 
     if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
-        print "        </div>"$'\n'
+        print $'\n'"        </div>"$'\n'
         return
     fi
 
