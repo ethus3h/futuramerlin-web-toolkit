@@ -683,7 +683,7 @@ buildInfoTable() {
 }
 
 buildLeafContents() {
-    leafContentsBuildRequestType="normal"
+    local leafContentsBuildRequestType="normal"
     if [[ "$1" == "--featured-navigation-link" ]]; then
         leafContentsBuildRequestType="featured-navigation-link"
         shift
@@ -693,6 +693,12 @@ buildLeafContents() {
     fi
     local kind="$1"
     local identifier="$2"
+
+    if [[ "$leafContentsBuildRequestType" == "featured-navigation-link" || "$leafContentsBuildRequestType" == "featured-content" ]]; then
+        if [[ "$(discReadConf featured "$kind" "$identifier")" != "true" ]]; then
+            return
+        fi
+    fi
 
     local disambig
     disambig="$(discReadConf disambig "$kind" "$identifier")"
