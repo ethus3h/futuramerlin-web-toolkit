@@ -710,14 +710,22 @@ buildInfoTable() {
                     if ( [[ "$key" != "artworkcount" ]] && [[ "$key" != "shortDate" ]] && [[ "$key" != "date" ]] && [[ "$key" != "duration" ]] && [[ "$key" != "label" ]] && [[ "$key" != '* Tracks *' ]] && [[ "$key" != "track" ]] ); then
                         continue
                     fi
-                    if [[ "$key" == '* Tracks *' ]]; then
-                        print $'\nACGBIMUCUECh'
-                    fi
                 fi
                 if [[ "$foundInfo" != "true" ]]; then
                     setClosingTag "</dl>"
                     foundInfo="true"
                     print '<dl>'
+                fi
+                if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
+                    if [[ "$key" == '* Tracks *' ]]; then
+                        print $'\n'
+                    fi
+                    if [[ "$key" == 'date' ]]; then
+                        shortDateHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value" "$infoTableBuildRequestType")"
+                        if [[ -n "$shortDateHtm" ]]; then
+                            continue
+                        fi
+                    fi
                 fi
                 local value="${line#*,}"
                 local traitHtm
