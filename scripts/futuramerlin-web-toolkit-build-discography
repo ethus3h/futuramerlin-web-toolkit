@@ -668,6 +668,11 @@ buildInfoTable() {
         if ! [[ "$line" =~ $pattern ]]; then
             local key="${line%%,*}"
             if [[ -n "$key" ]]; then
+                if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
+                    if [[ "$key" != "name" ]]; then
+                        continue
+                    fi
+                fi
                 if [[ "$foundInfo" != "true" ]]; then
                     setClosingTag "</dl>"
                     foundInfo="true"
