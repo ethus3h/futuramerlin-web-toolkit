@@ -601,14 +601,12 @@ traitToHtm() {
         release)
             simpleReference "$key" release "$value"
             ;;
-        date)
+        shortDate)
             if [[ "$outputMode" == "featured-content" ]]; then
+                simpleMetadata "$(keyToLabel "$key")" "$value"
+            else
                 true
             fi
-            simpleMetadata "$(keyToLabel "$key")" "$value"
-            ;;
-        shortDate)
-            true
             ;;
         name)
             true
@@ -721,7 +719,8 @@ buildInfoTable() {
                         print $'\n'
                     fi
                     if [[ "$key" == 'date' ]]; then
-                        shortDateHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value" "$infoTableBuildRequestType")"
+                        local shortDateHtm
+                        shortDateHtm="$(traitToHtm "$kind" "$identifier" "shortDate" "$value" "$infoTableBuildRequestType")"
                         if [[ -n "$shortDateHtm" ]]; then
                             continue
                         fi
