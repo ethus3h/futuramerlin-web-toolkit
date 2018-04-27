@@ -526,6 +526,7 @@ traitToHtm() {
     local identifier="$2"
     local key="$3"
     local value="$4"
+    local outputMode="$5"
     case "$key" in
         file)
             print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
@@ -680,7 +681,7 @@ buildInfoTable() {
                 fi
                 local value="${line#*,}"
                 local traitHtm
-                traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value")"
+                traitHtm="$(traitToHtm "$kind" "$identifier" "$key" "$value" "$infoTableBuildRequestType")"
                 if [[ -n "$traitHtm" ]]; then
                     #discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'"
                     local pattern='^'$'\n''<\/'
@@ -727,7 +728,7 @@ buildLeafContents() {
         fi
     fi
     if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
-        print "        <div class=\"musicbig\" id=\"$identifier\">"$'\n'"            <h2>$(discReadConf name "$kind" "$identifier")</h2>"
+        print "        <div class=\"musicbig\" id=\"$identifier\">"$'\n'"            <h2>$(discReadConf name "$kind" "$identifier")</h2>"$'\n'
     fi
 
     local disambig
@@ -757,6 +758,11 @@ buildLeafContents() {
         buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType" | sed -En 's/^/            /p'
     else
         buildInfoTable "$kind" "$identifier" "$leafContentsBuildRequestType"
+    fi
+
+    if [[ "$leafContentsBuildRequestType" == "featured-content" ]]; then
+        print "        </div>"$'\n'
+        return
     fi
 
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
