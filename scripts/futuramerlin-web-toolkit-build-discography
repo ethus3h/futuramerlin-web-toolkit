@@ -327,13 +327,13 @@ listItem() {
             fi
         fi
     fi
+    if [[ "$kind" == "kind" && "$identifier" == "release" ]]; then
+        cp "$assets/featured-template-head.htm" "../featured.htm" || die
+        ereplace "@TITLE@" "Featured $(getItemName "$kind" "$identifier")" "../featured.htm"
+        ereplace "@BREADCRUMBS@" "$(getBreadcrumbs "$kind")" "../featured.htm"
+    fi
     if [[ "$recursive" == "true" ]]; then
         if [[ "$filtered" != "true" ]]; then
-            if [[ "$kind" == "kind" && "$identifier" == "release" ]]; then
-                cp "$assets/featured-template-head.htm" "../featured.htm" || die
-                ereplace "@TITLE@" "Featured $(getItemName "$kind" "$identifier")" "../featured.htm"
-                ereplace "@BREADCRUMBS@" "$(getBreadcrumbs "$kind")" "../featured.htm"
-            fi
             if [[ "$kind" == "release" ]]; then
                 buildLeafContents --featured-navigation-link "$kind" "$identifier" >> "../featured.htm.navigation"
                 buildLeafContents --featured-content "$kind" "$identifier" >> "../featured.htm.content"
@@ -844,9 +844,11 @@ buildCategory() {
             ;;
         kind)
             (
-                cd "$(getKindFolderName "$identifier")" || die
-                identifierCategoryName="$(getKindFolderName "$item")"
+                itemKindFolderName="$(getKindFolderName "$identifier")"
+                cd "$itemKindFolderName" || die
+                identifierCategoryName="$itemKindFolderName"
                 buildPage "index" "${identifierCategoryName^}" "$(getBreadcrumbs "$kind")" "$(buildList "$identifier")"
+                #if [[ "$identifier" ]]
             )
             ;;
         *)
