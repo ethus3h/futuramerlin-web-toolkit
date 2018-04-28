@@ -97,7 +97,6 @@ function run() {
     newTrackRows[0]=trackRows[0];
     for(let counter=1; counter<trackRows.length; counter++) {
         if (trackRows[counter].parentElement.tagName === "THEAD") {
-            alert("blah");
             continue;
         }
         newTrackRows.push(trackRows[counter]);
