@@ -271,12 +271,11 @@ function reachedEndOfTrack(eventParameter) {
         nextTrack = 1;
     }
     console.log('ski from'+currentTrack+'to'+nextTrack);
-    audioTag.currentTime = 0;
+    currentTrackElement.classList.remove('currentTrack');
     loadTrack(nextTrack);
+    audioTag.currentTime = 0;
     if (audioMainPlayButton.classList.contains('playing')) {
         playTrack(nextTrack);
-    } else {
-        currentTrackElement.classList.remove('currentTrack');
     }
 }
 
