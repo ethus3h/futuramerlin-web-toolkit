@@ -163,11 +163,18 @@
         display: block;
     }
 
+    a.musicthumb {
+        padding: 0.5rem;
+        width: 100%;
+    }
+
     .musicthumb {
         margin: 0.5rem 1rem;
         box-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 1);
         cursor: pointer;
         max-width: 80%;
+        box-sizing: content-box;
+        display: block;
     }
 
     .musicthumb:hover {
@@ -1149,19 +1156,6 @@
     /* Post navigation */
         .post-navigation .nav-next {
             text-align: right;
-        }
-
-    /* Music showcase */
-
-        img.musicthumb {
-            width: 9.375rem;
-            box-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 1);
-            cursor: pointer;
-            box-sizing: content-box;
-        }
-
-        img.musicthumb:hover {
-            border-left: 0.188rem #FFF solid;
         }
 
     /* Site navigation bar */
