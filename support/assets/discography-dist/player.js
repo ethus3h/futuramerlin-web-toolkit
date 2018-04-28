@@ -3,6 +3,7 @@ let newTrackRows = [];
 newTrackRows[0]=oldTrackRows[0];
 for(let counter=1; counter<oldTrackRows.length; counter++) {
     if (oldTrackRows[counter].parentElement.tagName === "THEAD") {
+        alert('fuck you');
         continue;
     }
     newTrackRows.push(oldTrackRows[counter]);
