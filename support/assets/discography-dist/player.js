@@ -270,7 +270,6 @@ function reachedEndOfTrack(eventParameter) {
     if (nextTrack > numberOfTracks) {
         nextTrack = 1;
     }
-    console.log("Skipping from "+currentTrack+" to "+nextTrack);
     audioTag.currentTime = 0;
     if (audioMainPlayButton.classList.contains('playing')) {
         playTrack(nextTrack);
