@@ -397,7 +397,7 @@ simpleIaImage() {
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$relname: album artwork\" width=\"150\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" /></a>"
 }
 
 keyToLabel() {
@@ -775,7 +775,8 @@ buildLeafContents() {
                 thumbnailPrefix="t"
                 thumbnailSuffix=""
             fi
-            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(discReadConf name "$kind" "$identifier"): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
+            local tempName="$(discReadConf name "$kind" "$identifier")"
+            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(htmlToText.pl <<< "$tempName" | normalizeWhitespace): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
             return
         fi
     fi
