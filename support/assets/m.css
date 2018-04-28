@@ -156,7 +156,6 @@
     .musicbig {
         display: none;
         margin: 0.5rem 1rem;
-        overflow-y: scroll;
     }
 
     .musicbig:first-child {
@@ -187,6 +186,7 @@
 
     #musiccontents {
         width: 100%;
+        overflow-x: auto;
     }
 
     #musicthumbnails {
