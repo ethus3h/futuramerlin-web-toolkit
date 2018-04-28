@@ -432,6 +432,9 @@ keyToLabel() {
         artSource)
             print "Artwork production files"
             ;;
+        releaseSource)
+            print "Release production files"
+            ;;
         soundSource)
             print "Music production files"
             ;;
