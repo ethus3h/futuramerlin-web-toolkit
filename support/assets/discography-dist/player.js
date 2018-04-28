@@ -270,6 +270,7 @@ function reachedEndOfTrack(eventParameter) {
     if (nextTrack > numberOfTracks) {
         nextTrack = 1;
     }
+    console.log('ski from'+currentTrack+'to'+nextTrack);
     audioTag.currentTime = 0;
     loadTrack(nextTrack);
     if (audioMainPlayButton.classList.contains('playing')) {
