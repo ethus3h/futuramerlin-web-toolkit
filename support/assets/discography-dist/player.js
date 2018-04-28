@@ -155,7 +155,6 @@ function loadTrack(trackNumber) {
         let rowIndex = 0;
         let trackRowToPlayTemp=trackRowToPlay;
         for (rowIndex; (trackRowToPlayTemp=trackRowToPlayTemp.previousSibling); rowIndex++);
-        rowIndex=rowIndex - 1;
         audioWaveform.src = 'releases/' + name + '/' + rowIndex + 'w.png';
     }
     else {
