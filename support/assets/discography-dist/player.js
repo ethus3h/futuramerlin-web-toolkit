@@ -1,4 +1,4 @@
-let trackRows = document.getElementsByTagName('tr');
+let oldTrackRows = document.getElementsByTagName('tr');
 let newTrackRows = [];
 newTrackRows[0]=trackRows[0];
 for(let counter=1; counter<trackRows.length; counter++) {
@@ -7,7 +7,7 @@ for(let counter=1; counter<trackRows.length; counter++) {
     }
     newTrackRows.push(trackRows[counter]);
 }
-trackRows=newTrackRows;
+let trackRows = newTrackRows;
 
 function formatSecondsAsTime(secs, format) {
     /* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
