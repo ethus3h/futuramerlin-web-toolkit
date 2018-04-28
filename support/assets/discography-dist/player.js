@@ -151,10 +151,12 @@ function loadTrack(trackNumber) {
         /* This is a featured releases page, so get the info from the DOM */
         /*         tr             tbody         table         div */
         let name = trackRowToPlay.parentElement.parentElement.parentElement.id;
-        /* based on https://stackoverflow.com/questions/5913927/get-child-node-index */
         let rowIndex = 0;
-        let trackRowToPlayTemp=trackRowToPlay;
-        for (rowIndex; (trackRowToPlayTemp=trackRowToPlayTemp.previousSibling); rowIndex++);
+        for (let i=0; i<trackRows.length; i++) {
+            if(trackRows[i] === trackRowToPlay) {
+                rowIndex=i;
+            }
+        }
         audioWaveform.src = 'releases/' + name + '/' + rowIndex + 'w.png';
     }
     else {
@@ -177,6 +179,7 @@ function loadTrack(trackNumber) {
     for (let i = 0; i < tagsToCopy.length; i++) {
         audioTag.appendChild(tagsToCopy[i].cloneNode(true));
     }
+    audioTag.load();
     audioTitle.innerHTML = trackRows[trackNumber].getElementsByTagName('td')[2].innerHTML;
 }
 
