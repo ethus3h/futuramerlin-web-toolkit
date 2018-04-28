@@ -139,7 +139,9 @@ function loadTrack(trackNumber) {
     if (document.getElementById('musiccontents')) {
         /* This is a featured releases page, so get the info from the DOM */
         /*         tr             tbody         table         div */
-        let name = trackRowToPlay.parentElement.parentElement.parentElement.id
+        let name = trackRowToPlay.parentElement.parentElement.parentElement.id;
+
+        audioWaveform.src = 'releases/' + name + '/' + trackNumber + 'w.png'
     }
     else {
         /* This is a release page, so get the info from the filename */
