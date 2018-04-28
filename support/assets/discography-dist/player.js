@@ -196,12 +196,12 @@ function clearTrackStatuses() {
         let trackRowToClear = trackRows[i];
         let trackPlayButton = trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
         trackPlayButton.innerHTML = "▶";
-        // if (trackPlayButton.classList.contains('currentTrack')) {
-        //     trackPlayButton.className = 'playButton currentTrack';
-        // }
-        // else {
+        if (trackPlayButton.classList.contains('currentTrack')) {
+            trackPlayButton.className = 'playButton currentTrack';
+        }
+        else {
             trackPlayButton.className = 'playButton';
-        // }
+        }
     }
     audioMainPlayButton.innerHTML = "▶";
 }
@@ -265,6 +265,7 @@ function reachedEndOfTrack(eventParameter) {
             currentTrack = i;
         }
     }
+    currentTrackElement.classList.remove('currentTrack');
     nextTrack = currentTrack + 1;
     numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
