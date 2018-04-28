@@ -152,11 +152,13 @@ function loadTrack(trackNumber) {
         /*         tr             tbody         table         div */
         let name = trackRowToPlay.parentElement.parentElement.parentElement.id;
         let rowIndex = 0;
-        for (let i=0; i<trackRows.length; i++) {
-            if(trackRows[i] === trackRowToPlay) {
-                rowIndex=i;
+        while (rowIndex < trackRowToPlay.parentElement.children.length) {
+            if(trackRowToPlay.parentElement.children[rowIndex] === trackRowToPlay) {
+                break;
             }
+            rowIndex++;
         }
+        rowIndex++;
         audioWaveform.src = 'releases/' + name + '/' + rowIndex + 'w.png';
     }
     else {
