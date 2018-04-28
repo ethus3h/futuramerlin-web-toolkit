@@ -179,6 +179,9 @@ function loadTrack(trackNumber) {
     for (let i = 0; i < tagsToCopy.length; i++) {
         audioTag.appendChild(tagsToCopy[i].cloneNode(true));
     }
+    console.log(trackNumber);
+    console.log(trackRows[trackNumber]);
+    console.log(trackRows[trackNumber].getElementsByTagName('td')[2]);
     audioTitle.innerHTML = trackRows[trackNumber].getElementsByTagName('td')[2].innerHTML;
 }
 
@@ -228,9 +231,6 @@ function pauseTrack(trackNumber) {
 function playTrackFromTrackButton(trackClickedElement) {
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
-        console.log(i);
-        console.log(trackRows[i]);
-        console.log(trackRows[i].getElementsByTagName('td')[1]);
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement) {
             playTrack(i);
         }
