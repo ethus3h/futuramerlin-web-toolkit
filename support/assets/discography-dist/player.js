@@ -219,6 +219,7 @@ function syncPlayLabel() {
 }
 
 function playTrack(trackNumber) {
+    console.log('playiing'+trackNumber);
     loadTrack(trackNumber);
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     audioTag.play();
@@ -272,10 +273,12 @@ function reachedEndOfTrack(eventParameter) {
     }
     console.log('ski from'+currentTrack+'to'+nextTrack);
     currentTrackElement.classList.remove('currentTrack');
-    loadTrack(nextTrack);
     audioTag.currentTime = 0;
     if (audioMainPlayButton.classList.contains('playing')) {
         playTrack(nextTrack);
+    }
+    else {
+        loadTrack(nextTrack);
     }
 }
 
