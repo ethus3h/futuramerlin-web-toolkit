@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
-set -x
+#set -x
 
 ((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
@@ -51,6 +51,7 @@ title="$(cat ../../built/4.tmp)"
 echo "Title: $title"
 if [[ -n "$title" ]]; then
     ereplace "<title>@FMWTK_SITE_NAME@</title>" "<title>$(htmlToText.pl <<< "$title" | normalizeWhitespace) &mdash; @FMWTK_SITE_NAME@</title>" "../../built/$1"
+    head "../../built/$1"
 fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
