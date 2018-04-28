@@ -104,8 +104,6 @@ audioVolume.style.transform = 'rotate(270deg)';
 
 document.body.insertBefore(audioContainer, document.body.firstChild);
 
-loadTrack(1);
-
 function convertRemToPixels(rem) {
     /* from https://stackoverflow.com/questions/36532307/rem-px-in-javascript */
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
@@ -296,3 +294,5 @@ for (let i = 1; i < trackRows.length; i++) {
     };
     trackAudioCell.insertBefore(trackPlayButton, trackAudioCell.firstChild);
 }
+
+loadTrack(1);
