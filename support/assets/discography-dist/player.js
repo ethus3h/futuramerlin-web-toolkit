@@ -274,7 +274,7 @@ function reachedEndOfTrack(eventParameter) {
     console.log('ski from'+currentTrack+'to'+nextTrack);
     currentTrackElement.classList.remove('currentTrack');
     audioTag.currentTime = 0;
-    if (audioMainPlayButton.classList.contains('playing')) {
+    if (currentTrackElement.classList.contains('playing')) {
         playTrack(nextTrack);
     }
     else {
