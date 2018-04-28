@@ -51,7 +51,7 @@ ereplaceRegEx '\s+$' '' "../../built/4.tmp"
 title="$(cat ../../built/4.tmp)"
 echo "Title: $title"
 if [[ -n "$title" ]]; then
-    ereplace "<title>@FMWTK_SITE_NAME@</title>" "<title>$title &mdash; @FMWTK_SITE_NAME@</title>" "../../built/$1"
+    ereplace "<title>@FMWTK_SITE_NAME@</title>" "<title>$(htmlToText.pl <<< "$title" | normalizeWhitespace) &mdash; @FMWTK_SITE_NAME@</title>" "../../built/$1"
 fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"

@@ -208,7 +208,7 @@ linkToItem() {
         # m.png = 50px; t.png = 150px
         picturePathName="$(getItemPath "$kind" "$identifier")/m.png"
         if [[ -e "$picturePathName" ]]; then
-            picture="<img src=\"$picturePathName\" alt=\"$name: $pictureType thumbnail image\" width=\"50\" />"
+            picture="<img src=\"$picturePathName\" alt=\"$(htmlToText.pl <<< "$name" | normalizeWhitespace): $pictureType thumbnail image\" width=\"50\" />"
             if [[ "$artistNameInsert" == "" ]]; then
                 artistNameInsert=" "
             fi
