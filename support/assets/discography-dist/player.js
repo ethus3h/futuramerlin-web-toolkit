@@ -144,7 +144,6 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 function loadTrack(trackNumber) {
     currentTrack = trackNumber;
     let trackRowToPlay = trackRows[trackNumber];
-    console.log(trackRowToPlay);
     let trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     if (trackPlayButton.classList.contains('playing')) {
         trackPlayButton.className = 'playButton playing currentTrack';
