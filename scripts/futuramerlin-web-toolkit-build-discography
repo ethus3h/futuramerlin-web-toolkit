@@ -967,7 +967,7 @@ buildCategory "index"
 # Finish featured releases page
 print '    <div id="musicthumbnails">'$'\n''        <a href="javascript:toggle('\''musicintro'\'')">Introduction</a>'$'\n' >> "featured.htm"
 tac "featured.htm.navigation" >> "featured.htm"
-print '    </div>'$'\n\n''    <div id="musiccontents">'$'\n''        <div class="musicbig" id="musicintro">'$'\n''            <h2>Music</h2>'$'\n''            <p class="mdate">Choose a release from the column to the left.<br /><br /><!-- TODO: put demo video here? --></p>'$'\n''        </div>'$'\n' >> "featured.htm"
+print '    </div>'$'\n\n''    <div id="musiccontents">'$'\n''        <div class="musicbig" id="musicintro">'$'\n''            <h2>Music</h2>'$'\n''            <p class="mdate">Choose a release from the column to the left, or <a href="releases">see all the releases instead of only featured releases</a>.<br /><br /><!-- TODO: put demo video here? --></p>'$'\n''        </div>'$'\n' >> "featured.htm"
 tac "featured.htm.content" > "featured.htm.content.tmp"
 ereplace '\n' $'\n' "featured.htm.content.tmp"
 ereplace '            <!-- futuramerlin-web-toolkit insert to preserve newline during processing -->' '' "featured.htm.content.tmp"
