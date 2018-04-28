@@ -272,6 +272,7 @@ function reachedEndOfTrack(eventParameter) {
     }
     audioTag.currentTime = 0;
     if (audioMainPlayButton.classList.contains('playing')) {
+        loadTrack(nextTrack);
         playTrack(nextTrack);
     } else {
         currentTrackElement.classList.remove('currentTrack');
