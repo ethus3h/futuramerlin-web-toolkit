@@ -227,7 +227,6 @@ function pauseTrack(trackNumber) {
 }
 
 function playTrackFromTrackButton(trackClickedElement) {
-    let trackRows = document.getElementsByTagName('tr');
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
         console.log(i);
@@ -241,7 +240,6 @@ function playTrackFromTrackButton(trackClickedElement) {
 }
 
 function pauseTrackFromTrackButton(trackClickedElement) {
-    let trackRows = document.getElementsByTagName('tr');
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement) {
@@ -254,7 +252,6 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 function reachedEndOfTrack(eventParameter) {
     currentTrackElement = document.getElementsByClassName('playing')[0];
     let currentTrack = 0;
-    let trackRows = document.getElementsByTagName('tr');
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === currentTrackElement) {
