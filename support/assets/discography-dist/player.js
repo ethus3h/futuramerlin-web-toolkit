@@ -178,9 +178,6 @@ function loadTrack(trackNumber) {
     for (let i = 0; i < tagsToCopy.length; i++) {
         audioTag.appendChild(tagsToCopy[i].cloneNode(true));
     }
-    console.log(trackNumber);
-    console.log(trackRows[trackNumber]);
-    console.log(trackRows[trackNumber].getElementsByTagName('td')[2]);
     audioTitle.innerHTML = trackRows[trackNumber].getElementsByTagName('td')[2].innerHTML;
 }
 
@@ -220,7 +217,7 @@ function pauseTrack(trackNumber) {
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     audioTag.pause();
     clearTrackStatuses();
-    document.getElementsByTagName('tr')[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
+    trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
         playTrackFromTrackButton(this);
     };
 }
@@ -255,7 +252,7 @@ function reachedEndOfTrack(eventParameter) {
         }
     }
     nextTrack = currentTrack + 1;
-    numberOfTracks = document.getElementsByTagName('tr').length - 1;
+    numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
         nextTrack = 1;
     }
