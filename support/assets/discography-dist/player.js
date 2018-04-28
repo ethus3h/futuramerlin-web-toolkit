@@ -134,12 +134,17 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 function loadTrack(trackNumber) {
     currentTrack = trackNumber;
     /* Figure out what the relative file name is of the waveform file */
-    // based on https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
-    let path = window.location.pathname;
-    let file = path.split("/").pop();
-    let name = file.split(".").shift();
+    if document.getElementById('musiccontents') {
+        
+    }
+    else {
+        // based on https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
+        let path = window.location.pathname;
+        let file = path.split("/").pop();
+        let name = file.split(".").shift();
 
-    audioWaveform.src = name + '/' + trackNumber + 'w.png'
+        audioWaveform.src = name + '/' + trackNumber + 'w.png'
+    }
     let trackRows = document.getElementsByTagName('tr');
     let trackRowToPlay = trackRows[trackNumber];
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
