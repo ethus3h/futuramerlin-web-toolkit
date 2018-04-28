@@ -142,10 +142,8 @@ function loadTrack(trackNumber) {
         let name = trackRowToPlay.parentElement.parentElement.parentElement.id;
         /* based on https://stackoverflow.com/questions/5913927/get-child-node-index */
         let rowIndex = 0;
-        while( (trackRowToPlay = trackRowToPlay.previousSibling) != null ) {
-            rowIndex++;
-        }
-        audioWaveform.src = 'releases/' + name + '/' + trackNumber + 'w.png'
+        for (rowIndex=0; (trackRowToPlay=trackRowToPlay.previousSibling); rowIndex++);
+        audioWaveform.src = 'releases/' + name + '/' + rowIndex + 'w.png'
     }
     else {
         /* This is a release page, so get the info from the filename */
