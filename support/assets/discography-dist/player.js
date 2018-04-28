@@ -95,7 +95,7 @@ let trackRows = document.getElementsByTagName('tr');
 let newTrackRows = [];
 newTrackRows[0]=trackRows[0];
 for(let counter=1; counter<trackRows.length; counter++) {
-    if (trackRows[i].parentElement.tagName === "THEAD") {
+    if (trackRows[counter].parentElement.tagName === "THEAD") {
         continue;
     }
     newTrackRows.push(trackRows[counter]);
