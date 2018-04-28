@@ -1,11 +1,11 @@
 let oldTrackRows = document.getElementsByTagName('tr');
 let newTrackRows = [];
-newTrackRows[0]=trackRows[0];
-for(let counter=1; counter<trackRows.length; counter++) {
-    if (trackRows[counter].parentElement.tagName === "THEAD") {
+newTrackRows[0]=oldTrackRows[0];
+for(let counter=1; counter<oldTrackRows.length; counter++) {
+    if (oldTrackRows[counter].parentElement.tagName === "THEAD") {
         continue;
     }
-    newTrackRows.push(trackRows[counter]);
+    newTrackRows.push(oldTrackRows[counter]);
 }
 let trackRows = newTrackRows;
 
