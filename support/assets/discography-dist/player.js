@@ -133,11 +133,16 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
     currentTrack = trackNumber;
+    let trackRows = document.getElementsByTagName('tr');
+    let trackRowToPlay = trackRows[trackNumber];
     /* Figure out what the relative file name is of the waveform file */
-    if document.getElementById('musiccontents') {
-        
+    if (document.getElementById('musiccontents')) {
+        /* This is a featured releases page, so get the info from the DOM */
+        /*         tr             tbody         table         div */
+        let name = trackRowToPlay.parentElement.parentElement.parentElement.id
     }
     else {
+        /* This is a release page, so get the info from the filename */
         // based on https://stackoverflow.com/questions/16611497/how-can-i-get-the-name-of-an-html-page-in-javascript
         let path = window.location.pathname;
         let file = path.split("/").pop();
@@ -145,8 +150,6 @@ function loadTrack(trackNumber) {
 
         audioWaveform.src = name + '/' + trackNumber + 'w.png'
     }
-    let trackRows = document.getElementsByTagName('tr');
-    let trackRowToPlay = trackRows[trackNumber];
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     let childNodesCounter = 0;
     while (audioTag.childNodes.length > 0) {
