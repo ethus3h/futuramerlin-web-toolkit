@@ -146,6 +146,13 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 function loadTrack(trackNumber) {
     currentTrack = trackNumber;
     let trackRowToPlay = trackRows[trackNumber];
+    let trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
+    if (trackPlayButton.classList.contains('playing')) {
+        trackPlayButton.className = 'playButton playing currentTrack';
+    }
+    else {
+        trackPlayButton.className = 'playButton currentTrack';
+    }
     /* Figure out what the relative file name is of the waveform file */
     if (document.getElementById('musiccontents')) {
         /* This is a featured releases page, so get the info from the DOM */
@@ -189,9 +196,14 @@ function clearTrackStatuses() {
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
         let trackRowToClear = trackRows[i];
-        trackPlayButton = trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
+        let trackPlayButton = trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
         trackPlayButton.innerHTML = "▶";
-        trackPlayButton.className = 'playButton';
+        if (trackPlayButton.classList.contains('currentTrack')) {
+            trackPlayButton.className = 'playButton currentTrack';
+        }
+        else {
+            trackPlayButton.className = 'playButton';
+        }
     }
     audioMainPlayButton.innerHTML = "▶";
 }
@@ -199,9 +211,9 @@ function clearTrackStatuses() {
 function syncPlayLabel() {
     trackNumber = currentTrack;
     let trackRowToPlay = trackRows[trackNumber];
-    trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
+    let trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "⏸";
-    trackPlayButton.className = 'playButton playing';
+    trackPlayButton.className = 'playButton playing currentTrack';
     trackPlayButton.onclick = function() {
         pauseTrackFromTrackButton(this);
     };
@@ -247,7 +259,7 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 }
 
 function reachedEndOfTrack(eventParameter) {
-    currentTrackElement = document.getElementsByClassName('playing')[0];
+    currentTrackElement = document.getElementsByClassName('currentTrack')[0];
     let currentTrack = 0;
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
