@@ -1,3 +1,15 @@
+let trackRows = document.getElementsByTagName('tr');
+let newTrackRows = [];
+newTrackRows[0]=trackRows[0];
+for(let counter=1; counter<trackRows.length; counter++) {
+    if (trackRows[counter].parentElement.tagName === "THEAD") {
+        continue;
+    }
+    newTrackRows.push(trackRows[counter]);
+}
+trackRows=newTrackRows;
+loadTrack(1);
+
 function formatSecondsAsTime(secs, format) {
     /* based on https://stackoverflow.com/questions/4993097/html5-display-audio-currenttime */
     let hr = Math.floor(secs / 3600);
@@ -91,17 +103,6 @@ audioPlayNextButton.onclick = function() {
 audioVolume.style.transform = 'rotate(270deg)';
 
 document.body.insertBefore(audioContainer, document.body.firstChild);
-let trackRows = document.getElementsByTagName('tr');
-let newTrackRows = [];
-newTrackRows[0]=trackRows[0];
-for(let counter=1; counter<trackRows.length; counter++) {
-    if (trackRows[counter].parentElement.tagName === "THEAD") {
-        continue;
-    }
-    newTrackRows.push(trackRows[counter]);
-}
-trackRows=newTrackRows;
-loadTrack(1);
 
 function convertRemToPixels(rem) {
     /* from https://stackoverflow.com/questions/36532307/rem-px-in-javascript */
