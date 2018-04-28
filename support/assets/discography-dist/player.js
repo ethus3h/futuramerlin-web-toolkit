@@ -92,6 +92,11 @@ audioVolume.style.transform = 'rotate(270deg)';
 
 document.body.insertBefore(audioContainer, document.body.firstChild);
 let trackRows = document.getElementsByTagName('tr');
+let newTrackRows = [];
+newTrackRows[0]=trackRows[0];
+for(let counter=1; counter<trackRows.length; counter++) {
+    
+}
 loadTrack(1);
 
 function convertRemToPixels(rem) {
@@ -260,6 +265,11 @@ function reachedEndOfTrack(eventParameter) {
 
 for (let i = 1; i < trackRows.length; i++) {
     /* skip first row: it is header */
+    /* skip other headers too */
+    if (trackRows[i].parentElement.tagName === "THEAD") {
+        alert("blah");
+        continue;
+    }
     trackAudioCell = trackRows[i].getElementsByTagName('td')[1];
     trackAudioCellAudioElement = trackAudioCell.getElementsByTagName('audio')[0];
     trackAudioCellAudioElement.style.display = "none";
