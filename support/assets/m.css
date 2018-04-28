@@ -156,6 +156,7 @@
     .musicbig {
         display: none;
         margin: 0.5rem 1rem;
+        overflow-y: scroll;
     }
 
     .musicbig:first-child {
@@ -182,7 +183,6 @@
 
     #musicthumbnails, #musiccontents {
         height: 100%;
-        border-right: 0.3rem dotted white;
     }
 
     #musiccontents {
@@ -192,6 +192,7 @@
     #musicthumbnails {
         width: 30%;
         overflow-x: hidden;
+        border-right: 0.3rem dotted white;
     }
 /* End featured releases */
     body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
