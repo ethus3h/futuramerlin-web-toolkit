@@ -265,7 +265,6 @@ function reachedEndOfTrack(eventParameter) {
             currentTrack = i;
         }
     }
-    currentTrackElement.classList.remove('currentTrack');
     nextTrack = currentTrack + 1;
     numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
@@ -276,6 +275,7 @@ function reachedEndOfTrack(eventParameter) {
     if (audioMainPlayButton.classList.contains('playing')) {
         playTrack(nextTrack);
     } else {
+        currentTrackElement.classList.remove('currentTrack');
         loadTrack(nextTrack);
     }
 }
