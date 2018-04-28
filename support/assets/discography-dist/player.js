@@ -145,7 +145,6 @@ audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
     currentTrack = trackNumber;
-    let trackRows = document.getElementsByTagName('tr');
     let trackRowToPlay = trackRows[trackNumber];
     /* Figure out what the relative file name is of the waveform file */
     if (document.getElementById('musiccontents')) {
@@ -186,7 +185,6 @@ function loadTrack(trackNumber) {
 }
 
 function clearTrackStatuses() {
-    let trackRows = document.getElementsByTagName('tr');
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
         let trackRowToClear = trackRows[i];
@@ -199,7 +197,6 @@ function clearTrackStatuses() {
 
 function syncPlayLabel() {
     trackNumber = currentTrack;
-    let trackRows = document.getElementsByTagName('tr');
     let trackRowToPlay = trackRows[trackNumber];
     trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "⏸";
