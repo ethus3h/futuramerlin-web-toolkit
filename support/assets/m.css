@@ -108,6 +108,7 @@
     .audioDuration, .audioCurrentTime {
         background-color: rgba(255,255,255,0.95);
         padding: 0.5rem;
+        border: 0.063rem solid black;
     }
     .audioTitle {
         position: absolute;
