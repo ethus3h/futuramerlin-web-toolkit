@@ -7,7 +7,6 @@ for(let counter=1; counter<oldTrackRows.length; counter++) {
         continue;
     }
     newTrackRows.push(oldTrackRows[counter]);
-    console.log(newTrackRows);
 }
 let trackRows = newTrackRows;
 
