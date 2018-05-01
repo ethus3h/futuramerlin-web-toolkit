@@ -296,9 +296,10 @@ getSubKind() {
     fi
 }
 
-            local kindDisplayNameInsert
-            kindDisplayNameInsert="$(getItemName kind "$kind")"
-            
+getKindDisplayNameInsert() {}
+    local kindDisplayNameInsert
+    kindDisplayNameInsert="$(getItemName kind "$kind")"
+}
 
 listItem() {
     local filtered=""
