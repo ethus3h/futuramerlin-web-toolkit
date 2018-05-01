@@ -28,6 +28,7 @@ indexBreadcrumbs="$(<futuramerlin-web-toolkit-discography.breadcrumbs)"
 indexBreadcrumbs="    ${indexBreadcrumbs//$'\n'/$'\n'    }"
 indexBreadcrumbs="${indexBreadcrumbs%    }"
 discographyPageName="$(preadconf filename futuramerlin-web-toolkit-discography.conf)"
+[[ -z "$discographyPageName" ]] && discographyPageName="discography"
 trackCounterFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).tc.temp"
 echo "0" > "$trackCounterFile"
 closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
@@ -791,7 +792,8 @@ buildLeafContents() {
                 thumbnailPrefix="t"
                 thumbnailSuffix=""
             fi
-            local tempName="$(discReadConf name "$kind" "$identifier")"
+            local tempName
+            tempName="$(discReadConf name "$kind" "$identifier")"
             print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(htmlToText.pl <<< "$tempName" | normalizeWhitespace): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
             return
         fi
