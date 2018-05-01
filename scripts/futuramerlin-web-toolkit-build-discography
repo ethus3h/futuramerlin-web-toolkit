@@ -296,7 +296,7 @@ getSubKind() {
     fi
 }
 
-getKindDisplayNameInsert() {}
+getKindDisplayNameInsert() {
     local kindDisplayNameInsert
     kindDisplayNameInsert="$(getItemName kind "$1")"
     local pattern='.*\/.*'
