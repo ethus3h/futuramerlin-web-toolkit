@@ -346,7 +346,7 @@ listItem() {
                 rm "../featured.htm.content.tmp"
             fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier") — $(getItemName kind "$kind")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
@@ -428,6 +428,9 @@ keyToLabel() {
             ;;
         zipRelease)
             print "ZIP release <small>(historic packing)</small>"
+            ;;
+        zipSession)
+            print "ZIP file containing work from the session"
             ;;
         artSource)
             print "Artwork production files"
@@ -893,7 +896,7 @@ listAlphabetical() {
         else
             itemList="$itemList$(listItem "$kind" "$itemName")"
             # This causes the recursive page building, and doesn't have any effect on what this function returns.
-            buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
+            buildPage "$(getSubKind "$kind")$itemName" "$(getItemName "$kind" "$itemName") — $(getItemName kind "$kind")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$itemName")"
         fi
     done
     print "$itemList"
