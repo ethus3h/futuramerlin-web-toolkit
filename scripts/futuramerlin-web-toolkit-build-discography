@@ -296,6 +296,10 @@ getSubKind() {
     fi
 }
 
+            local kindDisplayNameInsert
+            kindDisplayNameInsert="$(getItemName kind "$kind")"
+            
+
 listItem() {
     local filtered=""
     local filterKey
@@ -357,10 +361,7 @@ listItem() {
                 rm "../featured.htm.content.tmp"
             fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
-            local kindDisplayNameInsert
-            kindDisplayNameInsert="$(getItemName kind "$kind")"
-            
-            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier") — $kindDisplayNameInsert" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
+            buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier") — $(getKindDisplayNameInsert "$kind")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
         local nextIdentifier
