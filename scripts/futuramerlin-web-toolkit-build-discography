@@ -122,12 +122,12 @@ discReadConf() {
     else
         result=""
     fi
-    if [[ "$key" == "name" ]]; then
+    if [[ "$key" == "name" ]] || [[ "$key" == "location" ]]; then
         if [[ -z "$result" ]]; then
-            result="$identifier <small><!-- note: discReadConf for the $key of $kind $identifier is undefined; using identifier instead. --><em>(No name given: identifier used instead)</em></small>"
+            result="$identifier <small><!-- note: discReadConf for the $key of $kind $identifier is undefined; using identifier instead. --><em>(No $key given: identifier used instead)</em></small>"
         fi
     fi
-    if [[ -z "$result" ]] && [[ ! -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
+    if [[ -z "$result" ]] && [[ ! -e "$(getItemPath "$kind" "$identifier").conf" ]] && [[ "$key" != "disambig" ]]; then
         result="<!-- placeholder: discReadConf for the $1 of $2 $3 is undefined. -->"
     fi
     print "$result"
