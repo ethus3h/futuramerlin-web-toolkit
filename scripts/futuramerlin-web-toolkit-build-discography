@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
-#set -x
+set -x
 
 ((EUID)) && exec sudo -- "$0" "$@"
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
@@ -127,7 +127,7 @@ discReadConf() {
             result="$identifier<!-- note: discReadConf for the $key of $kind $identifier is undefined; using identifier instead. -->"
         fi
     fi
-    if [[ -z "$result" ]]; then
+    if [[ -z "$result" ]] && [[ ! -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
         result="<!-- placeholder: discReadConf for the $1 of $2 $3 is undefined. -->"
     fi
     print "$result"
