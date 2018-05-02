@@ -900,9 +900,9 @@ listRecursive() {
         # Pipe to tac to reverse order, because it will get reversed again later (to make the dates display newest to oldest of recursively listed items).
         # (tac requires a newline at the end to produce the expected result.)
         if [[ "$filtered" == "true" ]]; then
-            listAlphabetical "$kind" --filter "$filterKey" "$filterValue" | suffixPipe $'\n' | tac
+            listAlphabetical "$kind" --filter "$filterKey" "$filterValue" | suffixPipe $'\n' | tac -b
         else
-            listAlphabetical "$kind" | suffixPipe $'\n' | tac
+            listAlphabetical "$kind" | suffixPipe $'\n' | tac -b
         fi
     else
         # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
