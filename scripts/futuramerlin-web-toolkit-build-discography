@@ -553,10 +553,6 @@ buildTrackPlayer() {
     extA="$(discReadConf origExt work "$workIdentifier")"
     local extB
     extB="$(discReadConf origExtB work "$workIdentifier")"
-    if [[ -n "$extB" ]]; then
-        simpleIaLink release "$releaseIdentifier" "$filename.$extB" "Orig. ($extB)"
-        print " "
-    fi
     local extC
     extC="$(discReadConf origExtC work "$workIdentifier")"
     if [[ -n "$extC" ]]; then
@@ -576,12 +572,16 @@ buildTrackPlayer() {
     print " "
     if ! [[ "$hasFlac" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
+    if [[ -n "$extB" ]]; then
+        simpleIaLink release "$releaseIdentifier" "$filename.$extB" "Orig. ($extB)"
+        print " "
+    fi
     fi
     print " "
     if ! [[ "$hasMp3" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
     else
-            simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($extA)"
+        simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
     fi
     print '<br />'
     print '<audio controls preload="none">'
