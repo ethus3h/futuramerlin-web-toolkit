@@ -357,14 +357,18 @@ listItem() {
         fi
     fi
     if [[ "$filtered" != "true" ]] || [[ "$matchedFilter" == "true" ]]; then
-        if [[ "$filterKey" == "label" ]]; then
-            # Also print the artist name
-            print $'\n'"    <li>$(linkToItem --with-artist-name --with-date "$@")</li>"
+        if [[ "$filtered" != "true" ]] && [[ "$kind" == "release" ]]; then
+            print $'\n'"    <li>$(linkToItem --release-index-page-format "$@")</li>"
         else
-            if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]]; then
-                print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
+            if [[ "$filterKey" == "label" ]]; then
+                # Also print the artist name
+                print $'\n'"    <li>$(linkToItem --with-artist-name --with-date "$@")</li>"
             else
-                print $'\n'"    <li>$(linkToItem "$@")</li>"
+                if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]]; then
+                    print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
+                else
+                    print $'\n'"    <li>$(linkToItem "$@")</li>"
+                fi
             fi
         fi
     fi
