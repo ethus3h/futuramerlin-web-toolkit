@@ -219,8 +219,13 @@ linkToItem() {
         artistId="$(discReadConf artist "$kind" "$identifier")"
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
-        artistNameInsert="$(discReadConf name artist "$artistId") — "
+        artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
         releaseIndexPageFormatInsert=" ($(discReadConf name label "$labelId") #$(discReadConf fmCatNum "$kind" "$identifier"))"
+        if [[ "$usePicture" == "false" ]]; then
+            linkFirstPart=""
+        else
+            artistNameInsert="</a> $artistNameInsert"
+        fi
     else
         artistNameInsert=""
     fi
