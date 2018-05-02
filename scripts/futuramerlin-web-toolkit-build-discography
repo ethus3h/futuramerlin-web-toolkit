@@ -555,12 +555,12 @@ buildTrackPlayer() {
     extB="$(discReadConf origExtB work "$workIdentifier")"
     local extC
     extC="$(discReadConf origExtC work "$workIdentifier")"
-    if [[ "$extA" == "flac" || "$extB" == "flac" || "$extC" == "flac" ]]; then
+    if [[ "$extA" == "ogg" || "$extB" == "ogg" || "$extC" == "ogg" ]]; then
+        local hasOgg="true"
+    elif [[ "$extA" == "flac" || "$extB" == "flac" || "$extC" == "flac" ]]; then
         local hasFlac="true"
     elif [[ "$extA" == "mp3" || "$extB" == "mp3" || "$extC" == "mp3" ]]; then
         local hasMp3="true"
-    elif [[ "$extA" == "ogg" || "$extB" == "ogg" || "$extC" == "ogg" ]]; then
-        local hasOgg="true"
     fi
     if ! [[ "$hasOgg" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
