@@ -60,8 +60,8 @@ mergeConfFile() {
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
-            local prevIdPattern='^prevId,'
-            if ! [[ "$line" =~ $prevIdPattern ]]; then
+            local nextIdPattern='^nextId,'
+            if ! [[ "$line" =~ $nextIdPattern ]]; then
                 local key="${line%%,*}"
                 if ! grep -P "^$key," "$inheritInto" > /dev/null; then
                     printf "%s\\n" "$line" >> "$inheritInto"
@@ -372,12 +372,12 @@ listItem() {
             buildPage "$(getSubKind "$kind")$identifier" "$(getItemName "$kind" "$identifier")$(getKindDisplayNameInsert "$kind")" "$(getBreadcrumbs "$kind")" "$(buildLeafContents "$kind" "$identifier")"
         fi
         # This is where we make the recursive call to listItem, if needed.
-        local prevIdentifier
-        prevIdentifier="$(discReadConf prevId "$kind" "$identifier")"
+        local nextIdentifier
+        nextIdentifier="$(discReadConf nextId "$kind" "$identifier")"
         if [[ "$filtered" == "true" ]]; then
-            [[ -n "$prevIdentifier" ]] && listItem --filter "$filterKey" "$filterValue" --recursive "$kind" "$prevIdentifier" "$usePicture" "$extraInfo"
+            [[ -n "$nextIdentifier" ]] && listItem --filter "$filterKey" "$filterValue" --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
         else
-            [[ -n "$prevIdentifier" ]] && listItem --recursive "$kind" "$prevIdentifier" "$usePicture" "$extraInfo"
+            [[ -n "$nextIdentifier" ]] && listItem --recursive "$kind" "$nextIdentifier" "$usePicture" "$extraInfo"
         fi
         true # needed because the if statement executes with the exit status of the last command executed
     fi
@@ -655,7 +655,7 @@ traitToHtm() {
         featured)
             true
             ;;
-        prevId)
+        nextId)
             true
             ;;
         context)
