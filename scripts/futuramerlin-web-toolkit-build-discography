@@ -443,6 +443,12 @@ keyToLabel() {
         transcodedForSoundrop)
             print "Transcoded for Soundrop distribution"
             ;;
+        ytdled)
+            print "<code>youtube-dl</code>ed"
+            ;;
+        ytdledFlac)
+            print "<code>youtube-dl</code>ed and transcoded to FLAC"
+            ;;
         flacBounce)
             print "Work-in-progress FLAC bounce"
             ;;
