@@ -574,16 +574,18 @@ buildTrackPlayer() {
     elif [[ "$extA" == "ogg" || "$extB" == "ogg" || "$extC" == "ogg" ]]; then
         local hasOgg="true"
     fi
-    if ! [[ "$hasMp3" == "true" ]]; then
-        simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
-        print " "
+    if ! [[ "$hasOgg" == "true" ]]; then
+        simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
     fi
     if ! [[ "$hasFlac" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
         print " "
     fi
-    if ! [[ "$hasOgg" == "true" ]]; then
-        simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
+    if ! [[ "$hasMp3" == "true" ]]; then
+        simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
+        print " "
+    else
+        
     fi
     print '<br />'
     print '<audio controls preload="none">'
