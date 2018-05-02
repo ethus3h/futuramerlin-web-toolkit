@@ -148,11 +148,6 @@ getItemName() {
 }
 
 linkToItem() {
-    local releaseIndexPageFormat=""
-    if [[ "$1" == "--release-index-page-format" ]]; then
-        releaseIndexPageFormat="true"
-        shift
-    fi
     local includeArtistName=""
     if [[ "$1" == "--with-artist-name" ]]; then
         includeArtistName="true"
@@ -160,6 +155,12 @@ linkToItem() {
     fi
     local includeDate=""
     if [[ "$1" == "--with-date" ]]; then
+        includeDate="true"
+        shift
+    fi
+    local releaseIndexPageFormat=""
+    if [[ "$1" == "--release-index-page-format" ]]; then
+        releaseIndexPageFormat="true"
         includeDate="true"
         shift
     fi
