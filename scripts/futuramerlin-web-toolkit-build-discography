@@ -478,6 +478,9 @@ keyToLabel() {
         aiffBounce)
             print "Work-in-progress AIFF bounce"
             ;;
+        flac)
+            print "FLAC"
+            ;;
         alac)
             print "M4A: Apple Lossless Audio Codec"
             ;;
