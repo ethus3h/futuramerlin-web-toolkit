@@ -573,18 +573,15 @@ buildTrackPlayer() {
     if ! [[ "$hasOgg" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
     fi
+    print " "
     if ! [[ "$hasFlac" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
-        print " "
     fi
+    print " "
     if ! [[ "$hasMp3" == "true" ]]; then
         simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
-        print " "
     else
-        if [[ -n "$extA" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($extA)"
-            print " "
-        fi
     fi
     print '<br />'
     print '<audio controls preload="none">'
