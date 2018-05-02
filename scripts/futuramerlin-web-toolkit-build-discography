@@ -587,7 +587,7 @@ buildTrackPlayer() {
     fi
     print '<br />'
     print '<audio controls preload="none">'
-    local formats=(flac ogg mp3)
+    local formats=(ogg flac mp3)
     for format in "${formats[@]}"; do
         print '<source src="'
         simpleIaUrl release "$releaseIdentifier" "$filename.$format"
