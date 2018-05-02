@@ -897,7 +897,7 @@ listRecursive() {
     entryPoint="$(getEntryPoint "$kind")"
     if [[ -z "$entryPoint" ]]; then
         # This is a list to display alphabetically
-        # Pipe to tac to reverse order, because it will get reversed again later (to make the dates display newest to oldist of recursive listed items).
+        # Pipe to tac to reverse order, because it will get reversed again later (to make the dates display newest to oldest of recursively listed items).
         if [[ "$filtered" == "true" ]]; then
             listAlphabetical "$kind" --filter "$filterKey" "$filterValue" | tac
         else
@@ -961,7 +961,7 @@ buildList() {
         itemList="FIXME"
         ;;
     *)
-        listRecursive "$kind"
+        listRecursive "$kind" | tac
         ;;
     esac
     print $'\n'"</ul>"
