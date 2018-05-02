@@ -896,10 +896,12 @@ listRecursive() {
     local entryPoint
     entryPoint="$(getEntryPoint "$kind")"
     if [[ -z "$entryPoint" ]]; then
+        # This is a list to display alphabetically
+        # Pipe to tac to reverse order, because it will get reversed again later (to make the dates display newest to oldist of recursive listed items).
         if [[ "$filtered" == "true" ]]; then
-            listAlphabetical "$kind" --filter "$filterKey" "$filterValue"
+            listAlphabetical "$kind" --filter "$filterKey" "$filterValue" | tac
         else
-            listAlphabetical "$kind"
+            listAlphabetical "$kind" | tac
         fi
     else
         # We're making a chronological list, so start with the first item in the list (defined in the .entry-point file), and follow the chain along from there.
