@@ -148,6 +148,11 @@ getItemName() {
 }
 
 linkToItem() {
+    local releaseIndexPageFormat=""
+    if [[ "$1" == "--release-index-page-format" ]]; then
+        releaseIndexPageFormat="true"
+        shift
+    fi
     local includeArtistName=""
     if [[ "$1" == "--with-artist-name" ]]; then
         includeArtistName="true"
@@ -199,10 +204,23 @@ linkToItem() {
     fi
     linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
     local artistNameInsert
+    local releaseIndexPageFormatInsert=""
     if [[ "$includeArtistName" == "true" ]]; then
         local artistId
         artistId="$(discReadConf artist "$kind" "$identifier")"
         artistNameInsert="$(discReadConf fmCatNum "$kind" "$identifier") — $(discReadConf name artist "$artistId"): $linkFirstPart"
+        if [[ "$usePicture" == "false" ]]; then
+            linkFirstPart=""
+        else
+            artistNameInsert="</a> $artistNameInsert"
+        fi
+    elif [[ "$releaseIndexPageFormat" == "true" ]]; then
+        local artistId
+        artistId="$(discReadConf artist "$kind" "$identifier")"
+        local labelId
+        labelId="$(discReadConf label "$kind" "$identifier")"
+        artistNameInsert="$(discReadConf name artist "$artistId") — "
+        releaseIndexPageFormatInsert=" ($(discReadConf name label "$labelId") #$(discReadConf fmCatNum "$kind" "$identifier"))"
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
         else
@@ -227,7 +245,7 @@ linkToItem() {
         fi
     fi
     # TODO: Implement extraInfo
-    print "$linkFirstPart$picture$artistNameInsert$name</a>$disambig$shortDate"
+    print "$linkFirstPart$picture$artistNameInsert$name</a>$releaseIndexPageFormatInsert$disambig$shortDate"
 }
 
 simpleMetadata() {
