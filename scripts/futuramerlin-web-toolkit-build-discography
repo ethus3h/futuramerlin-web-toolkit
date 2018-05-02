@@ -962,7 +962,7 @@ buildList() {
         itemList="FIXME"
         ;;
     *)
-        listRecursive "$kind" | suffixPipe $'\n' | tac | normalizeWhitespace | prefixPipe $'\n'
+        listRecursive "$kind" | suffixPipe $'\n' | tac | prefixPipe $'\n'
         ;;
     esac
     print $'\n'"</ul>"
