@@ -962,7 +962,7 @@ buildList() {
         itemList="FIXME"
         ;;
     *)
-        listRecursive "$kind"
+        listRecursive "$kind" | tac -b | tail -c +1
         ;;
     esac
     print $'\n'"</ul>"
