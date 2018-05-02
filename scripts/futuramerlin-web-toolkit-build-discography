@@ -674,6 +674,9 @@ traitToHtm() {
         work)
             simpleReference "$key" work "${value/,/\/}"
             ;;
+        samplesWork)
+            simpleReference "$key" work "${value/,/\/}"
+            ;;
         release)
             simpleReference "$key" release "$value"
             ;;
