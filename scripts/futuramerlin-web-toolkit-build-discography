@@ -443,6 +443,12 @@ keyToLabel() {
         transcodedForSoundrop)
             print "Transcoded for Soundrop distribution"
             ;;
+        flacBounce)
+            print "Work-in-progress FLAC bounce"
+            ;;
+        aiffBounce)
+            print "Work-in-progress AIFF bounce"
+            ;;
         alac)
             print "M4A: Apple Lossless Audio Codec"
             ;;
