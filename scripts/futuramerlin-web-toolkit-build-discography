@@ -867,7 +867,7 @@ buildLeafContents() {
     fi
 
     if [[ "$kind" == "artist" ]] || [[ "$kind" == "label" ]]; then
-        releasesList="$(listRecursive release --filter "$kind" "$identifier")"
+        releasesList="$(listRecursive release --filter "$kind" "$identifier" | tac -b | tail -c +1)"
         if [[ -n "$releasesList" ]]; then
             print $'\n\n'
             print '<h2>Releases</h2>'$'\n'"<ul>$releasesList"$'\n'"</ul>"
