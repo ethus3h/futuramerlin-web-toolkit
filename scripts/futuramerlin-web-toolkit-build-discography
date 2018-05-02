@@ -582,6 +582,7 @@ buildTrackPlayer() {
     else
         simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
     fi
+    if [[ "$extA" == "ogg" || "$extB" == "ogg" || "$extC" == "ogg" ]]; then
     print '<br />'
     print '<audio controls preload="none">'
     local formats=(ogg flac mp3)
