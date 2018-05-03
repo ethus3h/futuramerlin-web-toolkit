@@ -155,16 +155,19 @@ getItemName() {
 }
 
 getDisplayDateInsert() {
-                shortDate="$(discReadConf shortDate "$kind" "$identifier")"
-                if [[ -z "$shortDate" ]]; then
-                    shortDate="$(discReadConf date "$kind" "$identifier")"
-                fi
-                if [[ -n "$shortDate" ]]; then
-                    shortDate=" ($shortDate)"
-                else
-                    shortDate=""
-                fi
-
+    local kind="$1"
+    local identifier="$2"
+    local tempDate
+    tempDate="$(discReadConf shortDate "$kind" "$identifier")"
+    if [[ -z "$shortDate" ]]; then
+        tempDate="$(discReadConf date "$kind" "$identifier")"
+    fi
+    if [[ -n "$shortDate" ]]; then
+        tempDate=" ($shortDate)"
+    else
+        tempDate=""
+    fi
+    print "$tempDate"
 }
 
 linkToItem() {
