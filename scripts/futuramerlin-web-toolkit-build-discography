@@ -159,11 +159,11 @@ getDisplayDateInsert() {
     local identifier="$2"
     local tempDate
     tempDate="$(discReadConf shortDate "$kind" "$identifier")"
-    if [[ -z "$shortDate" ]]; then
+    if [[ -z "$tempDate" ]]; then
         tempDate="$(discReadConf date "$kind" "$identifier")"
     fi
-    if [[ -n "$shortDate" ]]; then
-        tempDate=" ($shortDate)"
+    if [[ -n "$tempDate" ]]; then
+        tempDate=" ($tempDate)"
     else
         tempDate=""
     fi
