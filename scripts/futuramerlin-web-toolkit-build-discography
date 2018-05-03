@@ -64,14 +64,12 @@ mergeConfFile() {
             local nextIdPattern='^nextId,'
             if ! [[ "$line" =~ $nextIdPattern ]]; then
                 local key="${line%%,*}"
+                local grepFile="$inheritInto"
                 if [[ "$key" == "samplesWork" ]]; then
-                    if ! grep -P "^$key," "$inheritInto.tmp" > /dev/null; then
-                        printf "%s\\n" "$line" >> "$inheritInto"
-                    fi
-                else
-                    if ! grep -P "^$key," "$inheritInto" > /dev/null; then
-                        printf "%s\\n" "$line" >> "$inheritInto"
-                    fi
+                    grepFile="$inheritInto.tmp"
+                fi
+                if ! grep -P "^$key," "$inheritInto" > /dev/null; then
+                    printf "%s\\n" "$line" >> "$inheritInto"
                 fi
             fi
         fi
