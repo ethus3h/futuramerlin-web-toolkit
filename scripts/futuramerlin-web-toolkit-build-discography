@@ -57,18 +57,20 @@ mergeConfFile() {
     local inheritFrom
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom into $inheritInto"
+    cp "$inheritInto" "$inheritInto.tmp"
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
             local nextIdPattern='^nextId,'
             if ! [[ "$line" =~ $nextIdPattern ]]; then
                 local key="${line%%,*}"
-                if ! grep -P "^$key," "$inheritInto" > /dev/null; then
+                if ! grep -P "^$key," "$inheritInto.tmp" > /dev/null; then
                     printf "%s\\n" "$line" >> "$inheritInto"
                 fi
             fi
         fi
     done < "$inheritFrom"
+    rm "$inheritInto.tmp"
 }
 
 for file in works/*/*.conf; do
