@@ -221,9 +221,12 @@ function syncPlayLabel() {
 function playTrack(trackNumber) {
     loadTrack(trackNumber);
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
-    audioTag.play();
-    clearTrackStatuses();
-    syncPlayLabel(trackNumber);
+    audioTag.addEventListener("canplay", function() {
+            audioTag.play();
+            clearTrackStatuses();
+            syncPlayLabel(trackNumber);
+        }
+    );
 }
 
 function pauseTrack(trackNumber) {
