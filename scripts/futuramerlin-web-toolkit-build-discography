@@ -586,6 +586,14 @@ buildTrackPlayer() {
         print " "
         simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($(keyToLabel "$extA"))"
     fi
+    if [[ "$extB" != "ogg" && "$extB" != "mp3" && "$extB" != "flac" ]]; then
+        print " "
+        simpleIaLink release "$releaseIdentifier" "$filename.$extB" "Orig. ($(keyToLabel "$extB"))"
+    fi
+    if [[ "$extC" != "ogg" && "$extC" != "mp3" && "$extC" != "flac" ]]; then
+        print " "
+        simpleIaLink release "$releaseIdentifier" "$filename.$extC" "Orig. ($(keyToLabel "$extC"))"
+    fi
     print '<br />'
     print '<audio controls preload="none">'
     local formats=(ogg flac mp3)
