@@ -154,6 +154,19 @@ getItemName() {
     fi
 }
 
+getDisplayDateInsert() {
+                shortDate="$(discReadConf shortDate "$kind" "$identifier")"
+                if [[ -z "$shortDate" ]]; then
+                    shortDate="$(discReadConf date "$kind" "$identifier")"
+                fi
+                if [[ -n "$shortDate" ]]; then
+                    shortDate=" ($shortDate)"
+                else
+                    shortDate=""
+                fi
+
+}
+
 linkToItem() {
     local includeArtistName=""
     if [[ "$1" == "--with-artist-name" ]]; then
@@ -186,15 +199,7 @@ linkToItem() {
         extension=""
     else
         if [[ "$includeDate" == "true" ]]; then
-            shortDate="$(discReadConf shortDate "$kind" "$identifier")"
-            if [[ -z "$shortDate" ]]; then
-                shortDate="$(discReadConf date "$kind" "$identifier")"
-            fi
-            if [[ -n "$shortDate" ]]; then
-                shortDate=" ($shortDate)"
-            else
-                shortDate=""
-            fi
+            shortDate="$(getDisplayDateInsert "$kind" "$identifier")"
         fi
         disambig="$(discReadConf disambig "$kind" "$identifier")"
         if [[ -n "$disambig" ]]; then
