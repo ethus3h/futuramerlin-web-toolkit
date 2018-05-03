@@ -66,9 +66,10 @@ mergeConfFile() {
                 local key="${line%%,*}"
                 local grepFile="$inheritInto"
                 if [[ "$key" == "samplesWork" ]]; then
+                    # Allow multiple samplesWork keys to be inherited
                     grepFile="$inheritInto.tmp"
                 fi
-                if ! grep -P "^$key," "$inheritInto" > /dev/null; then
+                if ! grep -P "^$key," "$grepFile" > /dev/null; then
                     printf "%s\\n" "$line" >> "$inheritInto"
                 fi
             fi
