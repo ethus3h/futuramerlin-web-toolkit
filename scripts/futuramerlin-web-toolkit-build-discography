@@ -584,7 +584,7 @@ buildTrackPlayer() {
     fi
     if [[ "$extA" != "ogg" && "$extA" != "mp3" && "$extA" != "flac" ]]; then
         print " "
-        simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
+        simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($(keyToLabel "$extA"))"
     fi
     print '<br />'
     print '<audio controls preload="none">'
