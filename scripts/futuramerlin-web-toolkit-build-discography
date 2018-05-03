@@ -481,6 +481,9 @@ keyToLabel() {
         flac)
             print "FLAC"
             ;;
+        m4a)
+            print "M4A"
+            ;;
         alac)
             print "M4A: Apple Lossless Audio Codec"
             ;;
