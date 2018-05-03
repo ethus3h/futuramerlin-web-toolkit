@@ -208,8 +208,7 @@ linkToItem() {
         local contextValue
         contextValue="$(discReadConf context "$kind" "$identifier")"
         local contextKind="${contextValue%%,*}"
-        local contextItemIdent="${contextValue#*,}"
-        print "${contextKind^} $(discReadConf name artist "$artistId")$(linkToItem --with-date "$contextKind" "${contextValue#*,}" false): "
+        print "${contextKind^} \"$(discReadConf name "$contextKind" "${contextValue#*,}")\": "
     fi
     linkFirstPart="<a href=\"$(getItemPath "$kind" "$identifier")$extension\">"
     local artistNameInsert
