@@ -246,7 +246,7 @@ linkToItem() {
         # m.png = 50px; t.png = 150px
         picturePathName="$(getItemPath "$kind" "$identifier")/m.png"
         if [[ -e "$picturePathName" ]]; then
-            picture="<img src=\"$picturePathName\" alt=\"$(htmlToText.pl <<< "$name" | normalizeWhitespace): $pictureType thumbnail image\" width=\"50\" />"
+            picture="<img src=\"$picturePathName\" alt=\"$(htmlToText.pl <<< "$name" | normalizeWhitespace): $pictureType thumbnail image\" width=\"50\" style=\"max-width:50;max-height:50\" />"
             if [[ "$artistNameInsert" == "" ]]; then
                 artistNameInsert=" "
             fi
@@ -450,7 +450,7 @@ simpleIaImage() {
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" /></a>"
+    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150;max-height:150\" /></a>"
 }
 
 keyToLabel() {
@@ -875,7 +875,7 @@ buildLeafContents() {
             fi
             local tempName
             tempName="$(discReadConf name "$kind" "$identifier")"
-            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(htmlToText.pl <<< "$tempName" | normalizeWhitespace): album artwork\" width=\"150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
+            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(htmlToText.pl <<< "$tempName" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150;max-height:150\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
             return
         fi
     fi
