@@ -677,6 +677,19 @@ buildTrackPlayer() {
     fi
 }
 
+getLicenseDisplay() {
+    local withLicenseName=""
+    local licenseName=""
+    if [[ "$1" == "--with-license-name" ]]
+        withLicenseName="true"
+        shift
+    fi
+    local licenseIdentifier="$1"
+    if [[ "$withLicenseName" == "true" ]]
+        licenseName=" Creative Commons Attribution Noncommercial (3.0)"
+    fi
+}
+
 traitToHtm() {
     local kind="$1"
     local identifier="$2"
@@ -807,6 +820,9 @@ traitToHtm() {
         context)
             local contextKind="${value%%,*}"
             simpleMetadata "$(keyToLabel "$key")" "${contextKind^}: $(linkToItem --with-date "$contextKind" "${value#*,}" false)"
+            ;;
+        license)
+            simpleMetadata "$(keyToLabel "$key")" "$(getLicenseDisplay --with-license-name "$value")"
             ;;
         hasAlias)
             simpleReference "$key" artist "$value"
