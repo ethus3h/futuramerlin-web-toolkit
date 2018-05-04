@@ -36,6 +36,8 @@ audioContainer.appendChild(audioTag);
 
 let audioMainPlayButton = document.createElement('button');
 audioMainPlayButton.className = "audioMainPlayButton";
+audioMainPlayButton.innerHTML = "▶";
+
 let audioTitle = document.createElement('span');
 audioTitle.className = "audioTitle";
 let audioDuration = document.createElement('span');
@@ -54,6 +56,7 @@ audioScrubber.type = 'range';
 audioVolume.type = 'range';
 let audioPlayNextButton = document.createElement('button');
 audioPlayNextButton.className = "audioPlayNextButton";
+audioPlayNextButton.innerHTML = "⏭";
 
 audioTag.addEventListener('ended', reachedEndOfTrack, false);
 
@@ -65,14 +68,10 @@ function seekInAudio() {
 }
 audioScrubber.onchange = seekInAudio;
 
-audioVolume.onchange = updateVolume;
-
 function updateVolume() {
     audioTag.volume = audioVolume.value / 100;
 }
-
-audioMainPlayButton.innerHTML = "▶";
-audioPlayNextButton.innerHTML = "⏭";
+audioVolume.onchange = updateVolume;
 
 audioContainer.appendChild(audioWaveform);
 audioContainer.appendChild(audioPlayhead);
