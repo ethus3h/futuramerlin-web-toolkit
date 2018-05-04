@@ -121,6 +121,7 @@ audioTag.addEventListener("timeupdate", updateCurrentTime);
 audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
+    console.log('loadTrack requested for ' + trackNumber);
     currentTrack = trackNumber;
     let trackRowToPlay = trackRows[trackNumber];
     let trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
@@ -193,7 +194,7 @@ function playLabelSetPlaying() {
 }
 
 function playLabelSetLoading() {
-    console.log('Loading label requested for ' + trackNumber);
+    console.log('Loading label requested');
     clearTrackStatuses();
     let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "⏳";
