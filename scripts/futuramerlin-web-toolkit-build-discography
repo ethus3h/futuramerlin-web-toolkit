@@ -490,6 +490,9 @@ keyToLabel() {
         transcodedForSoundrop)
             print "Transcoded for Soundrop distribution"
             ;;
+        filename)
+            print "File name"
+            ;;
         ytdled)
             print "<code>youtube-dl</code>ed"
             ;;
