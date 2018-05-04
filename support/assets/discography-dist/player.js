@@ -255,14 +255,14 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 function reachedEndOfTrack(eventParameter) {
     console.log('Reached end of track ' + currentTrack);
     currentTrackElement = document.getElementsByClassName('currentTrack')[0];
-    currentTrack = 0;
+    let tempTrack = 0;
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === currentTrackElement) {
-            currentTrack = i;
+            tempTrack = i;
         }
     }
-    nextTrack = currentTrack + 1;
+    nextTrack = tempTrack + 1;
     numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
         nextTrack = 1;
