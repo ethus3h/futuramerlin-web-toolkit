@@ -514,6 +514,9 @@ keyToLabel() {
         cdRip)
             print "CD Rip"
             ;;
+        remixOriginalArtist)
+            print "Original artist of this remixed track"
+            ;;
         origExt)
             print "Original file extension"
             ;;
