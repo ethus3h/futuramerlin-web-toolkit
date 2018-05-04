@@ -726,7 +726,7 @@ buildAttributionDisplay() {
 
     local attributionOriginalRemixArtist
     attributionOriginalRemixArtist="$(preadconf remixOriginalArtist "$workPrefix.conf")"
-    if [[ -n "$attributionWith" ]]; then
+    if [[ -n "$attributionOriginalRemixArtist" ]]; then
         [[ -n "$attribution" ]] && attribution="$attribution "
         attribution="$attribution(remix of track by $attributionOriginalRemixArtist)"
     fi
