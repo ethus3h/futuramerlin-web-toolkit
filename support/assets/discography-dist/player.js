@@ -311,5 +311,6 @@ for (let i = 1; i < trackRows.length; i++) {
     trackAudioCell.insertBefore(trackPlayButton, trackAudioCell.firstChild);
 }
 
-loadTrack(1);
 document.body.insertBefore(audioContainer, document.body.firstChild);
+
+loadTrack(1);
