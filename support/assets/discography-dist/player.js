@@ -154,7 +154,6 @@ function loadTrack(trackNumber) {
 
         audioWaveform.src = name + '/' + trackNumber + 'w.png'
     }
-    let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     let childNodesCounter = 0;
     while (audioTag.childNodes.length > 0) {
         let nodes = audioTag.childNodes;
@@ -213,7 +212,6 @@ function playLabelSetPaused() {
 
 function playTrack(trackNumber) {
     loadTrack(trackNumber);
-    let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     playLabelSetLoading();
     audioTag.addEventListener("canplay", function() {
             audioTag.play();
@@ -224,7 +222,6 @@ function playTrack(trackNumber) {
 
 function pauseTrack(trackNumber) {
     loadTrack(trackNumber);
-    let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     audioTag.pause();
     playLabelSetPaused();
     trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
