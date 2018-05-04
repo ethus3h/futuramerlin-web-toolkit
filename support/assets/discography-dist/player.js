@@ -255,6 +255,7 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 function reachedEndOfTrack(eventParameter) {
     console.log('Reached end of track ' + currentTrack);
     currentTrackElement = document.getElementsByClassName('currentTrack')[0];
+    console.log(currentTrackElement);
     let nextTrack = currentTrack + 1;
     numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
