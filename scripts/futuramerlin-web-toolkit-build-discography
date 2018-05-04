@@ -832,7 +832,11 @@ buildInfoTable() {
                         setClosingTag "</dl>"$'\n<!-- futuramerlin-web-toolkit insert to preserve newline during processing -->'
                     else
                         if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
-                            setClosingTag "$(simpleMetadata "note" "This release is unavailable due to licensing.")"$'\n'"</dl>"
+                            local displayTypeName="release"
+                            if [[ "$kind" != "release" ]]; then
+                                displayTypeName="track"
+                            fi
+                            setClosingTag "    $(simpleMetadata "Note" "This $displayTypeName is unavailable due to licensing.")"$'\n'"</dl>"
                         else
                             setClosingTag "</dl>"
                         fi
