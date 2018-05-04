@@ -739,7 +739,7 @@ traitToHtm() {
     case "$key" in
         file)
             if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
-                print "<li>\"${value#*,}\": "
+                print "<li>\"<code>${value#*,}</code>\": "
                 print "$(keyToLabel "${value%%,*}")"
                 print "</li>"
             else
@@ -747,7 +747,7 @@ traitToHtm() {
             fi
             ;;
         unavailableFile)
-            print "<li>\"${value#*,}\" (unavailable due to licensing): "
+            print "<li>\"<code>${value#*,}</code>\" (unavailable due to licensing): "
             print "$(keyToLabel "${value%%,*}")"
             print "</li>"
             ;;
