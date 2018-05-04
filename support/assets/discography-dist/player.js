@@ -262,6 +262,7 @@ function reachedEndOfTrack(eventParameter) {
     }
     currentTrackElement.classList.remove('currentTrack');
     audioTag.currentTime = 0;
+    console.log(currentTrackElement.classList);
     if (currentTrackElement.classList.contains('playing')) {
         console.log('Requesting playing for ' + nextTrack);
         playTrack(nextTrack);
