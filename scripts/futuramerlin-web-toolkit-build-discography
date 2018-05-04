@@ -810,9 +810,8 @@ traitToHtm() {
             if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]] || [[ -n "$trackUnavailableNote" ]]; then
                 isAvailable="false"
             fi
-            local attribution=""
-            {
-            }
+            local attribution
+            attribution="$(buildAttributionDisplay "$workPrefix")"
             print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
         medium)
