@@ -646,7 +646,13 @@ traitToHtm() {
     local outputMode="$5"
     case "$key" in
         file)
-            print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
+            if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
+                print "<li>\"${value#*,}\": "
+                print "$(keyToLabel "${value%%,*}")"
+                print "</li>"
+            else
+                print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
+            fi
             ;;
         unavailableFile)
             print "<li>\"${value#*,}\" (unavailable due to licensing): "
