@@ -772,7 +772,14 @@ traitToHtm() {
             if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]] || [[ -n "$trackUnavailableNote" ]]; then
                 isAvailable="false"
             fi
-            print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
+            local attribution=""
+            {
+                # Build attribution display
+                if [[ "$(preadconf featuring "$workPrefix.conf")" == "true" ]]; then
+                    attribution=
+                fi
+            }
+            print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
         medium)
             simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
