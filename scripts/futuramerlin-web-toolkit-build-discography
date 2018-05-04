@@ -711,7 +711,11 @@ traitToHtm() {
             else
                 nameColumn="$(preadconf name "$workPrefix.conf")"
             fi
-            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
+            local isUnavailable="false"
+            if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
+                isUnavailable="true"
+            fi
+            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$isUnavailable" "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
         medium)
             simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
