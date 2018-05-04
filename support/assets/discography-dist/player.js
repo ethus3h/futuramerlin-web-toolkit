@@ -3,7 +3,7 @@ let oldTrackRows = document.getElementsByTagName('tr');
 let newTrackRows = [];
 newTrackRows[0]=oldTrackRows[0];
 for(let counter=1; counter<oldTrackRows.length; counter++) {
-    //console.log(oldTrackRows[counter].parentElement);
+    //// console.log(oldTrackRows[counter].parentElement);
     if (oldTrackRows[counter].parentElement.tagName === "THEAD") {
         continue;
     }
@@ -121,7 +121,7 @@ audioTag.addEventListener("timeupdate", updateCurrentTime);
 audioTag.addEventListener("durationchange", updateCurrentTime);
 
 function loadTrack(trackNumber) {
-    console.log('loadTrack requested for ' + trackNumber);
+    // console.log('loadTrack requested for ' + trackNumber);
     currentTrack = trackNumber;
     let trackRowToPlay = trackRows[trackNumber];
     let trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
@@ -194,7 +194,7 @@ function playLabelSetPlaying() {
 }
 
 function playLabelSetLoading() {
-    console.log('Loading label requested');
+    // console.log('Loading label requested');
     clearTrackStatuses();
     let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "⏳";
@@ -213,7 +213,7 @@ function playLabelSetPaused() {
 }
 
 function playTrack(trackNumber) {
-    console.log('playTrack requested for ' + trackNumber);
+    // console.log('playTrack requested for ' + trackNumber);
     loadTrack(trackNumber);
     playLabelSetLoading();
     audioTag.addEventListener("canplay", function() {
@@ -253,9 +253,9 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 }
 
 function reachedEndOfTrack(eventParameter) {
-    console.log('Reached end of track ' + currentTrack);
+    // console.log('Reached end of track ' + currentTrack);
     let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
-    console.log(trackPlayButton);
+    // console.log(trackPlayButton);
     let nextTrack = currentTrack + 1;
     numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
@@ -263,13 +263,13 @@ function reachedEndOfTrack(eventParameter) {
     }
     trackPlayButton.classList.remove('currentTrack');
     audioTag.currentTime = 0;
-    console.log(trackPlayButton.classList);
+    // console.log(trackPlayButton.classList);
     if (trackPlayButton.classList.contains('playing')) {
-        console.log('Requesting playing for ' + nextTrack);
+        // console.log('Requesting playing for ' + nextTrack);
         playTrack(nextTrack);
     }
     else {
-        console.log('Requesting load for ' + nextTrack);
+        // console.log('Requesting load for ' + nextTrack);
         loadTrack(nextTrack);
     }
 }
