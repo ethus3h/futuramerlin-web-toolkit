@@ -463,7 +463,11 @@ simpleIaImage() {
     fi
     local relname
     relname="$(discReadConf name "$kind" "$identifier")"
-    print "<a href=\"https://archive.org/download/$iaident/$iafilename.png\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150;max-height:150\" /></a>"
+    local targetUrl="https://archive.org/download/$iaident/$iafilename.png"
+    if [[ "$isUnavailable" == "true" ]]; then
+        targetUrl="$identifier/$iafilename.png"
+    fi
+    print "<a href=\"$targetUrl\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150;max-height:150\" /></a>"
 }
 
 keyToLabel() {
