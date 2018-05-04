@@ -639,6 +639,9 @@ traitToHtm() {
         file)
             print "<li>$(simpleIaLink "$kind" "$identifier" "${value#*,}" "$(keyToLabel "${value%%,*}")")</li>"
             ;;
+        unavailableFile)
+            print "<li>\"${value#*,}\" (unavailable due to licensing): "$(keyToLabel "${value%%,*}")")</li>"
+            ;;
         nonPngArtwork)
             simpleMetadata "$(keyToLabel "$key")" "$(simpleIaLink "$value" "$identifier" "$value")"
             ;;
@@ -724,6 +727,9 @@ traitToHtm() {
             true
             ;;
         unavailable)
+            true
+            ;;
+        sreg)
             true
             ;;
         context)
