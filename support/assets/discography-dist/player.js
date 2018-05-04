@@ -55,6 +55,7 @@ let audioVolume = document.createElement('input');
 audioVolume.className = "audioVolume";
 audioScrubber.type = 'range';
 audioVolume.type = 'range';
+audioVolume.style.transform = 'rotate(270deg)';
 let audioPlayNextButton = document.createElement('button');
 audioPlayNextButton.className = "audioPlayNextButton";
 audioPlayNextButton.innerHTML = "⏭";
@@ -69,8 +70,6 @@ audioContainer.appendChild(audioScrubber);
 audioContainer.appendChild(audioVolume);
 audioContainer.appendChild(audioPlayNextButton);
 
-audioTag.addEventListener('ended', reachedEndOfTrack, false);
-
 function seekInAudio() {
     let newVal = Math.floor((audioScrubber.value / 100) * audioTag.duration);
     if (!isNaN(newVal)) {
@@ -83,26 +82,6 @@ function updateVolume() {
     audioTag.volume = audioVolume.value / 100;
 }
 audioVolume.onchange = updateVolume;
-
-function togglePlayPause() {
-    if (audioTag.paused) {
-        audioTag.play();
-        playLabelSetPlaying();
-    } else {
-        audioTag.pause();
-        clearTrackStatuses();
-    }
-}
-audioMainPlayButton.onclick = function() {
-    togglePlayPause();
-};
-
-audioPlayNextButton.onclick = function() {
-    reachedEndOfTrack(true);
-};
-audioVolume.style.transform = 'rotate(270deg)';
-
-document.body.insertBefore(audioContainer, document.body.firstChild);
 
 function convertRemToPixels(rem) {
     /* from https://stackoverflow.com/questions/36532307/rem-px-in-javascript */
@@ -298,6 +277,25 @@ function reachedEndOfTrack(eventParameter) {
     }
 }
 
+audioTag.addEventListener('ended', reachedEndOfTrack, false);
+
+audioPlayNextButton.onclick = function() {
+    reachedEndOfTrack(true);
+};
+
+function togglePlayPause() {
+    if (audioTag.paused) {
+        audioTag.play();
+        playLabelSetPlaying();
+    } else {
+        audioTag.pause();
+        clearTrackStatuses();
+    }
+}
+audioMainPlayButton.onclick = function() {
+    togglePlayPause();
+};
+
 for (let i = 1; i < trackRows.length; i++) {
     /* skip first row: it is header */
     trackAudioCell = trackRows[i].getElementsByTagName('td')[1];
@@ -314,3 +312,4 @@ for (let i = 1; i < trackRows.length; i++) {
 }
 
 loadTrack(1);
+document.body.insertBefore(audioContainer, document.body.firstChild);
