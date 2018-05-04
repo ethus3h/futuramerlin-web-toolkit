@@ -723,6 +723,7 @@ buildAttributionDisplay() {
 
     [[ -n "$attribution" ]] && attribution="$attribution "
 
+    print "$attribution"
 }
 
 traitToHtm() {
