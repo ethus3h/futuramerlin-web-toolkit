@@ -250,7 +250,7 @@
         border: 0.063rem solid #ddd; 
     }
 
-    dd img, li img {
+    dd img, li img, .inline-image {
         margin: 0;
         display: inline;
     }

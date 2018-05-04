@@ -689,7 +689,7 @@ getLicenseDisplay() {
     if [[ "$withLicenseName" == "true" ]]; then
         licenseName=" Creative Commons Attribution Noncommercial (3.0)"
     fi
-    print "<a href=\"http://creativecommons.org/licenses/by-nc/3.0/\"><img src=\"/discography-dist/icons/cc-by-nc.svg\" />$licenseName</a>"
+    print "<a href=\"http://creativecommons.org/licenses/by-nc/3.0/\"><img src=\"/discography-dist/icons/cc-by-nc.svg\" class=\"inline-image\" />$licenseName</a>"
 }
 
 buildAttributionDisplay() {
