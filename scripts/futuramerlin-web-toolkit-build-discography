@@ -831,7 +831,11 @@ buildInfoTable() {
                     if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
                         setClosingTag "</dl>"$'\n<!-- futuramerlin-web-toolkit insert to preserve newline during processing -->'
                     else
-                        setClosingTag "</dl>"
+                        if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
+                            setClosingTag "$(simpleMetadata "note" "This release is unavailable due to licensing.")"$'\n'"</dl>"
+                        else
+                            setClosingTag "</dl>"
+                        fi
                     fi
                     foundInfo="true"
                     print '<dl>'
@@ -839,7 +843,7 @@ buildInfoTable() {
                 if [[ "$infoTableBuildRequestType" == "featured-content" ]]; then
                     if [[ "$key" == 'date' ]]; then
                         local shortDateValue
-                        shortDateValue=$(discReadConf shortDate "$kind" "$identifier")
+                        shortDateValue="$(discReadConf shortDate "$kind" "$identifier")"
                         if [[ -n "$shortDateValue" ]]; then
                             continue
                         fi
