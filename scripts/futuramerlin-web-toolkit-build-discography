@@ -624,14 +624,10 @@ buildTrackPlayer() {
         simpleIaLink release "$releaseIdentifier" "$filename.$extC" "Orig. ($(keyToLabel "$extC"))"
     fi
     print '<br />'
-    print '<audio controls preload="none">'
-    local formats=(ogg flac mp3)
-    for format in "${formats[@]}"; do
-        if [[ "$isAvailable" == "true" ]] ||
-            [[ "$format" == "ogg" && "$hasOgg" == "true" ]] ||
-            [[ "$format" == "flac" && "$hasFlac" == "true" ]] ||
-            [[ "$format" == "mp3" && "$hasMp3" == "true" ]]
-        then
+    if [[ "$isAvailable" == "true" ]]; then
+        print '<audio controls preload="none">'
+        local formats=(ogg flac mp3)
+        for format in "${formats[@]}"; do
             print '<source src="'
             simpleIaUrl release "$releaseIdentifier" "$filename.$format"
             print '" type="audio/'
@@ -641,9 +637,9 @@ buildTrackPlayer() {
                 print "$format"
             fi
             print '">'
-        fi
-    done
-    print "Could not start audio player.</audio>"
+        done
+        print "Could not start audio player.</audio>"
+    fi
 }
 
 traitToHtm() {
