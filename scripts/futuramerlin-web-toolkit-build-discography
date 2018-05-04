@@ -514,6 +514,9 @@ keyToLabel() {
         alac)
             print "M4A: Apple Lossless Audio Codec"
             ;;
+        mp3)
+            print "MP3"
+            ;;
         cdRip)
             print "CD Rip"
             ;;
