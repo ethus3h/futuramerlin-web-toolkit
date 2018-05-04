@@ -680,12 +680,12 @@ buildTrackPlayer() {
 getLicenseDisplay() {
     local withLicenseName=""
     local licenseName=""
-    if [[ "$1" == "--with-license-name" ]]
+    if [[ "$1" == "--with-license-name" ]]; then
         withLicenseName="true"
         shift
     fi
     local licenseIdentifier="$1"
-    if [[ "$withLicenseName" == "true" ]]
+    if [[ "$withLicenseName" == "true" ]]; then
         licenseName=" Creative Commons Attribution Noncommercial (3.0)"
     fi
     print "<a href=\"http://creativecommons.org/licenses/by-nc/3.0/\"><img src=\"/discography-dist/icons/cc-by-nc.svg\" />$licenseName</a>"
