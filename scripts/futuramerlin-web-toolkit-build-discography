@@ -919,6 +919,9 @@ traitToHtm() {
         youtube)
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://youtube.com/watch?v=$value\">$value</a>"
             ;;
+        filename)
+            simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://youtube.com/watch?v=$value\">$value</a>"
+            ;;
         *)
             simpleMetadata "$(keyToLabel "$key")" "$value"
             ;;
