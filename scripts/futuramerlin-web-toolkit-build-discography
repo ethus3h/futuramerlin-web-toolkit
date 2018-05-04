@@ -514,6 +514,15 @@ keyToLabel() {
         cdRip)
             print "CD Rip"
             ;;
+        origExt)
+            print "Original file extension"
+            ;;
+        origExtB)
+            print "Original file extension"
+            ;;
+        origExtC)
+            print "Original file extension"
+            ;;
         zipRelease)
             print "ZIP release <small>(historic packing)</small>"
             ;;
