@@ -254,7 +254,7 @@ linkToItem() {
         # m.png = 50px; t.png = 150px
         picturePathName="$(getItemPath "$kind" "$identifier")/m.png"
         if [[ -e "$picturePathName" ]]; then
-            picture="<img src=\"$picturePathName\" alt=\"$(htmlToText.pl <<< "$name" | normalizeWhitespace): $pictureType thumbnail image\" width=\"50\" style=\"max-width:50px;max-height:50px\" />"
+            picture="<img src=\"$picturePathName\" alt=\"$(htmlToText.pl <<< "$name" | normalizeWhitespace): $pictureType thumbnail image\" width=\"50\" style=\"max-width:50px;max-height:50px;width:auto;height:auto\" />"
             if [[ "$artistNameInsert" == "" ]]; then
                 artistNameInsert=" "
             fi
@@ -467,7 +467,7 @@ simpleIaImage() {
     if [[ "$isUnavailable" == "true" ]]; then
         targetUrl="$identifier/$iafilename.png"
     fi
-    print "<a href=\"$targetUrl\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150px;max-height:150px\" /></a>"
+    print "<a href=\"$targetUrl\"><img src=\"$isFeaturedContentInsert$identifier/$thumbnailName.png\" alt=\"$(htmlToText.pl <<< "$relname" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150px;max-height:150px;width:auto;height:auto\" /></a>"
 }
 
 keyToLabel() {
@@ -1049,7 +1049,7 @@ buildLeafContents() {
             fi
             local tempName
             tempName="$(discReadConf name "$kind" "$identifier")"
-            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(htmlToText.pl <<< "$tempName" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150px;max-height:150px\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
+            print "        <img src=\"releases/$identifier/$thumbnailPrefix""1""$thumbnailSuffix.png\" alt=\"$(htmlToText.pl <<< "$tempName" | normalizeWhitespace): album artwork\" width=\"150\" style=\"max-width:150px;max-height:150px;width:auto;height:auto\" onclick=\"toggle('$identifier')\" class=\"musicthumb\" />"$'\n'
             return
         fi
     fi
