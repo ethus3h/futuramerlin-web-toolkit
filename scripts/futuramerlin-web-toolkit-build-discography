@@ -594,7 +594,8 @@ buildTrackPlayer() {
     elif [[ "$extA" == "mp3" || "$extB" == "mp3" || "$extC" == "mp3" ]]; then
         local hasMp3="true"
     fi
-    local firstSpaceAppended="" # for dealing with unavailable releases, which don't want the first space necessarily
+    local addedFormatEntryToUnavailableRelease="" # for dealing with unavailable releases, which don't want the first space necessarily
+    [[ "$isAvailable" == "true" ]] && addedFormatEntryToUnavailableRelease="true"
     if ! [[ "$hasOgg" == "true" ]]; then
         [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
         print " "
@@ -604,6 +605,7 @@ buildTrackPlayer() {
             print " "
         else
             print "Orig. (OGA)"
+            addedFormatEntryToUnavailableRelease="true"
         fi
     fi
     if ! [[ "$hasFlac" == "true" ]]; then
@@ -615,6 +617,7 @@ buildTrackPlayer() {
             print " "
         else
             print "Orig. (FLAC)"
+            addedFormatEntryToUnavailableRelease="true"
         fi
     fi
     if ! [[ "$hasMp3" == "true" ]]; then
@@ -624,10 +627,11 @@ buildTrackPlayer() {
             simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
         else
             print "Orig. (MP3)"
+            addedFormatEntryToUnavailableRelease="true"
         fi
     fi
     if [[ -n "$extA" && "$extA" != "ogg" && "$extA" != "mp3" && "$extA" != "flac" ]]; then
-        print " "
+        [[ "$addedFormatEntryToUnavailableRelease" == "true" ]] && print " "
         simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($(keyToLabel "$extA"))"
     fi
     if [[ -n "$extB" && "$extB" != "ogg" && "$extB" != "mp3" && "$extB" != "flac" ]]; then
