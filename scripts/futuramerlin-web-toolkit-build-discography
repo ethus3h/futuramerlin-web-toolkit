@@ -896,8 +896,8 @@ buildInfoTable() {
                             if [[ "$kind" != "release" ]]; then
                                 displayTypeName="track"
                             fi
-                            #setClosingTag "    $(simpleMetadata "Note" "This $displayTypeName is unavailable due to licensing.")"$'\n'"</dl>"
-                            setClosingTag "</dl>"
+                            setClosingTag "    $(simpleMetadata "Note" "This $displayTypeName is unavailable due to licensing.")"$'\n'"</dl>"
+                            #setClosingTag "</dl>"
                         else
                             setClosingTag "</dl>"
                         fi
