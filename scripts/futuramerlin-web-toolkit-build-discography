@@ -403,7 +403,7 @@ listItem() {
                 perl -0777 -p -i -e 's/\\/\\/g' "../featured.htm.content.tmp"
                 ereplace $'\n' '\n' "../featured.htm.content.tmp"
                 print $'\n' >> "../featured.htm.content.tmp"
-                cat "../featured.htm.content.tmp" >> "../featured.htm.content"
+                [[ "$(wc -c < ../featured.htm.content.tmp)" == "1" ]] || cat "../featured.htm.content.tmp" >> "../featured.htm.content"
                 rm "../featured.htm.content.tmp"
             fi
             # We need to call buildPage in here, because unlike with alphabetical lists, it won't be called by listRecursive
