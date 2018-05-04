@@ -616,14 +616,11 @@ buildTrackPlayer() {
             print "Orig. (FLAC)"
         fi
     fi
-    print " "
     if ! [[ "$hasMp3" == "true" ]]; then
         [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
-        print " "
     else
         if [[ "$isAvailable" == "true" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
-            print " "
         else
             print "Orig. (MP3)"
         fi
