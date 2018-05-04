@@ -688,7 +688,7 @@ buildTrackPlayer() {
             fi
             print '">'
         done
-        print "Could not start audio player.</audio>"
+        print "</audio>"
     fi
 }
 
