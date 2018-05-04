@@ -716,7 +716,8 @@ traitToHtm() {
                 nameColumn="$(preadconf name "$workPrefix.conf")"
             fi
             local isAvailable="true"
-            if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
+            local trackIsAvailable="true"
+            if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]] || [[ "$(preadconf unavailable "$workPrefix.conf")" == "true" ]]; then
                 isAvailable="false"
             fi
             print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
