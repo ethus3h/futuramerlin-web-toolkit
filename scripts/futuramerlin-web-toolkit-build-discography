@@ -631,7 +631,7 @@ buildTrackPlayer() {
             [[ "$format" == "ogg" && "$hasOgg" == "true" ]] ||
             [[ "$format" == "flac" && "$hasFlac" == "true" ]] ||
             [[ "$format" == "mp3" && "$hasMp3" == "true" ]]
-        ; then
+        then
             print '<source src="'
             simpleIaUrl release "$releaseIdentifier" "$filename.$format"
             print '" type="audio/'
