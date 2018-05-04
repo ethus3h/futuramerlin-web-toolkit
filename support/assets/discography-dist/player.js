@@ -193,8 +193,7 @@ function loadTrack(trackNumber) {
 function clearTrackStatuses() {
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
-        let trackRowToClear = trackRows[i];
-        let trackPlayButton = trackRowToClear.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
+        let trackPlayButton = trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
         trackPlayButton.innerHTML = "▶";
         if (trackPlayButton.classList.contains('currentTrack')) {
             trackPlayButton.className = 'playButton currentTrack';
