@@ -254,17 +254,17 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 
 function reachedEndOfTrack(eventParameter) {
     console.log('Reached end of track ' + currentTrack);
-    currentTrackElement = document.getElementsByClassName('currentTrack')[0];
-    console.log(currentTrackElement);
+    let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
+    console.log(trackPlayButton);
     let nextTrack = currentTrack + 1;
     numberOfTracks = trackRows.length - 1;
     if (nextTrack > numberOfTracks) {
         nextTrack = 1;
     }
-    currentTrackElement.classList.remove('currentTrack');
+    trackPlayButton.classList.remove('currentTrack');
     audioTag.currentTime = 0;
-    console.log(currentTrackElement.classList);
-    if (currentTrackElement.classList.contains('playing')) {
+    console.log(trackPlayButton.classList);
+    if (trackPlayButton.classList.contains('playing')) {
         console.log('Requesting playing for ' + nextTrack);
         playTrack(nextTrack);
     }
