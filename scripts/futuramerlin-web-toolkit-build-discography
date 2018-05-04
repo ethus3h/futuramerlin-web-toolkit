@@ -441,6 +441,11 @@ simpleIaUrl() {
 }
 
 simpleIaImage() {
+    local isUnavailable=""
+    if [[ "$1" == "--unavailable" ]]; then
+        isUnavailable="true"
+        shift
+    fi
     local isFeaturedContentInsert=""
     if [[ "$1" == "--featured-content-page" ]]; then
         isFeaturedContentInsert="releases/"
