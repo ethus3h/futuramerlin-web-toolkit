@@ -692,6 +692,7 @@ getLicenseDisplay() {
 }
 
 buildAttributionDisplay() {
+    local workPrefix="$1"
     local attribution
     local attributionFeaturing
     attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
@@ -717,11 +718,13 @@ buildAttributionDisplay() {
     local attributionLicense
     attributionLicense="$(preadconf license "$workPrefix.conf")"
     if [[ -n "$attributionLicense" ]]; then
-        [[ -n "$attribution" ]] && attribution="$attribution "
+        [[ -n "$attribution" ]] && attribution="$attribution</em> "
         attribution="$attribution$(getLicenseDisplay "$attributionLicense")"
+    else
+        [[ -n "$attribution" ]] && attribution="$attribution</em>"
     fi
 
-    [[ -n "$attribution" ]] && attribution="$attribution "
+    [[ -n "$attribution" ]] && attribution=" <em>$attribution"
 
     print "$attribution"
 }
