@@ -663,7 +663,8 @@ traitToHtm() {
                 local end="$artcountValue"
                 for (( i=1; i<=end; i++ )); do
                     if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
-                        print "<a href=\"$identifier/$i.png\"><img src=\"\" alt=\"\" width=\"150\" style=\"max-width:150;max-height:150\" /></a>"
+                        simpleIaImage --unavailable "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                    print "<a href=\"$identifier/$i.png\"><img src=\"\" alt=\"\" width=\"150\" style=\"max-width:150;max-height:150\" /></a>"
                     else
                         if [[ "$outputMode" == "featured-content" ]]; then
                             simpleIaImage --featured-content-page "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
