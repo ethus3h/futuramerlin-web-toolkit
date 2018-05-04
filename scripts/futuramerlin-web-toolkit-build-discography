@@ -575,6 +575,8 @@ keyToLabel() {
 }
 
 buildTrackPlayer() {
+    local isUnavailable="$1"
+    shift
     local workIdentifier="$1"
     local releaseIdentifier="$2"
     local filename
@@ -593,19 +595,19 @@ buildTrackPlayer() {
         local hasMp3="true"
     fi
     if ! [[ "$hasOgg" == "true" ]]; then
-        simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
+        [[ "$isUnavailable" == "false" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
     else
         simpleIaLink release "$releaseIdentifier" "$filename".ogg "Orig. (OGA)"
     fi
     print " "
     if ! [[ "$hasFlac" == "true" ]]; then
-        simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
+        [[ "$isUnavailable" == "false" ]] && simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
     else
         simpleIaLink release "$releaseIdentifier" "$filename".flac "Orig. (FLAC)"
     fi
     print " "
     if ! [[ "$hasMp3" == "true" ]]; then
-        simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
+        [[ "$isUnavailable" == "false" ]] && simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
     else
         simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
     fi
