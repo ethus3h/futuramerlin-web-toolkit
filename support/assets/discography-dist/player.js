@@ -235,6 +235,7 @@ function playLabelSetPaused() {
 function playTrack(trackNumber) {
     loadTrack(trackNumber);
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
+    playLabelSetLoading();
     audioTag.addEventListener("canplay", function() {
             audioTag.play();
             playLabelSetPlaying();
@@ -246,7 +247,7 @@ function pauseTrack(trackNumber) {
     loadTrack(trackNumber);
     let audioTag = document.getElementsByClassName('audioContainer')[0].getElementsByTagName('audio')[0];
     audioTag.pause();
-    clearTrackStatuses();
+    playLabelSetPaused();
     trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
         playTrackFromTrackButton(this);
     };
@@ -273,7 +274,7 @@ function pauseTrackFromTrackButton(trackClickedElement) {
 }
 
 function reachedEndOfTrack(eventParameter) {
-    console.log('Reached end of track');
+    console.log('Reached end of track ' + currentTrack);
     currentTrackElement = document.getElementsByClassName('currentTrack')[0];
     let currentTrack = 0;
     for (let i = 1; i < trackRows.length; i++) {
