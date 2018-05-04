@@ -627,15 +627,21 @@ buildTrackPlayer() {
     print '<audio controls preload="none">'
     local formats=(ogg flac mp3)
     for format in "${formats[@]}"; do
-        print '<source src="'
-        simpleIaUrl release "$releaseIdentifier" "$filename.$format"
-        print '" type="audio/'
-        if [[ "$format" == "mp3" ]]; then
-            print "mpeg"
-        else
-            print "$format"
+        if [[ "$isAvailable" == "true" ]] ||
+            [[ "$format" == "ogg" && "$hasOgg" == "true" ]] ||
+            [[ "$format" == "flac" && "$hasFlac" == "true" ]] ||
+            [[ "$format" == "mp3" && "$hasMp3" == "true" ]]
+        ; then
+            print '<source src="'
+            simpleIaUrl release "$releaseIdentifier" "$filename.$format"
+            print '" type="audio/'
+            if [[ "$format" == "mp3" ]]; then
+                print "mpeg"
+            else
+                print "$format"
+            fi
+            print '">'
         fi
-        print '">'
     done
     print "Could not start audio player.</audio>"
 }
