@@ -800,8 +800,10 @@ traitToHtm() {
                 attributionLicense="$(preadconf license "$workPrefix.conf")"
                 if [[ -n "$attributionLicense" ]]; then
                     [[ -n "$attribution" ]] && attribution="$attribution "
-                    attribution="$attribution"
+                    attribution="$attribution$(getLicenseDisplay "$attributionLicense")"
                 fi
+
+                [[ -n "$attribution" ]] && attribution="$attribution "
             }
             print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
