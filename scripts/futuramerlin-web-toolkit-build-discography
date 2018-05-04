@@ -662,10 +662,13 @@ traitToHtm() {
             simpleMetadata "$(keyToLabel "$key")" "$(
                 local end="$artcountValue"
                 for (( i=1; i<=end; i++ )); do
-                    if [[ "$outputMode" == "featured-content" ]]; then
-                        simpleIaImage --featured-content-page "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                    if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
                     else
-                        simpleIaImage "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                        if [[ "$outputMode" == "featured-content" ]]; then
+                            simpleIaImage --featured-content-page "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                        else
+                            simpleIaImage "$kind" "$identifier" "$i" "$reverseThumbnailPattern"
+                        fi
                     fi
                     [[ "$i" != "$end" ]] && print ' '
                 done
