@@ -193,6 +193,7 @@ function playLabelSetPlaying() {
 }
 
 function playLabelSetLoading() {
+    console.log('Loading label requested for ' + trackNumber);
     clearTrackStatuses();
     let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "⏳";
