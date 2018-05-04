@@ -575,7 +575,7 @@ keyToLabel() {
 }
 
 buildTrackPlayer() {
-    local isUnavailable="$1"
+    local isAvailable="$1"
     shift
     local workIdentifier="$1"
     local releaseIdentifier="$2"
@@ -595,19 +595,19 @@ buildTrackPlayer() {
         local hasMp3="true"
     fi
     if ! [[ "$hasOgg" == "true" ]]; then
-        [[ "$isUnavailable" == "false" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
+        [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
     else
         simpleIaLink release "$releaseIdentifier" "$filename".ogg "Orig. (OGA)"
     fi
     print " "
     if ! [[ "$hasFlac" == "true" ]]; then
-        [[ "$isUnavailable" == "false" ]] && simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
+        [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
     else
         simpleIaLink release "$releaseIdentifier" "$filename".flac "Orig. (FLAC)"
     fi
     print " "
     if ! [[ "$hasMp3" == "true" ]]; then
-        [[ "$isUnavailable" == "false" ]] && simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
+        [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
     else
         simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
     fi
@@ -713,11 +713,11 @@ traitToHtm() {
             else
                 nameColumn="$(preadconf name "$workPrefix.conf")"
             fi
-            local isUnavailable="false"
+            local isAvailable="true"
             if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
-                isUnavailable="true"
+                isAvailable="false"
             fi
-            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$isUnavailable" "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
+            print "    <tr><td>$(getTrackCounter)</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
         medium)
             simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
