@@ -778,7 +778,13 @@ traitToHtm() {
                 local attributionFeaturing
                 attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
                 if [[ -n "$attributionFeaturing" ]]; then
-                    attribution=
+                    attribution="(featuring $attributionFeaturing)"
+                fi
+                local attributionWith
+                attributionWith="$(preadconf with "$workPrefix.conf")"
+                if [[ -n "$attributionWith" ]]; then
+                    [[ -n "$attribution" ]] && attribution="$attribution "
+                    attribution="(with $attributionWith)"
                 fi
             }
             print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
