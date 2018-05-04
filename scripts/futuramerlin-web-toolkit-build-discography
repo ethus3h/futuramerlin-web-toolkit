@@ -597,8 +597,10 @@ buildTrackPlayer() {
     local addedFormatEntryToUnavailableRelease="" # for dealing with unavailable releases, which don't want the first space necessarily
     [[ "$isAvailable" == "true" ]] && addedFormatEntryToUnavailableRelease="true"
     if ! [[ "$hasOgg" == "true" ]]; then
-        [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
-        print " "
+        if [[ "$isAvailable" == "true" ]]; then
+            simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
+            print " "
+        fi
     else
         if [[ "$isAvailable" == "true" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename".ogg "Orig. (OGA)"
@@ -609,8 +611,10 @@ buildTrackPlayer() {
         fi
     fi
     if ! [[ "$hasFlac" == "true" ]]; then
-        [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
-        print " "
+        if [[ "$isAvailable" == "true" ]]; then
+            simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
+            print " "
+        fi
     else
         if [[ "$isAvailable" == "true" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename".flac "Orig. (FLAC)"
@@ -635,15 +639,15 @@ buildTrackPlayer() {
         simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($(keyToLabel "$extA"))"
     fi
     if [[ -n "$extB" && "$extB" != "ogg" && "$extB" != "mp3" && "$extB" != "flac" ]]; then
-        print " "
+        [[ "$addedFormatEntryToUnavailableRelease" == "true" ]] && print " "
         simpleIaLink release "$releaseIdentifier" "$filename.$extB" "Orig. ($(keyToLabel "$extB"))"
     fi
     if [[ -n "$extC" && "$extC" != "ogg" && "$extC" != "mp3" && "$extC" != "flac" ]]; then
-        print " "
+        [[ "$addedFormatEntryToUnavailableRelease" == "true" ]] && print " "
         simpleIaLink release "$releaseIdentifier" "$filename.$extC" "Orig. ($(keyToLabel "$extC"))"
     fi
-    print '<br />'
     if [[ "$isAvailable" == "true" ]]; then
+        print '<br />'
         print '<audio controls preload="none">'
         local formats=(ogg flac mp3)
         for format in "${formats[@]}"; do
