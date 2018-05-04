@@ -239,7 +239,7 @@ function playTrackFromTrackButton(trackClickedElement) {
         /* skip first row: it is header */
         console.log('Checking if');
         console.log(trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0]);
-        console.log(trackClickedElement.target);
+        console.log(trackClickedElement);
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement.target) {
             playTrack(i);
         }
@@ -253,7 +253,7 @@ function pauseTrackFromTrackButton(trackClickedElement) {
         /* skip first row: it is header */
         console.log('Checking if');
         console.log(trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0]);
-        console.log(trackClickedElement.target);
+        console.log(trackClickedElement);
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement.target) {
             console.log('pauseTrack gotten');
             pauseTrack(i);
