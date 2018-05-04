@@ -87,16 +87,16 @@ audioVolume.onchange = updateVolume;
 function togglePlayPause() {
     if (audioTag.paused) {
         audioTag.play();
-        syncPlayLabel();
+        playLabelSetPlaying();
     } else {
         audioTag.pause();
         clearTrackStatuses();
     }
 }
-
 audioMainPlayButton.onclick = function() {
     togglePlayPause();
 };
+
 audioPlayNextButton.onclick = function() {
     reachedEndOfTrack(true);
 };
@@ -206,15 +206,11 @@ function clearTrackStatuses() {
     audioMainPlayButton.innerHTML = "▶";
 }
 
-function syncPlayLabel() {
-    trackNumber = currentTrack;
-    let trackRowToPlay = trackRows[trackNumber];
-    let trackPlayButton = trackRowToPlay.getElementsByTagName('td')[1].getElementsByTagName('button')[0];
+function playLabelSetPlaying() {
+    let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "⏸";
     trackPlayButton.className = 'playButton playing currentTrack';
-    trackPlayButton.onclick = function() {
-        pauseTrackFromTrackButton(this);
-    };
+    trackPlayButton.onclick = pauseTrackFromTrackButton;
     audioMainPlayButton.innerHTML = "⏸";
 }
 
@@ -224,7 +220,7 @@ function playTrack(trackNumber) {
     audioTag.addEventListener("canplay", function() {
             audioTag.play();
             clearTrackStatuses();
-            syncPlayLabel(trackNumber);
+            playLabelSetPlaying(trackNumber);
         }
     );
 }
