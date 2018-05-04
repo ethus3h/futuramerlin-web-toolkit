@@ -692,36 +692,36 @@ getLicenseDisplay() {
 }
 
 buildAttributionDisplay() {
-                    # Build attribution display
-                    local attributionFeaturing
-                    attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
-                    if [[ -n "$attributionFeaturing" ]]; then
-                        [[ -n "$attribution" ]] && attribution="$attribution "
-                        attribution="$attribution(featuring $attributionFeaturing)"
-                    fi
+    local attribution
+    local attributionFeaturing
+    attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
+    if [[ -n "$attributionFeaturing" ]]; then
+        [[ -n "$attribution" ]] && attribution="$attribution "
+        attribution="$attribution(featuring $attributionFeaturing)"
+    fi
 
-                    local attributionWith
-                    attributionWith="$(preadconf with "$workPrefix.conf")"
-                    if [[ -n "$attributionWith" ]]; then
-                        [[ -n "$attribution" ]] && attribution="$attribution "
-                        attribution="$attribution(with $attributionWith)"
-                    fi
+    local attributionWith
+    attributionWith="$(preadconf with "$workPrefix.conf")"
+    if [[ -n "$attributionWith" ]]; then
+        [[ -n "$attribution" ]] && attribution="$attribution "
+        attribution="$attribution(with $attributionWith)"
+    fi
 
-                    local attributionOriginalRemixArtist
-                    attributionOriginalRemixArtist="$(preadconf remixOriginalArtist "$workPrefix.conf")"
-                    if [[ -n "$attributionWith" ]]; then
-                        [[ -n "$attribution" ]] && attribution="$attribution "
-                        attribution="$attribution(remix of track by $attributionOriginalRemixArtist)"
-                    fi
+    local attributionOriginalRemixArtist
+    attributionOriginalRemixArtist="$(preadconf remixOriginalArtist "$workPrefix.conf")"
+    if [[ -n "$attributionWith" ]]; then
+        [[ -n "$attribution" ]] && attribution="$attribution "
+        attribution="$attribution(remix of track by $attributionOriginalRemixArtist)"
+    fi
 
-                    local attributionLicense
-                    attributionLicense="$(preadconf license "$workPrefix.conf")"
-                    if [[ -n "$attributionLicense" ]]; then
-                        [[ -n "$attribution" ]] && attribution="$attribution "
-                        attribution="$attribution$(getLicenseDisplay "$attributionLicense")"
-                    fi
+    local attributionLicense
+    attributionLicense="$(preadconf license "$workPrefix.conf")"
+    if [[ -n "$attributionLicense" ]]; then
+        [[ -n "$attribution" ]] && attribution="$attribution "
+        attribution="$attribution$(getLicenseDisplay "$attributionLicense")"
+    fi
 
-                    [[ -n "$attribution" ]] && attribution="$attribution "
+    [[ -n "$attribution" ]] && attribution="$attribution "
 
 }
 
