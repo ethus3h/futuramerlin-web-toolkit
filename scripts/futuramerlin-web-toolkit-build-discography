@@ -778,13 +778,29 @@ traitToHtm() {
                 local attributionFeaturing
                 attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
                 if [[ -n "$attributionFeaturing" ]]; then
-                    attribution="(featuring $attributionFeaturing)"
+                    [[ -n "$attribution" ]] && attribution="$attribution "
+                    attribution="$attribution(featuring $attributionFeaturing)"
                 fi
+
                 local attributionWith
                 attributionWith="$(preadconf with "$workPrefix.conf")"
                 if [[ -n "$attributionWith" ]]; then
                     [[ -n "$attribution" ]] && attribution="$attribution "
-                    attribution="(with $attributionWith)"
+                    attribution="$attribution(with $attributionWith)"
+                fi
+
+                local attributionOriginalRemixArtist
+                attributionOriginalRemixArtist="$(preadconf remixOriginalArtist "$workPrefix.conf")"
+                if [[ -n "$attributionWith" ]]; then
+                    [[ -n "$attribution" ]] && attribution="$attribution "
+                    attribution="$attribution(remix of track by $attributionOriginalRemixArtist)"
+                fi
+
+                local attributionLicense
+                attributionLicense="$(preadconf license "$workPrefix.conf")"
+                if [[ -n "$attributionLicense" ]]; then
+                    [[ -n "$attribution" ]] && attribution="$attribution "
+                    attribution="$attribution"
                 fi
             }
             print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
