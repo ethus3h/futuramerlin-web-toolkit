@@ -596,31 +596,36 @@ buildTrackPlayer() {
     fi
     if ! [[ "$hasOgg" == "true" ]]; then
         [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
+        print " "
     else
         if [[ "$isAvailable" == "true" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename".ogg "Orig. (OGA)"
+            print " "
         else
             print "Orig. (OGA)"
         fi
     fi
-    print " "
     if ! [[ "$hasFlac" == "true" ]]; then
         [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
+        print " "
     else
         if [[ "$isAvailable" == "true" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename".flac "Orig. (FLAC)"
+            print " "
         else
-            print "Orig. (OGA)"
+            print "Orig. (FLAC)"
         fi
     fi
     print " "
     if ! [[ "$hasMp3" == "true" ]]; then
         [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
+        print " "
     else
         if [[ "$isAvailable" == "true" ]]; then
             simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
+            print " "
         else
-            print "Orig. (OGA)"
+            print "Orig. (MP3)"
         fi
     fi
     if [[ -n "$extA" && "$extA" != "ogg" && "$extA" != "mp3" && "$extA" != "flac" ]]; then
