@@ -723,6 +723,9 @@ traitToHtm() {
         nextId)
             true
             ;;
+        unavailable)
+            true
+            ;;
         context)
             local contextKind="${value%%,*}"
             simpleMetadata "$(keyToLabel "$key")" "${contextKind^}: $(linkToItem --with-date "$contextKind" "${value#*,}" false)"
