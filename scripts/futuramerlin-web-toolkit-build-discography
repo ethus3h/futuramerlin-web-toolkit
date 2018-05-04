@@ -517,6 +517,15 @@ keyToLabel() {
         cdRip)
             print "CD Rip"
             ;;
+        flacchecksum)
+            print "FLAC checksum"
+            ;;
+        disambig)
+            print "Disambiguation comment"
+            ;;
+        bpm)
+            print "Beats per minute"
+            ;;
         remixOriginalArtist)
             print "Original artist of this remixed track"
             ;;
