@@ -213,7 +213,7 @@ function playLabelSetPaused() {
 }
 
 function playTrack(trackNumber) {
-    // console.log('playTrack requested for ' + trackNumber);
+    console.log('playTrack requested for ' + trackNumber);
     loadTrack(trackNumber);
     playLabelSetLoading();
     audioTag.addEventListener("canplay", function() {
@@ -224,6 +224,7 @@ function playTrack(trackNumber) {
 }
 
 function pauseTrack(trackNumber) {
+    console.log('playTrack requested for ' + trackNumber);
     loadTrack(trackNumber);
     audioTag.pause();
     playLabelSetPaused();
