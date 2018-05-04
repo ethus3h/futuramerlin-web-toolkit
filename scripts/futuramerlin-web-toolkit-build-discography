@@ -920,7 +920,8 @@ buildInfoTable() {
                 if [[ -n "$traitHtm" ]]; then
                     #discogDebug "Got trait from $kind $identifier $key $value: \'$traitHtm\'"
                     local pattern='^'$'\n''<\/'
-                    if [[ "$traitHtm" =~ $pattern ]]; then
+                    if [[ "$traitHtm" =~ $pattern ]] || [[ "$traitHtm" = *'<dt>Note</dt><dd>This release is unavailable due to licensing.</dd>'* ]]; then
+                        # I'm not sure why unavailable releases match the extra newline condition, but whatever.
                         print "$traitHtm"
                     else
                         print $'\n    '"$traitHtm"
