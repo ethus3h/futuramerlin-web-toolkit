@@ -163,7 +163,7 @@
         display: block;
     }
 
-    a.musicthumb {
+    a.musicthumb, a.musicthumb::hover {
         padding: 0.5rem;
         width: 100%;
         border-bottom: none;
