@@ -775,7 +775,9 @@ traitToHtm() {
             local attribution=""
             {
                 # Build attribution display
-                if [[ "$(preadconf featuring "$workPrefix.conf")" == "true" ]]; then
+                local attributionFeaturing
+                attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
+                if [[ -n "$attributionFeaturing" ]]; then
                     attribution=
                 fi
             }
