@@ -28,10 +28,9 @@ function formatSecondsAsTime(secs, format) {
 
 let currentTrack = 1;
 
-let audioContainer = document.createElement('div');
 let audioTag = document.createElement('audio');
-// audioTag.setAttribute("controls","controls");
-audioTag.addEventListener('ended', reachedEndOfTrack, false);
+
+let audioContainer = document.createElement('div');
 audioContainer.className = "audioContainer";
 audioContainer.appendChild(audioTag);
 
@@ -56,7 +55,7 @@ audioVolume.type = 'range';
 let audioPlayNextButton = document.createElement('button');
 audioPlayNextButton.className = "audioPlayNextButton";
 
-audioScrubber.onchange = seekInAudio;
+audioTag.addEventListener('ended', reachedEndOfTrack, false);
 
 function seekInAudio() {
     let newVal = Math.floor((audioScrubber.value / 100) * audioTag.duration);
@@ -64,6 +63,7 @@ function seekInAudio() {
         audioTag.currentTime = newVal;
     }
 }
+audioScrubber.onchange = seekInAudio;
 
 audioVolume.onchange = updateVolume;
 
