@@ -1,3 +1,4 @@
+// Build list of available track row elements
 let oldTrackRows = document.getElementsByTagName('tr');
 let newTrackRows = [];
 newTrackRows[0]=oldTrackRows[0];
@@ -58,6 +59,16 @@ let audioPlayNextButton = document.createElement('button');
 audioPlayNextButton.className = "audioPlayNextButton";
 audioPlayNextButton.innerHTML = "⏭";
 
+audioContainer.appendChild(audioWaveform);
+audioContainer.appendChild(audioPlayhead);
+audioContainer.appendChild(audioTitle);
+audioContainer.appendChild(audioMainPlayButton);
+audioContainer.appendChild(audioDuration);
+audioContainer.appendChild(audioCurrentTime);
+audioContainer.appendChild(audioScrubber);
+audioContainer.appendChild(audioVolume);
+audioContainer.appendChild(audioPlayNextButton);
+
 audioTag.addEventListener('ended', reachedEndOfTrack, false);
 
 function seekInAudio() {
@@ -72,16 +83,6 @@ function updateVolume() {
     audioTag.volume = audioVolume.value / 100;
 }
 audioVolume.onchange = updateVolume;
-
-audioContainer.appendChild(audioWaveform);
-audioContainer.appendChild(audioPlayhead);
-audioContainer.appendChild(audioTitle);
-audioContainer.appendChild(audioMainPlayButton);
-audioContainer.appendChild(audioDuration);
-audioContainer.appendChild(audioCurrentTime);
-audioContainer.appendChild(audioScrubber);
-audioContainer.appendChild(audioVolume);
-audioContainer.appendChild(audioPlayNextButton);
 
 function togglePlayPause() {
     if (audioTag.paused) {
