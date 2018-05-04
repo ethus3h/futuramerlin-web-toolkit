@@ -594,6 +594,7 @@ buildTrackPlayer() {
     elif [[ "$extA" == "mp3" || "$extB" == "mp3" || "$extC" == "mp3" ]]; then
         local hasMp3="true"
     fi
+    local firstSpaceAppended="" # for dealing with unavailable releases, which don't want the first space necessarily
     if ! [[ "$hasOgg" == "true" ]]; then
         [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
         print " "
