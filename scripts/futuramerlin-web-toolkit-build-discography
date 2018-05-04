@@ -691,6 +691,40 @@ getLicenseDisplay() {
     print "<a href=\"http://creativecommons.org/licenses/by-nc/3.0/\"><img src=\"/discography-dist/icons/cc-by-nc.svg\" />$licenseName</a>"
 }
 
+buildAttributionDisplay() {
+                    # Build attribution display
+                    local attributionFeaturing
+                    attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
+                    if [[ -n "$attributionFeaturing" ]]; then
+                        [[ -n "$attribution" ]] && attribution="$attribution "
+                        attribution="$attribution(featuring $attributionFeaturing)"
+                    fi
+
+                    local attributionWith
+                    attributionWith="$(preadconf with "$workPrefix.conf")"
+                    if [[ -n "$attributionWith" ]]; then
+                        [[ -n "$attribution" ]] && attribution="$attribution "
+                        attribution="$attribution(with $attributionWith)"
+                    fi
+
+                    local attributionOriginalRemixArtist
+                    attributionOriginalRemixArtist="$(preadconf remixOriginalArtist "$workPrefix.conf")"
+                    if [[ -n "$attributionWith" ]]; then
+                        [[ -n "$attribution" ]] && attribution="$attribution "
+                        attribution="$attribution(remix of track by $attributionOriginalRemixArtist)"
+                    fi
+
+                    local attributionLicense
+                    attributionLicense="$(preadconf license "$workPrefix.conf")"
+                    if [[ -n "$attributionLicense" ]]; then
+                        [[ -n "$attribution" ]] && attribution="$attribution "
+                        attribution="$attribution$(getLicenseDisplay "$attributionLicense")"
+                    fi
+
+                    [[ -n "$attribution" ]] && attribution="$attribution "
+
+}
+
 traitToHtm() {
     local kind="$1"
     local identifier="$2"
@@ -774,36 +808,6 @@ traitToHtm() {
             fi
             local attribution=""
             {
-                # Build attribution display
-                local attributionFeaturing
-                attributionFeaturing="$(preadconf featuring "$workPrefix.conf")"
-                if [[ -n "$attributionFeaturing" ]]; then
-                    [[ -n "$attribution" ]] && attribution="$attribution "
-                    attribution="$attribution(featuring $attributionFeaturing)"
-                fi
-
-                local attributionWith
-                attributionWith="$(preadconf with "$workPrefix.conf")"
-                if [[ -n "$attributionWith" ]]; then
-                    [[ -n "$attribution" ]] && attribution="$attribution "
-                    attribution="$attribution(with $attributionWith)"
-                fi
-
-                local attributionOriginalRemixArtist
-                attributionOriginalRemixArtist="$(preadconf remixOriginalArtist "$workPrefix.conf")"
-                if [[ -n "$attributionWith" ]]; then
-                    [[ -n "$attribution" ]] && attribution="$attribution "
-                    attribution="$attribution(remix of track by $attributionOriginalRemixArtist)"
-                fi
-
-                local attributionLicense
-                attributionLicense="$(preadconf license "$workPrefix.conf")"
-                if [[ -n "$attributionLicense" ]]; then
-                    [[ -n "$attribution" ]] && attribution="$attribution "
-                    attribution="$attribution$(getLicenseDisplay "$attributionLicense")"
-                fi
-
-                [[ -n "$attribution" ]] && attribution="$attribution "
             }
             print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
             ;;
