@@ -210,12 +210,12 @@ function playLabelSetLoading() {
 function playLabelSetPaused() {
     clearTrackStatuses();
     let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
-    trackPlayButton.innerHTML = "⏳";
+    trackPlayButton.innerHTML = "⏸";
     trackPlayButton.className = 'playButton playing currentTrack';
     trackPlayButton.onclick = function() {
         playTrackFromTrackButton(this);
     };
-    audioMainPlayButton.innerHTML = "⏳";
+    audioMainPlayButton.innerHTML = "⏸";
 }
 
 function playTrack(trackNumber) {
@@ -229,14 +229,12 @@ function playTrack(trackNumber) {
     );
 }
 
-function pauseTrack(trackNumber) {
-    console.log('pauseTrack requested for ' + trackNumber);
+function pauseTrack() {
+    console.log('pauseTrack requested');
     audioTag.pause();
     clearTrackStatuses();
-    // loadTrack(trackNumber);
-    audioTag.pause();
     playLabelSetPaused();
-    trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
+    trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
         playTrackFromTrackButton(this);
     };
 }
