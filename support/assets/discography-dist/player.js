@@ -228,7 +228,6 @@ function playTrack(trackNumber) {
             audioTag.removeEventListener("canplay", canPlayEventListenerFunction);
         };
     audioTag.addEventListener("canplay", canPlayEventListenerFunction);
-    );
 }
 
 function pauseTrack() {
