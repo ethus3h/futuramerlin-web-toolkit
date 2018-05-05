@@ -291,6 +291,7 @@ audioPlayNextButton.onclick = function() {
 };
 
 function togglePlayPause() {
+    console.log('togglePlayPause requested');
     if (audioTag.paused) {
         audioTag.play();
         playLabelSetPlaying();
