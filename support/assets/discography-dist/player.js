@@ -225,6 +225,7 @@ function playTrack(trackNumber) {
     audioTag.addEventListener("canplay", function() {
             audioTag.play();
             playLabelSetPlaying();
+            audioTag.removeEventListener("canplay");
         }
     );
 }
