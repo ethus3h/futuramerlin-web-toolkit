@@ -263,7 +263,7 @@ function pauseTrackFromTrackButton(trackClickedElement) {
         // console.log(trackClickedElement);
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement) {
             console.log('pauseTrack gotten');
-            pauseTrack(i);
+            pauseTrack();
         }
     }
     return false;
