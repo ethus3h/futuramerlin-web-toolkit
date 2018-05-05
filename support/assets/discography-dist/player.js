@@ -222,11 +222,12 @@ function playTrack(trackNumber) {
     console.log('playTrack requested for ' + trackNumber);
     loadTrack(trackNumber);
     playLabelSetLoading();
-    audioTag.addEventListener("canplay", function() {
+    let canPlayEventListenerFunction = function() {
             audioTag.play();
             playLabelSetPlaying();
-            audioTag.removeEventListener("canplay");
-        }
+            audioTag.removeEventListener("canplay", canPlayEventListenerFunction);
+        };
+    audioTag.addEventListener("canplay", canPlayEventListenerFunction);
     );
 }
 
