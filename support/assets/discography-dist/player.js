@@ -211,7 +211,7 @@ function playLabelSetPaused() {
     clearTrackStatuses();
     let trackPlayButton = trackRows[currentTrack].getElementsByTagName('td')[1].getElementsByTagName('button')[0];
     trackPlayButton.innerHTML = "▶";
-    trackPlayButton.className = 'playButton playing currentTrack';
+    trackPlayButton.className = 'playButton currentTrack';
     trackPlayButton.onclick = function() {
         playTrackFromTrackButton(this);
     };
@@ -275,11 +275,11 @@ function reachedEndOfTrack(eventParameter) {
     audioTag.currentTime = 0;
     // console.log(trackPlayButton.classList);
     if (trackPlayButton.classList.contains('playing')) {
-        // console.log('Requesting playing for ' + nextTrack);
+        console.log('Requesting playing for ' + nextTrack);
         playTrack(nextTrack);
     }
     else {
-        // console.log('Requesting load for ' + nextTrack);
+        console.log('Requesting load for ' + nextTrack);
         loadTrack(nextTrack);
     }
 }
