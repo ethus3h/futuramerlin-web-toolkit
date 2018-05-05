@@ -243,9 +243,6 @@ function playTrackFromTrackButton(trackClickedElement) {
     console.log('playTrack requested from track button');
     for (let i = 1; i < trackRows.length; i++) {
         /* skip first row: it is header */
-        // console.log('Checking if');
-        // console.log(trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0]);
-        // console.log(trackClickedElement);
         if (trackRows[i].getElementsByTagName('td')[1].getElementsByTagName('button')[0] === trackClickedElement) {
             console.log('playTrack gotten');
             playTrack(i);
