@@ -231,12 +231,14 @@ function playTrack(trackNumber) {
 
 function pauseTrack(trackNumber) {
     console.log('pauseTrack requested for ' + trackNumber);
-    loadTrack(trackNumber);
     audioTag.pause();
-    playLabelSetPaused();
-    trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
-        playTrackFromTrackButton(this);
-    };
+    clearTrackStatuses();
+    // loadTrack(trackNumber);
+    // audioTag.pause();
+    // playLabelSetPaused();
+    // trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
+    //     playTrackFromTrackButton(this);
+    // };
 }
 
 function playTrackFromTrackButton(trackClickedElement) {
