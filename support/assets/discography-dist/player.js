@@ -290,8 +290,7 @@ function togglePlayPause() {
         audioTag.play();
         playLabelSetPlaying();
     } else {
-        audioTag.pause();
-        clearTrackStatuses();
+        pauseTrack();
     }
 }
 audioMainPlayButton.onclick = function() {
