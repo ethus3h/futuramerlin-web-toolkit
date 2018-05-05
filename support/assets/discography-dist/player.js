@@ -234,11 +234,11 @@ function pauseTrack(trackNumber) {
     audioTag.pause();
     clearTrackStatuses();
     // loadTrack(trackNumber);
-    // audioTag.pause();
-    // playLabelSetPaused();
-    // trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
-    //     playTrackFromTrackButton(this);
-    // };
+    audioTag.pause();
+    playLabelSetPaused();
+    trackRows[trackNumber].getElementsByTagName('td')[1].getElementsByTagName('button')[0].onclick = function() {
+        playTrackFromTrackButton(this);
+    };
 }
 
 function playTrackFromTrackButton(trackClickedElement) {
