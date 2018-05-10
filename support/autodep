@@ -14,11 +14,11 @@ else
 fi
 
 if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
-    git clone https://github.com/ethus3h/ember_bash_setup
-    pushd ember_bash_setup
+    git clone https://github.com/ethus3h/crystallize
+    pushd crystallize
     make autodep
     make
     make install
     popd
-    rm -r ember_bash_setup
+    rm -r crystallize
 fi
