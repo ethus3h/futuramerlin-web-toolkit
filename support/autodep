@@ -7,6 +7,11 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
+failinstall() {
+    echo "ERROR: Could not find or install $1."
+    exit 1
+}
+
 if [[ -n "$TMPDIR" ]]; then
     cd "$TMPDIR"
 else
@@ -21,4 +26,17 @@ if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
     make install
     popd
     rm -r crystallize
+fi
+
+if ! npm_loc="$(type -P "npm")" || [[ -z $npm_loc ]]; then
+    if ! apt install nodejs &> /dev/null; then
+        apt-get install nodejs &> /dev/null || failinstall "nodejs"
+    fi
+fi
+
+npm install --global postcss-cli autoprefixer html-minifier html5-tidy minifier || failinstall "npm packages"
+cpan -f -i HTML::GenToc || failinstall "HTML::GenToc"
+
+if ! npm_loc="$(type -P "npm")" || [[ -z $npm_loc ]]; then
+    failinstall "python2"
 fi
