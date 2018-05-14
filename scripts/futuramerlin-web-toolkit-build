@@ -33,8 +33,17 @@ find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-conten
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
 rm -r ./futuramerlin-web-toolkit-content
-if ! git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
-    echo "(Could not get updated toolkit version, preparing local copy instead...)"
+local fancyUpdate="false"
+if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
+    if git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
+        fancyUpdate="true"
+    else
+        echo "(Could not get updated toolkit version, preparing local copy instead...)"
+    fi
+fi
+if [[ "$fancyUpdate" != "true" ]]; then
+    EMBER_TEMPDIR=""
+    export EMBER_TEMPDIR
     mkdir -pv futuramerlin-web-toolkit/support || exit 1
     cp -rv /usr/local/share/futuramerlin-web-toolkit/assets futuramerlin-web-toolkit/support/ || exit 1
     mkdir -v futuramerlin-web-toolkit/scripts || exit 1
