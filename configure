@@ -6,7 +6,7 @@
 #NOTE: MAINTENANCE: Manual error printing
 trap 'printf '\''%b'\'' '\''\033[1;31m'\'' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)." >&2; printf '\''%b'\'' '\''\033[0m'\'' >&2; exit 1' ERR
 
-rm support/.{prefix,mandir,infodir,datadir,sysconfdir,localstatedir}
+rm -f support/.{prefix,mandir,infodir,datadir,sysconfdir,localstatedir}
 
 currentArgPrefix=""
 while [[ -n "$1" ]]; do
