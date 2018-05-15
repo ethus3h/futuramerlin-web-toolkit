@@ -166,11 +166,6 @@ echo "emberDatadirEsc: $emberDatadirEsc"
 perl -0777 -p -i -e "s/\/usr\/local\/share/$emberDatadirEsc/g" scripts/futuramerlin-web-toolkit-build
 perl -0777 -p -i -e "s/\/usr\/local\/share/$emberDatadirEsc/g" scripts/futuramerlin-web-toolkit-build-discography
 
-mkdir -p "$emberBindir"
-chmod +x scripts/*
-cp scripts/* "$emberBindir/"
-mkdir -p "$emberSysconfdir"
-cp -v support/futuramerlin-web-toolkit.conf "$emberSysconfdir/"
 mkdir -p "$emberSharedstatedir"/futuramerlin-web-toolkit
 mkdir -p "$emberDatadir/futuramerlin-web-toolkit"
 cp -v support/assets/m.css "$emberPrefix"
