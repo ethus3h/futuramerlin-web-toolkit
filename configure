@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #set -x
 
-rm support/.{prefix mandir infodir datadir sysconfdir localstatedir}
+rm support/.{prefix,mandir,infodir,datadir,sysconfdir,localstatedir}
 
 currentArgPrefix=""
 while [[ -n "$1" ]]; do
@@ -31,3 +31,8 @@ while [[ -n "$1" ]]; do
     esac
     shift
 done
+
+if ! fmwtk_loc="$(type -P "futuramerlin-web-toolkit-build")" || [[ -z $fmwtk_loc ]]; then
+    echo $'\n'"futuramerlin-web-toolkit not found: documentation will not be built."$'\n'
+fi
+echo "Configuring complete."
