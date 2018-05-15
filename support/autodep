@@ -1,24 +1,34 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null
+#set -x
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."' ERR
-#set -x
 
 ((EUID)) && exec sudo -- "$0" "$@"
 
+packageName="$1"
+shift
+
 failinstall() {
-    echo "ERROR: Could not find or install $1."
-    exit 1
+    die "ERROR: Could not find or install $1."
 }
 
-if [[ -n "$TMPDIR" ]]; then
-    cd "$TMPDIR"
-else
-    cd "/tmp"
-fi
+cd "$(getSystemTempLocation)"
 
 if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
+    git clone https://github.com/ethus3h/ember_bash_setup
+    pushd ember_bash_setup
+    make autodep
+    make
+    make install
+    popd
+    rm -r ember_bash_setup
+fi
+
+#### End of automatic dependency installation install script template ####
+
+if ! cryst_loc="$(type -P "crystallize")" || [[ -z $cryst_loc ]]; then
     git clone https://github.com/ethus3h/crystallize
     pushd crystallize
     make autodep
