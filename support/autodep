@@ -10,6 +10,8 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 packageName="$1"
 shift
 
+source support/getDirs
+
 failinstall() {
     die "ERROR: Could not find or install $1."
 }
@@ -27,6 +29,8 @@ if ! ebs_loc="$(type -P "ember_bash_setup")" || [[ -z $ebs_loc ]]; then
 fi
 
 #### End of automatic dependency installation install script template ####
+
+# Any extra automatic dependency installation goes here.
 
 if ! cryst_loc="$(type -P "crystallize")" || [[ -z $cryst_loc ]]; then
     git clone https://github.com/ethus3h/crystallize
