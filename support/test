@@ -9,3 +9,6 @@ packageName="$1"
 shift
 
 #### End of test runner install script template ####
+
+cd scripts
+./futuramerlin-web-toolkit-run-tests
