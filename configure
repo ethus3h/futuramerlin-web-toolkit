@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 #set -x
 
+rm support/.{prefix mandir infodir datadir sysconfdir localstatedir}
+
 currentArgPrefix=""
 while [[ -n "$1" ]]; do
     currentArgPrefix="${1%%=*}"
