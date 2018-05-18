@@ -819,22 +819,40 @@ traitToHtm() {
             fi
             local isAvailable="true"
             local trackUnavailableNote=""
-            if [[ "$(preadconf unavailable "$workPrefix.conf")" == "true" ]]; then
+            local res_preadconfUnavailable=""
+            res_preadconfUnavailable="$(preadconf unavailable "$workPrefix.conf")"
+            if [[ "$res_preadconfUnavailable" == "true" ]]; then
                 trackUnavailableNote=" (unavailable due to licensing)"
             fi
-            if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]] || [[ -n "$trackUnavailableNote" ]]; then
+            local res_discReadConfUnavailable=""
+            res_discReadConfUnavailable="$(discReadConf unavailable "$kind" "$identifier")"
+            if [[ "$res_discReadConfUnavailable" == "true" ]] || [[ -n "$trackUnavailableNote" ]]; then
                 isAvailable="false"
             fi
             local attribution
             attribution="$(buildAttributionDisplay "$workPrefix")"
-            print "    <tr><td>$(getTrackCounter)$trackUnavailableNote</td><td>$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")</td><td>$nameColumn$attribution</td><td>$(preadconf duration "$workPrefix.conf")</td>$extraColumns</tr>"
+            local res_getTrackCounter=""
+            res_getTrackCounter="$(getTrackCounter)"
+            local res_buildTrackPlayer=""
+            res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")"
+            local res_preadconf=""
+            res_preadconf="$(preadconf duration "$workPrefix.conf")"
+            print "    <tr><td>$res_getTrackCounter$trackUnavailableNote</td><td>$res_buildTrackPlayer</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
             ;;
         medium)
-            simpleMetadata "$(keyToLabel "$key")" "$(keyToLabel "$value")"
+            local res_keyToLabelKey=""
+            res_keyToLabelKey="$(keyToLabel "$key")"
+            local res_keyToLabelValue=""
+            res_keyToLabelValue="$(keyToLabel "$value")"
+            simpleMetadata "$res_keyToLabelKey" "$res_keyToLabelValue"
             ;;
         label)
             if [[ "$outputMode" == "featured-content" ]]; then
-                simpleMetadata "$(keyToLabel "$key")" "$(discReadConf name label "$value")"
+                local res_keyToLabel=""
+                res_keyToLabel="$(keyToLabel "$key")"
+                local res_discReadConf=""
+                res_discReadConf="$(discReadConf name label "$value")"
+                simpleMetadata "$res_keyToLabel" "$res_discReadConf"
             else
                 simpleReference "$key" label "$value"
             fi
