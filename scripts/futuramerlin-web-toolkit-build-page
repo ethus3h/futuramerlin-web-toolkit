@@ -8,10 +8,9 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 shopt -s extglob
 set +H
 
-echo "$@"
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
-futuramerlinWebToolkitThemeName="$3"
+futuramerlinWebToolkitThemeName="$4"
 PageA="${1/%\/index\.htm}"
 PageB="${PageA/%\.htm}"
 Page="$(basename "$PageB")";
@@ -56,7 +55,6 @@ fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
 ereplace "@FMWTK_THEME_NAME@" "$futuramerlinWebToolkitThemeName" "../../built/$1"
-cat "../../built/$1"
 # Work on home page
 if [[ "$Page" == "." ]]; then
     ereplaceRegEx '<p class="logo">(((?!<\/p>)[\S\s])*)<\/p>' '<h1 class="logo">\1<\/h1>' "../../built/$1"
