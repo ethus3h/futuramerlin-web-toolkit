@@ -853,6 +853,20 @@
 
 /* Page elements and features */
 
+    /* Site navigation bar */
+
+        nav {
+            display: flex;
+        }
+
+        nav li:first-of-type {
+            display: none;
+        }
+        
+        nav li::before {
+            content: unset;
+        }
+
     /* Breadcrumbs */
         .breadcrumbs {
             padding: .5rem;
@@ -1099,7 +1113,7 @@
             text-align: center;
             text-indent: 0;
             z-index: 2;
-            position: fixed;
+            position: absolute;
             top: .25rem;
             min-width: max-content;
             left: 0;

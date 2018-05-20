@@ -1,1 +1,6 @@
 @import url('common.css');
+
+nav ul {
+    padding-top: 3rem;
+    font-size: 1.25rem;
+}

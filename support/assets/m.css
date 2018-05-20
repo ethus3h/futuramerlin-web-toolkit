@@ -113,6 +113,10 @@
 
     /* Site navigation bar */
 
+        nav > ul > li:first-of-type {
+            display: block;
+        }
+
         nav > ul {
             padding-left: 0;
             margin-top: 0;
@@ -314,6 +318,7 @@
         }
 
         .logo {
+            position: fixed;
             font-family: wreatherweb;
             transition: all .2s ease;
         }
