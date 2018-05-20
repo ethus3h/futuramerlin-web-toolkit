@@ -321,6 +321,7 @@
             position: fixed;
             font-family: wreatherweb;
             transition: all .2s ease;
+            position: absolute;
         }
 
     /* Scroll-to-top button */
@@ -455,6 +456,13 @@
             }
             body:not(.expanded) > main {
                 transition: all 0.2s;
+            }
+            body:not(.expanded):not(.lessChrome) > main {
+                position: absolute;
+            }
+            body:not(.expanded) > nav > .logo {
+                left: 50%;
+                transform: translateX(-50%);
             }
             body:not(.expanded):not(.lessChrome) > main::before,
             body:not(.expanded):not(.lessChrome) > main::after {

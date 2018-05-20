@@ -1113,7 +1113,6 @@
             text-align: center;
             text-indent: 0;
             z-index: 2;
-            position: absolute;
             top: .25rem;
             min-width: max-content;
             left: 0;
@@ -1369,15 +1368,10 @@
                 padding-bottom: 8rem;
             }
             body:not(.expanded):not(.lessChrome) > main {
-                position: absolute;
                 top: 0;
             }
             body.expanded:not(.lessChrome) > main {
                 max-width: unset;
-            }
-            body:not(.expanded) > nav > .logo {
-                left: 50%;
-                transform: translateX(-50%);
             }
             body:not(.expanded) > main {
                 margin-bottom: 0;
