@@ -71,7 +71,7 @@
 /* Lists */
 
     #toc ol > li::before {
-        color: rgba(42, 22, 87, 0.9)
+        color: rgba(42, 22, 87, 0.9);
     }
 
 /* Figures */
@@ -85,3 +85,8 @@
         border: 0.063rem dotted #520f22;
         transition: all 0.2s;
     }
+
+    figure.thumbnail-right > figcaption::after, .figure-captioned.alignright > figcaption::after, .figcaption-empty::after {
+        color: rgba(42, 22, 87, 0.7);
+    }
+    

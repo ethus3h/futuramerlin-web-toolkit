@@ -764,16 +764,13 @@
         font-size: 1rem;
     }
 
-    figure.thumbnail-right > figcaption::after,
-    .figure-captioned.alignright > figcaption::after,
-    .figcaption-empty::after {
+    figure.thumbnail-right > figcaption::after, .figure-captioned.alignright > figcaption::after, .figcaption-empty::after {
         content: "\aTap image to view.";
         top: 0.25rem;
         left: 0.5rem;
         position: relative;
         margin-right: 0.5rem;
         white-space: pre;
-        color: rgba(42, 22, 87, 0.7);
     }
 
     .figcaption-empty {
