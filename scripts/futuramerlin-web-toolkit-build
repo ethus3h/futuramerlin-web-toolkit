@@ -15,7 +15,7 @@ futuramerlinWebToolkitVersion='2.3.40'
 
 # Available themes
 
-futuramerlinWebToolkitAvailableThemes=( common m simple )
+futuramerlinWebToolkitAvailableThemes=( common ember m simple )
 
 shopt -s extglob
 
