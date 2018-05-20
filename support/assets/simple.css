@@ -1,6 +1,6 @@
 @import url('common.css');
 
-body > main {
+body > main:first-of-type {
     padding-top: 1rem;
     position: relative;
 }

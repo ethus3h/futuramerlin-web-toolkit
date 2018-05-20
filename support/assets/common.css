@@ -1275,11 +1275,6 @@
         }
     }
 
-    body > nav > .logo {
-        left: 62.5%;
-        transform: translateX(-50%);
-    }
-
     @viewport {
         width: device-width;
         height: device-height;
