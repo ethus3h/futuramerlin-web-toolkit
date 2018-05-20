@@ -1354,27 +1354,14 @@
                 top: 0;
             }
             body.expanded:not(.lessChrome) > main {
-                position: unset;
-                padding-left: calc(25vw + 4rem);
-                padding-right: 4rem;
                 max-width: unset;
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
                 transform: translateX(-50%);
             }
-            body:not(.expanded) > nav > ul {
-                left: -25%;
-                width: 25%;
-                box-shadow: 0 0 0 0 #fff;
-            }
-            body:not(.expanded) > nav > ul > li:first-of-type {
-                left: -25%;
-                transition: all 0.2s;
-            }
             body:not(.expanded) > main {
                 margin-bottom: 0;
-                transition: all 0.2s;
             }
             body:not(.expanded) > main::before,
             body:not(.expanded) > nav::before,
