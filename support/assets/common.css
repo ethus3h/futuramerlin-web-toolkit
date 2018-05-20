@@ -1381,67 +1381,11 @@
             }
             body:not(.expanded):not(.lessChrome) > main::before,
             body:not(.expanded):not(.lessChrome) > main::after {
-                top: 4rem;
-                height: calc(100% - 4rem);
                 left: unset;
                 width: 100%;
-                transition: all 0.2s;
-            }
-            body:not(.expanded) > nav::after {
-                bottom: -4rem;
-                transition: all 0.2s;
             }
             body:not(.expanded) > main {
                 max-width: 50rem;
-            }
-            body:not(.expanded) > main,
-            body:not(.expanded)::before {
-                transition: all 0.2s;
-            }
-            body:not(.expanded)::before {
-                max-width: 100%;
-                left: calc(-1 * (25vw + 4rem));
-            }
-            body:not(.expanded)::after {
-                right: -4rem;
-                transition: width 0.2s, right 0.2s;
-            }
-            label[for='nav-trigger']:not(.expanded) {
-                position: fixed;
-                z-index: 3;
-                top: .938rem;
-                left: .938rem;
-                width: 1.875rem;
-                height: 1.875rem;
-                cursor: pointer;
-                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
-                opacity: 1;
-                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path fill="%23013220" d="M0 0h30v6H0zm0 24h30v6H0zm0-12h30v6H0z"/></svg>');
-                background-size: contain;
-            }
-            .nav-trigger + label:not(.expanded),
-            nav:not(.expanded) > ul {
-                transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
-            }
-            body:not(.expanded) {
-                transition: all 0.2s;
-            }
-            .nav-trigger:checked + label:not(.expanded) {
-                left: calc(25% + 1rem);
-            }
-            .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                transform: translateX(calc(-100% - 1rem));
-                left: 100%;
-            }
-            .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {
-                left: 0;
-                transition: all 0.2s;
-            }
-            .nav-trigger:checked ~ nav:not(.expanded) > ul {
-                left: 0;
-                width: 25%;
-                transition: font-size 0.2s, left 0.2s, width 0.2s;
-                box-shadow: .250rem 0 .250rem -.16rem #fff;
             }
         }
 
