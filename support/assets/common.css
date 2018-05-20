@@ -1261,6 +1261,12 @@
 
 /* Layout rules */
 
+    body > main,
+    body > main::before,
+    body > main::after {
+        width: 50rem;
+    }
+
     @media only screen and (max-width: 50rem) {
         /* The screen is small enough that the 50rem maximum is too big. */
         body.lessChrome > main::before,
