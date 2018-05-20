@@ -47,3 +47,16 @@
         transition: all 0.2s;
         border: 0.063rem dotted #520f22;
     }
+
+/* Links */
+
+    a {
+        border-bottom: 0.063rem dotted rgba(42, 22, 87, 0.4);
+        transition: border-bottom 0.2s;
+        color: #520f22;
+    }
+
+    a:hover {
+        border-bottom: 0.063rem solid #520f22;
+        transition: border-bottom 0.2s;
+    }
