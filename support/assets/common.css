@@ -205,7 +205,7 @@
         display: block;
     }
 
-    a.musicthumb, a.musicthumb::hover {
+    a.musicthumb, a.musicthumb:hover {
         padding: 0.5rem;
         width: 100%;
         border-bottom: none;
@@ -1268,13 +1268,13 @@
         transform: translateX(-50%);
     }
 
-    @viewport{
+    @viewport {
         width: device-width;
         height: device-height;
         user-scalable: yes;
     }
 
-    @-ms-viewport{
+    @-ms-viewport {
         width: device-width;
         height: device-height;
         user-scalable: yes;
