@@ -6,7 +6,8 @@ body > main:first-of-type {
 }
 
 nav ul {
-    padding-top: 3.5rem;
+    padding-top: 0;
+    margin-top: 0;
     font-size: 1.25rem;
 }
 
