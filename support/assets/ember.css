@@ -73,3 +73,15 @@
     #toc ol > li::before {
         color: rgba(42, 22, 87, 0.9)
     }
+
+/* Figures */
+
+    figure > a > img, .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a img, .featured-image > a img {
+        transition: all 0.2s;
+        border: 0.063rem dotted transparent;
+    }
+
+    figure > a:hover > img, .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a:hover img, .featured-image > a img:hover {
+        border: 0.063rem dotted #520f22;
+        transition: all 0.2s;
+    }

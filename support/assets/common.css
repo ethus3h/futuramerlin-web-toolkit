@@ -713,10 +713,7 @@
         border-bottom: none;
     }
 
-    figure > a > img,
-    .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a img, .featured-image > a img {
-        transition: all 0.2s;
-        border: 0.063rem dotted transparent;
+    figure > a > img, .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a img, .featured-image > a img {
         display: block;
         max-width: none;
         margin: 0;
@@ -724,15 +721,7 @@
         padding: 0;
     }
 
-    figure > a:hover > img,
-    .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a:hover img, .featured-image > a img:hover {
-        border: 0.063rem dotted #520f22;
-        transition: all 0.2s;
-    }
-
-    figure > img,
-    .featured-image > a > div > img,
-    figure > a > img {
+    figure > img, .featured-image > a > div > img, figure > a > img {
         width: 100%;
     }
 
@@ -741,11 +730,7 @@
         margin: 0.25rem auto 0.5rem auto;
     }
 
-    figure.thumbnail-right,
-    .featured-image,
-    *:not(.figcaption-empty-figure) > a > .alignright,
-    figure.alignright,
-    .figcaption-empty-figure {
+    figure.thumbnail-right, .featured-image, *:not(.figcaption-empty-figure) > a > .alignright, figure.alignright, .figcaption-empty-figure {
         float: right;
         margin: 1rem;
         margin-right: 0;
