@@ -118,10 +118,10 @@ echo "Environment ready; building site..."
         fi
     )
 
-    echo "Processing CSS..."
     processCss() {
         local themeName
         themeName="$1"
+        echo "Processing CSS theme: $themeName.css..."
         #postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/$themeName.css" "../built/$themeName.css"
         tr '\n' ' ' < "../built/$themeName.css" > "../built/1.tmp"
         tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
