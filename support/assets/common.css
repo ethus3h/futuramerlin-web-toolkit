@@ -1326,3 +1326,70 @@
                 text-indent: 0.75rem;
             }
         }
+
+    /* medium screen */
+
+        @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
+            body > main {
+                /* width: unset; */
+            }
+            .audioContainer{
+                width:100%;
+                bottom:0;
+                left: 0;
+            }          
+            body:not(.lessChrome) > .audioContainer {
+                left: 0;
+            }
+            body:not(.lessChrome) > main {
+                margin: 0 auto;
+                margin-top: 0;
+                padding: 0rem;
+                padding-top: 4.063rem;
+                padding-bottom: 1.063rem;
+
+                /* Set a maximum content column width to avoid overly long lines */
+                max-width: calc(75% - 8rem);
+            }
+            body:not(.lessChrome) > .audioContainer ~ main {
+                padding-bottom: 8rem;
+            }
+            body:not(.expanded):not(.lessChrome) > main {
+                position: absolute;
+                top: 0;
+            }
+            body.expanded:not(.lessChrome) > main {
+                max-width: unset;
+            }
+            body:not(.expanded) > nav > .logo {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            body:not(.expanded) > main {
+                margin-bottom: 0;
+            }
+            body:not(.expanded) > main::before,
+            body:not(.expanded) > nav::before,
+            body:not(.expanded) > main::after {
+                margin-right: 0;
+                margin-bottom: 0;
+                margin-left: 0;
+            }
+            body:not(.expanded) > main::before,
+            body:not(.expanded) > main::after {
+                margin-top: 0;
+            }
+            body:not(.expanded) > main.lessChrome::before,
+            body:not(.expanded) > main.lessChrome::after {
+                top: 0;
+                height: 100%;
+            }
+            body:not(.expanded):not(.lessChrome) > main::before,
+            body:not(.expanded):not(.lessChrome) > main::after {
+                left: unset;
+                width: 100%;
+            }
+            body:not(.expanded) > main {
+                max-width: 50rem;
+            }
+        }
