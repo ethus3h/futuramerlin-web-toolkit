@@ -31,6 +31,66 @@
         height: 100%;
     }
 
+    body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
+        margin: 0 auto;
+    }
+    body > .audioContainer ~ main .breadcrumbs {
+        margin-bottom: 0;
+    }
+
+    body.lessChrome > main, body.lessChrome > .audioContainer {
+        margin: 0 auto;
+        margin-top: 0;
+        position: unset;
+        padding: 0rem;
+        padding-top: 0.063rem;
+        padding-bottom: 1.063rem;
+        max-width: 50rem;
+    }
+    body.lessChrome >  .audioContainer ~ main {
+        padding-bottom: 8rem;
+    }
+
+    main > *:not(.page-title):not(h1) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    img {
+        max-width: 80%;
+        display: block;
+        margin: 1rem 10% 1rem 10%;
+        padding: 0.5rem;
+        border: 0.063rem solid #ddd; 
+    }
+
+    dd img, li img, .inline-image {
+        margin: 0;
+        display: inline;
+    }
+
+    dd > a[href^="https://archive.org/"][href$=".png"]::after {
+        content: unset;
+    }
+
+    html > body:not(#blah) a[href^="https://archive.org/download/"]::after {
+        content: unset;
+    }
+
+    h1,h2,h3,h4,h5,h6, p, dt, dd {
+        hyphens: auto;
+    }
+
+    h1, .bigemphasis {
+        font-weight: bold;
+        font-size: 2rem;
+        position: relative;
+        padding: 1rem;
+        display: block;
+        overflow: hidden;
+        text-indent: 0;
+    }
+
 /* Audio Player */
     .audioContainer {
         z-index: 2;
@@ -185,66 +245,6 @@
         border-right: 0.3rem dotted white;
     }
 /* End featured releases */
-
-    body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
-        margin: 0 auto;
-    }
-    body > .audioContainer ~ main .breadcrumbs {
-        margin-bottom: 0;
-    }
-
-    body.lessChrome > main, body.lessChrome > .audioContainer {
-        margin: 0 auto;
-        margin-top: 0;
-        position: unset;
-        padding: 0rem;
-        padding-top: 0.063rem;
-        padding-bottom: 1.063rem;
-        max-width: 50rem;
-    }
-    body.lessChrome >  .audioContainer ~ main {
-        padding-bottom: 8rem;
-    }
-
-    main > *:not(.page-title):not(h1) {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-
-    img {
-        max-width: 80%;
-        display: block;
-        margin: 1rem 10% 1rem 10%;
-        padding: 0.5rem;
-        border: 0.063rem solid #ddd; 
-    }
-
-    dd img, li img, .inline-image {
-        margin: 0;
-        display: inline;
-    }
-
-    dd > a[href^="https://archive.org/"][href$=".png"]::after {
-        content: unset;
-    }
-
-    html > body:not(#blah) a[href^="https://archive.org/download/"]::after {
-        content: unset;
-    }
-
-    h1,h2,h3,h4,h5,h6, p, dt, dd {
-        hyphens: auto;
-    }
-
-    h1, .bigemphasis {
-        font-weight: bold;
-        font-size: 2rem;
-        position: relative;
-        padding: 1rem;
-        display: block;
-        overflow: hidden;
-        text-indent: 0;
-    }
 
 /* Text segments */
 

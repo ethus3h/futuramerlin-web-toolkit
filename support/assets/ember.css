@@ -48,6 +48,12 @@
         border: 0.063rem dotted #520f22;
     }
 
+/* Audio Player */
+    .audioContainer {
+        left: calc(25vw + 4rem);
+        transition: all 0.2s;
+    }
+
 /* Links */
 
     a {
