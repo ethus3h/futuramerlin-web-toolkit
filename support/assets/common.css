@@ -1227,39 +1227,18 @@
         overflow: hidden;
     }
 
-    body.lessChrome::before {
-        width: calc(25vw + 4rem);
-    }
-
     body::after {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><path fill="%2386a6ca" d="M0 0h2v2H0z"/></svg>');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center top;
-        background-clip: border-box;
-        background-origin: padding-box;
-        background-size: cover;
-        position: fixed;
         z-index: 2;
         right: 0;
         content: ' ';
         overflow: hidden;
         height: 100%;
-        width: 3.765rem; /* what the fuck? */
-        transition: font-size 0.2s, right 0.2s, width 0.2s, opacity 0.2s;
         top: 0
     }
 
     body {
         width: 100%;
         height: 100%;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><path fill="%2386a6ca" d="M0 0h2v2H0z"/></svg>');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center top;
-        background-clip: border-box;
-        background-origin: padding-box;
-        background-size: cover;
     }
 
 /* Layout rules */
@@ -1276,15 +1255,6 @@
         body.lessChrome > main::after {
             max-width: 100%;
         }
-    }
-
-    body,
-    body > nav::before {
-        transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
-    }
-
-    body > nav::after {
-        transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s, bottom 0.2s;
     }
 
     body > nav > .logo {
