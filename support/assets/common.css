@@ -1086,6 +1086,12 @@
             text-align: right;
         }
 
+    /* Navbar hamburger menu */
+
+        .nav-trigger, label[for='nav-trigger'] {
+            display: none;
+        }
+
     /* Logo */
 
         .logo {

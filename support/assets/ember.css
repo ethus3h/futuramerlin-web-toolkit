@@ -276,6 +276,7 @@
         .nav-trigger {
             position: absolute;
             clip-path: inset(0 0 0 0);
+            display: block;
         }
 
         label[for='nav-trigger'] {
@@ -290,6 +291,7 @@
             opacity: 0;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path fill="%23013220" d="M0 0h30v6H0zm0 24h30v6H0zm0-12h30v6H0z"/></svg>');
             background-size: contain;
+            display: block;
         }
 
     /* Logo */
