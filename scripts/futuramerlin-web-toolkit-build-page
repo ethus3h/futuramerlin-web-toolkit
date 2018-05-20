@@ -10,6 +10,7 @@ set +H
 
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
+futuramerlinWebToolkitThemeName="$3"
 PageA="${1/%\/index\.htm}"
 PageB="${PageA/%\.htm}"
 Page="$(basename "$PageB")";
@@ -53,6 +54,7 @@ if [[ -n "$title" ]]; then
 fi
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
+ereplace "@FMWTK_THEME_NAME@" "$futuramerlinWebToolkitThemeName" "../../built/$1"
 # Work on home page
 if [[ "$Page" == "." ]]; then
     ereplaceRegEx '<p class="logo">(((?!<\/p>)[\S\s])*)<\/p>' '<h1 class="logo">\1<\/h1>' "../../built/$1"

@@ -13,6 +13,10 @@ futuramerlinWebToolkitVersion='2.3.40'
 
 # How to run easily tests without installing (or without having it installed in /usr/local so can run them without configuring): cd ~ || die; [[ -e futuramerlin-web-toolkit ]] || git clone https://github.com/ethus3h/futuramerlin-web-toolkit; cd futuramerlin-web-toolkit || die; git pull; tempDir="$(tempDir)"; pushd "$tempDir" || die; cp -r ~/futuramerlin-web-toolkit .; cd futuramerlin-web-toolkit || true; ./configure --prefix=/usr; make; make check; popd || true; [[ -n "$tempDir" ]] && rm -rf "$tempDir"
 
+# Available themes
+
+futuramerlinWebToolkitAvailableThemes=( common m simple )
+
 shopt -s extglob
 
 futuramerlinWebToolkitConfigFileName="/usr/local/etc/futuramerlin-web-toolkit.conf"
@@ -27,6 +31,8 @@ fi
 
 echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
 futuramerlinWebToolkitSiteName="$(preadconf siteName "$futuramerlinWebToolkitConfigFileName")"
+futuramerlinWebToolkitThemeName="$(preadconf theme "$futuramerlinWebToolkitConfigFileName")"
+[[ -z "$futuramerlinWebToolkitThemeName" ]] && futuramerlinWebToolkitThemeName="m"
 futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation "$futuramerlinWebToolkitConfigFileName")"
 rm -rf ./futuramerlin-web-toolkit-output ./futuramerlin-web-toolkit-content ./built ./source ./scripts
 mkdir -p "futuramerlin-web-toolkit-content/content"
@@ -94,7 +100,7 @@ echo "Environment ready; building site..."
                 else
                     if [[ "$i" =~ \.htm$ ]]; then
                         echo "Building page: $i"
-                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName"
+                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName"
                     else
                         echo "Copying content asset: $i"
                         cp "$i" "../../built/$i" || warn "(copying failed: probably just ignoring empty directory $i)"
@@ -112,20 +118,29 @@ echo "Environment ready; building site..."
     )
 
     echo "Processing CSS..."
-    #postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/m.css" "../built/m.css"
-    tr '\n' ' ' < "../built/m.css" > "../built/1.tmp"
-    tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
-    tr '\r' ' ' < "../built/2.tmp" > "../built/3.tmp"
-    tr -s " " < "../built/3.tmp" > "../built/m.css"
-    minify --no-comments -o "../built/m.css" "../built/m.css" > /dev/null
-    rm ../built/*.tmp
+    processCss() {
+        local themeName
+        themeName="$1"
+        #postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/$themeName.css" "../built/$themeName.css"
+        tr '\n' ' ' < "../built/$themeName.css" > "../built/1.tmp"
+        tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
+        tr '\r' ' ' < "../built/2.tmp" > "../built/3.tmp"
+        tr -s " " < "../built/3.tmp" > "../built/$themeName.css"
+        minify --no-comments -o "../built/$themeName.css" "../built/$themeName.css" > /dev/null
+        rm ../built/*.tmp
+    }
+    for theme in "${futuramerlinWebToolkitAvailableThemes[@]}"; do
+        processCss "$theme"
+    done
 )
 
 echo "Finishing up..."
 rm ./built/1_start.html ./built/2_end.html
 rm -r ./built/discography.assets
 if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
-    sudo cp "./built/m.css" "/m.css"
+    for theme in "${futuramerlinWebToolkitAvailableThemes[@]}"; do
+        sudo cp "./built/$theme.css" "/$theme.css"
+    done
 fi
 mv ./built ./futuramerlin-web-toolkit-output
 mv ./source ./futuramerlin-web-toolkit-content
