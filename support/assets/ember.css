@@ -309,3 +309,78 @@
             font-family: wreatherweb;
             transition: all .2s ease;
         }
+
+    /* Scroll-to-top button */
+
+        body > nav > a:last-of-type {
+            color: #2a1657;
+            transition: all 0.2s;
+        }
+
+        body > nav > a:last-of-type:hover {
+            border: 0.063rem dotted #520f22;
+            transition: all 0.2s;
+        }
+
+/* Page background styling */
+    body > main::before {
+        background-color: rgba(226, 218, 241, .7);
+    }
+
+    body:not(.lessChrome) > main::before {
+        left: 25vw;
+        height: calc(100% - 8rem);
+        width: calc(75% - 8rem);
+    }
+
+    body:not(.lessChrome) > main::after {
+        width: calc(75% - 8rem);
+    }
+
+    body > main::after {
+        left: 25vw;
+        height: calc(100% - 8rem);
+        margin: 4rem;
+        border: .063rem solid white;
+    }
+
+    body > nav::before {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><path fill="%2386a6ca" d="M0 0h2v2H0z"/></svg>');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center top;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-size: cover;
+        position: fixed;
+        width: 100vw;
+        height: 4rem;
+    }
+
+    body > nav::after {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><path fill="%2386a6ca" d="M0 0h2v2H0z"/></svg>');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center top;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-size: cover;
+        position: fixed;
+        width: 100vw;
+        height: 4rem;
+        transition: font-size 0.2s, left 0.2s, width 0.2s, bottom 0.2s, opacity 0.2s;
+    }
+
+    body::before {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><path fill="%2386a6ca" d="M0 0h2v2H0z"/></svg>');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center top;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-size: cover;
+        position: fixed;
+        height: 100%;
+        width: calc(25vw + 4rem);
+        transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
+    }
