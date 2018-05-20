@@ -1,6 +1,17 @@
 @import url('common.css');
 
+body > main {
+    padding-top: 6rem;
+}
+
 nav ul {
-    padding-top: 3rem;
+    padding-top: 3.5rem;
     font-size: 1.25rem;
+}
+
+nav ul li {
+    flex-grow: 1;
+    text-align: center;
+    border: 0.063rem dashed black;
+    margin: 0 1rem;
 }
