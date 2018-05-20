@@ -137,6 +137,7 @@
         margin-bottom: 0;
         bottom: 1rem;
         width: calc(100% - 10rem);
+        transition: all 1s;
     }
     .audioVolume {
         position: absolute;
@@ -184,6 +185,7 @@
         height: 4rem;
         left: 5rem;
         z-index: 1;
+        transition: all 1s;
     }
 
 /* Featured Releases */
