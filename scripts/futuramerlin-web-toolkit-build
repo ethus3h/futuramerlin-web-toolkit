@@ -30,11 +30,15 @@ if [[ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]]; then
 fi
 
 echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
+
 futuramerlinWebToolkitSiteName="$(preadconf siteName "$futuramerlinWebToolkitConfigFileName")"
 futuramerlinWebToolkitThemeName="$(preadconf theme "$futuramerlinWebToolkitConfigFileName")"
 [[ -z "$futuramerlinWebToolkitThemeName" ]] && futuramerlinWebToolkitThemeName="m"
+futuramerlinWebToolkitShipSource="$(preadconf shipSource "$futuramerlinWebToolkitConfigFileName")"
+[[ -z "$futuramerlinWebToolkitShipSource" ]] && futuramerlinWebToolkitShipSource="false"
 futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation "$futuramerlinWebToolkitConfigFileName")"
 [[ -z "$futuramerlinWebToolkitLocalInstallationEnabled" ]] && futuramerlinWebToolkitLocalInstallationEnabled="false"
+
 rm -rf ./futuramerlin-web-toolkit-output ./futuramerlin-web-toolkit-content ./built ./source ./scripts
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
