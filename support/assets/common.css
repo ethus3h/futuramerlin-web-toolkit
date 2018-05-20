@@ -1278,3 +1278,51 @@
         height: device-height;
         user-scalable: yes;
     }
+
+/* @font-face declarations */
+
+    @font-face {
+        font-family: 'anoeyfuturamerlincommedium';
+        font-weight: 400;
+        font-style: normal;
+        src: url('f/anoeyfuturamerlincom2.61.eot?#iefix') format('embedded-opentype'), url('f/anoeyfuturamerlincom2.61.woff') format('woff'), url('f/anoeyfuturamerlincom2.61.ttf') format('truetype'), url('f/anoeyfuturamerlincom2.61.svg#anoeyfuturamerlincommedium') format('svg');
+    }
+
+    @font-face {
+        font-family: 'wreatherweb';
+        font-weight: 400;
+        font-style: normal;
+        src: url('f/wreathe-r.eot?#iefix') format('embedded-opentype'), url('f/wreathe-r.woff') format('woff'), url('f/wreathe-r.ttf') format('truetype'), url('f/wreathe-r.svg#wreatherweb') format('svg');
+    }
+
+    @font-face {
+        font-family: 'wreatherweb';
+        font-weight: 700;
+        font-style: normal;
+        src: url('f/wreathe-b.eot?#iefix') format('embedded-opentype'), url('f/wreathe-b.woff') format('woff'), url('f/wreathe-b.ttf') format('truetype'), url('f/wreathe-b.svg#wreathebold') format('svg');
+    }
+
+    @font-face {
+        font-family: 'wreatherweb';
+        font-weight: 400;
+        font-style: italic;
+        src: url('f/wreathe-i.eot?#iefix') format('embedded-opentype'), url('f/wreathe-i.woff') format('woff'), url('f/wreathe-i.ttf') format('truetype'), url('f/wreathe-i.svg#wreatheitalic') format('svg');
+    }
+
+    @font-face {
+        font-family: 'wreatherweb';
+        font-weight: 700;
+        font-style: italic;
+        src: url('f/wreathe-bi.eot?#iefix') format('embedded-opentype'), url('f/wreathe-bi.woff') format('woff'), url('f/wreathe-bi.ttf') format('truetype'), url('f/wreathe-bi.svg#wreathebold_italic') format('svg');
+    }
+
+/* Media query overrides */
+
+    /* medium-large screen */
+
+        @media only screen and (max-width: 2000px) and (min-resolution: 192dpi), only screen and (max-width: 1001px) and (max-resolution: 191dpi) {
+            p {
+                /*text-align: left;*/
+                text-indent: 0.75rem;
+            }
+        }
