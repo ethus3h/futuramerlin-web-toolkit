@@ -34,8 +34,8 @@ echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFil
 futuramerlinWebToolkitSiteName="$(preadconf siteName "$futuramerlinWebToolkitConfigFileName")"
 futuramerlinWebToolkitThemeName="$(preadconf theme "$futuramerlinWebToolkitConfigFileName")"
 [[ -z "$futuramerlinWebToolkitThemeName" ]] && futuramerlinWebToolkitThemeName="m"
-futuramerlinWebToolkitShipSource="$(preadconf shipSource "$futuramerlinWebToolkitConfigFileName")"
-[[ -z "$futuramerlinWebToolkitShipSource" ]] && futuramerlinWebToolkitShipSource="false"
+futuramerlinWebToolkitpackageSource="$(preadconf packageSource "$futuramerlinWebToolkitConfigFileName")"
+[[ -z "$futuramerlinWebToolkitpackageSource" ]] && futuramerlinWebToolkitpackageSource="false"
 futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation "$futuramerlinWebToolkitConfigFileName")"
 [[ -z "$futuramerlinWebToolkitLocalInstallationEnabled" ]] && futuramerlinWebToolkitLocalInstallationEnabled="false"
 
@@ -45,7 +45,7 @@ mkdir "futuramerlin-web-toolkit-content/scripts"
 find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
-[[ "$futuramerlinWebToolkitShipSource" == "true" ]] && cp -r ./source "./.fmwtk.source"
+[[ "$futuramerlinWebToolkitpackageSource" == "true" ]] && cp -r ./source "./.fmwtk.source"
 rm -r ./futuramerlin-web-toolkit-content
 
 fancyUpdate="false"
@@ -150,7 +150,7 @@ if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
     done
 fi
 mv ./built ./futuramerlin-web-toolkit-output
-[[ "$futuramerlinWebToolkitShipSource" == "true" ]] && mv "./.fmwtk.source" ./source/
+[[ "$futuramerlinWebToolkitpackageSource" == "true" ]] && mv "./.fmwtk.source" ./source/
 mv ./source ./futuramerlin-web-toolkit-content
 rm -rf ./futuramerlin-web-toolkit-content
 
