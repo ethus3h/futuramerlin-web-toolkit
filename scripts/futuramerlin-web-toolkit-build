@@ -45,7 +45,9 @@ mkdir "futuramerlin-web-toolkit-content/scripts"
 find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
+[[ "$futuramerlinWebToolkitShipSource" == "true" ]] && cp -r ./source "./.fmwtk.source"
 rm -r ./futuramerlin-web-toolkit-content
+
 fancyUpdate="false"
 if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
     if git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
@@ -148,6 +150,7 @@ if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
     done
 fi
 mv ./built ./futuramerlin-web-toolkit-output
+[[ "$futuramerlinWebToolkitShipSource" == "true" ]] && mv "./.fmwtk.source" ./source/
 mv ./source ./futuramerlin-web-toolkit-content
 rm -rf ./futuramerlin-web-toolkit-content
 
