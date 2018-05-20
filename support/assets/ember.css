@@ -38,49 +38,6 @@
         padding-bottom: 13rem;
     }
 
-    body > .audioContainer ~ main .breadcrumbs {
-        margin-bottom: 0;
-    }
-
-    body.lessChrome > main, body.lessChrome > .audioContainer {
-        margin: 0 auto;
-        margin-top: 0;
-        position: unset;
-        padding: 0rem;
-        padding-top: 0.063rem;
-        padding-bottom: 1.063rem;
-        max-width: 50rem;
-    }
-    body.lessChrome >  .audioContainer ~ main {
-        padding-bottom: 8rem;
-    }
-
-    main > *:not(.page-title):not(h1) {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-
-    img {
-        max-width: 80%;
-        display: block;
-        margin: 1rem 10% 1rem 10%;
-        padding: 0.5rem;
-        border: 0.063rem solid #ddd; 
-    }
-
-    dd img, li img, .inline-image {
-        margin: 0;
-        display: inline;
-    }
-
-    dd > a[href^="https://archive.org/"][href$=".png"]::after {
-        content: unset;
-    }
-
-    html > body:not(#blah) a[href^="https://archive.org/download/"]::after {
-        content: unset;
-    }
-
     a > img {
         transition: all 0.2s;
         border: 0.063rem dotted #ddd;

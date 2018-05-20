@@ -189,13 +189,6 @@
     body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
         margin: 0 auto;
     }
-    body:not(.lessChrome) > .audioContainer {
-        left: calc(25vw + 4rem);
-    }
-    body:not(.lessChrome) > .audioContainer ~ main {
-        padding-bottom: 13rem;
-    }
-
     body > .audioContainer ~ main .breadcrumbs {
         margin-bottom: 0;
     }
@@ -237,16 +230,6 @@
 
     html > body:not(#blah) a[href^="https://archive.org/download/"]::after {
         content: unset;
-    }
-
-    a > img {
-        transition: all 0.2s;
-        border: 0.063rem dotted #ddd;
-    }
-
-    a > img:hover {
-        transition: all 0.2s;
-        border: 0.063rem dotted #520f22;
     }
 
     h1,h2,h3,h4,h5,h6, p, dt, dd {
