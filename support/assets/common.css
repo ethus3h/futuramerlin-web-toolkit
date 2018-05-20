@@ -96,9 +96,7 @@
         z-index: 2;
         position: fixed;
         bottom: 4rem;
-        left: calc(25vw + 4rem);
         height: 8rem;
-        transition: all 0.2s;
         background-color: red;
         width: calc(75vw - 9rem);
         font-size: 1.5rem;
@@ -187,6 +185,7 @@
         left: 5rem;
         z-index: 1;
     }
+
 /* Featured Releases */
     #musicwrapper, #musicwrapper div {
         word-wrap: break-word;
@@ -244,7 +243,6 @@
         overflow-x: hidden;
         border-right: 0.3rem dotted white;
     }
-/* End featured releases */
 
 /* Text segments */
 
