@@ -1088,25 +1088,11 @@
 
     /* Logo */
 
-        .logolink {
-            color: rgb(1, 50, 32);
-        }
-
-        .logolink:hover {
-            border-bottom: 0.063rem dotted rgb(1, 50, 32);
-        }
-
-        .logolink:visited {
-            color: rgb(1, 50, 32);
-        }
-
         .logo {
-            font-family: wreatherweb;
             font-size: 2rem;
             font-weight: normal;
             text-align: center;
             text-indent: 0;
-            transition: all .2s ease;
             z-index: 2;
             position: fixed;
             top: .25rem;
