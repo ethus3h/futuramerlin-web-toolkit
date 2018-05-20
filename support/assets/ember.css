@@ -8,26 +8,6 @@
 
 /* General */
 
-    *,
-    ::before,
-    ::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    .clearfloat,
-    .post-revisions,
-    .floating-key {
-        clear: both;
-    }
-
-    html,
-    body {
-        width: 100%;
-        height: 100%;
-    }
-
     body {
         font-family: wreatherweb;
     }

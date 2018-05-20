@@ -31,20 +31,6 @@
         height: 100%;
     }
 
-    body {
-        font-family: wreatherweb;
-    }
-
-    body > main {
-        font-family: wreatherweb;
-        font-size: 1.45rem;
-        z-index: 1;
-        position: relative;
-        top: 4rem;
-        left: calc(25vw + 4rem);
-        transition: all 0.2s;
-        color: #2a1657;
-    }
 /* Audio Player */
     .audioContainer {
         z-index: 2;
