@@ -8,6 +8,7 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 shopt -s extglob
 set +H
 
+echo "$@"
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$3"
