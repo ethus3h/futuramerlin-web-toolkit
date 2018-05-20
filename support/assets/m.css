@@ -324,6 +324,10 @@
             position: absolute;
         }
 
+        a.logolink {
+            font-style: italic;
+        }
+
     /* Scroll-to-top button */
 
         body > nav > a:last-of-type {

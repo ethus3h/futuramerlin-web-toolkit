@@ -289,7 +289,7 @@
             padding-top: 1rem;
         }
 
-        .note-emphasis, .song-title, .meta-nav, .foreign-text, a.logolink, .italic {
+        .note-emphasis, .song-title, .meta-nav, .foreign-text, .italic {
             font-style: italic;
         }
 
