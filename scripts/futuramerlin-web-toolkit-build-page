@@ -52,9 +52,9 @@ echo "Title: $title"
 if [[ -n "$title" ]]; then
     ereplace "<title>@FMWTK_SITE_NAME@</title>" "<title>$(htmlToText.pl <<< "$title" | normalizeWhitespace) &mdash; @FMWTK_SITE_NAME@</title>" "../../built/$1"
 fi
-cat "../../built/$1"
 ereplace "@FMWTK_SITE_NAME@" "$futuramerlinWebToolkitSiteName" "../../built/$1"
 ereplace "@FMWTK_SITE_NAME_LOWER@" "${futuramerlinWebToolkitSiteName,}" "../../built/$1"
+cat "../../built/$1"
 ereplace "@FMWTK_THEME_NAME@" "$futuramerlinWebToolkitThemeName" "../../built/$1"
 # Work on home page
 if [[ "$Page" == "." ]]; then
