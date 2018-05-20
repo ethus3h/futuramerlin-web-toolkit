@@ -1393,3 +1393,23 @@
                 max-width: 50rem;
             }
         }
+
+    /* small screen */
+
+        @media only screen and (max-width: 680px) and (min-resolution: 192dpi), only screen and (max-width: 341px) and (max-resolution: 191dpi) {
+            figure.thumbnail-right, .featured-image, .figure-captioned.alignright, .figcaption-empty-figure, figure.floating-key {
+                margin: 1rem;
+                left:-1rem;
+                width: 100%;
+                padding: 0.5rem;
+                float: none;
+            }
+        }
+
+    /* extra-small screen */
+        @media only screen and (max-width: 561px) and (min-resolution: 192dpi), only screen and (max-width: 281px) and (max-resolution: 191dpi) {
+            p {
+                text-align: left;
+                text-indent: 0.75rem;
+            }
+        }
