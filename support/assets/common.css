@@ -92,12 +92,13 @@
 
 /* Audio Player */
     .audioContainer {
-        z-index: 2;
         position: fixed;
-        bottom: 4rem;
+        width:100%;
+        bottom:0;
+        left: 0;
+        z-index: 2;
         height: 8rem;
         background-color: red;
-        width: calc(75vw - 9rem);
         font-size: 1.5rem;
     }
     .audioContainer audio {
@@ -851,6 +852,15 @@
         margin: 0.667rem;
     }
 
+/* Tables */
+    table {
+        border: .063rem dashed rgba(1,50,32,0.5);
+    }
+
+    td {
+        border: .063rem dashed rgb(1,50,32);
+    }
+
 /* Page elements and features */
 
     /* Site navigation bar */
@@ -1340,14 +1350,6 @@
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
             body > main {
                 /* width: unset; */
-            }
-            .audioContainer{
-                width:100%;
-                bottom:0;
-                left: 0;
-            }
-            body:not(.lessChrome) > .audioContainer {
-                left: 0;
             }
             body:not(.lessChrome) > main {
                 margin: 0 auto;

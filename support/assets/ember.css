@@ -52,6 +52,8 @@
     .audioContainer {
         left: calc(25vw + 4rem);
         transition: all 0.2s;
+        bottom: 4rem;
+        width: calc(75vw - 9rem);
     }
 
 /* Links */
@@ -449,6 +451,14 @@
     /* medium screen */
 
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
+            body:not(.lessChrome) > .audioContainer {
+                left: 0;
+            }
+            .audioContainer{
+                width:100%;
+                bottom:0;
+                left: 0;
+            }
             body.expanded:not(.lessChrome) > main {
                 position: unset;
                 padding-left: calc(25vw + 4rem);
