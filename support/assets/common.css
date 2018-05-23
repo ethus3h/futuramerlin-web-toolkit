@@ -657,7 +657,7 @@
 
     dl {
         margin: .5rem;
-        border: .063rem solid rgba(255,255,255,0.6);
+        border: .063rem solid rgba(0,0,0,0.6);
         padding: .5rem;
         overflow-y: hidden;
         display: flex;
@@ -682,7 +682,7 @@
     }
 
     dt:not(:last-of-type), dd:not(:last-of-type) {
-        border-bottom: .063rem dotted rgba(255,255,255,0.6);
+        border-bottom: .063rem dotted rgba(0,0,0,0.6);
         padding-bottom: .5rem;
         margin-bottom: .5rem;
     }

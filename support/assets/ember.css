@@ -85,6 +85,14 @@
         color: rgba(42, 22, 87, 0.9);
     }
 
+    dl {
+        border: .063rem solid rgba(255,255,255,0.6);
+    }
+
+    dt:not(:last-of-type), dd:not(:last-of-type) {
+        border-bottom: .063rem dotted rgba(255,255,255,0.6);
+    }
+
 /* Figures */
 
     figure > a > img, .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a img, .featured-image > a img {
