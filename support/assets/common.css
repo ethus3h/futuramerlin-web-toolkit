@@ -682,7 +682,7 @@
     }
 
     dt:not(:last-of-type), dd:not(:last-of-type) {
-        border-bottom: .063rem dotted rgba(0,0,0,0.6);
+        border-bottom: .063rem dashed rgba(0,0,0,0.6);
         padding-bottom: .5rem;
         margin-bottom: .5rem;
     }
