@@ -37,6 +37,9 @@
     body:not(.lessChrome) > .audioContainer ~ main {
         padding-bottom: 13rem;
     }
+    body.lessChrome >  .audioContainer ~ main {
+        padding-bottom: 13rem;
+    }
 
     a > img {
         transition: all 0.2s;
@@ -524,6 +527,9 @@
             }
             body:not(.expanded) {
                 transition: all 0.2s;
+            }
+            body:not(.lessChrome) > .audioContainer ~ main {
+                padding-bottom: 8rem;
             }
             .nav-trigger:checked + label:not(.expanded) {
                 left: calc(25% + 1rem);
