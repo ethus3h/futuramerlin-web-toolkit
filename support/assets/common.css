@@ -841,11 +841,11 @@
         table-layout: fixed;
         margin: .5rem;
         max-width: calc(100% - .5rem);
-        border-spacing: calc(1rem / 3rem);
+        border-spacing: calc(1rem / 3);
     }
 
     td {
-        padding: calc(1rem / 3rem);
+        padding: calc(1rem / 3);
     }
 
 /* Audio and video */
