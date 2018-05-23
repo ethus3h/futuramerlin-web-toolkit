@@ -55,7 +55,6 @@ let audioVolume = document.createElement('input');
 audioVolume.className = "audioVolume";
 audioScrubber.type = 'range';
 audioVolume.type = 'range';
-audioVolume.style.transform = 'rotate(270deg)';
 let audioPlayNextButton = document.createElement('button');
 audioPlayNextButton.className = "audioPlayNextButton";
 audioPlayNextButton.innerHTML = "⏭";
