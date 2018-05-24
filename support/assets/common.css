@@ -736,7 +736,7 @@
         margin-right: 0;
         width: 10.375rem;
         padding: 0.5rem;
-        border: .095rem solid #ddd;
+        border: .095rem solid #333;
         position: relative;
         transition: width 0.2s, margin 0.2s, left 0.2s;
     }
@@ -797,14 +797,13 @@
         height: auto;
     }
 
-    figure.thumbnail-left,
-    .figure-captioned.alignleft {
+    figure.thumbnail-left, .figure-captioned.alignleft {
         float: left;
         margin:1rem;
         margin-left: 0;
         width: 10.375rem;
         padding: 0.5rem;
-        border: .095rem solid #ddd;
+        border: .095rem solid #333;
         position: relative;
         transition: width 0.2s, margin 0.2s, right 0.2s;
     }
@@ -820,7 +819,7 @@
 
     .center-image {
         padding: 0.5rem;
-        border: .095rem solid #ddd;
+        border: .095rem solid #333;
     }
 
     .thumbnail-top {

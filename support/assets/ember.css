@@ -103,6 +103,10 @@
 
 /* Figures */
 
+    figure.thumbnail-right, .featured-image, *:not(.figcaption-empty-figure) > a > .alignright, figure.alignright, .figcaption-empty-figure {
+        border: .095rem solid #ddd;
+    }
+
     figure > a > img, .fm-wp-content > article:not(.single-post) > .entry-content > .featured-image > a img, .featured-image > a img {
         transition: all 0.2s;
         border: 0.063rem dotted transparent;
@@ -119,6 +123,14 @@
 
     figure.thumbnail-left > figcaption::after, .figure-captioned.alignleft > figcaption::after, .center-image::after {
         color: rgba(42, 22, 87, 0.7);
+    }
+
+    figure.thumbnail-left, .figure-captioned.alignleft {
+        border: .095rem solid #ddd;
+    }
+
+    .center-image {
+        border: .095rem solid #ddd;
     }
 
 /* Tables */
