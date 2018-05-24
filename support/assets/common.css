@@ -451,28 +451,22 @@
             top: -4.75rem;
         }
 
-/*        .entry-title {
-            font-size: 2rem;
+        .entry-title {
+            font-size: 1.45rem;
         }
 
         .entry-title::before {
-            font-size: 2rem;
+            font-size: 1.45rem;
         }
-*/
 
         .article-snippet {
             padding: 1rem;
-            font-size: 1.45rem;
         }
 
 /* Links */
 
-    a {
-        text-decoration: none;
-    }
-
     .nodecorate {
-            border-bottom: 0.063rem dotted transparent;
+        border-bottom: 0.063rem dotted transparent;
     }
 
     a[href^="//"]:not([href*="futuramerlin.com"]):after,

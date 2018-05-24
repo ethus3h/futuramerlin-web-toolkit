@@ -76,6 +76,7 @@
         border-bottom: 0.063rem dotted rgba(42, 22, 87, 0.4);
         transition: border-bottom 0.2s;
         color: #520f22;
+        text-decoration: none;
     }
 
     a:hover {
