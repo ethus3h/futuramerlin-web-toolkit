@@ -79,6 +79,10 @@
         background: linear-gradient(90deg, rgba(199, 130, 229, 1) 0, rgba(199, 130, 229, 1) 1%, rgba(162, 130, 229, 0.9) 15%, rgba(129, 145, 226, 0.78) 23%, rgba(129, 134, 226, 0.66) 34%, rgba(142, 129, 226, 0.44) 47%, rgba(130, 152, 229, 0.34) 59%, rgba(0, 150, 255, 0) 100%);
     }
 
+    h2::before, h3::before, h4::before, h5::before, h6::before {
+        border-top: 0.063rem solid white;
+    }
+
 /* Lists */
 
     #toc ol > li::before {

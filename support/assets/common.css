@@ -502,17 +502,13 @@
         position: relative;
     }
 
-    h2::before,
-    h3::before,
-    h4::before,
-    h5::before,
-    h6::before {
+    h2::before, h3::before, h4::before, h5::before, h6::before {
         top: -2rem;
         width: 100%;
         position: relative;
         display: flex;
         content: ' ';
-        border-top: 0.063rem solid white;
+        border-top: 0.063rem solid black;
     }
 
     h2 {
@@ -858,11 +854,11 @@
 
 /* Tables */
     table {
-        border: .063rem dashed rgba(1,50,32,0.5);
+        border: .063rem dashed rgb(28,28,28);
     }
 
     td {
-        border: .063rem dashed rgb(1,50,32);
+        border: .063rem dashed rgb(28,28,28);
     }
 
 /* Page elements and features */
