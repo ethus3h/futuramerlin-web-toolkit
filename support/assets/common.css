@@ -903,7 +903,8 @@
             margin: 1rem;
             margin-left: 2rem;
             margin-right: 2rem;
-            overflow-x: scroll;
+            overflow-x: auto;
+            max-width: 100%;
         }
 
         #toc > h2 {
