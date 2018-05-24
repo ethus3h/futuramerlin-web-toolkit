@@ -352,6 +352,7 @@
 
         .logolink:hover {
             border-bottom: 0.063rem dotted rgb(1, 50, 32);
+            font-size: 2rem;
         }
 
         .logolink:visited {
