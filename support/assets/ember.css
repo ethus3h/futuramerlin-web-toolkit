@@ -56,12 +56,19 @@
     }
 
 /* Audio Player */
+
     .audioContainer {
         left: calc(25vw + 4rem);
         transition: all 0.2s;
         bottom: 4rem;
         width: calc(75vw - 9rem);
     }
+
+/* Text blocks */
+
+        blockquote {
+            font-size: 1.1rem;
+        }
 
 /* Links */
 
