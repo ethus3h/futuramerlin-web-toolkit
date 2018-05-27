@@ -781,7 +781,7 @@ trackTraitToHtm() {
     local value="$4"
     local outputMode="$5"
     local trackCounter
-    if [[ $key != "recording" ]]; then
+    if [[ "$key" != "recording" ]]; then
         trackCounter="$(getTrackCounter)"
         setTrackCounter $(( trackCounter + 1 ))
     fi
@@ -812,7 +812,7 @@ trackTraitToHtm() {
     fi
     local attribution
     attribution="$(buildAttributionDisplay "$workPrefix")"
-    if [[ $key == "recording" ]]; then
+    if [[ "$key" != "recording" ]]; then
         local res_getTrackCounter=""
         res_getTrackCounter="$(getTrackCounter)"
     fi
