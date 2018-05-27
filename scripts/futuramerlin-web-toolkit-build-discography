@@ -781,8 +781,10 @@ trackTraitToHtm() {
     local value="$4"
     local outputMode="$5"
     local trackCounter
-    trackCounter="$(getTrackCounter)"
-    setTrackCounter $(( trackCounter + 1 ))
+    if [[ $key != "recording" ]]; then
+        trackCounter="$(getTrackCounter)"
+        setTrackCounter $(( trackCounter + 1 ))
+    fi
     local work="${value%%,*}"
     local subWork="${value#*,}"
     local workPrefix
@@ -810,17 +812,21 @@ trackTraitToHtm() {
     fi
     local attribution
     attribution="$(buildAttributionDisplay "$workPrefix")"
-    local res_getTrackCounter=""
-    res_getTrackCounter="$(getTrackCounter)"
+    if [[ $key == "recording" ]]; then
+        local res_getTrackCounter=""
+        res_getTrackCounter="$(getTrackCounter)"
+    fi
     local res_buildTrackPlayer=""
     res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$kind" "$work/$subWork" "$identifier")"
     local res_preadconf=""
     res_preadconf="$(preadconf duration "$workPrefix.conf")"
-    local trackCounterInsert="<td>$res_getTrackCounter$trackUnavailableNote</td>"
+    local trackCounterInsert=""
     local trackPlayerInsert="$res_buildTrackPlayer"
     if [[ $key == "recording" ]]; then
         trackCounterInsert=""
         trackPlayerInsert="$res_buildTrackPlayer$trackUnavailableNote"
+    else
+        trackCounterInsert="<td>$res_getTrackCounter$trackUnavailableNote</td>"
     fi
     print "    <tr>$trackCounterInsert<td>$trackPlayerInsert</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
 }
