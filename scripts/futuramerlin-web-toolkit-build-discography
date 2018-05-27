@@ -34,8 +34,8 @@ closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
 discogDebug() {
-    #echo "$@" 1>&2
-    true
+    echo "$@" 1>&2
+    #true
 }
 
 getRelativeDiscographyDir() {
@@ -1102,6 +1102,7 @@ buildInfoTable() {
     done < "$(getItemPath "$kind" "$identifier").conf"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
+        discogDebug "Matched pattern for work version: $kind"
         if [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
             # This is a work version, so build a player for the recording
             traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
