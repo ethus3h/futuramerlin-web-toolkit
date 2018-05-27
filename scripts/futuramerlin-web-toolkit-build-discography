@@ -816,7 +816,13 @@ trackTraitToHtm() {
     res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$kind" "$work/$subWork" "$identifier")"
     local res_preadconf=""
     res_preadconf="$(preadconf duration "$workPrefix.conf")"
-    print "    <tr><td>$res_getTrackCounter$trackUnavailableNote</td><td>$res_buildTrackPlayer</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
+    local trackCounterInsert="<td>$res_getTrackCounter$trackUnavailableNote</td>"
+    local trackPlayerInsert="$res_buildTrackPlayer"
+    if [[ $key == "recording" ]]; then
+        trackCounterInsert=""
+        trackPlayerInsert="$res_buildTrackPlayer$trackUnavailableNote"
+    fi
+    print "    <tr>$trackCounterInsert<td>$trackPlayerInsert</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
 }
 
 traitToHtm() {
@@ -876,6 +882,10 @@ traitToHtm() {
             )"
             ;;
         track)
+            trackTraitToHtm "$@"
+            ;;
+        recording)
+            trackTraitToHtm "$@"
             ;;
         medium)
             local res_keyToLabelKey=""
