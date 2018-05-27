@@ -63,19 +63,19 @@ mergeConfFile() {
         if [[ "$line" == "* Recordings *" ]]; then
             foundRecordings="true"
         fi
+            # printf "%s\\n" "$line" >> "$inheritInto"
+        if [[ "$foundRecordings" != "true" ]]; then
             printf "%s\\n" "$line" >> "$inheritInto"
-        # if [[ "$foundRecordings" != "true" ]]; then
-        #     printf "%s\\n" "$line" >> "$inheritInto"
-        # else
-        #     printf "%s\\n" "$line" >> "$inheritInto.recordings"
-        # fi
+        else
+            printf "%s\\n" "$line" >> "$inheritInto.recordings"
+        fi
     done < "$inheritInto.tmp"
-    if [[ "$foundRecordings" != "true" ]]; then
+    if [[ "$foundRecordings" == "true" ]]; then
         # We put on an extra newline in the loop, so remove it
         truncate -s-1 "$inheritInto"
     else
-        true
-        # print $'\n' >> "$inheritInto"
+        # true
+        print $'\n' >> "$inheritInto"
     fi
     while IFS= read -r line; do
         local pattern='^#'
