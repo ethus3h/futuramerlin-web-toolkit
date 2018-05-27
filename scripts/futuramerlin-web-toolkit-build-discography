@@ -822,7 +822,7 @@ trackTraitToHtm() {
     res_preadconf="$(preadconf duration "$workPrefix.conf")"
     local trackCounterInsert=""
     local trackPlayerInsert="$res_buildTrackPlayer"
-    if [[ $key == "recording" ]]; then
+    if [[ "$key" == "recording" ]]; then
         trackCounterInsert=""
         trackPlayerInsert="$res_buildTrackPlayer$trackUnavailableNote"
     else
