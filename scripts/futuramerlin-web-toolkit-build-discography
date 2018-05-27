@@ -90,8 +90,11 @@ mergeConfFile() {
             fi
         fi
     done < "$inheritFrom"
-    [[ -e "$inheritInto.recordings" ]] && cat "$inheritInto.recordings" >> "$inheritInto"
-    rm "$inheritInto.tmp" "$inheritInto.recordings"
+    if [[ -e "$inheritInto.recordings" ]]; then
+        cat "$inheritInto.recordings" >> "$inheritInto"
+        rm "$inheritInto.recordings"
+    fi
+    rm "$inheritInto.tmp"
 }
 
 for file in works/*/*.conf; do
