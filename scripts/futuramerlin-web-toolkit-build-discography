@@ -92,6 +92,7 @@ mergeConfFile() {
         fi
     done < "$inheritFrom"
     if [[ "$foundRecordings" == "true" ]]; then
+        print $'\n' >> "$inheritInto"
         cat "$inheritInto.recordings" >> "$inheritInto"
         rm "$inheritInto.recordings"
     fi
