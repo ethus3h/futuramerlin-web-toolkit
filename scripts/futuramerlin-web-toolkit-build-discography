@@ -753,14 +753,15 @@ recordingsTraitToHtm() {
     closeCurrentSection
     setTrackCounter "0"
     local extraColumnsHeader="<th>Instrumentation</th>"
-    if [[ "$outputMode" == "featured-content" ]] || [[ "$key" == "* Recordings *" ]]; then
+    if [[ "$outputMode" == "featured-content" ]]; then
         extraColumnsHeader=""
+    elif [[ "$key" == "* Recordings *" ]]; then
+        print $'\n'
     else
         print $'\n\n'"<h2>Track listing</h2>"
     fi
     local nameLabel="Track name"
     if [[ "$key" == "* Recordings *" ]]; then
-        print $'\n'
         nameLabel="Name"
     fi
     print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
