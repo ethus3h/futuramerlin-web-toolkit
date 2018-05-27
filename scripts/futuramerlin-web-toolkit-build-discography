@@ -921,15 +921,20 @@ traitToHtm() {
             setClosingTag "</ul>"
             ;;
         "* Tracks *")
+        "* Recordings *")
             closeCurrentSection
             setTrackCounter "0"
             local extraColumnsHeader="<th>Instrumentation</th>"
-            if [[ "$outputMode" == "featured-content" ]]; then
+            if [[ "$outputMode" == "featured-content" ]] || [[ "$key" == "* Recordings *" ]]; then
                 extraColumnsHeader=""
             else
                 print $'\n\n'"<h2>Track listing</h2>"
             fi
-            print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>Track name</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
+            local nameLabel="Track name"
+            if [[ "$key" == "* Recordings *" ]]; then
+                nameLabel="Name"
+            fi
+            print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
             local newClosingTagSuffix=""
             if [[ "$outputMode" != "featured-content" ]] && [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
                 newClosingTagSuffix=$'\n''<script src="/discography-dist/player.js"></script>'
