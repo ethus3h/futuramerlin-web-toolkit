@@ -59,18 +59,20 @@ mergeConfFile() {
     cp "$inheritInto" "$inheritInto.tmp_input"
     # Move any Recordings section into its own file
     local foundRecordings=""
-    local foundRecordingsSecondPass=""
     while IFS= read -r line; do
         if [[ "$line" == "* Recordings *" ]]; then
             foundRecordings="true"
-            foundRecordingsSecondPass="false" # 
         fi
         if [[ "$foundRecordings" != "true" ]]; then
-            printf "%s\\n" "$line" >> "$inheritInto.tmp"
+            printf "%s\\n" "$line" >> "$inheritInto"
         else
-            printf "%s\\n" "$line" >> "$inheritInto.tmp.recordings"
+            printf "%s\\n" "$line" >> "$inheritInto.recordings"
         fi
     done < "$inheritInto.tmp_input"
+    if [[ "$foundRecordings" != "true" ]]; then
+        # We put on an extra newline in the loop, so remove it
+        truncate -s-1 "$inheritInto"
+    fi
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
