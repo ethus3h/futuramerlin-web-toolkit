@@ -56,11 +56,21 @@ mergeConfFile() {
     local inheritFrom
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom into $inheritInto"
-    cp "$inheritInto" "$inheritInto.tmp"
+    cp "$inheritInto" "$inheritInto.tmp_input"
     # Move any Recordings section into its own file
+    local foundRecordings=""
+    local foundRecordingsSecondPass=""
     while IFS= read -r line; do
-        
-    done < "$inheritInto.tmp"
+        if [[ "$line" == "* Recordings *" ]]; then
+            foundRecordings="true"
+            foundRecordingsSecondPass="false" # 
+        fi
+        if [[ "$foundRecordings" != "true" ]]; then
+            printf "%s\\n" "$line" >> "$inheritInto.tmp"
+        else
+            printf "%s\\n" "$line" >> "$inheritInto.tmp.recordings"
+        fi
+    done < "$inheritInto.tmp_input"
     while IFS= read -r line; do
         local pattern='^#'
         if ! [[ "$line" =~ $pattern ]]; then
