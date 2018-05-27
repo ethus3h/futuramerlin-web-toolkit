@@ -1109,7 +1109,7 @@ buildInfoTable() {
             # This is a work version, so build a player for the recording
             traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
             discogDebug "Done first traitToHtm"
-            traitToHtm "$kind" "$identifier" "recording" "$work" "$infoTableBuildRequestType"
+            traitToHtm "$kind" "$identifier" "recording" "$work,${identifier#*,}" "$infoTableBuildRequestType"
         fi
     fi
     if [[ "$foundInfo" == "true" ]]; then
