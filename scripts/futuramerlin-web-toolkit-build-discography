@@ -73,9 +73,6 @@ mergeConfFile() {
     if [[ "$foundRecordings" == "true" ]]; then
         # We put on an extra newline in the loop, so remove it
         truncate -s-1 "$inheritInto"
-    else
-        # true
-        print $'\n' >> "$inheritInto"
     fi
     while IFS= read -r line; do
         local pattern='^#'
