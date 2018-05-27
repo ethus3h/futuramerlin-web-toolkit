@@ -1104,8 +1104,12 @@ buildInfoTable() {
     if [[ "$kind" =~ $pattern ]]; then
         local work="${kind#*\/}"
         if [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
-            local context="$(discReadConf context "$kind" "$identifier")"
-            if [[ -n "$(discReadConf ia "${context%%,*}" "${context#*,}")" ]]; then
+            local context
+            context="$(discReadConf context "$kind" "$identifier")"
+            local contextIaIdent
+            contextIaIdent="$(discReadConf ia "${context%%,*}" "${context#*,}")"
+            discogDebug "Context: $context ${context%%,*} ${context#*,} contextIaIdent: $contextIaIdent"
+            if [[ -n "$contextIaIdent" ]]; then
                 # This is a work version, so build a player for the recording
                 traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
                 discogDebug "recording,$work,${identifier#*,}"
