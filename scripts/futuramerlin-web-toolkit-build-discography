@@ -1105,8 +1105,10 @@ buildInfoTable() {
         local work="${kind#*\/}"
         discogDebug "Matched pattern for work version: $kind"
         if [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
+            discogDebug "Done discReadConf, matched"
             # This is a work version, so build a player for the recording
             traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
+            discogDebug "Done first traitToHtm"
             traitToHtm "$kind" "$identifier" "recording" "$work" "$infoTableBuildRequestType"
         fi
     fi
