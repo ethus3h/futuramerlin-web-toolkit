@@ -1104,10 +1104,13 @@ buildInfoTable() {
     if [[ "$kind" =~ $pattern ]]; then
         local work="${kind#*\/}"
         if [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
-            # This is a work version, so build a player for the recording
-            traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
-            discogDebug "recording,$work,${identifier#*,}"
-            traitToHtm "$kind" "$identifier" "recording" "$work,${identifier#*,}" "$infoTableBuildRequestType"
+            local context="$(discReadConf context "$kind" "$identifier")"
+            if [[ -n "$(discReadConf ia "${context%%,*}" "${context#*,}")" ]]; then
+                # This is a work version, so build a player for the recording
+                traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
+                discogDebug "recording,$work,${identifier#*,}"
+                traitToHtm "$kind" "$identifier" "recording" "$work,${identifier#*,}" "$infoTableBuildRequestType"
+            fi
         fi
     fi
     if [[ "$foundInfo" == "true" ]]; then
