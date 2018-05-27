@@ -1196,7 +1196,7 @@ buildList() {
     kind)
         itemList=""
         itemList="$itemList"$'\n'"    <li><a href=\"./featured.htm\">Featured Releases</a></li>"
-        indexItems=(artist label release work broadcast press session file)
+        indexItems=(artist label release work broadcast performance press publication session file)
         for item in "${indexItems[@]}"; do
             if [[ -e "$(getKindFolderName "$item")" ]]; then
                 buildCategory "kind" "$item"
