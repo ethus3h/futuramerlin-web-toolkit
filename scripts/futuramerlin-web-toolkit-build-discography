@@ -744,6 +744,32 @@ buildAttributionDisplay() {
     print "$attribution"
 }
 
+recordingsTraitToHtm() {
+    local kind="$1"
+    local identifier="$2"
+    local key="$3"
+    local value="$4"
+    local outputMode="$5"
+    closeCurrentSection
+    setTrackCounter "0"
+    local extraColumnsHeader="<th>Instrumentation</th>"
+    if [[ "$outputMode" == "featured-content" ]] || [[ "$key" == "* Recordings *" ]]; then
+        extraColumnsHeader=""
+    else
+        print $'\n\n'"<h2>Track listing</h2>"
+    fi
+    local nameLabel="Track name"
+    if [[ "$key" == "* Recordings *" ]]; then
+        nameLabel="Name"
+    fi
+    print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
+    local newClosingTagSuffix=""
+    if [[ "$outputMode" != "featured-content" ]] && [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
+        newClosingTagSuffix=$'\n''<script src="/discography-dist/player.js"></script>'
+    fi
+    setClosingTag "    </tbody>"$'\n'"</table>"$'\n'"$newClosingTagSuffix"
+}
+
 traitToHtm() {
     local kind="$1"
     local identifier="$2"
@@ -921,25 +947,10 @@ traitToHtm() {
             setClosingTag "</ul>"
             ;;
         "* Tracks *")
+            recordingsTraitToHtm "$@"
+            ;;
         "* Recordings *")
-            closeCurrentSection
-            setTrackCounter "0"
-            local extraColumnsHeader="<th>Instrumentation</th>"
-            if [[ "$outputMode" == "featured-content" ]] || [[ "$key" == "* Recordings *" ]]; then
-                extraColumnsHeader=""
-            else
-                print $'\n\n'"<h2>Track listing</h2>"
-            fi
-            local nameLabel="Track name"
-            if [[ "$key" == "* Recordings *" ]]; then
-                nameLabel="Name"
-            fi
-            print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
-            local newClosingTagSuffix=""
-            if [[ "$outputMode" != "featured-content" ]] && [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
-                newClosingTagSuffix=$'\n''<script src="/discography-dist/player.js"></script>'
-            fi
-            setClosingTag "    </tbody>"$'\n'"</table>"$'\n'"$newClosingTagSuffix"
+            recordingsTraitToHtm "$@"
             ;;
         mbid)
             simpleMetadata "$(keyToLabel "$key")" "<a href=\"https://musicbrainz.org/${kind%s}/$value\">$value</a>"
