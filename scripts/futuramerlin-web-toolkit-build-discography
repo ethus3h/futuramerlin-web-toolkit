@@ -602,9 +602,9 @@ keyToLabel() {
 
 buildTrackPlayer() {
     local isAvailable="$1"
-    shift
-    local workIdentifier="$1"
-    local releaseIdentifier="$2"
+    local kind="$2"
+    local workIdentifier="$3"
+    local releaseIdentifier="$4"
     local filename
     filename="$(discReadConf filename work "$workIdentifier")"
     local extA
@@ -624,12 +624,12 @@ buildTrackPlayer() {
     [[ "$isAvailable" == "true" ]] && addedFormatEntryToUnavailableRelease="true"
     if ! [[ "$hasOgg" == "true" ]]; then
         if [[ "$isAvailable" == "true" ]]; then
-            simpleIaLink release "$releaseIdentifier" "$filename".ogg "OGA"
+            simpleIaLink "$kind" "$releaseIdentifier" "$filename".ogg "OGA"
             print " "
         fi
     else
         if [[ "$isAvailable" == "true" ]]; then
-            simpleIaLink release "$releaseIdentifier" "$filename".ogg "Orig. (OGA)"
+            simpleIaLink "$kind" "$releaseIdentifier" "$filename".ogg "Orig. (OGA)"
             print " "
         else
             print "Orig. (OGA)"
@@ -638,12 +638,12 @@ buildTrackPlayer() {
     fi
     if ! [[ "$hasFlac" == "true" ]]; then
         if [[ "$isAvailable" == "true" ]]; then
-            simpleIaLink release "$releaseIdentifier" "$filename".flac "FLAC"
+            simpleIaLink "$kind" "$releaseIdentifier" "$filename".flac "FLAC"
             print " "
         fi
     else
         if [[ "$isAvailable" == "true" ]]; then
-            simpleIaLink release "$releaseIdentifier" "$filename".flac "Orig. (FLAC)"
+            simpleIaLink "$kind" "$releaseIdentifier" "$filename".flac "Orig. (FLAC)"
             print " "
         else
             print "Orig. (FLAC)"
@@ -651,10 +651,10 @@ buildTrackPlayer() {
         fi
     fi
     if ! [[ "$hasMp3" == "true" ]]; then
-        [[ "$isAvailable" == "true" ]] && simpleIaLink release "$releaseIdentifier" "$filename".mp3 "MP3"
+        [[ "$isAvailable" == "true" ]] && simpleIaLink "$kind" "$releaseIdentifier" "$filename".mp3 "MP3"
     else
         if [[ "$isAvailable" == "true" ]]; then
-            simpleIaLink release "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
+            simpleIaLink "$kind" "$releaseIdentifier" "$filename".mp3 "Orig. (MP3)"
         else
             print "Orig. (MP3)"
             addedFormatEntryToUnavailableRelease="true"
@@ -662,15 +662,15 @@ buildTrackPlayer() {
     fi
     if [[ -n "$extA" && "$extA" != "ogg" && "$extA" != "mp3" && "$extA" != "flac" ]]; then
         [[ "$addedFormatEntryToUnavailableRelease" == "true" ]] && print " "
-        simpleIaLink release "$releaseIdentifier" "$filename.$extA" "Orig. ($(keyToLabel "$extA"))"
+        simpleIaLink "$kind" "$releaseIdentifier" "$filename.$extA" "Orig. ($(keyToLabel "$extA"))"
     fi
     if [[ -n "$extB" && "$extB" != "ogg" && "$extB" != "mp3" && "$extB" != "flac" ]]; then
         [[ "$addedFormatEntryToUnavailableRelease" == "true" ]] && print " "
-        simpleIaLink release "$releaseIdentifier" "$filename.$extB" "Orig. ($(keyToLabel "$extB"))"
+        simpleIaLink "$kind" "$releaseIdentifier" "$filename.$extB" "Orig. ($(keyToLabel "$extB"))"
     fi
     if [[ -n "$extC" && "$extC" != "ogg" && "$extC" != "mp3" && "$extC" != "flac" ]]; then
         [[ "$addedFormatEntryToUnavailableRelease" == "true" ]] && print " "
-        simpleIaLink release "$releaseIdentifier" "$filename.$extC" "Orig. ($(keyToLabel "$extC"))"
+        simpleIaLink "$kind" "$releaseIdentifier" "$filename.$extC" "Orig. ($(keyToLabel "$extC"))"
     fi
     if [[ "$isAvailable" == "true" ]]; then
         print '<br />'
@@ -678,7 +678,7 @@ buildTrackPlayer() {
         local formats=(ogg flac mp3)
         for format in "${formats[@]}"; do
             print '<source src="'
-            simpleIaUrl release "$releaseIdentifier" "$filename.$format"
+            simpleIaUrl "$kind" "$releaseIdentifier" "$filename.$format"
             print '" type="audio/'
             if [[ "$format" == "mp3" ]]; then
                 print "mpeg"
@@ -760,6 +760,7 @@ recordingsTraitToHtm() {
     fi
     local nameLabel="Track name"
     if [[ "$key" == "* Recordings *" ]]; then
+        print $'\n'
         nameLabel="Name"
     fi
     print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
@@ -860,7 +861,7 @@ traitToHtm() {
             local res_getTrackCounter=""
             res_getTrackCounter="$(getTrackCounter)"
             local res_buildTrackPlayer=""
-            res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$work/$subWork" "$identifier")"
+            res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$kind" "$work/$subWork" "$identifier")"
             local res_preadconf=""
             res_preadconf="$(preadconf duration "$workPrefix.conf")"
             print "    <tr><td>$res_getTrackCounter$trackUnavailableNote</td><td>$res_buildTrackPlayer</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
