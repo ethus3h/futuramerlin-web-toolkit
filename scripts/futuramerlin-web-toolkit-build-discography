@@ -774,6 +774,51 @@ recordingsTraitToHtm() {
     setClosingTag "    </tbody>"$'\n'"</table>"$'\n'"$newClosingTagSuffix"
 }
 
+trackTraitToHtm() {
+    local kind="$1"
+    local identifier="$2"
+    local key="$3"
+    local value="$4"
+    local outputMode="$5"
+    local trackCounter
+    trackCounter="$(getTrackCounter)"
+    setTrackCounter $(( trackCounter + 1 ))
+    local work="${value%%,*}"
+    local subWork="${value#*,}"
+    local workPrefix
+    workPrefix="$(getRelativeDiscographyDir)works/$work/$subWork"
+    #discogDebug "Called preadconf name ""$workPrefix.conf"", got $(preadconf name "$workPrefix.conf")"
+    local nameColumn=""
+    local extraColumns=""
+    if [[ "$outputMode" != "featured-content" ]]; then
+        nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
+        extraColumns="<td>$(preadconf instrumentation "$workPrefix.conf")</td>"
+    else
+        nameColumn="$(preadconf name "$workPrefix.conf")"
+    fi
+    local isAvailable="true"
+    local trackUnavailableNote=""
+    local res_preadconfUnavailable=""
+    res_preadconfUnavailable="$(preadconf unavailable "$workPrefix.conf")"
+    if [[ "$res_preadconfUnavailable" == "true" ]]; then
+        trackUnavailableNote=" (unavailable due to licensing)"
+    fi
+    local res_discReadConfUnavailable=""
+    res_discReadConfUnavailable="$(discReadConf unavailable "$kind" "$identifier")"
+    if [[ "$res_discReadConfUnavailable" == "true" ]] || [[ -n "$trackUnavailableNote" ]]; then
+        isAvailable="false"
+    fi
+    local attribution
+    attribution="$(buildAttributionDisplay "$workPrefix")"
+    local res_getTrackCounter=""
+    res_getTrackCounter="$(getTrackCounter)"
+    local res_buildTrackPlayer=""
+    res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$kind" "$work/$subWork" "$identifier")"
+    local res_preadconf=""
+    res_preadconf="$(preadconf duration "$workPrefix.conf")"
+    print "    <tr><td>$res_getTrackCounter$trackUnavailableNote</td><td>$res_buildTrackPlayer</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
+}
+
 traitToHtm() {
     local kind="$1"
     local identifier="$2"
@@ -831,43 +876,6 @@ traitToHtm() {
             )"
             ;;
         track)
-            local trackCounter
-            trackCounter="$(getTrackCounter)"
-            setTrackCounter $(( trackCounter + 1 ))
-            local work="${value%%,*}"
-            local subWork="${value#*,}"
-            local workPrefix
-            workPrefix="$(getRelativeDiscographyDir)works/$work/$subWork"
-            #discogDebug "Called preadconf name ""$workPrefix.conf"", got $(preadconf name "$workPrefix.conf")"
-            local nameColumn=""
-            local extraColumns=""
-            if [[ "$outputMode" != "featured-content" ]]; then
-                nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
-                extraColumns="<td>$(preadconf instrumentation "$workPrefix.conf")</td>"
-            else
-                nameColumn="$(preadconf name "$workPrefix.conf")"
-            fi
-            local isAvailable="true"
-            local trackUnavailableNote=""
-            local res_preadconfUnavailable=""
-            res_preadconfUnavailable="$(preadconf unavailable "$workPrefix.conf")"
-            if [[ "$res_preadconfUnavailable" == "true" ]]; then
-                trackUnavailableNote=" (unavailable due to licensing)"
-            fi
-            local res_discReadConfUnavailable=""
-            res_discReadConfUnavailable="$(discReadConf unavailable "$kind" "$identifier")"
-            if [[ "$res_discReadConfUnavailable" == "true" ]] || [[ -n "$trackUnavailableNote" ]]; then
-                isAvailable="false"
-            fi
-            local attribution
-            attribution="$(buildAttributionDisplay "$workPrefix")"
-            local res_getTrackCounter=""
-            res_getTrackCounter="$(getTrackCounter)"
-            local res_buildTrackPlayer=""
-            res_buildTrackPlayer="$(buildTrackPlayer "$isAvailable" "$kind" "$work/$subWork" "$identifier")"
-            local res_preadconf=""
-            res_preadconf="$(preadconf duration "$workPrefix.conf")"
-            print "    <tr><td>$res_getTrackCounter$trackUnavailableNote</td><td>$res_buildTrackPlayer</td><td>$nameColumn$attribution</td><td>$res_preadconf</td>$extraColumns</tr>"
             ;;
         medium)
             local res_keyToLabelKey=""
