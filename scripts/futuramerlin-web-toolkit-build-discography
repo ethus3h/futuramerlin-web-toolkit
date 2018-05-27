@@ -630,10 +630,11 @@ buildTrackPlayer() {
     local releaseIdentifier="$4"
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
-    local context
-    context="$(discReadConf context "$kind" "$workIdentifier")"
-    kind="${context%%,*}"
-    releaseIdentifier="${context#*,}"
+        local context
+        context="$(discReadConf context "$kind" "$workIdentifier")"
+        kind="${context%%,*}"
+        releaseIdentifier="${context#*,}"
+    fi
     local filename
     filename="$(discReadConf filename work "$workIdentifier")"
     local extA
