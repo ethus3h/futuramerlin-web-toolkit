@@ -761,10 +761,12 @@ recordingsTraitToHtm() {
         print $'\n\n'"<h2>Track listing</h2>"
     fi
     local nameLabel="Track name"
+    local numberColumnHeader="<th>#</th>"
     if [[ "$key" == "* Recordings *" ]]; then
         nameLabel="Name"
+        numberColumnHeader=""
     fi
-    print $'\n'"<table>"$'\n    '"<thead><tr><th>#</th><th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
+    print $'\n'"<table>"$'\n    '"<thead><tr>$numberColumnHeader<th>🔊</th><th>$nameLabel</th><th>Duration</th>$extraColumnsHeader</tr></thead>"$'\n    '"<tbody>"
     local newClosingTagSuffix=""
     if [[ "$outputMode" != "featured-content" ]] && [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
         newClosingTagSuffix=$'\n''<script src="/discography-dist/player.js"></script>'
