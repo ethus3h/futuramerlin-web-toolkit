@@ -379,8 +379,7 @@ listItem() {
                 # Also print the artist name
                 print $'\n'"    <li>$(linkToItem --with-artist-name --with-date "$@")</li>"
             else
-                if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]]
-                  || [[ "$kind" == "performance" ]] || [[ "$kind" == "publication" ]]; then
+                if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]] || [[ "$kind" == "performance" ]] || [[ "$kind" == "publication" ]]; then
                     print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
                 else
                     print $'\n'"    <li>$(linkToItem "$@")</li>"
