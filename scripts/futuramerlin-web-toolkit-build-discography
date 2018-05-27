@@ -56,7 +56,7 @@ mergeConfFile() {
     local inheritFrom
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom into $inheritInto"
-    cp "$inheritInto" "$inheritInto.tmp"
+    mv "$inheritInto" "$inheritInto.tmp"
     # Move any Recordings section into its own file
     local foundRecordings=""
     while IFS= read -r line; do
@@ -68,7 +68,7 @@ mergeConfFile() {
         else
             printf "%s\\n" "$line" >> "$inheritInto.recordings"
         fi
-    done < "$inheritInto.tmp_input"
+    done < "$inheritInto.tmp"
     if [[ "$foundRecordings" != "true" ]]; then
         # We put on an extra newline in the loop, so remove it
         truncate -s-1 "$inheritInto"
