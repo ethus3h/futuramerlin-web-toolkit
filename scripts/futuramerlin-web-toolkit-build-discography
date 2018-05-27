@@ -90,7 +90,7 @@ mergeConfFile() {
             fi
         fi
     done < "$inheritFrom"
-    cat "$inheritInto.recordings" >> "$inheritInto"
+    [[ -e "$inheritInto.recordings" ]] && cat "$inheritInto.recordings" >> "$inheritInto"
     rm "$inheritInto.tmp" "$inheritInto.recordings"
 }
 
