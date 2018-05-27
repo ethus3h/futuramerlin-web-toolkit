@@ -56,7 +56,7 @@ mergeConfFile() {
     local inheritFrom
     inheritFrom="works/$(basename "$(dirname "$inheritInto")").conf"
     discogDebug "Merging from $inheritFrom into $inheritInto"
-    cp "$inheritInto" "$inheritInto.tmp_input"
+    cp "$inheritInto" "$inheritInto.tmp"
     # Move any Recordings section into its own file
     local foundRecordings=""
     while IFS= read -r line; do
