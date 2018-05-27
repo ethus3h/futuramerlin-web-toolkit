@@ -1105,7 +1105,7 @@ buildInfoTable() {
         if [[ "$(discReadConf unavailable "$kind" "$identifier")" != "true" ]]; then
             # This is a work version, so build a player for the recording
             traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
-            traitToHtm "$kind" "$identifier" "recording" "" "$infoTableBuildRequestType"
+            traitToHtm "$kind" "$identifier" "recording" "$kind" "$infoTableBuildRequestType"
         fi
     fi
     if [[ "$foundInfo" == "true" ]]; then
