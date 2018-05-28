@@ -262,12 +262,12 @@ linkToItem() {
         labelId="$(discReadConf label "$kind" "$identifier")"
         artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
         local res_catNum
-        res_catNum="$(discReadConf catNum "$kind" "$identifier")"
+        res_catNum="$(discReadConf --no-placeholder catNum "$kind" "$identifier")"
         local res_labelName
         res_labelName="$(discReadConf --no-placeholder name label "$labelId")"
         if [[ -n "$res_labelName" ]]; then
             if [[ -z "$res_catNum" ]]; then
-                res_catNum="$(discReadConf fmCatNum "$kind" "$identifier")"
+                res_catNum="$(discReadConf --no-placeholder fmCatNum "$kind" "$identifier")"
             fi
             if [[ -n "$res_catNum" ]]; then
                 releaseIndexPageFormatInsert=" ($res_labelName #$res_catNum)"
