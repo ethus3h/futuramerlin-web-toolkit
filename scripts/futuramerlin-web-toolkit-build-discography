@@ -34,8 +34,8 @@ closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
 
 discogDebug() {
-    echo "$@" 1>&2
-    #true
+    #echo "$@" 1>&2
+    true
 }
 
 getRelativeDiscographyDir() {
@@ -1116,14 +1116,13 @@ buildInfoTable() {
             context="$(discReadConf context "$kind" "$identifier")"
             local contextIaIdent
             contextIaIdent="$(discReadConf ia "${context%%,*}" "${context#*,}")"
-            discogDebug "Context: $context ${context%%,*} ${context#*,} contextIaIdent: $contextIaIdent"
+            #discogDebug "Context: $context ${context%%,*} ${context#*,} contextIaIdent: $contextIaIdent"
             if [[ -n "$contextIaIdent" ]]; then
                 # This is a work version, so build a player for the recording
                 traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
-                discogDebug "recording,$work,${identifier#*,}"
-                set -x
+                #discogDebug "recording,$work,${identifier#*,}"
+                print $'\n'
                 traitToHtm "$kind" "$identifier" "recording" "$work,${identifier#*,}" "$infoTableBuildRequestType"
-                set +x
             fi
         fi
     fi
