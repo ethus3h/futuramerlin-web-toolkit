@@ -32,7 +32,8 @@ trackCounterFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).tc.te
 echo "0" > "$trackCounterFile"
 closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
-nextArtistType=""
+nextArtistTypeFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).nat.temp"
+touch "$nextArtistTypeFile"
 
 discogDebug() {
     #echo "$@" 1>&2
@@ -1130,6 +1131,14 @@ getTrackCounter() {
 
 setClosingTag() {
     print "$1" > "$closingTagFile"
+}
+
+getNextArtistType() {
+    cat "$nextArtistTypeFile"
+}
+
+setNextArtistType() {
+    print "$1" > "$nextArtistTypeFile"
 }
 
 closeCurrentSection() {
