@@ -356,9 +356,23 @@ simpleMetadata() {
 }
 
 simpleReference() {
+    local useNextArtistType=""
+    if [[ "$1" == "--next-artist-type" ]]; then
+        useNextArtistType="$1"
+        shift
+    fi
     local key="$1"
     local kind="$2"
     local identifier="$3"
+    if [[ "$useNextArtistType" == "--next-artist-type" ]]
+            local nextArtistType
+            nextArtistType="$(getNextArtistType)"
+            if [[ -n "$nextArtistType" ]]; then
+                keyToLabel "$nextArtistType"
+                print ' '
+                setNextArtistType ''
+            fi
+    else
     simpleMetadata "$(keyToLabel "$key")" "$(linkToItem "$kind" "$identifier")"
 }
 
@@ -1024,14 +1038,7 @@ traitToHtm() {
             fi
             ;;
         artist)
-            local nextArtistType
-            nextArtistType="$(getNextArtistType)"
-            if [[ -n "$nextArtistType" ]]; then
-                keyToLabel "$nextArtistType"
-                print ' '
-                setNextArtistType ''
-            fi
-            simpleReference "$key" artist "$value"
+            simpleReference --next-artist-type "$key" artist "$value"
             ;;
         work)
             simpleReference "$key" work "${value/,/\/}"
