@@ -151,7 +151,9 @@ discReadConf() {
     #discogDebug "Reading configuration value $key from the $kind $identifier"
     local result
     if [[ -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
-        result="$(preadconf "$key" "$(getItemPath "$kind" "$identifier").conf")"
+        local res_itempath
+        res_itempath="$(getItemPath "$kind" "$identifier")"
+        result="$(preadconf "$key" "$res_itempath.conf")"
     else
         result=""
     fi
@@ -169,20 +171,22 @@ discReadConf() {
 }
 
 discGetArtists() {
-    if [[ "$key" == "artist" ]]; then
-        # Return multiple artists if needed
-        while IFS= read -r line; do
-            if [[ "$line" == "* Recordings *" ]]; then
-                foundRecordings="true"
-            fi
-                # printf "%s\\n" "$line" >> "$inheritInto"
-            if [[ "$foundRecordings" != "true" ]]; then
-                printf "%s\\n" "$line" >> "$inheritInto"
-            else
-                printf "%s\\n" "$line" >> "$inheritInto.recordings"
-            fi
-        done < "$inheritInto.tmp"
-    else
+    local kind="$1"
+    local identifier="$2"
+    # Returns multiple artists if needed, formatted and with their names resolved
+    local confPath
+    confPath="$(getItemPath "$kind" "$identifier").conf"
+    while IFS= read -r line; do
+        if [[ "$line" == "* Recordings *" ]]; then
+            foundRecordings="true"
+        fi
+            # printf "%s\\n" "$line" >> "$inheritInto"
+        if [[ "$foundRecordings" != "true" ]]; then
+            printf "%s\\n" "$line" >> "$inheritInto"
+        else
+            printf "%s\\n" "$line" >> "$inheritInto.recordings"
+        fi
+    done < "$inheritInto.tmp"
 }
 
 getItemName() {
