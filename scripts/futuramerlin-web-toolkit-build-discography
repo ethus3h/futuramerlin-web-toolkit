@@ -153,6 +153,17 @@ discReadConf() {
     if [[ -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
         if [[ "$key" == "artist" ]]; then
             # Return multiple artists if needed
+            while IFS= read -r line; do
+                if [[ "$line" == "* Recordings *" ]]; then
+                    foundRecordings="true"
+                fi
+                    # printf "%s\\n" "$line" >> "$inheritInto"
+                if [[ "$foundRecordings" != "true" ]]; then
+                    printf "%s\\n" "$line" >> "$inheritInto"
+                else
+                    printf "%s\\n" "$line" >> "$inheritInto.recordings"
+                fi
+            done < "$inheritInto.tmp"
         else
             result="$(preadconf "$key" "$(getItemPath "$kind" "$identifier").conf")"
         fi
