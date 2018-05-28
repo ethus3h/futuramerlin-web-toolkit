@@ -267,9 +267,6 @@ linkToItem() {
         local res_labelName
         res_labelName="$(discReadConf --no-placeholder name label "$labelId")"
         if [[ -n "$res_labelName" ]]; then
-            if [[ -z "$res_catNum" ]]; then
-                res_catNum="$(discReadConf --no-placeholder fmCatNum "$kind" "$identifier")"
-            fi
             if [[ -n "$res_catNum" ]]; then
                 releaseIndexPageFormatInsert=" ($res_labelName #$res_catNum)"
             else
@@ -277,6 +274,13 @@ linkToItem() {
             fi
         else
             releaseIndexPageFormatInsert=""
+        fi
+        if [[ -z "$res_catNum" ]] || [[ -z "$res_labelName" ]]; then
+            local res_fmCatNum
+            res_fmCatNum="$(discReadConf --no-placeholder fmCatNum "$kind" "$identifier")"
+            if [[ -n "$res_fmCatNum" ]]; then
+                releaseIndexPageFormatInsert=" (Futuramerlin.com #$res_fmCatNum)"
+            fi
         fi
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
