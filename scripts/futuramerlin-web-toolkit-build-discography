@@ -257,7 +257,22 @@ linkToItem() {
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
         artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
-        releaseIndexPageFormatInsert=" ($(discReadConf name label "$labelId") #$(discReadConf fmCatNum "$kind" "$identifier"))"
+        local res_catNum
+        res_catNum="$(discReadConf catNum "$kind" "$identifier")"
+        local res_labelName
+        res_labelName="$(discReadConf --no-placeholder name label "$labelId")"
+        if [[ -n "$res_labelName" ]]; then
+            if [[ -z "$res_catNum" ]]; then
+                local res_fmCatNum
+                res_fmCatNum="$(discReadConf fmCatNum "$kind" "$identifier")"
+                if [[ -n "$res_fmCatNum" ]]; then
+                    res_catNum="$res_fmCatNum"
+                fi
+            fi
+            if [[ -n "$res_catNum" ]]; then
+            releaseIndexPageFormatInsert=" ($res_labelName #$res_catNum)"
+                    
+            releaseIndexPageFormatInsert=" ($res_labelName #$res_fmCatNum)"
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
         else
