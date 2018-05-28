@@ -455,6 +455,8 @@ listItem() {
     if [[ "$filtered" == "true" ]]; then
         if [[ "$(discReadConf "$filterKey" "$kind" "$identifier")" == "$filterValue" ]]; then
             matchedFilter="true"
+        elif [[ "$filterKey" == "artist" ]]; then
+            true;#if [[ $artist ==  ]]
         fi
     fi
     if [[ "$filtered" != "true" ]] || [[ "$matchedFilter" == "true" ]]; then
