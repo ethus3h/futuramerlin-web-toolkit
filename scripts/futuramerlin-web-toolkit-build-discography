@@ -32,6 +32,7 @@ trackCounterFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).tc.te
 echo "0" > "$trackCounterFile"
 closingTagFile="$(readlink -f futuramerlin-web-toolkit-discography.conf).temp"
 touch "$closingTagFile"
+nextArtistType=""
 
 discogDebug() {
     #echo "$@" 1>&2
@@ -180,13 +181,13 @@ discGetArtists() {
     # Returns multiple artists if needed, formatted and with their names resolved
     local confPath
     confPath="$(getItemPath "$kind" "$identifier").conf"
-    local foundArtist=""
+    # local foundArtist=""
     while IFS= read -r line; do
         if [[ "$line" == "artist,"* ]]; then
-            if [[ "$foundArtist" == "true" ]]; then
-                print '; '
-            fi
-            foundArtist="true"
+            # if [[ "$foundArtist" == "true" ]]; then
+            #     print '; '
+            # fi
+            # foundArtist="true"
             local artistId
             artistId="${line#*,}"
             local res_artistName
@@ -197,7 +198,7 @@ discGetArtists() {
             fi
             print "$res_artistName"
         elif [[ "$line" == "nextArtistType,"* ]]; then
-            print "${line#*,} "
+            print " ${line#*,} "
         fi
     done < "$confPath"
 }
@@ -1022,6 +1023,11 @@ traitToHtm() {
             fi
             ;;
         artist)
+            if [[ -n "$nextArtistType" ]]; then
+                keyToLabel "$nextArtistType"
+                print ' '
+                nextArtistType=''
+            fi
             simpleReference "$key" artist "$value"
             ;;
         work)
@@ -1051,6 +1057,9 @@ traitToHtm() {
             ;;
         unavailable)
             true
+            ;;
+        nextArtistType)
+            nextArtistType="$value"
             ;;
         sreg)
             true
