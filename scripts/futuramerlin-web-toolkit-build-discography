@@ -151,7 +151,11 @@ discReadConf() {
     #discogDebug "Reading configuration value $key from the $kind $identifier"
     local result
     if [[ -e "$(getItemPath "$kind" "$identifier").conf" ]]; then
-        result="$(preadconf "$key" "$(getItemPath "$kind" "$identifier").conf")"
+        if [[ "$key" == "artist" ]]; then
+            # Return multiple artists if needed
+        else
+            result="$(preadconf "$key" "$(getItemPath "$kind" "$identifier").conf")"
+        fi
     else
         result=""
     fi
