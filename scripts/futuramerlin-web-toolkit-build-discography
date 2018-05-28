@@ -170,6 +170,11 @@ discReadConf() {
 }
 
 discGetArtists() {
+    local linked=""
+    if [[ "$1" == "--linked" ]]; then
+        linked="true"
+        shift
+    fi
     local kind="$1"
     local identifier="$2"
     # Returns multiple artists if needed, formatted and with their names resolved
@@ -185,7 +190,11 @@ discGetArtists() {
             local artistId
             artistId="${line#*,}"
             local res_artistName
-            res_artistName="$(getItemName artist "$artistId")"
+            if [[ "$linked" == "true" ]]; then
+                res_artistName="$(linkToItem artist "$artistId")"
+            else
+                res_artistName="$(getItemName artist "$artistId")"
+            fi
             print "$res_artistName"
         elif [[ "$line" == "nextArtistType,"* ]]; then
             print "${line#*,}"
