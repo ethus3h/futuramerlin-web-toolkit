@@ -182,7 +182,11 @@ discGetArtists() {
                 print '; '
             fi
             foundArtist="true"
-            print "${line#*,}"
+            local artistId
+            artistId="${line#*,}"
+            local res_artistName
+            res_artistName="$(getItemName artist "$artistId")"
+            print "$res_artistName"
         elif [[ "$line" == "nextArtistType,"* ]]; then
             print "${line#*,}"
         fi
