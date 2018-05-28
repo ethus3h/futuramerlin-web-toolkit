@@ -261,6 +261,7 @@ linkToItem() {
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
         artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
+        set -x
         local res_catNum
         res_catNum="$(discReadConf --no-placeholder catNum "$kind" "$identifier")"
         local res_labelName
@@ -277,6 +278,7 @@ linkToItem() {
         else
             releaseIndexPageFormatInsert=""
         fi
+        set +x
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
         else
