@@ -1024,10 +1024,12 @@ traitToHtm() {
             fi
             ;;
         artist)
+            local nextArtistType
+            nextArtistType="$(getNextArtistType)"
             if [[ -n "$nextArtistType" ]]; then
                 keyToLabel "$nextArtistType"
                 print ' '
-                nextArtistType=''
+                setNextArtistType ''
             fi
             simpleReference "$key" artist "$value"
             ;;
@@ -1060,7 +1062,7 @@ traitToHtm() {
             true
             ;;
         nextArtistType)
-            nextArtistType="$value"
+            setNextArtistType "$value"
             ;;
         sreg)
             true
