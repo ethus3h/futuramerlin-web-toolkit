@@ -272,8 +272,6 @@ linkToItem() {
             else
                 releaseIndexPageFormatInsert=" ($res_labelName)"
             fi
-        else
-            releaseIndexPageFormatInsert=""
         fi
         if [[ -z "$res_catNum" ]] || [[ -z "$res_labelName" ]]; then
             local res_fmCatNum
