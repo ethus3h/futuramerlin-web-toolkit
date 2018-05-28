@@ -805,6 +805,7 @@ recordingsTraitToHtm() {
 }
 
 trackTraitToHtm() {
+    discogDebug "trackTraitToHtm called with $@"
     local kind="$1"
     local identifier="$2"
     local key="$3"
@@ -823,7 +824,12 @@ trackTraitToHtm() {
     local nameColumn=""
     local extraColumns=""
     if [[ "$outputMode" != "featured-content" ]]; then
-        nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
+        local pattern='work\/.*'
+        if [[ "$kind" =~ $pattern ]]; then
+            nameColumn="$(preadconf name "$workPrefix.conf")"
+        else
+            nameColumn="<a href=\"$workPrefix.htm\">$(preadconf name "$workPrefix.conf")</a>"
+        fi
         extraColumns="<td>$(preadconf instrumentation "$workPrefix.conf")</td>"
     else
         nameColumn="$(preadconf name "$workPrefix.conf")"
