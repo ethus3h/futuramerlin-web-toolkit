@@ -197,7 +197,7 @@ discGetArtists() {
             fi
             print "$res_artistName"
         elif [[ "$line" == "nextArtistType,"* ]]; then
-            print "${line#*,}"
+            print "${line#*,} "
         fi
     done < "$confPath"
 }
