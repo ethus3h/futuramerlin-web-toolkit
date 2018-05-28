@@ -365,7 +365,7 @@ simpleReference() {
     local kind="$2"
     local identifier="$3"
     local nextArtistType
-    if [[ "$useNextArtistType" == "--next-artist-type" ]]
+    if [[ "$useNextArtistType" == "--next-artist-type" ]]; then
         nextArtistType="$(getNextArtistType)"
         if [[ -n "$nextArtistType" ]]; then
             setNextArtistType ''
