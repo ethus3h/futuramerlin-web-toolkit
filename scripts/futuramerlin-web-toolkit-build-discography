@@ -140,6 +140,10 @@ getItemPath() {
 }
 
 discReadConf() {
+    local noPlaceholder=""
+    if [[ "$1" == "--no-placeholder" ]]; then
+        noPlaceholder="true"
+    fi
     local key="$1"
     local kind="$2"
     local identifier="$3"
@@ -150,14 +154,14 @@ discReadConf() {
     else
         result=""
     fi
-    if [[ -z "$result" ]]; then
+    if [[ -z "$result" ]] && [[ "$noPlaceholder" != "true" ]]; then
         if [[ "$key" == "name" ]]; then
             result="$identifier <small><!-- note: discReadConf for the $key of $kind $identifier is undefined or empty; using identifier instead. --><em>(No $key given: identifier used instead)</em></small>"
         elif [[ "$key" == "location" ]]; then
             result="<small><!-- note: discReadConf for the $key of $kind $identifier is undefined or empty. --><em>(No $key given)</em></small>"
         fi
     fi
-    if [[ -z "$result" ]] && [[ ! -e "$(getItemPath "$kind" "$identifier").conf" ]] && [[ "$key" != "disambig" ]] && [[ "$key" != "ia" ]]; then
+    if [[ -z "$result" ]] && [[ ! -e "$(getItemPath "$kind" "$identifier").conf" ]] && [[ "$key" != "disambig" ]] && [[ "$key" != "ia" ]] && [[ "$noPlaceholder" != "true" ]]; then
         result="<!-- placeholder: discReadConf for the $1 of $2 $3 is undefined. -->"
     fi
     print "$result"
