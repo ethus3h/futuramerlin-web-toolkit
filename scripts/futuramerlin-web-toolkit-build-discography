@@ -143,6 +143,7 @@ discReadConf() {
     local noPlaceholder=""
     if [[ "$1" == "--no-placeholder" ]]; then
         noPlaceholder="true"
+        shift
     fi
     local key="$1"
     local kind="$2"
@@ -261,7 +262,6 @@ linkToItem() {
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
         artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
-        set -x
         local res_catNum
         res_catNum="$(discReadConf --no-placeholder catNum "$kind" "$identifier")"
         local res_labelName
@@ -278,7 +278,6 @@ linkToItem() {
         else
             releaseIndexPageFormatInsert=""
         fi
-        set +x
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
         else
