@@ -371,9 +371,8 @@ simpleReference() {
             setNextArtistType ''
             nextArtistType="$nextArtistType "
         fi
-    else
-        simpleMetadata "$(keyToLabel "$key")" "$nextArtistType$(linkToItem "$kind" "$identifier")"
     fi
+    simpleMetadata "$(keyToLabel "$key")" "$nextArtistType$(linkToItem "$kind" "$identifier")"
 }
 
 getEntryPoint() {
