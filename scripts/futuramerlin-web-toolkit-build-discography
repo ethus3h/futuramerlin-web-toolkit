@@ -456,7 +456,13 @@ listItem() {
         if [[ "$(discReadConf "$filterKey" "$kind" "$identifier")" == "$filterValue" ]]; then
             matchedFilter="true"
         elif [[ "$filterKey" == "artist" ]]; then
-            true;#if [[ $artist ==  ]]
+            local confPath
+            confPath="$(getItemPath "$kind" "$identifier").conf"
+            while IFS= read -r line; do
+                if [[ "$line" == "artist,$filterValue" ]]; then
+                    matchedFilter="true"
+                fi
+            done < "$confPath"
         fi
     fi
     if [[ "$filtered" != "true" ]] || [[ "$matchedFilter" == "true" ]]; then
