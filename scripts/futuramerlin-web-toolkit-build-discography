@@ -202,14 +202,14 @@ linkToItem() {
         includeArtistName="true"
         shift
     fi
+    local includeLabelName=""
+    if [[ "$1" == "--with-label-name" ]]; then
+        includeLabelName="true"
+        shift
+    fi
     local includeDate=""
     if [[ "$1" == "--with-date" ]]; then
         includeDate="true"
-        shift
-    fi
-    local includeLabelName=""
-    if [[ "$1" == "--with-label" ]]; then
-        includeLabelName="true"
         shift
     fi
     local releaseIndexPageFormat=""
@@ -430,6 +430,8 @@ listItem() {
             if [[ "$filterKey" == "label" ]]; then
                 # Also print the artist name
                 print $'\n'"    <li>$(linkToItem --with-artist-name --with-date "$@")</li>"
+            elif [[ "$filterKey" == "artist" ]]; then
+                print $'\n'"    <li>$(linkToItem --with-label-name --with-date "$@")</li>"
             else
                 if [[ "$kind" == "broadcast" ]] || [[ "$kind" == "file" ]] || [[ "$kind" == "press" ]] || [[ "$kind" == "release" ]] || [[ "$kind" == "work" ]] || [[ "$kind" == "performance" ]] || [[ "$kind" == "publication" ]]; then
                     print $'\n'"    <li>$(linkToItem --with-date "$@")</li>"
