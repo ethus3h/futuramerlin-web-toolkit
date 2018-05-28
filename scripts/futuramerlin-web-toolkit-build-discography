@@ -364,16 +364,15 @@ simpleReference() {
     local key="$1"
     local kind="$2"
     local identifier="$3"
+    local nextArtistType
     if [[ "$useNextArtistType" == "--next-artist-type" ]]
-        local nextArtistType
         nextArtistType="$(getNextArtistType)"
         if [[ -n "$nextArtistType" ]]; then
             setNextArtistType ''
             nextArtistType="$nextArtistType "
         fi
-        simpleMetadata "$(keyToLabel "$key")" "$nextArtistType$(linkToItem "$kind" "$identifier")"
     else
-        simpleMetadata "$(keyToLabel "$key")" "$(linkToItem "$kind" "$identifier")"
+        simpleMetadata "$(keyToLabel "$key")" "$nextArtistType$(linkToItem "$kind" "$identifier")"
     fi
 }
 
