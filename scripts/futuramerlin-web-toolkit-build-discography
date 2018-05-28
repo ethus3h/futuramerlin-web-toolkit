@@ -367,9 +367,12 @@ simpleReference() {
     local nextArtistType
     if [[ "$useNextArtistType" == "--next-artist-type" ]]; then
         nextArtistType="$(getNextArtistType)"
-        if [[ -n "$nextArtistType" ]]; then
+        if [[ -n "$nextArtistType" ]] && [[ "$nextArtistType" != "," ]] && [[ "$nextArtistType" != ";" ]]; then
             setNextArtistType ''
             nextArtistType="$nextArtistType "
+        fi
+        if [[ "$nextArtistType" == ", and " ]]; then
+            nextArtistType="and "
         fi
     fi
     simpleMetadata "$(keyToLabel "$key")" "$nextArtistType$(linkToItem "$kind" "$identifier")"
