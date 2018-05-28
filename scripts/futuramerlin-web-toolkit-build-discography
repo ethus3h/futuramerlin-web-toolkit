@@ -207,6 +207,11 @@ linkToItem() {
         includeDate="true"
         shift
     fi
+    local includeLabelName=""
+    if [[ "$1" == "--with-label" ]]; then
+        includeLabelName="true"
+        shift
+    fi
     local releaseIndexPageFormat=""
     if [[ "$1" == "--release-index-page-format" ]]; then
         releaseIndexPageFormat="true"
@@ -262,6 +267,16 @@ linkToItem() {
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
         artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
+        includeLabelName="true"
+        if [[ "$usePicture" == "false" ]]; then
+            linkFirstPart=""
+        else
+            artistNameInsert="</a> $artistNameInsert"
+        fi
+    else
+        artistNameInsert=""
+    fi
+    if [[ "$includeLabelName" == "true" ]]; then
         local res_catNum
         res_catNum="$(discReadConf --no-placeholder catNum "$kind" "$identifier")"
         local res_labelName
@@ -280,13 +295,6 @@ linkToItem() {
                 releaseIndexPageFormatInsert=" (Futuramerlin.com #$res_fmCatNum)"
             fi
         fi
-        if [[ "$usePicture" == "false" ]]; then
-            linkFirstPart=""
-        else
-            artistNameInsert="</a> $artistNameInsert"
-        fi
-    else
-        artistNameInsert=""
     fi
     if [[ "$usePicture" != "false" ]]; then
         local pictureType
