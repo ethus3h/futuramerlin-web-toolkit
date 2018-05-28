@@ -1121,7 +1121,7 @@ buildInfoTable() {
                 # This is a work version, so build a player for the recording
                 traitToHtm "$kind" "$identifier" "* Recordings *" "" "$infoTableBuildRequestType"
                 #discogDebug "recording,$work,${identifier#*,}"
-                print $'\n'
+                print $'\n    '
                 traitToHtm "$kind" "$identifier" "recording" "$work,${identifier#*,}" "$infoTableBuildRequestType"
             fi
         fi
