@@ -298,7 +298,7 @@ linkToItem() {
         fi
     elif [[ "$releaseIndexPageFormat" == "true" ]]; then
         local artistId
-        artistId="$(discReadConf artist "$kind" "$identifier")"
+        artistId="$(discGetArtists "$kind" "$identifier")"
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
         artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
