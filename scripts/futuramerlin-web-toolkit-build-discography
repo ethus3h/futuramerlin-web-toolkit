@@ -301,7 +301,7 @@ linkToItem() {
         artistId="$(discGetArtists "$kind" "$identifier")"
         local labelId
         labelId="$(discReadConf label "$kind" "$identifier")"
-        artistNameInsert="$(discReadConf name artist "$artistId") — $linkFirstPart"
+        artistNameInsert="$artistId — $linkFirstPart"
         includeLabelName="true"
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
