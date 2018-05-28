@@ -263,16 +263,16 @@ linkToItem() {
         res_labelName="$(discReadConf --no-placeholder name label "$labelId")"
         if [[ -n "$res_labelName" ]]; then
             if [[ -z "$res_catNum" ]]; then
-                local res_fmCatNum
-                res_fmCatNum="$(discReadConf fmCatNum "$kind" "$identifier")"
-                if [[ -n "$res_fmCatNum" ]]; then
-                    res_catNum="$res_fmCatNum"
-                fi
+                res_catNum="$(discReadConf fmCatNum "$kind" "$identifier")"
             fi
             if [[ -n "$res_catNum" ]]; then
-            releaseIndexPageFormatInsert=" ($res_labelName #$res_catNum)"
-                    
-            releaseIndexPageFormatInsert=" ($res_labelName #$res_fmCatNum)"
+                releaseIndexPageFormatInsert=" ($res_labelName #$res_catNum)"
+            else
+                releaseIndexPageFormatInsert=" ($res_labelName)"
+            fi
+        else
+            releaseIndexPageFormatInsert=""
+        fi
         if [[ "$usePicture" == "false" ]]; then
             linkFirstPart=""
         else
