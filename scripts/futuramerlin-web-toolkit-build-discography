@@ -631,7 +631,7 @@ buildTrackPlayer() {
     local pattern='.*\/.*'
     if [[ "$kind" =~ $pattern ]]; then
         local context
-        context="$(discReadConf context "$kind" "$workIdentifier")"
+        context="$(discReadConf context "${kind#*\/}" "${workIdentifier#*\/}")"
         kind="${context%%,*}"
         releaseIdentifier="${context#*,}"
     fi
