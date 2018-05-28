@@ -63,7 +63,6 @@ mergeConfFile() {
         if [[ "$line" == "* Recordings *" ]]; then
             foundRecordings="true"
         fi
-            # printf "%s\\n" "$line" >> "$inheritInto"
         if [[ "$foundRecordings" != "true" ]]; then
             printf "%s\\n" "$line" >> "$inheritInto"
         else
@@ -176,17 +175,18 @@ discGetArtists() {
     # Returns multiple artists if needed, formatted and with their names resolved
     local confPath
     confPath="$(getItemPath "$kind" "$identifier").conf"
+    local foundArtist=""
     while IFS= read -r line; do
-        if [[ "$line" == "* Recordings *" ]]; then
-            foundRecordings="true"
+        if [[ "$line" == "artist,"* ]]; then
+            if [[ "$foundArtist" == "true" ]]; then
+                print '; '
+            fi
+            foundArtist="true"
+            print "${line#*,}"
+        elif [[ "$line" == "nextArtistType,"* ]]; then
+            print "${line#*,}"
         fi
-            # printf "%s\\n" "$line" >> "$inheritInto"
-        if [[ "$foundRecordings" != "true" ]]; then
-            printf "%s\\n" "$line" >> "$inheritInto"
-        else
-            printf "%s\\n" "$line" >> "$inheritInto.recordings"
-        fi
-    done < "$inheritInto.tmp"
+    done < "$confPath"
 }
 
 getItemName() {
