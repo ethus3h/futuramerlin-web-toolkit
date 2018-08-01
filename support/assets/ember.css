@@ -27,8 +27,9 @@
         /* Set a maximum content column width to avoid overly long lines */
         /* max-width: calc(50rem); can't do this here because we can't center this this way */
         padding-bottom: 5rem;
-        left: calc(25vw + 4rem);
+        padding-left: calc(25vw + 4rem);
         padding-right: 4rem;
+        left: unset;
     }
     body:not(.lessChrome) > .audioContainer {
         left: calc(25vw + 4rem);
