@@ -518,6 +518,7 @@
             }
             body:not(.expanded):not(.lessChrome) > main {
                 position: absolute;
+                padding-left: 0;
             }
             body:not(.expanded) > nav > .logo {
                 left: 50%;
