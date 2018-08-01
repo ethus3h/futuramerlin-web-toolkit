@@ -1359,7 +1359,7 @@
                 top: 0;
             }
             body.expanded:not(.lessChrome) > main {
-                max-width: unset;
+                max-width: 100vw;
             }
             body:not(.expanded) > main {
                 margin-bottom: 0;
