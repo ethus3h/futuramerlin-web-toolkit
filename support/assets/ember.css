@@ -474,6 +474,12 @@
 
 /* Layout rules */
 
+    body > main,
+    body > main::before,
+    body > main::after {
+        width: calc(50rem + 25vw + 4rem);
+    }
+
     body,
     body > nav::before {
         transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;

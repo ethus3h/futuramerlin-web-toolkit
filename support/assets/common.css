@@ -1359,7 +1359,7 @@
                 top: 0;
             }
             body.expanded:not(.lessChrome) > main {
-                max-width: 100vw;
+                max-width: calc(100vw - .3442745357751846rem); /* the fuck? */
             }
             body:not(.expanded) > main {
                 margin-bottom: 0;
