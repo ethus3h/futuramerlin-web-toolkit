@@ -388,9 +388,9 @@
     }
 
     body:not(.lessChrome) > main::before {
-        left: calc(25% - 0.063rem);
+        left: 25%;
         height: calc(100% - 8rem);
-        width: calc(75% - 8rem + 0.063rem);
+        width: calc(75% - 8rem);
     }
 
     body:not(.lessChrome) > main::after {
