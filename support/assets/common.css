@@ -1359,7 +1359,7 @@
                 top: 0;
             }
             body.expanded:not(.lessChrome) > main {
-                max-width: calc(100vw - .3442745357751846rem); /* the fuck? */
+                max-width: calc(100vw - .3442745357751846rem); /* https://www.sitepoint.com/community/t/100vw-and-scrollbars/196480/6?_escaped_fragment_ */
             }
             body:not(.expanded) > main {
                 margin-bottom: 0;
