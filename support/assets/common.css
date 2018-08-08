@@ -1188,7 +1188,7 @@
 
     body > main::before,
     body > main::after {
-        max-width: 100vw;
+        max-width: 100%;
     }
 
     body > main::before {
@@ -1359,7 +1359,7 @@
                 top: 0;
             }
             body.expanded:not(.lessChrome) > main {
-                max-width: calc(100vw - .3442745357751846rem); /* https://www.sitepoint.com/community/t/100vw-and-scrollbars/196480/6?_escaped_fragment_ */
+                max-width: calc(100%);
             }
             body:not(.expanded) > main {
                 margin-bottom: 0;

@@ -18,7 +18,7 @@
         z-index: 1;
         position: relative;
         top: 4rem;
-        left: calc(25vw + 4rem);
+        left: calc(25% + 4rem);
         transition: all 0.2s;
         color: #2a1657;
     }
@@ -27,12 +27,12 @@
         /* Set a maximum content column width to avoid overly long lines */
         /* max-width: calc(50rem); can't do this here because we can't center this this way */
         padding-bottom: 5rem;
-        padding-left: calc(25vw + 4rem);
+        padding-left: calc(25% + 4rem);
         padding-right: 4rem;
         left: unset;
     }
     body:not(.lessChrome) > .audioContainer {
-        left: calc(25vw + 4rem);
+        left: calc(25% + 4rem);
     }
     body:not(.lessChrome) > .audioContainer ~ main {
         padding-bottom: 13rem;
@@ -58,10 +58,10 @@
 /* Audio Player */
 
     .audioContainer {
-        left: calc(25vw + 4rem);
+        left: calc(25% + 4rem);
         transition: all 0.2s;
         bottom: 4rem;
-        width: calc(75vw - 9rem);
+        width: calc(75% - 9rem);
     }
 
 /* Text blocks */
@@ -196,7 +196,7 @@
             bottom: 0;
             left: 0;
             overflow-y: auto;
-            width: calc(25vw + .095rem);
+            width: calc(25% + .095rem);
             height: 100%;
             transition: left 0.2s;
             border-right: 0.063rem solid white;
@@ -388,7 +388,7 @@
     }
 
     body:not(.lessChrome) > main::before {
-        left: 25vw;
+        left: 25%;
         height: calc(100% - 8rem);
         width: calc(75% - 8rem);
     }
@@ -398,7 +398,7 @@
     }
 
     body > main::after {
-        left: 25vw;
+        left: 25%;
         height: calc(100% - 8rem);
         margin: 4rem;
         border: .063rem solid white;
@@ -426,7 +426,7 @@
         background-origin: padding-box;
         background-size: cover;
         position: fixed;
-        width: 100vw;
+        width: 100%;
         height: 4rem;
         transition: font-size 0.2s, left 0.2s, width 0.2s, bottom 0.2s, opacity 0.2s;
     }
@@ -441,12 +441,12 @@
         background-size: cover;
         position: fixed;
         height: 100%;
-        width: calc(25vw + 4rem);
+        width: calc(25% + 4rem);
         transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s;
     }
 
     body.lessChrome::before {
-        width: calc(25vw + 4rem);
+        width: calc(25% + 4rem);
     }
 
     body::after {
@@ -477,7 +477,7 @@
     body > main,
     body > main::before,
     body > main::after {
-        width: calc(50rem + 25vw + 4rem);
+        width: calc(50rem + 25% + 4rem);
     }
 
     body,
@@ -507,7 +507,7 @@
             }
             body.expanded:not(.lessChrome) > main {
                 position: unset;
-                padding-left: calc(25vw + 4rem);
+                padding-left: calc(25% + 4rem);
                 padding-right: 4rem;
             }
             body:not(.expanded) > nav > ul {
@@ -546,7 +546,7 @@
             }
             body:not(.expanded)::before {
                 max-width: 100%;
-                left: calc(-1 * (25vw + 4rem));
+                left: calc(-1 * (25% + 4rem));
             }
             body:not(.expanded)::after {
                 right: -4rem;
@@ -681,7 +681,7 @@
             body.expanded::before {
                 left: 0;
                 max-width: 100%;
-                left: calc(-1 * (25vw + 4rem));
+                left: calc(-1 * (25% + 4rem));
             }
             body.expanded::after {
                 right: -4rem;
