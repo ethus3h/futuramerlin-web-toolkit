@@ -488,6 +488,10 @@
         transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s, bottom 0.2s;
     }
 
+    nav > ul {
+        top: 4rem;
+    }
+
     /* medium screen */
 
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
@@ -555,7 +559,6 @@
                 background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><path fill="%23013220" d="M0 0h30v6H0zm0 24h30v6H0zm0-12h30v6H0z"/></svg>');
                 background-size: contain;
             }
-            .nav-trigger + label:not(.expanded),
             nav:not(.expanded) > ul {
                 transition: left 0.2s, box-shadow 0.2s, width 0.2s, opacity 0.2s;
             }
@@ -566,7 +569,7 @@
                 padding-bottom: 8rem;
             }
             .nav-trigger:checked + label:not(.expanded) {
-                left: calc(25% + 1rem);
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><path stroke="%23013220" stroke-width="2" d="M1 11L11 1M1 1l10 10"/></svg>');
             }
             .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {
                 left: 0;
@@ -587,9 +590,6 @@
             }*/
             .nav-trigger:checked ~ nav:not(.expanded) > ul {
                 width: 50%;
-            }
-            .nav-trigger:checked + label:not(.expanded) {
-                left: calc(50% + 1rem);
             }
             body:not(.expanded) > nav > ul > li:first-of-type {
                 width:50vw;
@@ -690,7 +690,7 @@
                 transition: all 0.2s;
             }
             .nav-trigger:checked + label.expanded {
-                left: calc(25% + 1rem);
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><path stroke="%23013220" stroke-width="2" d="M1 11L11 1M1 1l10 10"/></svg>');
             }
             .nav-trigger:checked ~ nav.expanded > ul > li:first-of-type {
                 left: 0;
