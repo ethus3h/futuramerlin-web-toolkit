@@ -1079,11 +1079,11 @@
             background-color: rgba(0, 0, 0, 0.07);
             padding: 0.5rem;
             margin: 1rem;
-            width: calc(100% - 2rem);
+            max-width: calc(100% - 2rem);
             display: table;
         }
 
-        .hatnote-emphasis-warning::before {
+        .hatnote-emphasis-alert::before, .hatnote-emphasis-warning::before {
             display: table;
             float: left;
             padding: 1rem;
@@ -1091,11 +1091,16 @@
             width: 2rem;
             height: 2rem;
             line-height: 2rem;
-            color: red;
             text-align: center;
-            content: '\26A0';
             text-indent: 0;
             font-style: normal;
+        }
+        .hatnote-emphasis-alert::before {
+            content: '\26A0';
+            color: red;
+        }
+        .hatnote-emphasis-warning::before {
+            content: '\1F6C8';
         }
 
     /* Post navigation */
