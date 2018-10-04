@@ -6,10 +6,10 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
 #Version:
-futuramerlinWebToolkitVersion='2.3.57'
+futuramerlinWebToolkitVersion='2.3.58'
 
 # The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
-# ( sudo true; newVersion="2.3.57"; cd "/Ember Library/Ember satellite projects/futuramerlin-web-toolkit"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-*.ebuild "app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge futuramerlin-web-toolkit )
+# ( sudo true; newVersion="2.3.58"; cd "/Ember Library/Ember satellite projects/futuramerlin-web-toolkit"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-*.ebuild "app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge futuramerlin-web-toolkit )
 
 # How to run easily tests without installing (or without having it installed in /usr/local so can run them without configuring): cd ~ || die; [[ -e futuramerlin-web-toolkit ]] || git clone https://github.com/ethus3h/futuramerlin-web-toolkit; cd futuramerlin-web-toolkit || die; git pull; tempDir="$(tempDir)"; pushd "$tempDir" || die; cp -r ~/futuramerlin-web-toolkit .; cd futuramerlin-web-toolkit || true; ./configure --prefix=/usr; make; make check; popd || true; [[ -n "$tempDir" ]] && rm -rf "$tempDir"
 
