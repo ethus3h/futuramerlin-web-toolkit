@@ -360,10 +360,9 @@
         }
 
         .logo {
-            position: fixed;
             font-family: wreatherweb;
-            transition: all .2s ease;
             position: absolute;
+            left: 3.75rem;
         }
 
         a.logolink {
@@ -489,11 +488,6 @@
         transition: font-size 0.2s, left 0.2s, width 0.2s, opacity 0.2s, bottom 0.2s;
     }
 
-    body > nav > .logo {
-        left: 62.5%;
-        transform: translateX(-50%);
-    }
-
     /* medium screen */
 
         @media only screen and (max-width: 1800px) and (min-resolution: 192dpi), only screen and (max-width: 901px) and (max-resolution: 191dpi) {
@@ -525,10 +519,6 @@
             body:not(.expanded):not(.lessChrome) > main {
                 position: absolute;
                 padding-left: 0;
-            }
-            body:not(.expanded) > nav > .logo {
-                left: 50%;
-                transform: translateX(-50%);
             }
             body:not(.expanded):not(.lessChrome) > main::before,
             body:not(.expanded):not(.lessChrome) > main::after {
@@ -578,10 +568,6 @@
             .nav-trigger:checked + label:not(.expanded) {
                 left: calc(25% + 1rem);
             }
-            .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                transform: translateX(calc(-100% - 1rem));
-                left: 100%;
-            }
             .nav-trigger:checked ~ nav:not(.expanded) > ul > li:first-of-type {
                 left: 0;
                 transition: all 0.2s;
@@ -625,10 +611,6 @@
                 padding-right: 0;
                 padding-top: 4rem;
                 padding-bottom: 1rem;
-            }
-            body.expanded > nav > .logo {
-                left: 50%;
-                transform: translateX(-50%);
             }
             body.expanded > nav > ul {
                 left: -25%;
@@ -710,11 +692,6 @@
             .nav-trigger:checked + label.expanded {
                 left: calc(25% + 1rem);
             }
-            .nav-trigger:checked ~ nav.expanded > .logo {
-                transform: translateX(calc(-50% - 2rem)) translateY(1.75rem);
-                left: 100%;
-                top: .9rem;
-            }
             .nav-trigger:checked ~ nav.expanded > ul > li:first-of-type {
                 left: 0;
                 transition: all 0.2s;
@@ -745,10 +722,6 @@
                 border: .095rem solid #ddd;
                 transition: width 0.2s, margin 0.2s, left 0.2s;
             }
-            body > nav > .logo {
-                left: 100%;
-                transform: translateX(calc(-50% - 2rem));
-            }
             .nav-trigger:checked + label {
                 left: calc(75vw + 1rem);
             }
@@ -757,9 +730,6 @@
                 width: 75vw;
                 transition: font-size 0.2s, left 0.2s, width 0.2s;
                 box-shadow: .250rem 0 .250rem -.16rem #fff;
-            }
-            .nav-trigger:checked ~ nav:not(.expanded) > .logo {
-                top: 2.75rem;
             }
             .nav-trigger:checked ~ nav::before {
                 height: 6.5rem;
