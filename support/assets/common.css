@@ -252,12 +252,12 @@
 
 /* Loading spinner by https://projects.lukehaas.me/css-loaders/ under MIT license */
 
-    .loader,
-    .loader:before,
-    .loader:after {
+    .loadingSpinner,
+    .loadingSpinner:before,
+    .loadingSpinner:after {
     border-radius: 50%;
     }
-    .loader {
+    .loadingSpinner {
     color: #6d1a11;
     font-size: 11px;
     text-indent: -99999em;
@@ -270,12 +270,12 @@
     -ms-transform: translateZ(0);
     transform: translateZ(0);
     }
-    .loader:before,
-    .loader:after {
+    .loadingSpinner:before,
+    .loadingSpinner:after {
     position: absolute;
     content: '';
     }
-    .loader:before {
+    .loadingSpinner:before {
     width: 5.2em;
     height: 10.2em;
     background: #e3cdab;
@@ -287,7 +287,7 @@
     -webkit-animation: load2 2s infinite ease 1.5s;
     animation: load2 2s infinite ease 1.5s;
     }
-    .loader:after {
+    .loadingSpinner:after {
     width: 5.2em;
     height: 10.2em;
     background: #e3cdab;
