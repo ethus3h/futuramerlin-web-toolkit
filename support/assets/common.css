@@ -412,6 +412,10 @@
             text-align: center;
         }
 
+        #eiteDocumentRoot {
+            text-indent: 0;
+        }
+
     /* Paragraph */
         p {
             text-align: justify;
