@@ -457,7 +457,7 @@
         background-origin: padding-box;
         background-size: cover;
         position: fixed;
-        width: 3.765rem; /* what the fuck? */
+        width: 3.765rem; /* huh? */
         transition: font-size 0.2s, right 0.2s, width 0.2s, opacity 0.2s;
     }
 
