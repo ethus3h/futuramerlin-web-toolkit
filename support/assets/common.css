@@ -566,7 +566,8 @@
 /* Headings */
 
     h2, h3, h4, h5, h6 {
-        border-top: 4rem solid transparent;
+        padding-top: 3rem;
+        /* border-top: 4rem solid transparent;*/
         position: relative;
     }
 
@@ -611,6 +612,7 @@
     h6::after {
         right: 1rem;
         position: absolute;
+        padding-top: 3rem;
     }
 
     :not(#toc) > h2::after {
