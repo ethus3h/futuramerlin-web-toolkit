@@ -31,6 +31,10 @@
         max-width: 100vw;
     }
 
+    main {
+        max-width: 100vw;
+    }
+
     body:not(.lessChrome) > main, body:not(.lessChrome) > .audioContainer {
         margin: 0 auto;
     }
