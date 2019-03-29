@@ -940,12 +940,6 @@
             flex-wrap: wrap;
         }
 
-        nav ul::after {
-            content: ' ';
-            flex-grow: 50;
-            height: 0;
-        }
-
         nav li:first-of-type {
             display: none;
         }
