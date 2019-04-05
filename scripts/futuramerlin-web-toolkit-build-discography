@@ -645,6 +645,9 @@ keyToLabel() {
         remixOriginalArtist)
             print "Original artist of this remixed track"
             ;;
+        firstRecorded)
+            print "First recorded in this context"
+            ;;
         origExt)
             print "Original file extension"
             ;;
