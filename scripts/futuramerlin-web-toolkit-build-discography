@@ -658,7 +658,7 @@ keyToLabel() {
             print "Original file extension"
             ;;
         zipRelease)
-            print "ZIP release <small>(original release packing)</small>"
+            print "ZIP release <small>(Original release packing that was published on the Web site. Not necessarily packed or published on the official date of release.)</small>"
             ;;
         zipSessionO)
             print "ZIP file containing work from the session <small>(original packing)</small>"
