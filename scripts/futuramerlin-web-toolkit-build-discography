@@ -655,21 +655,36 @@ keyToLabel() {
             print "Original file extension"
             ;;
         zipRelease)
-            print "ZIP release <small>(historic packing)</small>"
+            print "ZIP release <small>(original release packing)</small>"
             ;;
-        zipSession)
-            print "ZIP file containing work from the session"
+        zipSessionO)
+            print "ZIP file containing work from the session <small>(original packing)</small>"
             ;;
-        artSource)
-            print "Artwork production files"
+        zipSessionN)
+            print "ZIP file containing work from the session <small>(packing not original)</small>"
             ;;
-        releaseSource)
-            print "Release production files"
+        artSourceO)
+            print "Artwork production files <small>(original packing)</small>"
             ;;
-        soundSource)
-            print "Music production files"
+        artSourceN)
+            print "Artwork production files <small>(packing not original)</small>"
             ;;
-        releaseTracks)
+        releaseSourceO)
+            print "Release production files <small>(original packing)</small>"
+            ;;
+        releaseSourceN)
+            print "Release production files <small>(packing not original)</small>"
+            ;;
+        soundSourceO)
+            print "Music production files <small>(original packing)</small>"
+            ;;
+        soundSourceN)
+            print "Music production files <small>(packing not original)</small>"
+            ;;
+        releaseTracksO)
+            print "Original release tracks <small>(original packing)</small>"
+            ;;
+        releaseTracksN)
             print "Original release tracks <small>(packing not original)</small>"
             ;;
         nonPngArtwork)
