@@ -643,7 +643,7 @@ keyToLabel() {
             print "Release status"
             ;;
         reltype)
-            print "Disambiguation comment"
+            print "Release type"
             ;;
         bpm)
             print "Beats per minute"
