@@ -639,6 +639,12 @@ keyToLabel() {
         disambig)
             print "Disambiguation comment"
             ;;
+        relstatus)
+            print "Release status"
+            ;;
+        reltype)
+            print "Disambiguation comment"
+            ;;
         bpm)
             print "Beats per minute"
             ;;
