@@ -654,6 +654,9 @@ keyToLabel() {
         firstRecorded)
             print "First recorded in this context"
             ;;
+        dateRemixed)
+            print "Date remixed"
+            ;;
         origExt)
             print "Original file extension"
             ;;
@@ -662,6 +665,12 @@ keyToLabel() {
             ;;
         origExtC)
             print "Original file extension"
+            ;;
+        otherFileO)
+            print "Other file <small>(original)</small>"
+            ;;
+        otherFileN)
+            print "Other file <small>(packing not original)</small>"
             ;;
         zipRelease)
             print "ZIP release <small>(Original release packing that was published on the Web site. Not necessarily packed or published on the official date of release.)</small>"
