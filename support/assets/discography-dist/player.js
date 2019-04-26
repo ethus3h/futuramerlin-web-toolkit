@@ -80,6 +80,7 @@ audioScrubber.onchange = seekInAudio;
 function updateVolume() {
     audioTag.volume = audioVolume.value / 100;
 }
+updateVolume();
 audioVolume.onchange = updateVolume;
 
 function convertRemToPixels(rem) {
