@@ -1215,7 +1215,10 @@ buildInfoTable() {
                         if [[ "$(discReadConf unavailable "$kind" "$identifier")" == "true" ]]; then
                             local displayTypeName="release"
                             if [[ "$kind" != "release" ]]; then
-                                displayTypeName="track"
+                                displayTypeName="session"
+                                if [[ "$kind" != "session" ]]; then
+                                    displayTypeName="track"
+                                fi
                             fi
                             setClosingTag "    $(simpleMetadata "Note" "This $displayTypeName is unavailable due to licensing.")"$'\n'"</dl>"
                         else
