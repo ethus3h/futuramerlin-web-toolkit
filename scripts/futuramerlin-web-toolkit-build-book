@@ -1,0 +1,161 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1091
+source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
+#set -x
+
+trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
+
+#Version:
+futuramerlinWebToolkitVersion='2.3.82'
+
+# The update script shown here requires there to be only one ebuild of ember-bash-setup in the wreathe-overlay overlay.
+# ( sudo true; newVersion="2.3.82"; cd "/Ember Library/Ember satellite projects/futuramerlin-web-toolkit"; eogup-single; git tag -a "v$newVersion" -m "version"; egup-single .; cd "/Ember Library/Ember satellite projects/wreathe-overlay"; eogup-single; mv app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-*.ebuild "app-misc/futuramerlin-web-toolkit/futuramerlin-web-toolkit-$newVersion.ebuild"; repoman manifest; egup-single; sudo emerge --sync wreathe-overlay; sudo emerge futuramerlin-web-toolkit )
+
+# How to run easily tests without installing (or without having it installed in /usr/local so can run them without configuring): cd ~ || die; [[ -e futuramerlin-web-toolkit ]] || git clone https://github.com/ethus3h/futuramerlin-web-toolkit; cd futuramerlin-web-toolkit || die; git pull; tempDir="$(tempDir)"; pushd "$tempDir" || die; cp -r ~/futuramerlin-web-toolkit .; cd futuramerlin-web-toolkit || true; ./configure --prefix=/usr; make; make check; popd || true; [[ -n "$tempDir" ]] && rm -rf "$tempDir"
+
+# Available themes
+
+futuramerlinWebToolkitAvailableThemes=( common ember m simple )
+
+shopt -s extglob
+
+futuramerlinWebToolkitConfigFileName="/usr/local/etc/futuramerlin-web-toolkit.conf"
+
+if [[ -f "$HOME/.futuramerlin-web-toolkit.cfg" ]]; then
+    futuramerlinWebToolkitConfigFileName="$HOME/.futuramerlin-web-toolkit.cfg"
+fi
+
+if [[ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]]; then
+    futuramerlinWebToolkitConfigFileName="./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg"
+fi
+
+echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
+
+futuramerlinWebToolkitSiteName="$(preadconf siteName "$futuramerlinWebToolkitConfigFileName")"
+futuramerlinWebToolkitThemeName="$(preadconf theme "$futuramerlinWebToolkitConfigFileName")"
+[[ -z "$futuramerlinWebToolkitThemeName" ]] && futuramerlinWebToolkitThemeName="m"
+futuramerlinWebToolkitpackageSource="$(preadconf packageSource "$futuramerlinWebToolkitConfigFileName")"
+[[ -z "$futuramerlinWebToolkitpackageSource" ]] && futuramerlinWebToolkitpackageSource="false"
+futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation "$futuramerlinWebToolkitConfigFileName")"
+[[ -z "$futuramerlinWebToolkitLocalInstallationEnabled" ]] && futuramerlinWebToolkitLocalInstallationEnabled="false"
+
+rm -rf ./futuramerlin-web-toolkit-output ./futuramerlin-web-toolkit-content ./built ./source ./scripts
+mkdir -p "futuramerlin-web-toolkit-content/content"
+mkdir "futuramerlin-web-toolkit-content/scripts"
+find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
+mkdir ./source
+mv ./futuramerlin-web-toolkit-content/* ./source
+[[ "$futuramerlinWebToolkitpackageSource" == "true" ]] && cp -r ./source "./.fmwtk.source"
+rm -r ./futuramerlin-web-toolkit-content
+
+fancyUpdate="false"
+if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
+    if git clone https://github.com/ethus3h/futuramerlin-web-toolkit.git; then
+        fancyUpdate="true"
+    else
+        echo "(Could not get updated toolkit version, preparing local copy instead...)"
+    fi
+fi
+if [[ "$fancyUpdate" != "true" ]]; then
+    EMBER_TEMPDIR="$(getSystemTempLocation)"
+    export EMBER_TEMPDIR
+    mkdir -pv futuramerlin-web-toolkit/support || exit 1
+    cp -rv /usr/local/share/futuramerlin-web-toolkit/assets futuramerlin-web-toolkit/support/ || exit 1
+    mkdir -v futuramerlin-web-toolkit/scripts || exit 1
+    cp -v /usr/local/bin/futuramerlin-web-toolkit-build-page futuramerlin-web-toolkit/scripts || exit 1
+    echo "(Done preparing local toolkit copy; now continuing)"
+fi
+mkdir built
+shopt -s dotglob
+mv ./futuramerlin-web-toolkit/support/assets/* ./built/
+shopt -u dotglob
+cp -r ./built ./source/assets
+mv ./futuramerlin-web-toolkit/scripts/futuramerlin-web-toolkit-build-page ./source/scripts/build-page
+rm -rf ./futuramerlin-web-toolkit
+
+echo "Environment ready; building site..."
+(
+    cd ./source || exit 1
+    (
+        cd "content" || exit 1
+        if [[ -f .futuramerlin-web-toolkit/pre-build-hooks ]]; then
+            echo "Beginning pre-build-hooks..."
+            ./.futuramerlin-web-toolkit/pre-build-hooks || warn "Pre-build-hooks failed; continuing anyway."
+            echo "Done pre-build-hooks."
+        fi
+        tempFile="$(tempFile)"
+        find . -name "futuramerlin-web-toolkit-discography.conf" -print0 > "$tempFile"
+        while IFS= read -r -d '' currentFileName; do
+            futuramerlin-web-toolkit-discography "$currentFileName"
+        done < "$tempFile"
+        find . -name "futuramerlin-web-toolkit-blog.conf" -print0 > "$tempFile"
+        while IFS= read -r -d '' currentFileName; do
+            futuramerlin-web-toolkit-blog "$currentFileName"
+        done < "$tempFile"
+        rm "$tempFile"
+        traversedirectory() {
+            echo "Entered directory $1..."
+            #Iterate over the contents of the directory at $1
+            shopt -s dotglob
+            for i in "$1"/*; do
+                mkdir -p "../../built/$1"
+                if [[ -d "$i" ]]; then
+                    if [[ "$i" != @(.|..|./.git|./.egup.stat|./.futuramerlin-web-toolkit) ]]; then
+                        echo "Entering directory $i..."
+                        traversedirectory "$i"
+                    fi
+                else
+                    if [[ "$i" =~ \.htm$ ]]; then
+                        echo "Building page: $i"
+                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName"
+                    else
+                        echo "Copying content asset: $i"
+                        cp "$i" "../../built/$i" || warn "(copying failed: probably just ignoring empty directory $i)"
+                    fi
+                fi
+            done
+            shopt -u dotglob
+        }
+        traversedirectory "."
+        if [[ -f .futuramerlin-web-toolkit/post-build-hooks ]]; then
+            echo "Beginning post-build-hooks..."
+            ./.futuramerlin-web-toolkit/post-build-hooks || warn "Post-build-hooks failed; continuing anyway."
+            echo "Done post-build-hooks."
+        fi
+    )
+
+    processCss() {
+        local themeName
+        themeName="$1"
+        echo "Processing CSS theme: $themeName.css..."
+        #postcss --use postcss-cssnext --postcss-cssnext.browsers "> 1%, iOS > 0, ie >= 5, last 3 versions, Firefox ESR, Firefox >= 1" -o "../built/$themeName.css" "../built/$themeName.css"
+        tr '\n' ' ' < "../built/$themeName.css" > "../built/1.tmp"
+        tr '\t' ' ' < "../built/1.tmp" > "../built/2.tmp"
+        tr '\r' ' ' < "../built/2.tmp" > "../built/3.tmp"
+        tr -s " " < "../built/3.tmp" > "../built/$themeName.css"
+        minify --no-comments -o "../built/$themeName.css" "../built/$themeName.css" > /dev/null
+        rm ../built/*.tmp
+    }
+    for theme in "${futuramerlinWebToolkitAvailableThemes[@]}"; do
+        processCss "$theme"
+    done
+)
+
+echo "Finishing up..."
+rm ./built/1_start.html ./built/2_end.html
+rm -r ./built/discography.assets
+if [[ "$futuramerlinWebToolkitLocalInstallationEnabled" == "true" ]]; then
+    for theme in "${futuramerlinWebToolkitAvailableThemes[@]}"; do
+        sudo cp "./built/$theme.css" "/$theme.css"
+    done
+fi
+mv ./built ./futuramerlin-web-toolkit-output
+[[ "$futuramerlinWebToolkitpackageSource" == "true" ]] && mv "./.fmwtk.source" ./source/
+mv ./source ./futuramerlin-web-toolkit-content
+rm -rf ./futuramerlin-web-toolkit-content
+
+#Clear the screen
+printf "\033c"
+
+echo "Done! The finished Web site is in:"
+echo "./futuramerlin-web-toolkit-output"
