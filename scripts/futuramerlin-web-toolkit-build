@@ -84,13 +84,17 @@ echo "Environment ready; building site..."
             echo "Done pre-build-hooks."
         fi
         tempFile="$(tempFile)"
-        find . -name "futuramerlin-web-toolkit-discography.conf" -print0 > "$tempFile"
+        find . -name "futuramerlin-web-toolkit-discography.conf" -or -name "fmwtk-discography.conf" -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
-            futuramerlin-web-toolkit-discography "$currentFileName"
+            fmwtk-discography "$currentFileName"
         done < "$tempFile"
-        find . -name "futuramerlin-web-toolkit-blog.conf" -print0 > "$tempFile"
+        find . -name "futuramerlin-web-toolkit-blog.conf" -or -name "fmwtk-blog.conf" -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
-            futuramerlin-web-toolkit-blog "$currentFileName"
+            fmwtk-blog "$currentFileName"
+        done < "$tempFile"
+        find . -name "fmwtk-book.conf" -print0 > "$tempFile"
+        while IFS= read -r -d '' currentFileName; do
+            fmwtk-book "$currentFileName"
         done < "$tempFile"
         rm "$tempFile"
         traversedirectory() {
