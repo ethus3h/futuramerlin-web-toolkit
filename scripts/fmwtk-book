@@ -5,6 +5,20 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
-while IFS= read -r -d '' currentPage; do
-    
-done < fmwtk-book.conf
+finish() {
+    (
+        if [[ -e "${tempDir:?}" ]]; then
+            rm -r "${tempDir:?}"
+        fi
+    )
+}
+trap 'error-notify "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd)."; finish; exit 1' ERR
+trap finish EXIT
+
+destDir="$(dirname "$(readlink -f "$1")")"
+tempDir="$(tempDir)"
+futuramerlin-web-toolkit-build-blog "$destDir" "$tempDir"
+rm -r "$destDir"
+mv "$tempDir" "$destDir"
+
+finish
