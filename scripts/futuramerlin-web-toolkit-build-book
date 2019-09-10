@@ -16,11 +16,11 @@ cd "$(dirname "$bookConf")" || die "cd failed"
 
 bookName="${bookConf/-fmwtk-book.conf}"
 
-rm -r "$bookConf.out"
-mkdir "$bookConf.out"
+rm -r "$bookConf.book"
+mkdir "$bookConf.book"
 
-touch "$bookConf.out/$bookName.htm"
-out="$bookConf.out/$bookName.htm"
+touch "$bookConf.book/$bookName.htm"
+out="$bookConf.book/$bookName.htm"
 
 while IFS= read -r -d '' currentPage; do
     depth="${currentPage/ *}"
