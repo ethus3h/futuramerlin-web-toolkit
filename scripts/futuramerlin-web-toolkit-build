@@ -92,7 +92,7 @@ echo "Environment ready; building site..."
         while IFS= read -r -d '' currentFileName; do
             fmwtk-blog "$currentFileName"
         done < "$tempFile"
-        find . -name "fmwtk-book.conf" -print0 > "$tempFile"
+        find . -name "fmwtk-book.conf" -or -name '*-fmwtk-book.conf' -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
             fmwtk-book "$currentFileName"
         done < "$tempFile"
