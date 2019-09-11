@@ -17,10 +17,10 @@ cd "$(dirname "$bookConf")" || die "cd failed"
 
 bookName="${bookConf/-fmwtk-book.conf}"
 
-rm -r "$bookName.fmwtk-book"
+rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-targets=(htm)
+targets=(html)
 targetCount="${#targets[@]}"
 for (( i=0; i<targetCount; i++ )); do
     target="${targets[$i]}"
@@ -52,4 +52,6 @@ for (( i=0; i<targetCount; i++ )); do
             cut "$tempFile" -f 1
         fi
     done < "$bookConf"
+
+    echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$target"
 done
