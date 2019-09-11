@@ -24,7 +24,8 @@ mkdir "$bookName.fmwtk-book"
 
 targets=(htm plain.html odt pdf rtf)
 nativeTargets=(htm plain.html)
-libreofficeTargets=(odt pdf rtf)
+pandocTargets=(odt)
+libreofficeTargets=(pdf rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
 outputDir="$(dirname "$outputPrefix")"
@@ -88,6 +89,9 @@ for (( i=0; i<targetCount; i++ )); do
             fi
         done < "$bookConf"
     else
+        if contains "$target" "${pandocTargets[@]}"; then
+            pandoc --convert-to 
+        fi
         if contains "$target" "${libreofficeTargets[@]}"; then
             if [[ "odt" == "$target" ]]; then
                 libreoffice --convert-to "$target" "$outputPrefix.plain.html"
