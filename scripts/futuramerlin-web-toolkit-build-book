@@ -87,8 +87,9 @@ for (( i=0; i<targetCount; i++ )); do
             fi
         done < "$bookConf"
     else
-        if [[ "pdf" == "$target" ]]; then
-            libreoffice --convert-to pdf -o "$out" "$outputPrefix.plain.html"
+        if contains "$target" "${libreofficeTargets[@]}"; then
+            libreoffice --convert-to "$target" -o "$out" "$outputPrefix.plain.html"
+        fi
     fi
 
     cp "$out" "$bookName.fmwtk-book/$bookName-book.$target"
