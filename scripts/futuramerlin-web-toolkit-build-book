@@ -37,6 +37,7 @@ for (( i=0; i<targetCount; i++ )); do
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
         pageDir="$(dirname "$in")"
+        echo "pageDir is $pageDir"
         echo "Processed page $in at depth $depth"
         if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
@@ -72,8 +73,8 @@ for (( i=0; i<targetCount; i++ )); do
                 s/<\/h3>/<\/h'"$((4 + $depth))"'>/g;
                 s/<\/h2>/<\/h'"$((3 + $depth))"'>/g;
                 s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\1"/g;
-                s/<a href="(\/[^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g;
-                s/<a href="https?:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\/(https?:\/\/[^"]+)"/<a href="\1"/g;
+                s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g;
+                s/<a href="https?:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g;
                 ' "$tempFile"
             cut -z -d '' -f 2- "$tempFile" >> "$out"
         fi
