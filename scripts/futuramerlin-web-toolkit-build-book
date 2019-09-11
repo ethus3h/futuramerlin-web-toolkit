@@ -52,8 +52,9 @@ for (( i=0; i<targetCount; i++ )); do
             title="$(cat "$tempFile")"
             echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
             cp "$in" "$tempFile"
-            perl -0777 -p -i -e 's/<\/p>/\t/;' "$tempFile"
-            cut "$tempFile" -f 1
+            perl -0777 -p -i -e 's/<\/p>/\0/;' "$tempFile"
+            xxd "$tempFile"
+            cut -z -f 1 "$tempFile"
         fi
     done < "$bookConf"
 
