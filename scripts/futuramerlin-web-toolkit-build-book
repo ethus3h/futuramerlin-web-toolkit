@@ -44,8 +44,11 @@ for (( i=0; i<targetCount; i++ )); do
             ereplaceRegEx '\s+' ' ' "$tempFile"
             ereplaceRegEx '^\s+' '' "$tempFile"
             ereplaceRegEx '\s+$' '' "$tempFile"
+            # Got the title
             title="$(cat "$tempFile")"
             echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
+            cp "$in" "$tempFile"
+            cut "$in" -d "</p>"
         fi
     done < "$bookConf"
 done
