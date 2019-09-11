@@ -36,7 +36,7 @@ for (( i=0; i<targetCount; i++ )); do
             htmlHeadingDepth=$((depth + 1))
             tempFile="$(tempFile)"
             cp "$in" "$tempFile"
-            # Extract the title. Copied from futuramerlin-web-toolkit-build-page
+            # Extract the title. Based on futuramerlin-web-toolkit-build-page
             perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "$tempFile"
             perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "$tempFile"
             ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "$tempFile"
