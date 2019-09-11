@@ -26,6 +26,9 @@ targets=(htm html)
 targetCount="${#targets[@]}"
 for (( i=0; i<targetCount; i++ )); do
     target="${targets[$i]}"
+
+    echo "Building target format $target..."
+
     out="$bookName.fmwtk-book/$bookName-book-$(emdate).$target"
     touch "$out"
 
@@ -34,7 +37,7 @@ for (( i=0; i<targetCount; i++ )); do
         in="${currentPageLine#* }"
         echo "Processed page $in at depth $depth"
         if [[ "$depth" == "-1" ]]; then
-            cat "$in.$target" >> "$out"
+            [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         else
             htmlHeadingDepth=$((depth + 1))
             tempFile="$(tempFile)"
@@ -57,4 +60,8 @@ for (( i=0; i<targetCount; i++ )); do
     done < "$bookConf"
 
     echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$target"
+
+    echo "Done building target format $target."
 done
+
+echo "Done building book."
