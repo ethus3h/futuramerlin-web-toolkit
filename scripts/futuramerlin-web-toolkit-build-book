@@ -88,7 +88,7 @@ for (( i=0; i<targetCount; i++ )); do
         done < "$bookConf"
     else
         if contains "$target" "${libreofficeTargets[@]}"; then
-            libreoffice --convert-to "$target" -o "$out" "$outputPrefix.plain.html"
+            libreoffice --convert-to "$target" "$outputPrefix.plain.html"
         fi
     fi
 
