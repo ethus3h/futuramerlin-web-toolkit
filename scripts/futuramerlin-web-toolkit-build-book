@@ -95,13 +95,24 @@ for (( i=0; i<targetCount; i++ )); do
                 cd "$outputDir"
                 if [[ "odt" == "$target" ]]; then
                     libreoffice --convert-to "$target" "$outputBasename.plain.html"
+                    i=0
+                    # Libreoffice exit immediately for some reason, so look for the file
                     while ! [[ -e "$outputBasename.plain.odt" ]]; do
+                        i=$((i + 1))
+                        if [[ 60 -gt "$i" ]]; then
+                            die "Waited 60 seconds for $target output, but it never arrived."
+                        fi
                         sleep 1
                     done
                     mv "$outputBasename.plain.odt" "$outputBasename.odt"
                 else
-                    libreoffice --convert-to "$target" "$outputBasename.odt" &
+                    libreoffice --convert-to "$target" "$outputBasename.odt"
+                    i=0
                     while ! [[ -e "$outputBasename.$target" ]]; do
+                        i=$((i + 1))
+                        if [[ 60 -gt "$i" ]]; then
+                            die "Waited 60 seconds for $target output, but it never arrived."
+                        fi
                         sleep 1
                     done
                 fi
