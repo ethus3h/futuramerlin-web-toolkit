@@ -45,7 +45,7 @@ for (( i=0; i<targetCount; i++ )); do
                 in="$in/index"
             fi
             in="$in.htm"
-            htmlHeadingDepth=$((depth + 1))
+            htmlHeadingDepth=$((depth + 2)) # h2 is the "0" depth
             tempFile="$(tempFile)"
             cp "$in" "$tempFile"
             # Extract the title. Based on futuramerlin-web-toolkit-build-page
