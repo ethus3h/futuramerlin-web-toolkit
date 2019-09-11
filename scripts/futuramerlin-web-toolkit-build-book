@@ -39,6 +39,7 @@ for (( i=0; i<targetCount; i++ )); do
         if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         else
+            in="$in.htm"
             htmlHeadingDepth=$((depth + 1))
             tempFile="$(tempFile)"
             cp "$in" "$tempFile"
