@@ -24,8 +24,8 @@ mkdir "$bookName.fmwtk-book"
 
 targets=(htm plain.html pandoc.json odt rtf pdf epub)
 nativeTargets=(htm plain.html)
-pandocTargets=(pandoc.json rtf pdf epub)
-libreofficeTargets=(odt pdf rtf)
+pandocTargets=(pandoc.json rtf epub)
+libreofficeTargets=(odt pdf epub rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
 outputDir="$(dirname "$outputPrefix")"
