@@ -32,8 +32,7 @@ for (( i=0; i<targetCount; i++ )); do
     while IFS= read -r currentPageLine; do
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
-        echo "$depth"
-        echo "$in"
+        echo "Processed page $in at depth $depth"
         if [[ "$depth" == "-1" ]]; then
             cat "$in.$target" >> "$out"
         else
@@ -53,8 +52,7 @@ for (( i=0; i<targetCount; i++ )); do
             echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
             cp "$in" "$tempFile"
             perl -0777 -p -i -e 's/<\/p>/\0/;' "$tempFile"
-            xxd "$tempFile"
-            cut -z -f 1 "$tempFile"
+            cut -z -d '' -f 2- "$tempFile" >> "$out"
         fi
     done < "$bookConf"
 
