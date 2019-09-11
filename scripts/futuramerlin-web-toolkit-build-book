@@ -27,6 +27,7 @@ nativeTargets=(htm plain.html)
 libreofficeTargets=(odt pdf rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
+outputDir="$(dirname "$outputPrefix")"
 for (( i=0; i<targetCount; i++ )); do
     target="${targets[$i]}"
 
