@@ -22,7 +22,7 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-targets=(htm html)
+targets=(htm plain.html)
 targetCount="${#targets[@]}"
 for (( i=0; i<targetCount; i++ )); do
     target="${targets[$i]}"
