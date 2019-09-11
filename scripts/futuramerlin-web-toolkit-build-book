@@ -29,13 +29,13 @@ for (( i=0; i<targetCount; i++ )); do
     out="$bookName.fmwtk-book/$bookName-book-$(emdate).$target"
     touch "$out"
 
-    while IFS= read -r -d '' currentPageLine; do
+    while IFS= read -r currentPageLine; do
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
         echo "$depth"
         echo "$in"
         if [[ "$depth" == "-1" ]]; then
-            cat "$currentPageLine.$target" >> "$out"
+            cat "$in.$target" >> "$out"
         else
             htmlHeadingDepth=$((depth + 1))
             tempFile="$(tempFile)"
