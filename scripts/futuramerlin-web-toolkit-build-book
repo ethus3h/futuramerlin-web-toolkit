@@ -7,13 +7,17 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 bookConf="fmwtk-book.conf"
 if [[ -n "$1" ]]; then
-    bookConf="$(basename "$(readlink -f "$1")")"
+    bookConfTemp="$1"
+    bookConf="$(basename "$(realpath "$1")")"
     shift
 else
-    bookConf="$(basename "$(readlink -f "$bookConf")")"
+    bookConfTemp="$bookConf"
+    bookConf="$(basename "$(realpath "$bookConf")")"
 fi
 
 cd "$(dirname "$bookConf")" || die "cd failed"
+
+bookConfTemp="$(realpath "$bookConf")"
 
 bookName="${bookConf/-fmwtk-book.conf}"
 
@@ -30,6 +34,8 @@ for (( i=0; i<targetCount; i++ )); do
     while IFS= read -r -d '' currentPageLine; do
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
+        echo "$depth"
+        echo "$in"
         if [[ "$depth" == "-1" ]]; then
             cat "$currentPageLine.$target" >> "$out"
         else
