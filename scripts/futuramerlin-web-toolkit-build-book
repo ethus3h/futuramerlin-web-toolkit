@@ -22,7 +22,7 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-targets=(htm plain.html pandoc.json odt rtf pdf epub)
+targets=(htm plain.html pandoc.json odt rtf pdf epub plain markdown)
 nativeTargets=(htm plain.html)
 pandocTargets=(pandoc.json plain markdown)
 libreofficeTargets=(odt pdf epub rtf)
