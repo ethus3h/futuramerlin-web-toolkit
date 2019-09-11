@@ -64,7 +64,6 @@ for (( i=0; i<targetCount; i++ )); do
             echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
             cp "$in" "$tempFile"
             pageDirEscaped="${pageDir//\//\\\/}"
-            echo "$pageDirEscaped"
             perl -0777 -p -i -e 's/<\/p>/\0/;
                 s/<h5/<h'"$((6 + $depth))"'/g;
                 s/<h4/<h'"$((5 + $depth))"'/g;
