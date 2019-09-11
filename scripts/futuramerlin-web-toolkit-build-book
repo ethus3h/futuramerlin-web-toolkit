@@ -62,10 +62,10 @@ for (( i=0; i<targetCount; i++ )); do
             echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
             cp "$in" "$tempFile"
             perl -0777 -p -i -e 's/<\/p>/\0/;
-                s/<h5>/<h'"$((6 + $depth))"'>/g;
-                s/<h4>/<h'"$((5 + $depth))"'>/g;
-                s/<h3>/<h'"$((4 + $depth))"'>/g;
-                s/<h2>/<h'"$((3 + $depth))"'>/g;
+                s/<h5/<h'"$((6 + $depth))"'/g;
+                s/<h4/<h'"$((5 + $depth))"'/g;
+                s/<h3/<h'"$((4 + $depth))"'/g;
+                s/<h2/<h'"$((3 + $depth))"'/g;
                 s/<\/h5>/<\/h'"$((6 + $depth))"'>/g;
                 s/<\/h4>/<\/h'"$((5 + $depth))"'>/g;
                 s/<\/h3>/<\/h'"$((4 + $depth))"'>/g;
