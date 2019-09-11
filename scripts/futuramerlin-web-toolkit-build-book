@@ -24,7 +24,7 @@ mkdir "$bookName.fmwtk-book"
 
 targets=(htm plain.html pandoc.json odt rtf pdf epub)
 nativeTargets=(htm plain.html)
-pandocTargets=(pandoc.json rtf epub)
+pandocTargets=(pandoc.json plain markdown)
 libreofficeTargets=(odt pdf epub rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
@@ -37,6 +37,10 @@ for (( i=0; i<targetCount; i++ )); do
 
     out="$outputPrefix.$target"
     touch "$out"
+
+    targetExt="$target"
+    [[ plain == "$target" ]] && targetExt="txt"
+    [[ markdown == "$target" ]] && targetExt="md"
 
     if contains "$target" "${nativeTargets[@]}"; then
         while IFS= read -r currentPageLine; do
