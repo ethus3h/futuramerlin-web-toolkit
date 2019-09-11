@@ -72,11 +72,11 @@ for (( i=0; i<targetCount; i++ )); do
                 s/<\/h4>/<\/h'"$((5 + $depth))"'>/g;
                 s/<\/h3>/<\/h'"$((4 + $depth))"'>/g;
                 s/<\/h2>/<\/h'"$((3 + $depth))"'>/g;
-                s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\/\1"/g;
-                s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g;
-                s/<a href="https?:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g;
-                s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)<\/a>/<a href="\1">\[\1\]: \2<\/a>/g;
-                s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)\]: (\w+:\/\/)/<a href="\1">\4/g;
+                s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\/\1"/g; # Fix relative in-site URLs
+                s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
+                s/<a href="https?:\/\/futuramerlin.com\/'"${pageDir/\//\\\/}"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g; # Clean up erroneous cases of previous two lines
+                s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)<\/a>/<a href="\1">\[\1\]: \2<\/a>/g; # Add link destination to link text
+                s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)\]: (\w+:\/\/)/<a href="\1">\4/g; # But remove it again if the link text was already a URI
                 ' "$tempFile"
             cut -z -d '' -f 2- "$tempFile" >> "$out"
         fi
