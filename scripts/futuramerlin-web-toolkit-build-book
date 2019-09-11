@@ -37,8 +37,8 @@ for (( i=0; i<targetCount; i++ )); do
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
         pageDir="$(dirname "$in")"
-        echo "pageDir is $pageDir"
-        echo "Processed page $in at depth $depth"
+        [[ "." == "$pageDir" ]] && pageDir=""
+        echo "Processing page $in at depth $depth"
         if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         elif [[ "$depth" == "-2" ]]; then
