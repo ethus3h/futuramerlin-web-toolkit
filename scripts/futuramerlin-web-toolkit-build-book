@@ -24,8 +24,8 @@ mkdir "$bookName.fmwtk-book"
 
 targets=(htm plain.html pandoc.json odt rtf pdf epub)
 nativeTargets=(htm plain.html)
-pandocTargets=(pandoc.json odt rtf pdf epub)
-#libreofficeTargets=(odt pdf rtf)
+pandocTargets=(pandoc.json rtf pdf epub)
+libreofficeTargets=(odt pdf rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
 outputDir="$(dirname "$outputPrefix")"
@@ -95,11 +95,11 @@ for (( i=0; i<targetCount; i++ )); do
                 cd "$outputDir"
                 if [[ "odt" == "$target" ]]; then
                     libreoffice --convert-to "$target" "$outputBasename.plain.html"
-                    ls
-                    die
+                    wait "$$"
                     mv "$outputBasename.plain.odt" "$outputBasename.odt"
                 else
                     libreoffice --convert-to "$target" "$outputBasename.odt"
+                    wait "$$"
                 fi
             )
         fi
