@@ -38,6 +38,8 @@ for (( i=0; i<targetCount; i++ )); do
         echo "Processed page $in at depth $depth"
         if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
+        elif [[ "$depth" == "-2" ]]; then
+            echo "$in" >> "$out"
         else
             in="$in.htm"
             htmlHeadingDepth=$((depth + 1))
