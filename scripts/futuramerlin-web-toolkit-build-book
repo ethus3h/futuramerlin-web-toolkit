@@ -99,7 +99,7 @@ for (( i=0; i<targetCount; i++ )); do
                     # LibreOffice exits immediately for some reason, so look for the file
                     while ! [[ -e "$outputBasename.plain.odt" ]]; do
                         i=$((i + 1))
-                        if [[ 60 -gt "$i" ]]; then
+                        if [[ 60 -lt "$i" ]]; then
                             die "Waited 60 seconds for $target output, but it never arrived."
                         fi
                         sleep 1
@@ -110,7 +110,7 @@ for (( i=0; i<targetCount; i++ )); do
                     i=0
                     while ! [[ -e "$outputBasename.$target" ]]; do
                         i=$((i + 1))
-                        if [[ 60 -gt "$i" ]]; then
+                        if [[ 60 -lt "$i" ]]; then
                             die "Waited 60 seconds for $target output, but it never arrived."
                         fi
                         sleep 1
