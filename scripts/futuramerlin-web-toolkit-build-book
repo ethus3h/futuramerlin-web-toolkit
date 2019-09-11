@@ -22,9 +22,9 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-targets=(htm plain.html pandoc.json odt rtf pdf epub)
+targets=(htm plain.html pandoc.native odt rtf pdf epub)
 nativeTargets=(htm plain.html)
-pandocTargets=(pandoc.json odt rtf pdf epub)
+pandocTargets=(pandoc.native odt rtf pdf epub)
 #libreofficeTargets=(odt pdf rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
@@ -106,10 +106,10 @@ for (( i=0; i<targetCount; i++ )); do
         if contains "$target" "${pandocTargets[@]}"; then
             (
                 cd "$outputDir"
-                if [[ "pandoc.json" == "$target" ]]; then
-                    pandoc -r html -t json -o "$outputBasename.$target" "$outputBasename.plain.html"
+                if [[ "pandoc.native" == "$target" ]]; then
+                    pandoc -r html -t native -o "$outputBasename.$target" "$outputBasename.plain.html"
                 else
-                    pandoc -r json -t "$target" -o "$outputBasename.$target" "$outputBasename.plain.html"
+                    pandoc -r native -t "$target" -o "$outputBasename.$target" "$outputBasename.plain.html"
                 fi
             )
         fi
