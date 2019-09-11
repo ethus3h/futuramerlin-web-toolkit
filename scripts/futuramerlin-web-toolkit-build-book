@@ -29,6 +29,7 @@ libreofficeTargets=(odt pdf rtf)
 targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
 outputDir="$(dirname "$outputPrefix")"
+outputBasename="$(basename "$outputPrefix")"
 for (( i=0; i<targetCount; i++ )); do
     target="${targets[$i]}"
 
@@ -90,11 +91,14 @@ for (( i=0; i<targetCount; i++ )); do
         done < "$bookConf"
     else
         if contains "$target" "${libreofficeTargets[@]}"; then
-            if [[ "odt" == "$target" ]]; then
-                libreoffice --convert-to "$target" --outdir "$outputDir" "$outputPrefix.plain.html"
-            else
-                libreoffice --convert-to "$target" --outdir "$outputDir" "$outputPrefix.odt"
-            fi
+            (
+                cd "$outputDir"
+                if [[ "odt" == "$target" ]]; then
+                    libreoffice --convert-to "$target" "$outputBasename.plain.html"
+                else
+                    libreoffice --convert-to "$target" "$outputBasename.odt"
+                fi
+            )
         fi
     fi
 
