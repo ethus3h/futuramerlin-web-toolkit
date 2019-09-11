@@ -76,6 +76,8 @@ for (( i=0; i<targetCount; i++ )); do
 
     cp "$out" "$bookName.fmwtk-book/$bookName-book.$target"
 
+    echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.redirect.$target"
+
     echo "Done building target format $target."
 done
 
