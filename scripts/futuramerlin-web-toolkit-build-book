@@ -41,6 +41,9 @@ for (( i=0; i<targetCount; i++ )); do
         elif [[ "$depth" == "-2" ]]; then
             echo "$in" >> "$out"
         else
+            if [[ -z "${in/*\/}" ]]; then
+                in="$in/index"
+            fi
             in="$in.htm"
             htmlHeadingDepth=$((depth + 1))
             tempFile="$(tempFile)"
