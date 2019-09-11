@@ -33,6 +33,7 @@ for (( i=0; i<targetCount; i++ )); do
     touch "$out"
 
     while IFS= read -r currentPageLine; do
+        currentPageLine="$(normalizeWhitespace "$currentPageLine")"
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
         echo "Processed page $in at depth $depth"
