@@ -90,12 +90,12 @@ for (( i=0; i<targetCount; i++ )); do
             fi
         done < "$bookConf"
     else
-    set -x
         if contains "$target" "${libreofficeTargets[@]}"; then
             (
                 cd "$outputDir"
                 if [[ "odt" == "$target" ]]; then
                     libreoffice --convert-to "$target" "$outputBasename.plain.html"
+                    mv "$outputBasename.plain.odt" "$outputBasename.odt"
                 else
                     libreoffice --convert-to "$target" "$outputBasename.odt"
                 fi
