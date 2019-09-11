@@ -7,17 +7,15 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 bookConf="fmwtk-book.conf"
 if [[ -n "$1" ]]; then
-    bookConfTemp="$1"
-    bookConf="$(basename "$(realpath "$1")")"
+    bookConfPath="$1"
     shift
 else
-    bookConfTemp="$bookConf"
-    bookConf="$(basename "$(realpath "$bookConf")")"
+    bookConfPath="$bookConf"
 fi
+bookConfPath="$(realpath "$bookConfPath")"
+bookConf="$(basename "$bookConfPath")"
 
 cd "$(dirname "$bookConf")" || die "cd failed"
-
-bookConfTemp="$(realpath "$bookConf")"
 
 bookName="${bookConf/-fmwtk-book.conf}"
 
