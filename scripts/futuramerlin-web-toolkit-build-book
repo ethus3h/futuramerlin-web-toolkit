@@ -22,7 +22,7 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-targets=(htm plain.html pdf)
+targets=(htm plain.html odt pdf rtf)
 nativeTargets=(htm plain.html)
 libreofficeTargets=(odt pdf rtf)
 targetCount="${#targets[@]}"
@@ -89,13 +89,17 @@ for (( i=0; i<targetCount; i++ )); do
         done < "$bookConf"
     else
         if contains "$target" "${libreofficeTargets[@]}"; then
-            libreoffice --convert-to "$target" "$outputPrefix.plain.html"
+            if [[ "odt" == "$target" ]]; then
+                libreoffice --convert-to "$target" "$outputPrefix.plain.html"
+            else
+                libreoffice --convert-to "$target" "$outputPrefix.odt"
+            fi
         fi
     fi
 
     cp "$out" "$bookName.fmwtk-book/$bookName-book.$target"
 
-    echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.redirect.$target"
+    echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$target.redirect.html"
 
     echo "Done building target format $target."
 done
