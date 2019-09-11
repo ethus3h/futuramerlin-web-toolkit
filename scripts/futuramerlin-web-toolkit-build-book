@@ -20,20 +20,32 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -r "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-out="$bookName.fmwtk-book/$bookName-book-$(emdate).htm"
-touch "$out"
-
 targets=(htm)
 targetCount="${#targets[@]}"
 for (( i=0; i<targetCount; i++ )); do
+    target="${targets[$i]}"
+    out="$bookName.fmwtk-book/$bookName-book-$(emdate).$target"
+    touch "$out"
+
     while IFS= read -r -d '' currentPage; do
         depth="${currentPage/ *}"
         page="${currentPage#* }"
         if [[ "$depth" == "-1" ]]; then
-            cat "$currentPage.htm" >> "$out"
+            cat "$currentPage.$target" >> "$out"
         else
             htmlHeadingDepth=$((depth + 1))
-            echo 
+            tempFile="$(tempFile)"
+            cp "$currentPage" "$tempFile"
+            # Extract the title. Copied from futuramerlin-web-toolkit-build-page
+            perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "$tempFile"
+            perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "$tempFile"
+            ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "$tempFile"
+            ereplaceRegEx '(?i)<[^>]*>' ' ' "$tempFile"
+            ereplaceRegEx '\s+' ' ' "$tempFile"
+            ereplaceRegEx '^\s+' '' "$tempFile"
+            ereplaceRegEx '\s+$' '' "$tempFile"
+            title="$(cat "$tempFile")"
+            echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
         fi
     done < "$bookConf"
 done
