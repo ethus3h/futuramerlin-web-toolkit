@@ -95,6 +95,8 @@ for (( i=0; i<targetCount; i++ )); do
                 cd "$outputDir"
                 if [[ "odt" == "$target" ]]; then
                     libreoffice --convert-to "$target" "$outputBasename.plain.html"
+                    ls
+                    die
                     mv "$outputBasename.plain.odt" "$outputBasename.odt"
                 else
                     libreoffice --convert-to "$target" "$outputBasename.odt"
