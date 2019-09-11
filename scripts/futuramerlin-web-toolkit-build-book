@@ -12,19 +12,24 @@ if [[ -n "$1" ]]; then
 else
     bookConf="$(basename "$(readlink -f "$bookConf")")"
 fi
+
 cd "$(dirname "$bookConf")" || die "cd failed"
 
 bookName="${bookConf/-fmwtk-book.conf}"
 
-rm -r "$bookConf.book"
-mkdir "$bookConf.book"
+rm -r "$bookName.fmwtk-book"
+mkdir "$bookName.fmwtk-book"
 
-touch "$bookConf.book/$bookName.htm"
-out="$bookConf.book/$bookName.htm"
+out="$bookName.fmwtk-book/$bookName-book-$(emdate).htm"
+touch "$out"
 
 while IFS= read -r -d '' currentPage; do
     depth="${currentPage/ *}"
     page="${currentPage#* }"
     if [[ "$depth" == "-1" ]]; then
-        cat "$currentPage" >> 
+        cat "$currentPage" >> "$out"
+    else
+        htmlHeadingDepth=$((depth + 1))
+        echo 
+    fi
 done < "$bookConf"
