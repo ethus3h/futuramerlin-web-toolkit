@@ -23,11 +23,17 @@ mkdir "$bookName.fmwtk-book"
 out="$bookName.fmwtk-book/$bookName-book-$(emdate).htm"
 touch "$out"
 
+targets=(js sh)
+
+# FIXME: the "find" commands (I think?) don't return nonzero exit status on failure
+
+targetCount="${#targets[@]}"
+for (( i=0; i<targetCount; i++ )); do
 while IFS= read -r -d '' currentPage; do
     depth="${currentPage/ *}"
     page="${currentPage#* }"
     if [[ "$depth" == "-1" ]]; then
-        cat "$currentPage" >> "$out"
+        cat "$currentPage.htm" >> "$out"
     else
         htmlHeadingDepth=$((depth + 1))
         echo 
