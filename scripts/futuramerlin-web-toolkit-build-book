@@ -90,6 +90,7 @@ for (( i=0; i<targetCount; i++ )); do
             fi
         done < "$bookConf"
     else
+    set -x
         if contains "$target" "${libreofficeTargets[@]}"; then
             (
                 cd "$outputDir"
