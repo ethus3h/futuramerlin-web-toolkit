@@ -96,7 +96,7 @@ for (( i=0; i<targetCount; i++ )); do
                 if [[ "odt" == "$target" ]]; then
                     libreoffice --convert-to "$target" "$outputBasename.plain.html"
                     i=0
-                    # Libreoffice exit immediately for some reason, so look for the file
+                    # LibreOffice exits immediately for some reason, so look for the file
                     while ! [[ -e "$outputBasename.plain.odt" ]]; do
                         i=$((i + 1))
                         if [[ 60 -gt "$i" ]]; then
