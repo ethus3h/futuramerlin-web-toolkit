@@ -36,13 +36,13 @@ for (( i=0; i<targetCount; i++ )); do
     echo "Building target format $target..."
 
     out="$outputPrefix.$target"
-    touch "$out"
 
     targetExt="$target"
     [[ plain == "$target" ]] && targetExt="txt"
     [[ markdown == "$target" ]] && targetExt="md"
 
     if contains "$target" "${nativeTargets[@]}"; then
+        touch "$out"
         while IFS= read -r currentPageLine; do
             currentPageLine="$(normalizeWhitespace "$currentPageLine")"
             depth="${currentPageLine/ *}"
