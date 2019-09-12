@@ -35,11 +35,10 @@ for (( i=0; i<targetCount; i++ )); do
 
     echo "Building target format $target..."
 
-    out="$outputPrefix.$target"
-
     targetExt="$target"
     [[ plain == "$target" ]] && targetExt="txt"
     [[ markdown == "$target" ]] && targetExt="md"
+    out="$outputPrefix.$targetExt"
 
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
@@ -135,7 +134,7 @@ for (( i=0; i<targetCount; i++ )); do
         fi
     fi
 
-    cp "$out" "$bookName.fmwtk-book/$bookName-book.$target"
+    cp "$out" "$bookName.fmwtk-book/$bookName-book.$targetExt"
 
     echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$target.redirect.html"
 
