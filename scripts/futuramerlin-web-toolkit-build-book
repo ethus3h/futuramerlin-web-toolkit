@@ -93,6 +93,7 @@ for (( i=0; i<targetCount; i++ )); do
                 cut -z -d '' -f 2- "$tempFile" >> "$out"
             fi
         done < "$bookConf"
+        ereplaceRegEx '\0' '' "$out"
     else
         if contains "$target" "${libreofficeTargets[@]}"; then
             (
@@ -126,9 +127,9 @@ for (( i=0; i<targetCount; i++ )); do
             (
                 cd "$outputDir"
                 if [[ "pandoc.json" == "$target" ]]; then
-                    pandoc -r html -t json -o "$outputBasename.$target" "$outputBasename.plain.html"
+                    pandoc -r html -t json -o "$outputBasename.$targetExt" "$outputBasename.plain.html"
                 else
-                    pandoc -r json -t "$target" -o "$outputBasename.$target" "$outputBasename.pandoc.json"
+                    pandoc -r json -t "$target" -o "$outputBasename.$targetExt" "$outputBasename.pandoc.json"
                 fi
             )
         fi
