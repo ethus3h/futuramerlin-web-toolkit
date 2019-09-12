@@ -100,51 +100,57 @@ for (( i=0; i<targetCount; i++ )); do
         done < "$bookConf"
         ereplaceRegEx '\0' '' "$out"
     else
-        if contains "$target" "${libreofficeTargets[@]}"; then
-            (
-                cd "$outputDir"
-                if [[ "odt" == "$target" ]]; then
-                    libreoffice --convert-to "$target" "$outputBasename.plain.html"
-                    i=0
-                    # LibreOffice exits immediately for some reason, so look for the file
-                    while ! [[ -e "$outputBasename.plain.odt" ]]; do
-                        i=$((i + 1))
-                        if [[ 60 -lt "$i" ]]; then
-                            die "Waited 60 seconds for $target output, but it never arrived."
-                        fi
-                        sleep 1
-                    done
-                    mv "$outputBasename.plain.odt" "$outputBasename.odt"
-                else
-                    libreoffice --convert-to "$target" "$outputBasename.odt"
-                    i=0
-                    while ! [[ -e "$outputBasename.$target" ]]; do
-                        i=$((i + 1))
-                        if [[ 60 -lt "$i" ]]; then
-                            die "Waited 60 seconds for $target output, but it never arrived."
-                        fi
-                        sleep 1
-                    done
-                fi
-            )
-        fi
-        if contains "$target" "${pandocTargets[@]}"; then
-            (
-                cd "$outputDir"
-                if [[ "pandoc.json" == "$target" ]]; then
-                    pandoc -r html -t json -o "$outputBasename.$targetExt" "$outputBasename.plain.html"
-                else
-                    pandoc -r json -t "$target" -o "$outputBasename.$targetExt" "$outputBasename.pandoc.json"
-                fi
-            )
+        if [[ "false" == "$nativeTargetsOnly" ]]; then
+            if contains "$target" "${libreofficeTargets[@]}"; then
+                (
+                    cd "$outputDir"
+                    if [[ "odt" == "$target" ]]; then
+                        libreoffice --convert-to "$target" "$outputBasename.plain.html"
+                        i=0
+                        # LibreOffice exits immediately for some reason, so look for the file
+                        while ! [[ -e "$outputBasename.plain.odt" ]]; do
+                            i=$((i + 1))
+                            if [[ 60 -lt "$i" ]]; then
+                                die "Waited 60 seconds for $target output, but it never arrived."
+                            fi
+                            sleep 1
+                        done
+                        mv "$outputBasename.plain.odt" "$outputBasename.odt"
+                    else
+                        libreoffice --convert-to "$target" "$outputBasename.odt"
+                        i=0
+                        while ! [[ -e "$outputBasename.$target" ]]; do
+                            i=$((i + 1))
+                            if [[ 60 -lt "$i" ]]; then
+                                die "Waited 60 seconds for $target output, but it never arrived."
+                            fi
+                            sleep 1
+                        done
+                    fi
+                )
+            fi
+            if contains "$target" "${pandocTargets[@]}"; then
+                (
+                    cd "$outputDir"
+                    if [[ "pandoc.json" == "$target" ]]; then
+                        pandoc -r html -t json -o "$outputBasename.$targetExt" "$outputBasename.plain.html"
+                    else
+                        pandoc -r json -t "$target" -o "$outputBasename.$targetExt" "$outputBasename.pandoc.json"
+                    fi
+                )
+            fi
         fi
     fi
 
-    cp "$out" "$bookName.fmwtk-book/$bookName-book.$targetExt"
+    if [[ -e "$out" ]]; then
+        cp "$out" "$bookName.fmwtk-book/$bookName-book.$targetExt"
 
-    echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$target.redirect.html"
+        echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$target.redirect.html"
 
-    echo "Done building target format $target."
+        echo "Done building target format $target."
+    else
+        echo "Skipped building target format $target."
+    fi
 done
 
 echo "Done building book."
