@@ -102,7 +102,7 @@ for (( i=0; i<targetCount; i++ )); do
                         s/<idx>//g; # Index entry
                         s/<\/idx>//g;
                         s/<idx-hidden>([^<]+)<\/idx-hidden>//g; # Hidden index entry
-                        s/<book-omit>([^<]+)<\/book-omit>//g;
+                        s/<book-omit>(((?!<\/book-omit>)[\S\s])*)<\/book-omit>//g; # Content to exclude from book
                         ' "$tempFile"
                     cut -z -d '' -f 2- "$tempFile" >> "$out"
                 fi
