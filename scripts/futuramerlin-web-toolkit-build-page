@@ -64,6 +64,14 @@ if [[ "$Page" == "." ]]; then
     ereplace '<body>' '<body class="expanded">' "../../built/$1"
 fi
 ereplaceRegEx 'nav-item-inactive [^\"]+' 'nav-item-inactive' "../../built/$1"
+# Replacements for compatibility with book pages
+perl -0777 -p -i -e 's/<idx>//g; # Index entry
+                    s/<\/idx>//g;
+                    s/<idx-hidden>([^<]+)<\/idx-hidden>//g; # Hidden index entry
+                    s/<book-omit>//g; # Content to exclude from book
+                    s/<\/book-omit>//g;
+                    s/<web-omit>(((?!<\/web-omit>)[\S\s])*)<\/book-omit>//g; # Content to exclude from Web site
+                    ' "$tempFile"
 shopt -u extglob
 ereplaceRegEx 'href="(..\/)?..\/(.\/)*\/' 'href="\/' "../../built/$1"
 shopt -s extglob
