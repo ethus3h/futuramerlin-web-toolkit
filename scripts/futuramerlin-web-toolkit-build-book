@@ -28,6 +28,68 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
+convertBookFile() {
+               while IFS= read -r currentPageLine; do
+                currentPageLine="$(normalizeWhitespace "$currentPageLine")"
+                depth="${currentPageLine/ *}"
+                in="${currentPageLine#* }"
+                pageDir="$(dirname "$in")"
+                [[ "." == "$pageDir" ]] && pageDir=""
+                echo "Processing page $in at depth $depth"
+                if [[ "$depth" == "-1" ]]; then
+                    [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
+                elif [[ "$depth" == "-2" ]]; then
+                    echo "$in" >> "$out"
+                else
+                    if [[ -z "${in/*\/}" ]]; then
+                        in="$in/index"
+                    fi
+                    in="$in.htm"
+                    htmlHeadingDepth=$((depth + 2)) # h2 is the "0" depth
+                    tempFile="$(tempFile)"
+                    cp "$in" "$tempFile"
+                    # Extract the title. Based on futuramerlin-web-toolkit-build-page
+                    perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "$tempFile"
+                    perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "$tempFile"
+                    ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "$tempFile"
+                    ereplaceRegEx '(?i)<[^>]*>' ' ' "$tempFile"
+                    ereplaceRegEx '\s+' ' ' "$tempFile"
+                    ereplaceRegEx '^\s+' '' "$tempFile"
+                    ereplaceRegEx '\s+$' '' "$tempFile"
+                    # Got the title
+                    title="$(cat "$tempFile")"
+                    echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
+                    cp "$in" "$tempFile"
+                    pageDirEscaped="${pageDir//\//\\\/}"
+                    perl -0777 -p -i -e 's/<\/p>/\0/;
+                        s/<h6/<h'"$((7 + $depth))"'/g;
+                        s/<h5/<h'"$((6 + $depth))"'/g;
+                        s/<h4/<h'"$((5 + $depth))"'/g;
+                        s/<h3/<h'"$((4 + $depth))"'/g;
+                        s/<h2/<h'"$((3 + $depth))"'/g;
+                        s/<\/h6>/<\/h'"$((7 + $depth))"'>/g;
+                        s/<\/h5>/<\/h'"$((6 + $depth))"'>/g;
+                        s/<\/h4>/<\/h'"$((5 + $depth))"'>/g;
+                        s/<\/h3>/<\/h'"$((4 + $depth))"'>/g;
+                        s/<\/h2>/<\/h'"$((3 + $depth))"'>/g;
+                        s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
+                        s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
+                        s/<a href="https?:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g; # Clean up erroneous cases of previous two lines
+                        s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)<\/a>/<a href="\1">\[\1\]: \2<\/a>/g; # Add link destination to link text
+                        s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)\]: (\w+:\/\/)/<a href="\1">\4/g; # But remove it again if the link text was already a URI
+                        # Custom syntaxes:
+                        s/<idx>//g; # Index entry
+                        s/<\/idx>//g;
+                        s/<idx-hidden>([^<]+)<\/idx-hidden>//g; # Hidden index entry
+                        s/<book-omit>(((?!<\/book-omit>)[\S\s])*)<\/book-omit>//g; # Content to exclude from book
+                        s/<web-omit>//g; # Content to exclude from Web site
+                        s/<\/web-omit>//g;
+                        ' "$tempFile"
+                    cut -z -d '' -f 2- "$tempFile" >> "$out"
+                fi
+            done < "$bookConf"
+} 
+
 targets=(htm plain.html pandoc.json odt rtf pdf epub plain markdown)
 nativeTargets=(htm plain.html tex)
 nativeHTMTargets=(htm plain.html)
