@@ -134,6 +134,7 @@ for (( i=0; i<targetCount; i++ )); do
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
         if contains "$target" "${nativeHTMTargets[@]}"; then
+            convertBookFile "0" "$bookConf" "$target" "$out"
             while IFS= read -r currentPageLine; do
                 currentPageLine="$(normalizeWhitespace "$currentPageLine")"
                 depth="${currentPageLine/ *}"
