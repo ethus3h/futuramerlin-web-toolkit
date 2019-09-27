@@ -79,8 +79,10 @@ convertBookFile() (
                 fi
             fi
             if [[ "true" == "$includeSubBook" ]]; then
-                [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
-                
+                if [[ -f "$in.fmwtk-book.conf" ]]; then
+                    in="$in.fmwtk-book.conf"
+                else
+                    in=""
                 convertBookFile "$adjustedDepth" "$in"
             else
                 in="$in.htm"
