@@ -28,8 +28,8 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-convertBookFile() {
-    bookConfToProcess="$1"
+convertBookFile() (
+    bookConf="$1"
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
         depth="${currentPageLine/ *}"
@@ -88,8 +88,8 @@ convertBookFile() {
                 ' "$tempFile"
             cut -z -d '' -f 2- "$tempFile" >> "$out"
         fi
-    done < "$bookConfToProcess"
-} 
+    done < "$bookConf"
+)
 
 targets=(htm plain.html pandoc.json odt rtf pdf epub plain markdown)
 nativeTargets=(htm plain.html tex)
