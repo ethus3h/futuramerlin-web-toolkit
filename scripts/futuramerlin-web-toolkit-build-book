@@ -44,7 +44,7 @@ adjustHeadings() {
         s/<\/h4>/<\/h'"$((5 + $adjustedDepth))"'>/g;
         s/<\/h3>/<\/h'"$((4 + $adjustedDepth))"'>/g;
         s/<\/h2>/<\/h'"$((3 + $adjustedDepth))"'>/g;
-        ' "$fileName"
+        ' "$fileName" || die "Substitution failed"
 }
 
 convertBookFile() (
@@ -79,6 +79,7 @@ convertBookFile() (
                 fi
             fi
             if [[ "true" == "$includeSubBook" ]]; then
+            set -x
                 [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
                 convertBookFile "$adjustedDepth" "$in" "$target" "$out"
             else
