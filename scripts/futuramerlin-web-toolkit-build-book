@@ -43,13 +43,17 @@ convertBookFile() (
         if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         elif [[ "$depth" == "-2" ]]; then
-            echo "$in" >> "$out"
+            tempFile="$(tempFile)"
+            echo "$in" >> "$tempFile"
+            adjustHeadings "$tempFile"
+            cat "$tempFile" >> "$out"
         else
+            adjustedDepth=$((depth + depthOffset))
             if [[ -z "${in/*\/}" ]]; then
                 in="$in/index"
             fi
             in="$in.htm"
-            htmlHeadingDepth=$((depth + 2)) # h2 is the "0" depth
+            htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
             tempFile="$(tempFile)"
             cp "$in" "$tempFile"
             # Extract the title. Based on futuramerlin-web-toolkit-build-page
@@ -66,16 +70,16 @@ convertBookFile() (
             cp "$in" "$tempFile"
             pageDirEscaped="${pageDir//\//\\\/}"
             perl -0777 -p -i -e 's/<\/p>/\0/;
-                s/<h6/<h'"$((7 + $depth))"'/g;
-                s/<h5/<h'"$((6 + $depth))"'/g;
-                s/<h4/<h'"$((5 + $depth))"'/g;
-                s/<h3/<h'"$((4 + $depth))"'/g;
-                s/<h2/<h'"$((3 + $depth))"'/g;
-                s/<\/h6>/<\/h'"$((7 + $depth))"'>/g;
-                s/<\/h5>/<\/h'"$((6 + $depth))"'>/g;
-                s/<\/h4>/<\/h'"$((5 + $depth))"'>/g;
-                s/<\/h3>/<\/h'"$((4 + $depth))"'>/g;
-                s/<\/h2>/<\/h'"$((3 + $depth))"'>/g;
+                s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
+                s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
+                s/<h4/<h'"$((5 + $adjustedDepth))"'/g;
+                s/<h3/<h'"$((4 + $adjustedDepth))"'/g;
+                s/<h2/<h'"$((3 + $adjustedDepth))"'/g;
+                s/<\/h6>/<\/h'"$((7 + $adjustedDepth))"'>/g;
+                s/<\/h5>/<\/h'"$((6 + $adjustedDepth))"'>/g;
+                s/<\/h4>/<\/h'"$((5 + $adjustedDepth))"'>/g;
+                s/<\/h3>/<\/h'"$((4 + $adjustedDepth))"'>/g;
+                s/<\/h2>/<\/h'"$((3 + $adjustedDepth))"'>/g;
                 s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
                 s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
                 s/<a href="https?:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g; # Clean up erroneous cases of previous two lines
