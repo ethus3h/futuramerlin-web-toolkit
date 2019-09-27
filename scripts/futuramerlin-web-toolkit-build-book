@@ -53,6 +53,7 @@ convertBookFile() (
     target="$3"
     out="$(realpath "$4")"
     cd "$(dirname "$bookConf")" || die "cd failed"
+    # Make sure the file is readable, since the loop failing apparently won't be trapped
     cat "$bookConf" > /dev/null || die "Could not read bookConf file $bookConf in $(pwd)"
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
