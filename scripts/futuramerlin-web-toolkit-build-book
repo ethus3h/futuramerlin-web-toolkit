@@ -129,7 +129,7 @@ for (( i=0; i<targetCount; i++ )); do
     targetExt="$target"
     [[ plain == "$target" ]] && targetExt="txt"
     [[ markdown == "$target" ]] && targetExt="md"
-    out="$outputPrefix.$targetExt"
+    out="$(realpath "$outputPrefix.$targetExt")"
 
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
