@@ -73,6 +73,7 @@ convertBookFile() (
             includeSubBook="false"
             if [[ -z "${in/*\/}" ]]; then
                 in="$in/index"
+                # If the page was "/" without any preceding path, fix it up so it's not 
                 [[ "//index" == "$in" ]] && in=".$in"
             else
                 if [[ -f "$in.fmwtk-book.conf" ]] || { [[ -f "$in" ]] && [[ ! -f "$in.htm" ]]; }; then
