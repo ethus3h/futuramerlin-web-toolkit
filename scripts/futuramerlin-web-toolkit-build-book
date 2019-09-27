@@ -122,7 +122,7 @@ convertBookFile() (
             fi
         fi
     done < "$bookConf"
-    true
+    #true
 )
 
 targets=(htm plain.html pandoc.json odt rtf pdf epub plain markdown)
