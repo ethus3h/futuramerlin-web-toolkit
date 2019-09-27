@@ -73,6 +73,7 @@ convertBookFile() (
             includeSubBook="false"
             if [[ -z "${in/*\/}" ]]; then
                 in="$in/index"
+                [[ "//index" == "$in" ]] && in=".$in"
             else
                 if [[ -f "$in.fmwtk-book.conf" ]] || { [[ -f "$in" ]] && [[ ! -f "$in.htm" ]]; }; then
                     includeSubBook="true"
