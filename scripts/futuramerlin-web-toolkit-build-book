@@ -79,11 +79,8 @@ convertBookFile() (
                 fi
             fi
             if [[ "true" == "$includeSubBook" ]]; then
-                if [[ -f "$in.fmwtk-book.conf" ]]; then
-                    in="$in.fmwtk-book.conf"
-                else
-                    in=""
-                convertBookFile "$adjustedDepth" "$in"
+                [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
+                convertBookFile "$adjustedDepth" "$in" "$target" "$out"
             else
                 in="$in.htm"
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
