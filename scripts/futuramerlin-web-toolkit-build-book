@@ -73,7 +73,7 @@ convertBookFile() (
         elif [[ "$depth" == "-2" ]]; then
             tempFile="$(tempFile)"
             echo "$in" >> "$tempFile"
-            adjustHeadings "$adjustedDepth" "$tempFile"
+            adjustHeadings "$depthOffset" "$tempFile"
             cat "$tempFile" >> "$out"
         else
             includeSubBook="false"
