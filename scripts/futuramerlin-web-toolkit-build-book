@@ -49,7 +49,7 @@ adjustHeadings() {
 
 convertBookFile() (
     depthOffset="$1"
-    bookConf="$2"
+    bookConf="$(realpath "$2")"
     target="$3"
     out="$(realpath "$4")"
     cd "$(dirname "$bookConf")" || die "cd failed"
