@@ -44,7 +44,7 @@ adjustHeadings() {
         s/<\/h4>/<\/h'"$((5 + $adjustedDepth))"'>/g;
         s/<\/h3>/<\/h'"$((4 + $adjustedDepth))"'>/g;
         s/<\/h2>/<\/h'"$((3 + $adjustedDepth))"'>/g;
-    ' "$fileName"
+        ' "$fileName"
 }
 
 convertBookFile() (
@@ -91,16 +91,9 @@ convertBookFile() (
             pageDirEscaped="${pageDir//\//\\\/}"
             perl -0777 -p -i -e '
                 s/<\/p>/\0/;
-                s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
-                s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
-                s/<h4/<h'"$((5 + $adjustedDepth))"'/g;
-                s/<h3/<h'"$((4 + $adjustedDepth))"'/g;
-                s/<h2/<h'"$((3 + $adjustedDepth))"'/g;
-                s/<\/h6>/<\/h'"$((7 + $adjustedDepth))"'>/g;
-                s/<\/h5>/<\/h'"$((6 + $adjustedDepth))"'>/g;
-                s/<\/h4>/<\/h'"$((5 + $adjustedDepth))"'>/g;
-                s/<\/h3>/<\/h'"$((4 + $adjustedDepth))"'>/g;
-                s/<\/h2>/<\/h'"$((3 + $adjustedDepth))"'>/g;
+                ' "$tempFile"
+            adjustHeadings "$adjustedDepth" "$tempFile"
+            perl -0777 -p -i -e '
                 s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
                 s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
                 s/<a href="https?:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g; # Clean up erroneous cases of previous two lines
