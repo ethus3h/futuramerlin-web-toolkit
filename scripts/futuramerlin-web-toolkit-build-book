@@ -23,8 +23,11 @@ bookConf="$(basename "$bookConfPath")"
 
 cd "$(dirname "$bookConfPath")" || die "cd failed"
 
-bookName="${bookConf/-fmwtk-book.conf}"
-bookName="${bookConf/.fmwtk-book.conf}"
+if [[ "$bookConf" != "${bookConf/-fmwtk-book.conf}" ]] then
+    bookName="${bookConf/-fmwtk-book.conf}"
+else
+    bookName="${bookConf/.fmwtk-book.conf}"
+fi
 
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
