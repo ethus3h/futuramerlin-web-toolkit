@@ -51,7 +51,7 @@ convertBookFile() (
     depthOffset="$1"
     bookConf="$2"
     target="$3"
-    out="$4"
+    out="$(realpath "$4")"
     cd "$(dirname "$bookConf")" || die "cd failed"
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
@@ -141,12 +141,11 @@ for (( i=0; i<targetCount; i++ )); do
     [[ plain == "$target" ]] && targetExt="txt"
     [[ markdown == "$target" ]] && targetExt="md"
     out="$outputPrefix.$targetExt"
-    outFullPath="$(realpath "$out")"
 
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
         if contains "$target" "${nativeHTMTargets[@]}"; then
-            convertBookFile "0" "$bookConf" "$target" "$outFullPath"
+            convertBookFile "0" "$bookConf" "$target" "$out"
         fi
         ereplaceRegEx '\0' '' "$out"
     else
