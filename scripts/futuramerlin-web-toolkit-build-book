@@ -28,10 +28,12 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
+true
+
 adjustHeadings() {
-    #local adjustedDepth
+    local adjustedDepth
     adjustedDepth="$1"
-    #local fileName
+    local fileName
     fileName="$2"
     perl -0777 -p -i -e '
         s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
