@@ -69,7 +69,9 @@ convertBookFile() (
         [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
         echo "Processing page $in at depth $adjustedDepth"
         if [[ "$depth" == "-1" ]]; then
+        set -x
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
+            set +x
         elif [[ "$depth" == "-2" ]]; then
             tempFile="$(tempFile)"
             echo "$in" >> "$tempFile"
