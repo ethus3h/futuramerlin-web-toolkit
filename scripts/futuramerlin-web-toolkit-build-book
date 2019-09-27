@@ -29,7 +29,10 @@ rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
 convertBookFile() (
-    bookConf="$1"
+    depthOffset="$1"
+    bookConf="$2"
+    target="$3"
+    out="$4"
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
         depth="${currentPageLine/ *}"
