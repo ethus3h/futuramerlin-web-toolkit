@@ -52,6 +52,7 @@ convertBookFile() (
     bookConf="$2"
     target="$3"
     out="$4"
+    cd "$(dirname "$bookConf")" || die "cd failed"
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
         depth="${currentPageLine/ *}"
