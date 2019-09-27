@@ -23,7 +23,7 @@ bookConf="$(basename "$bookConfPath")"
 
 cd "$(dirname "$bookConfPath")" || die "cd failed"
 
-if [[ "$bookConf" -ne "${bookConf/-fmwtk-book.conf}" ]] then
+if [[ "$bookConf" != "${bookConf/-fmwtk-book.conf}" ]]; then
     bookName="${bookConf/-fmwtk-book.conf}"
 else
     bookName="${bookConf/.fmwtk-book.conf}"
