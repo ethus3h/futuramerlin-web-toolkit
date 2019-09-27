@@ -27,9 +27,7 @@ bookName="${bookConf/-fmwtk-book.conf}"
 
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
-
-true
-
+set -x
 adjustHeadings() {
     local adjustedDepth
     adjustedDepth="$1"
