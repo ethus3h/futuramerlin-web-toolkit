@@ -28,14 +28,6 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-adjustHeadings() {
-    local adjustedDepth
-    adjustedDepth="$1"
-    local fileName
-    fileName="$2"
-    
-}
-
 convertBookFile() (
     depthOffset="$1"
     bookConf="$2"
