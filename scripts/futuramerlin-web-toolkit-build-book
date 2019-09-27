@@ -28,6 +28,24 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
+adjustHeadings() {
+    local adjustedDepth
+    adjustedDepth="$1"
+    local fileName
+    fileName="$2"
+            perl -0777 -p -i -e 's/<\/p>/\0/;
+                s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
+                s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
+                s/<h4/<h'"$((5 + $adjustedDepth))"'/g;
+                s/<h3/<h'"$((4 + $adjustedDepth))"'/g;
+                s/<h2/<h'"$((3 + $adjustedDepth))"'/g;
+                s/<\/h6>/<\/h'"$((7 + $adjustedDepth))"'>/g;
+                s/<\/h5>/<\/h'"$((6 + $adjustedDepth))"'>/g;
+                s/<\/h4>/<\/h'"$((5 + $adjustedDepth))"'>/g;
+                s/<\/h3>/<\/h'"$((4 + $adjustedDepth))"'>/g;
+                s/<\/h2>/<\/h'"$((3 + $adjustedDepth))"'>/g;
+}
+
 convertBookFile() (
     depthOffset="$1"
     bookConf="$2"
@@ -39,16 +57,17 @@ convertBookFile() (
         in="${currentPageLine#* }"
         pageDir="$(dirname "$in")"
         [[ "." == "$pageDir" ]] && pageDir=""
-        echo "Processing page $in at depth $depth"
+        adjustedDepth="$depth"
+        [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
+        echo "Processing page $in at depth $adjustedDepth"
         if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         elif [[ "$depth" == "-2" ]]; then
             tempFile="$(tempFile)"
             echo "$in" >> "$tempFile"
-            adjustHeadings "$tempFile"
+            adjustHeadings "$adjustedDepth" "$tempFile"
             cat "$tempFile" >> "$out"
         else
-            adjustedDepth=$((depth + depthOffset))
             if [[ -z "${in/*\/}" ]]; then
                 in="$in/index"
             fi
