@@ -72,6 +72,8 @@ convertBookFile() (
         else
             if [[ -z "${in/*\/}" ]]; then
                 in="$in/index"
+            else
+                if [[ -e "$in.fmwtk-book.conf" ]] || { [[ -e "$in" ]] && [[ ! -e "$in.htm" ]]; }; then
             fi
             in="$in.htm"
             htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
