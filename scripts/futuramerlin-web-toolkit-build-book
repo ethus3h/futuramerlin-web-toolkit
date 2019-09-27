@@ -21,7 +21,7 @@ fi
 bookConfPath="$(realpath "$bookConfPath")"
 bookConf="$(basename "$bookConfPath")"
 
-cd "$(dirname "$bookConf")" || die "cd failed"
+cd "$(dirname "$bookConfPath")" || die "cd failed"
 
 bookName="${bookConf/-fmwtk-book.conf}"
 
