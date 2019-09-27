@@ -27,7 +27,7 @@ bookName="${bookConf/-fmwtk-book.conf}"
 
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
-set -x
+
 adjustHeadings() {
     local adjustedDepth
     adjustedDepth="$1"
@@ -121,6 +121,7 @@ convertBookFile() (
             fi
         fi
     done < "$bookConf"
+    true
 )
 
 targets=(htm plain.html pandoc.json odt rtf pdf epub plain markdown)
