@@ -70,11 +70,16 @@ convertBookFile() (
             adjustHeadings "$adjustedDepth" "$tempFile"
             cat "$tempFile" >> "$out"
         else
+            includeSubBook="false"
             if [[ -z "${in/*\/}" ]]; then
                 in="$in/index"
             else
-                if [[ -e "$in.fmwtk-book.conf" ]] || { [[ -e "$in" ]] && [[ ! -e "$in.htm" ]]; }; then
+                if [[ -f "$in.fmwtk-book.conf" ]] || { [[ -f "$in" ]] && [[ ! -f "$in.htm" ]]; }; then
+                    includeSubBook="true"
+                fi
             fi
+            if [[ "true" == "$includeSubBook" ]]; then
+            else
             in="$in.htm"
             htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
             tempFile="$(tempFile)"
@@ -111,6 +116,7 @@ convertBookFile() (
                 s/<\/web-omit>//g;
                 ' "$tempFile"
             cut -z -d '' -f 2- "$tempFile" >> "$out"
+            fi
         fi
     done < "$bookConf"
 )
