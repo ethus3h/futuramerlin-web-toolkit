@@ -28,6 +28,25 @@ bookName="${bookConf/-fmwtk-book.conf}"
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
+adjustHeadings() {
+    #local adjustedDepth
+    adjustedDepth="$1"
+    #local fileName
+    fileName="$2"
+    perl -0777 -p -i -e '
+        s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
+        s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
+        s/<h4/<h'"$((5 + $adjustedDepth))"'/g;
+        s/<h3/<h'"$((4 + $adjustedDepth))"'/g;
+        s/<h2/<h'"$((3 + $adjustedDepth))"'/g;
+        s/<\/h6>/<\/h'"$((7 + $adjustedDepth))"'>/g;
+        s/<\/h5>/<\/h'"$((6 + $adjustedDepth))"'>/g;
+        s/<\/h4>/<\/h'"$((5 + $adjustedDepth))"'>/g;
+        s/<\/h3>/<\/h'"$((4 + $adjustedDepth))"'>/g;
+        s/<\/h2>/<\/h'"$((3 + $adjustedDepth))"'>/g;
+        ' "$fileName"
+}
+
 convertBookFile() (
     depthOffset="$1"
     bookConf="$2"
