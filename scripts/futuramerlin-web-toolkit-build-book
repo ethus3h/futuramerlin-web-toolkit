@@ -32,9 +32,9 @@ fi
 rm -rf "$bookName.fmwtk-book"
 mkdir "$bookName.fmwtk-book"
 
-adjustAssets() {
-    local inputFilePath
-    inputFilePath="$1"
+adjustHeadings() {
+    local adjustedDepth
+    adjustedDepth="$1"
     local fileName
     fileName="$2"
     perl -0777 -p -i -e '
@@ -51,11 +51,11 @@ adjustAssets() {
         ' "$fileName" || die "Substitution failed"
 }
 
-adjustHeadings() {
-    local adjustedDepth
-    adjustedDepth="$1"
-    local fileName
-    fileName="$2"
+adjustAssets() {
+    local inputFilePath
+    inputFilePath="$(realpath "$1")"
+    local outFileDir
+    outFileDir="$(dirname "$2")"
     perl -0777 -p -i -e '
         s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
         s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
