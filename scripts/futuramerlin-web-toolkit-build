@@ -96,6 +96,11 @@ echo "Environment ready; building site..."
         while IFS= read -r -d '' currentFileName; do
             fmwtk-book "$currentFileName"
         done < "$tempFile"
+        if [[ -f .futuramerlin-web-toolkit/post-book-hooks ]]; then
+            echo "Beginning post-book-hooks..."
+            ./.futuramerlin-web-toolkit/post-book-hooks || warn "Post-book-hooks failed; continuing anyway."
+            echo "Done post-book-hooks."
+        fi
         rm "$tempFile"
         traversedirectory() {
             echo "Entered directory $1..."
