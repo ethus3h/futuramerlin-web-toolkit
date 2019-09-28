@@ -116,6 +116,7 @@ convertBookFile() (
                     s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
                     s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
                     s/<a href="https?:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/(\w+:\/\/[^"]+)"/<a href="\1"/g; # Clean up erroneous cases of previous two lines
+                    s/<a href="(https?:\/\/futuramerlin.com\/)\/+([^"]+)"/<a href="\1\2"/g; # Clean up multiple slashes at start of URL (bug in previous three lines)
                     s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)<\/a>/<a href="\1">\[\1\]: \2<\/a>/g; # Add link destination to link text
                     s/<a href="([^"]*)">(((?!<\/a>)[\S\s])*)\]: (\w+:\/\/)/<a href="\1">\4/g; # But remove it again if the link text was already a URI
                     # Custom syntaxes:
