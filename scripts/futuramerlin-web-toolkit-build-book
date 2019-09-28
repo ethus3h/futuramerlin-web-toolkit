@@ -60,7 +60,9 @@ adjustAssets() {
     fileName="$3"
     local inputFileDir
     inputFileDir="$(dirname "$inputFilePath")"
-    grep -o -e '<img src="[^"]*"' "$"
+    grep -o -e '<img src="[^"]*"' "$fileName" | while IFS= read -r currentItem; do
+    done
+    true
     perl -0777 -p -e '
         s/<img src=""//g;
         s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
