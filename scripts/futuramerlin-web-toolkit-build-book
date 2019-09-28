@@ -60,7 +60,13 @@ adjustAssets() {
     fileName="$3"
     local inputFileDir
     inputFileDir="$(dirname "$inputFilePath")"
+    local currentItem
+    local assetName
     grep -o -e '<img src="[^"]*"' "$fileName" | while IFS= read -r currentItem; do
+        assetName="${currentItem%\"}"
+        assetName="${assetName/<img src=\"}"
+        assetPath="$(realpath "$inputFileDir/$assetName")"
+        
     done
     true
     perl -0777 -p -e '
