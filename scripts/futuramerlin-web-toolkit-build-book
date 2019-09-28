@@ -66,7 +66,8 @@ adjustAssets() {
         assetName="${currentItem%\"}"
         assetName="${assetName/<img src=\"}"
         assetPath="$(realpath "$inputFileDir/$assetName")"
-        
+        assetHash=""
+        cp "$assetPath" "$outFileDir/assets/"
     done
     true
     perl -0777 -p -e '
@@ -89,6 +90,8 @@ convertBookFile() (
     target="$3"
     out="$(realpath "$4")"
     cd "$(dirname "$bookConf")" || die "cd failed"
+    # Make the assets directory
+    mkdir -p "$(dirname "$out")/assets"
     # Make sure the file is readable, since the loop failing apparently won't be trapped
     cat "$bookConf" > /dev/null || die "Could not read bookConf file $bookConf in $(pwd)"
     while IFS= read -r currentPageLine; do
