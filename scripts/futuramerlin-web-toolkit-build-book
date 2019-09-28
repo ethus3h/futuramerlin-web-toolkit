@@ -60,8 +60,8 @@ adjustAssets() {
     fileName="$3"
     local inputFileDir
     inputFileDir="$(dirname "$inputFilePath")"
-    perl -0777 -p -i -e '
-        s/<h6/<h'"$((7 + $adjustedDepth))"'/g;
+    perl -0777 -p -e '
+        s/<img src=""//g;
         s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
         s/<h4/<h'"$((5 + $adjustedDepth))"'/g;
         s/<h3/<h'"$((4 + $adjustedDepth))"'/g;
