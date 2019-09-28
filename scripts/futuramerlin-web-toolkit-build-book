@@ -112,6 +112,7 @@ convertBookFile() (
                     s/<\/p>/\0/;
                     ' "$tempFile"
                 adjustHeadings "$adjustedDepth" "$tempFile"
+                adjustAssets "$in" "$out" "$tempFile"
                 perl -0777 -p -i -e '
                     s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
                     s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
