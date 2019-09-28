@@ -58,6 +58,8 @@ adjustAssets() {
     outFileDir="$(dirname "$2")"
     local fileName
     fileName="$3"
+    local rootPath
+    rootPath="$4"
     local inputFileDir
     inputFileDir="$(dirname "$inputFilePath")"
     local currentItem
@@ -66,7 +68,8 @@ adjustAssets() {
         assetName="${currentItem%\"}"
         assetName="${assetName/<img src=\"}"
         assetPath="$(realpath "$inputFileDir/$assetName")"
-        assetHash=""
+        assetRelativePath="${assetPath/$rootPath}"
+        assetHash="$(sha512sum< "$destinationName" | awk '{print $1;}')")"
         cp "$assetPath" "$outFileDir/assets/"
     done
     true
@@ -89,6 +92,7 @@ convertBookFile() (
     bookConf="$(realpath "$2")"
     target="$3"
     out="$(realpath "$4")"
+    rootPath="$(realpath "$5")"
     cd "$(dirname "$bookConf")" || die "cd failed"
     # Make the assets directory
     mkdir -p "$(dirname "$out")/assets"
@@ -124,7 +128,7 @@ convertBookFile() (
             fi
             if [[ "true" == "$includeSubBook" ]]; then
                 [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
-                convertBookFile "$adjustedDepth" "$in" "$target" "$out"
+                convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath"
             else
                 in="$in.htm"
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
@@ -147,7 +151,7 @@ convertBookFile() (
                     s/<\/p>/\0/;
                     ' "$tempFile"
                 adjustHeadings "$adjustedDepth" "$tempFile"
-                adjustAssets "$in" "$out" "$tempFile"
+                adjustAssets "$in" "$out" "$tempFile" "$rootPath"
                 perl -0777 -p -i -e '
                     s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
                     s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
@@ -192,7 +196,7 @@ for (( i=0; i<targetCount; i++ )); do
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
         if contains "$target" "${nativeHTMTargets[@]}"; then
-            convertBookFile "0" "$bookConf" "$target" "$out"
+            convertBookFile "0" "$bookConf" "$target" "$out" "."
         fi
         ereplaceRegEx '\0' '' "$out"
     else
