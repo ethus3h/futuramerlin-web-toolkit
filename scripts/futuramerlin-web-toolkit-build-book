@@ -52,6 +52,7 @@ adjustHeadings() {
 }
 
 adjustAssets() {
+set -x
     local inputFilePath
     inputFilePath="$(realpath "$1")"
     local outFileDir
@@ -80,6 +81,7 @@ adjustAssets() {
                 ' "$fileName" || die "Substitution failed"
         done
     fi
+    set +x
 }
 
 convertBookFile() (
