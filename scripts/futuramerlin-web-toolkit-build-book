@@ -132,7 +132,7 @@ convertBookFile() (
                 else
                     inputSubbookBaseName="${in/.fmwtk-book.conf}"
                 fi
-                [[ -d "$inputSubbookBaseName/assets" ]] && find "$inputSubbookBaseName/assets/" -type f -exec mv {} "$outputDir/assets/" \;
+                [[ -d "$inputSubbookBaseName.fmwtk-book/assets" ]] && find "$inputSubbookBaseName/assets/" -type f -exec mv {} "$outputDir/assets/" \;
                 set +x
             else
                 in="$in.htm"
