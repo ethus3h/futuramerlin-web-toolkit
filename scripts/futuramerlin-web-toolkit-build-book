@@ -123,6 +123,12 @@ convertBookFile() (
             if [[ "true" == "$includeSubBook" ]]; then
                 [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
                 convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath" --no-adjust-assets
+if [[ "$bookConf" != "${bookConf/-fmwtk-book.conf}" ]]; then
+    bookName="${bookConf/-fmwtk-book.conf}"
+else
+    bookName="${bookConf/.fmwtk-book.conf}"
+fi
+                cp "$in"
             else
                 in="$in.htm"
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
