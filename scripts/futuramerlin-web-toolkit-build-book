@@ -86,7 +86,8 @@ convertBookFile() (
     target="$3"
     out="$(realpath "$4")"
     rootPath="$(realpath "$5")"
-    shouldAdjustAssets="$6"
+    outputDir="$(realpath "$6")"
+    shouldAdjustAssets="$7"
     cd "$(dirname "$bookConf")" || die "cd failed"
     # Make the assets directory
     mkdir -p "$(dirname "$out")/assets"
@@ -122,13 +123,13 @@ convertBookFile() (
             fi
             if [[ "true" == "$includeSubBook" ]]; then
                 [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
-                convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath" --no-adjust-assets
-if [[ "$bookConf" != "${bookConf/-fmwtk-book.conf}" ]]; then
-    bookName="${bookConf/-fmwtk-book.conf}"
-else
-    bookName="${bookConf/.fmwtk-book.conf}"
-fi
-                cp "$in"
+                convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath" "$outputDir" --no-adjust-assets
+                if [[ "$in" != "${in/-fmwtk-book.conf}" ]]; then
+                    inputSubbookBaseName="${in/-fmwtk-book.conf}"
+                else
+                    inputSubbookBaseName="${in/.fmwtk-book.conf}"
+                fi
+                cp "$inputSubbookBaseName/assets/"* "$outputDir/assets/"
             else
                 in="$in.htm"
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
@@ -198,7 +199,7 @@ for (( i=0; i<targetCount; i++ )); do
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
         if contains "$target" "${nativeHTMTargets[@]}"; then
-            convertBookFile "0" "$bookConf" "$target" "$out" "."
+            convertBookFile "0" "$bookConf" "$target" "$out" "." "$outputDir"
         fi
         ereplaceRegEx '\0' '' "$out"
     else
