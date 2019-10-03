@@ -116,6 +116,7 @@ convertBookFile() (
         [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
         echo "Processing page $in at depth $adjustedDepth"
         if [[ "$depth" == "#" ]]; then
+            # Comment
             true
         elif [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
