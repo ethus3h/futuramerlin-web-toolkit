@@ -93,6 +93,15 @@ convertBookFile() (
     mkdir -p "$outputDir/assets"
     # Make sure the file is readable, since the loop failing apparently won't be trapped
     cat "$bookConf" > /dev/null || die "Could not read bookConf file $bookConf in $(pwd)"
+    if [[ "plain.html" == "$target" ]]; then
+        firstPageLine="$(head -n 1 "$bookConf")"
+        firstPageLine="$(normalizeWhitespace "$firstPageLine")"
+        firstPageLineDepth="${firstPageLine/ *}"
+        if [[ "-3" == "$firstPageLineDepth" ]]; then
+            firstPageLineIn="${firstPageLine#* }"
+            bookTitle="$firstP"
+            "$bookTitle"
+    fi
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
         depth="${currentPageLine/ *}"
@@ -102,7 +111,9 @@ convertBookFile() (
         adjustedDepth="$depth"
         [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
         echo "Processing page $in at depth $adjustedDepth"
-        if [[ "$depth" == "-1" ]]; then
+        if [[ "$depth" == "#" ]]; then
+            true
+        elif [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         elif [[ "$depth" == "-2" ]]; then
             tempFile="$(tempFile)"
@@ -110,6 +121,9 @@ convertBookFile() (
             headingAdjustment=$(( depthOffset - 1 ))
             adjustHeadings "$headingAdjustment" "$tempFile"
             cat "$tempFile" >> "$out"
+        elif [[ "$depth" == "-3" ]]; then
+            # Book title
+            true
         else
             includeSubBook="false"
             if [[ -z "${in/*\/}" ]]; then
