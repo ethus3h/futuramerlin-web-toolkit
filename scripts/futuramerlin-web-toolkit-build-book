@@ -73,11 +73,11 @@ adjustAssets() {
         assetExtension="${assetRelativePath//*.}"
         assetHash="$(sha512sum <<< "$assetRelativePath" | awk '{print $1;}')"
         cp "$assetPath" "$outFileDir/assets/$assetHash.$assetExtension"
+        perl -0777 -p -e '
+            s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
+            ' "$fileName" || die "Substitution failed"
     done
     true
-    perl -0777 -p -e '
-        s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
-        ' "$fileName" || die "Substitution failed"
 }
 
 convertBookFile() (
