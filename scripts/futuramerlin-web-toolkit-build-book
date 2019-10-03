@@ -74,7 +74,7 @@ adjustAssets() {
             assetExtension="${assetRelativePath//*.}"
             assetHash="$(sha512sum <<< "$assetRelativePath" | awk '{print $1;}')"
             mkdir -p "$outFileDir/assets/"
-            cp "$assetPath" "$outFileDir/assets/$assetHash.$assetExtension"
+            cp "$assetPath" "$outFileDir/assets/$assetHash.$assetExtension" || warn "Could not copy asset sought at $assetPath."
             perl -0777 -p -i -e '
                 s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
                 ' "$fileName" || die "Substitution failed"
