@@ -67,6 +67,7 @@ adjustAssets() {
     grep -o -e '<img src="[^"]*"' "$fileName" | while IFS= read -r currentItem; do
         assetName="${currentItem%\"}"
         assetName="${assetName/<img src=\"}"
+        assetNameEscaped="${pageDir//\//\\\/}"
         assetPath="$(realpath "$inputFileDir/$assetName")"
         assetRelativePath="${assetPath/$rootPath}"
         assetExtension="${assetRelativePath//*.}"
@@ -75,7 +76,7 @@ adjustAssets() {
     done
     true
     perl -0777 -p -e '
-        s/<img src=""//g;
+        s/<img src="'"$assetName"'"//g;
         s/<h5/<h'"$((6 + $adjustedDepth))"'/g;
         s/<h4/<h'"$((5 + $adjustedDepth))"'/g;
         s/<h3/<h'"$((4 + $adjustedDepth))"'/g;
