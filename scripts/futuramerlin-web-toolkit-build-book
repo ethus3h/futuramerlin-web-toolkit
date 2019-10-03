@@ -64,8 +64,8 @@ adjustAssets() {
     inputFileDir="$(dirname "$inputFilePath")"
     local currentItem
     local assetName
-    if grep -o -e '<img src="[^"]*"' "$fileName" > /dev/null; then
-        grep -o -e '<img src="[^"]*"' "$fileName" | while IFS= read -r currentItem; do
+    if grep -a -o -e '<img src="[^"]*"' "$fileName" > /dev/null; then
+        grep -a -o -e '<img src="[^"]*"' "$fileName" | while IFS= read -r currentItem; do
             assetName="${currentItem%\"}"
             assetName="${assetName/<img src=\"}"
             assetNameEscaped="${assetName//\//\\\/}"
