@@ -65,7 +65,6 @@ adjustAssets() {
     local currentItem
     local assetName
     if grep -a -o -e '<img src="[^"]*"' "$fileName" > /dev/null; then
-    set -x
         grep -a -o -e '<img src="[^"]*"' "$fileName" | while IFS= read -r currentItem; do
             assetName="${currentItem%\"}"
             assetName="${assetName/<img src=\"}"
@@ -79,7 +78,6 @@ adjustAssets() {
             perl -0777 -p -i -e '
                 s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
                 ' "$fileName" || die "Substitution failed"
-                set +x
         done
     fi
 }
