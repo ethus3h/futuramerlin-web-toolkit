@@ -91,7 +91,6 @@ convertBookFile() (
     out="$(realpath "$4")"
     rootPath="$(realpath "$5")"
     outputDir="$(realpath "$6")"
-    shouldAdjustAssets="$7"
     cd "$(dirname "$bookConf")" || die "cd failed"
     # Make the assets directory
     mkdir -p "$(dirname "$out")/assets"
@@ -127,7 +126,7 @@ convertBookFile() (
             fi
             if [[ "true" == "$includeSubBook" ]]; then
                 [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
-                convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath" "$outputDir" --no-adjust-assets
+                convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath" "$outputDir"
                 if [[ "$in" != "${in/-fmwtk-book.conf}" ]]; then
                     inputSubbookBaseName="${in/-fmwtk-book.conf}"
                 else
@@ -156,9 +155,7 @@ convertBookFile() (
                     s/<\/p>/\0/;
                     ' "$tempFile"
                 adjustHeadings "$adjustedDepth" "$tempFile"
-                if [[ "--no-adjust-assets" != "$shouldAdjustAssets" ]]; then
-                    adjustAssets "$in" "$out" "$tempFile" "$rootPath"
-                fi
+                adjustAssets "$in" "$out" "$tempFile" "$rootPath"
                 perl -0777 -p -i -e '
                     s/<a href="([^\/][^"]*)"/<a href="http:\/\/futuramerlin.com\/'"$pageDirEscaped"'\/\1"/g; # Fix relative in-site URLs
                     s/<a href="\/([^"]*)"/<a href="http:\/\/futuramerlin.com\/\1"/g; # Fix absolute in-site URLs
