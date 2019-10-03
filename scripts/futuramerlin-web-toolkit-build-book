@@ -190,8 +190,9 @@ convertBookFile() (
             fi
         fi
     done < "$bookConf"
-        if [[ "plain.html" == "$target" ]]; then
-fi
+    if [[ "plain.html" == "$target" ]]; then
+        echo '</main> </body> </html>' >> "$out"
+    fi
     true
 )
 
