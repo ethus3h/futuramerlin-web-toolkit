@@ -73,7 +73,6 @@ adjustAssets() {
             assetRelativePath="${assetPath/$rootPath}"
             assetExtension="${assetRelativePath//*.}"
             assetHash="$(sha512sum <<< "$assetRelativePath" | awk '{print $1;}')"
-            mkdir -p "$outFileDir/assets/"
             cp "$assetPath" "$outFileDir/assets/$assetHash.$assetExtension" || warn "Could not copy asset sought at $assetPath."
             perl -0777 -p -i -e '
                 s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
@@ -91,7 +90,7 @@ convertBookFile() (
     outputDir="$(realpath "$6")"
     cd "$(dirname "$bookConf")" || die "cd failed"
     # Make the assets directory
-    mkdir -p "$(dirname "$out")/assets"
+    mkdir -p "$outputDir/assets"
     # Make sure the file is readable, since the loop failing apparently won't be trapped
     cat "$bookConf" > /dev/null || die "Could not read bookConf file $bookConf in $(pwd)"
     while IFS= read -r currentPageLine; do
