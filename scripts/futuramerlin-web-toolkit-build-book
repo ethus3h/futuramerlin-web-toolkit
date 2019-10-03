@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
 source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd): The required dependency ember-shared could not be found (or ember_bash_setup could not be sourced for some other reason)." >&2; printf '%b' '\033[0m' >&2; exit 1; }
-set -x
+#set -x
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
@@ -73,12 +73,12 @@ adjustAssets() {
             assetRelativePath="${assetPath/$rootPath}"
             assetExtension="${assetRelativePath//*.}"
             assetHash="$(sha512sum <<< "$assetRelativePath" | awk '{print $1;}')"
+            mkdir -p "$outFileDir/assets/"
             cp "$assetPath" "$outFileDir/assets/$assetHash.$assetExtension"
             perl -0777 -p -i -e '
                 s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
                 ' "$fileName" || die "Substitution failed"
         done
-        #true
     fi
 }
 
@@ -131,7 +131,7 @@ convertBookFile() (
                 else
                     inputSubbookBaseName="${in/.fmwtk-book.conf}"
                 fi
-                cp "$inputSubbookBaseName/assets/"* "$outputDir/assets/"
+                [[ -d "$inputSubbookBaseName/assets" ]] && cp "$inputSubbookBaseName/assets/"* "$outputDir/assets/"
             else
                 in="$in.htm"
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
