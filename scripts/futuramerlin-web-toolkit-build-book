@@ -117,6 +117,7 @@ convertBookFile() (
     fi
     while IFS= read -r currentPageLine; do
         [[ -z "$currentPageLine" ]] && continue
+        echo "$currentPageLine"
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
         depth="${currentPageLine/ *}"
         in="${currentPageLine#* }"
