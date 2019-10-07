@@ -5,6 +5,15 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
+# RTF has too big files when images are included, so is not created
+# ODT is used as the source for the other LibreOffice conversions, so should always be included
+targets=(htm plain.html tex odt pdf epub plain markdown)
+nativeTargets=(htm plain.html tex)
+nativeHTMTargets=(htm plain.html)
+pandocTargets=(pandoc.json plain markdown)
+libreofficeTargets=(odt pdf epub rtf)
+targetCount="${#targets[@]}"
+
 nativeTargetsOnly="false"
 if [[ "--native-targets-only" == "$1" ]]; then
     nativeTargetsOnly="true"
@@ -197,12 +206,6 @@ convertBookFile() (
     true
 )
 
-targets=(htm plain.html pandoc.json odt rtf pdf epub plain markdown)
-nativeTargets=(htm plain.html tex)
-nativeHTMTargets=(htm plain.html)
-pandocTargets=(pandoc.json plain markdown)
-libreofficeTargets=(odt pdf epub rtf)
-targetCount="${#targets[@]}"
 outputPrefix="$bookName.fmwtk-book/$bookName-book-$(emdate)"
 outputDir="$(dirname "$outputPrefix")"
 outputBasename="$(basename "$outputPrefix")"
