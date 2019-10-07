@@ -178,8 +178,9 @@ convertBookFile() (
                 # Got the title
                 title="$(cat "$tempFile")"
                 echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
-        # Depth: -1 promotes all the headings by a level, so a 
                 cp "$in" "$tempFile"
+                # If the depth is -1, remove second-level heading
+                ereplaceRegEx '<h2>(((?!<\/h2>)[\S\s])*)<\/h2>' '' "$tempFile"
                 pageDirEscaped="${pageDir//\//\\\/}"
                 perl -0777 -p -i -e '
                     s/<\/p>/\0/;
