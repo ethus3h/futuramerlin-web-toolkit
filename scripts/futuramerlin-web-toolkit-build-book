@@ -212,7 +212,7 @@ outputBasename="$(basename "$outputPrefix")"
 for (( i=0; i<targetCount; i++ )); do
     target="${targets[$i]}"
 
-    echo "Building target format $target..."
+    echo "Building target format $target for $bookConf..."
 
     targetExt="$target"
     [[ plain == "$target" ]] && targetExt="txt"
@@ -279,4 +279,4 @@ for (( i=0; i<targetCount; i++ )); do
     fi
 done
 
-echo "Done building book."
+echo "Done building book $bookConf."
