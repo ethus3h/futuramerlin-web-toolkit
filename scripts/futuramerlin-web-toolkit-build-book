@@ -123,12 +123,13 @@ convertBookFile() (
         pageDir="$(dirname "$in")"
         [[ "." == "$pageDir" ]] && pageDir=""
         adjustedDepth="$depth"
-        [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
-        echo "Processing page $in at depth $adjustedDepth"
         if [[ "$depth" == "#" ]]; then
             # Comment
-            true
-        elif [[ "$depth" == "-1" ]]; then
+            continue
+        fi
+        [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
+        echo "Processing page $in at depth $adjustedDepth"
+        if [[ "$depth" == "-1" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         elif [[ "$depth" == "-2" ]]; then
             tempFile="$(tempFile)"
