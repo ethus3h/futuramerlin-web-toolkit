@@ -129,7 +129,6 @@ convertBookFile() (
         fi
         [[ $depth -ge 0 ]] && adjustedDepth=$((depth + depthOffset))
         echo "Processing page $in at depth $adjustedDepth"
-        # Depth: -1 promotes all the headings by a level, so a 
         if [[ "$depth" == "-2" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
         elif [[ "$depth" == "-3" ]]; then
