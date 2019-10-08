@@ -128,7 +128,7 @@ convertBookFile() (
             # Comment
             continue
         fi
-        [[ $depth -ge 0 ]] && adjustedDepth=$(( depth + depthOffset + 1 ))
+        [[ $depth -ge -1 ]] && adjustedDepth=$(( depth + depthOffset + ))
         echo "Processing page $in at depth $adjustedDepth"
         if [[ "$depth" == "-2" ]]; then
             [[ -e "$in.$target" ]] && cat "$in.$target" >> "$out"
@@ -234,7 +234,7 @@ for (( i=0; i<targetCount; i++ )); do
     if contains "$target" "${nativeTargets[@]}"; then
         touch "$out"
         if contains "$target" "${nativeHTMTargets[@]}"; then
-            convertBookFile "0" "$bookConf" "$target" "$out" "." "$outputDir"
+            convertBookFile "-1" "$bookConf" "$target" "$out" "." "$outputDir"
         fi
         ereplaceRegEx '\0' '' "$out"
     else
