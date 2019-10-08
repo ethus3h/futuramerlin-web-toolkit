@@ -181,8 +181,8 @@ convertBookFile() (
                 cp "$in" "$tempFile"
                 # If the depth is -1, remove second-level heading
                 [[ "-1" == "$depth" ]] && ereplaceRegEx '<h2>(((?!<\/h2>)[\S\s])*)<\/h2>' '' "$tempFile"
-                head "$tempFile"
-                die
+                [[ "-1" == "$depth" ]] && head "$tempFile"
+                [[ "-1" == "$depth" ]] && die
                 pageDirEscaped="${pageDir//\//\\\/}"
                 perl -0777 -p -i -e '
                     s/<\/p>/\0/;
