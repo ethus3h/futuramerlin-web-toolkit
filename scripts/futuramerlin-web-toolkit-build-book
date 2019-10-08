@@ -103,11 +103,11 @@ convertBookFile() (
     mkdir -p "$outputDir/assets"
     # Make sure the file is readable, since the loop failing apparently won't be trapped
     cat "$bookConf" > /dev/null || die "Could not read bookConf file $bookConf in $(pwd)"
+    bookTitle="$bookName"
     if [[ "plain.html" == "$target" ]]; then
         firstPageLine="$(head -n 1 "$bookConf")"
         firstPageLine="$(normalizeWhitespace "$firstPageLine")"
         firstPageLineDepth="${firstPageLine/ *}"
-        bookTitle="$bookName"
         if [[ "-4" == "$firstPageLineDepth" ]]; then
             bookTitle="${firstPageLine#* }"
         else
@@ -139,7 +139,8 @@ convertBookFile() (
             cat "$tempFile" >> "$out"
         elif [[ "$depth" == "-4" ]]; then
             # Book title
-            true
+            bookTtileDethp
+            echo "<h$depthOffset>$bookTitle</h$depthOffset>" >> "$out"
         else
             includeSubBook="false"
             if [[ -z "${in/*\/}" ]]; then
