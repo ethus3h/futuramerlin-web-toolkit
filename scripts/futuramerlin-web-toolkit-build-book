@@ -180,7 +180,7 @@ convertBookFile() (
                 echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
                 cp "$in" "$tempFile"
                 # If the depth is -1, remove second-level heading
-                ereplaceRegEx '<h2>(((?!<\/h2>)[\S\s])*)<\/h2>' '' "$tempFile"
+                [[ "-1" == "$depth" ]] && ereplaceRegEx '<h2>(((?!<\/h2>)[\S\s])*)<\/h2>' '' "$tempFile"
                 head "$tempFile"
                 die
                 pageDirEscaped="${pageDir//\//\\\/}"
