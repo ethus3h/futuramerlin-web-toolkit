@@ -113,7 +113,8 @@ convertBookFile() (
         else
             warn "Book title not manually set for $bookConf; using default. To set a book title, make the first line of your book configuration file the desired title, with depth -4 "'(e.g. "-4 Your Title").'
         fi
-        echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <link href="/simple.css" rel="stylesheet" type="text/css"> <meta content="Ember" name="author"> <meta content="width=device-width,height=device-height,user-scalable=yes" name="viewport"> <title>'"$bookTitle"'</title> </head> <body> <main>' >> "$out"
+        # Don't include the HTML header if this is a sub-book
+        [[ "0" == "$depthOffset" ]] && echo '<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <link href="/simple.css" rel="stylesheet" type="text/css"> <meta content="Ember" name="author"> <meta content="width=device-width,height=device-height,user-scalable=yes" name="viewport"> <title>'"$bookTitle"'</title> </head> <body> <main>' >> "$out"
     fi
     while IFS= read -r currentPageLine; do
         currentPageLine="$(normalizeWhitespace "$currentPageLine")"
