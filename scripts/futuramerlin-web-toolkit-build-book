@@ -167,22 +167,23 @@ convertBookFile() (
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
                 tempFile="$(tempFile)"
                 cp "$in" "$tempFile"
-                # Extract the title. Based on futuramerlin-web-toolkit-build-page
-                perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "$tempFile"
-                perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "$tempFile"
-                ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "$tempFile"
-                ereplaceRegEx '(?i)<[^>]*>' ' ' "$tempFile"
-                ereplaceRegEx '\s+' ' ' "$tempFile"
-                ereplaceRegEx '^\s+' '' "$tempFile"
-                ereplaceRegEx '\s+$' '' "$tempFile"
-                # Got the title
-                title="$(cat "$tempFile")"
-                echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
+                if [[ "-1" == "$depth" ]]; then
+                    # If the depth is -1, remove second-level heading
+                    ereplaceRegEx '<h1>(((?!<\/h2>)[\S\s])*)<\/h1>' '' "$tempFile"
+                else
+                    # Extract the title. Based on futuramerlin-web- toolkit-build-page
+                    perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "$tempFile"
+                    perl -0777 -p -i -e 's/^\s*//;s/\s*$//;' "$tempFile"
+                    ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '\1' "$tempFile"
+                    ereplaceRegEx '(?i)<[^>]*>' ' ' "$tempFile"
+                    ereplaceRegEx '\s+' ' ' "$tempFile"
+                    ereplaceRegEx '^\s+' '' "$tempFile"
+                    ereplaceRegEx '\s+$' '' "$tempFile"
+                    # Got the title
+                    title="$(cat "$tempFile")"
+                    echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
+                fi
                 cp "$in" "$tempFile"
-                # If the depth is -1, remove second-level heading
-                [[ "-1" == "$depth" ]] && ereplaceRegEx '<h2>(((?!<\/h2>)[\S\s])*)<\/h2>' '' "$tempFile"
-                [[ "-1" == "$depth" ]] && head "$tempFile"
-                [[ "-1" == "$depth" ]] && die
                 pageDirEscaped="${pageDir//\//\\\/}"
                 perl -0777 -p -i -e '
                     s/<\/p>/\0/;
