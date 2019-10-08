@@ -189,6 +189,7 @@ convertBookFile() (
                 fi
                 pageDirEscaped="${pageDir//\//\\\/}"
                 removeBreadcrumbs="false"
+                if grep -a -o -e '<img src="[^"]*"' "$fileName" > /dev/null; then
                 # Replace first </p> tag with \0, which will be used as a delimiter to remove the breadcrumbs.
                 perl -0777 -p -i -e '
                     s/<\/p>/\0/;
