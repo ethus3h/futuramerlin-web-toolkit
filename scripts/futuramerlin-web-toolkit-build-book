@@ -183,10 +183,6 @@ convertBookFile() (
                     echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
                 fi
                 cp "$in" "$tempFile"
-                if [[ "-1" == "$depth" ]]; then
-                    # If the depth is -1, remove top-level heading
-                    ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '' "$tempFile"
-                fi
                 pageDirEscaped="${pageDir//\//\\\/}"
                 removeBreadcrumbs="false"
                 if grep -a -o -e '<p class="breadcrumbs">' "$fileName" > /dev/null; then
@@ -195,8 +191,9 @@ convertBookFile() (
                         s/<\/p>/\0/;
                         ' "$tempFile"
                     removeBreadcrumbs="true"
-                else
-                    # Just remove the heading
+                fi
+                if [[ "-1" == "$depth" ]] || [[ "false" == "$removeBreadcrumbs" ]]; then
+                    # If the depth is -1, or no breadcrumbs were found, remove top-level heading
                     ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '' "$tempFile"
                 fi
                 adjustHeadings "$adjustedDepth" "$tempFile"
