@@ -189,12 +189,16 @@ convertBookFile() (
                 fi
                 pageDirEscaped="${pageDir//\//\\\/}"
                 removeBreadcrumbs="false"
-                if grep -a -o -e '<img src="[^"]*"' "$fileName" > /dev/null; then
-                # Replace first </p> tag with \0, which will be used as a delimiter to remove the breadcrumbs.
-                perl -0777 -p -i -e '
-                    s/<\/p>/\0/;
-                    ' "$tempFile"
-                removeBreadcrumbs="true"
+                if grep -a -o -e '<p class="breadcrumbs">' "$fileName" > /dev/null; then
+                    # Replace first </p> tag with \0, which will be used as a delimiter to remove the breadcrumbs.
+                    perl -0777 -p -i -e '
+                        s/<\/p>/\0/;
+                        ' "$tempFile"
+                    removeBreadcrumbs="true"
+                else
+                    # Just remove the heading
+                    ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '' "$tempFile"
+                fi
                 adjustHeadings "$adjustedDepth" "$tempFile"
                 adjustAssets "$in" "$out" "$tempFile" "$rootPath"
                 perl -0777 -p -i -e '
