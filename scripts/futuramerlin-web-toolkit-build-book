@@ -188,11 +188,12 @@ convertBookFile() (
                     ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '' "$tempFile"
                 fi
                 pageDirEscaped="${pageDir//\//\\\/}"
+                removeBreadcrumbs="false"
                 # Replace first </p> tag with \0, which will be used as a delimiter to remove the breadcrumbs.
                 perl -0777 -p -i -e '
                     s/<\/p>/\0/;
                     ' "$tempFile"
-                nullDelimited="true"
+                removeBreadcrumbs="true"
                 adjustHeadings "$adjustedDepth" "$tempFile"
                 adjustAssets "$in" "$out" "$tempFile" "$rootPath"
                 perl -0777 -p -i -e '
@@ -210,9 +211,10 @@ convertBookFile() (
                     s/<web-omit>//g; # Content to exclude from Web site
                     s/<\/web-omit>//g;
                     ' "$tempFile"
-                if removeBRe
-                # Remove the breadcrumbs (delimited by null)
-                cut -z -d '' -f 2- "$tempFile" >> "$out"
+                if [[ "true" == "$removeBreadcrumbs" ]]; then
+                    # Remove the breadcrumbs (delimited by null)
+                    cut -z -d '' -f 2- "$tempFile" >> "$out"
+                fi
             fi
         fi
     done < "$bookConf"
