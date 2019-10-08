@@ -157,7 +157,7 @@ convertBookFile() (
             fi
             if [[ "true" == "$includeSubBook" ]]; then
                 [[ -f "$in.fmwtk-book.conf" ]] && in="$in.fmwtk-book.conf"
-                convertBookFile "$adjustedDepth" "$in" "$target" "$out" "$rootPath" "$outputDir"
+                convertBookFile $(( adjustedDepth + 1)) "$in" "$target" "$out" "$rootPath" "$outputDir"
                 if [[ "$in" != "${in/-fmwtk-book.conf}" ]]; then
                     inputSubbookBaseName="${in/-fmwtk-book.conf}"
                 else
