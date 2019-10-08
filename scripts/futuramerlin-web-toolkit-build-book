@@ -213,7 +213,7 @@ convertBookFile() (
         fi
     done < "$bookConf"
     if [[ "plain.html" == "$target" ]]; then
-        # Don't include the HTML header if this is a sub-book
+        # Don't include the HTML footer if this is a sub-book
         [[ "0" == "$depthOffset" ]] && echo '</main> </body> </html>' >> "$out"
     fi
     true
