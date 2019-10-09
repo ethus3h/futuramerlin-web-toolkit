@@ -191,10 +191,8 @@ convertBookFile() (
                         s/<\/p>/\0/;
                         ' "$tempFile"
                     removeBreadcrumbs="true"
-                    echo "Will remove breadcrumbs"
                 fi
                 if [[ "-1" == "$depth" ]] || [[ "false" == "$removeBreadcrumbs" ]]; then
-                echo "Removing heading"
                     # If the depth is -1, or no breadcrumbs were found, remove top-level heading
                     ereplaceRegEx '<h1>(((?!<\/h1>)[\S\s])*)<\/h1>' '' "$tempFile"
                 fi
@@ -218,7 +216,8 @@ convertBookFile() (
                 if [[ "true" == "$removeBreadcrumbs" ]]; then
                     # Remove the breadcrumbs (delimited by null)
                     cut -z -d '' -f 2- "$tempFile" >> "$out"
-                    echo "Removed breadcrumbs"
+                else
+                    cat "$tempFile" >> "$out"
                 fi
             fi
         fi
