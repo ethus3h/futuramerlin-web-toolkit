@@ -19,8 +19,10 @@ fi
 cp "$infile" "$outfile"
 
 perl -0777 -p -i -e '
-    s/(\n\s*)[^-] ([^\n]*)/\1<li>\2</li>/g; # ul start tags
-    s/(\n\s*)- ([^\n]*)/\1<li>\2</li>/g; # li tags
+    s/(\n\s*[^-\n]*\n)(\n\s*- )/\1<ul>\2/g; # ul start tags
+    s/(\n\s*[^#\n]*\n)(\n\s*# )/\1<ul>\2/g; # ol start tags
+    s/(\n\s*)- ([^\n]*)\n/\1<li>\2</li>\n/g; # li tags in ul
+    s/(\n\s*)# ([^\n]*)\n/\1<li>\2</li>\n/g; # li tags in ol
     ' "$outfile" || die "Substitution failed"
 perl -0777 -p -i -e '
     ' "$outfile" || die "Substitution failed"
