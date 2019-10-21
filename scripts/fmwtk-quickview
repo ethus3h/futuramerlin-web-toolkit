@@ -7,5 +7,6 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 # Usage: fmwtk-quickview [page]
 
-cd "$(dirname "$(readlink -f "$1")")"
-futuramerlin-web-toolkit-build-book "$1"
+temp="$(tempFile)"
+fmwtk-convpage "$1" "$temp"
+open "$1"
