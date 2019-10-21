@@ -9,4 +9,4 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 temp="$(tempFile)"
 fmwtk-convpage "$1" "$temp"
-open "$1"
+open "$temp"
