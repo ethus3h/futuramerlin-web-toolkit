@@ -17,9 +17,13 @@ if [[ "-" == "$outfile" ]]; then
 fi
 
 cp "$infile" "$outfile"
+
+perl -0777 -p -i -e '
+    s/(\n\s*)[^-] ([^\n])*/\1<li>\2</li>/g; # UL start and end tags
+    ' "$outfile" || die "Substitution failed"
 perl -0777 -p -i -e '
     s/\n(\s*)- ([^\n])*/\n\1<li>\2</li>/g;
-    ' "$fileName" || die "Substitution failed"
+    ' "$outfile" || die "Substitution failed"
 
 
 if [[ "true" == "$stdout" ]]; then
