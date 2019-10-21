@@ -17,6 +17,9 @@ if [[ "-" == "$outfile" ]]; then
 fi
 
 cp "$infile" "$outfile"
+            perl -0777 -p -i -e '
+                s/<img src="'"$assetNameEscaped"'"/<img src="'"assets\/$assetHash.$assetExtension"'"/g;
+                ' "$fileName" || die "Substitution failed"
 
 
 if [[ "true" == "$stdout" ]]; then
