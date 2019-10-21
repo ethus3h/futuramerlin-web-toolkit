@@ -7,6 +7,12 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 # Usage: fmwtk-quickview [page]
 
-temp="$(tempFile)"
-fmwtk-convpage "$1" "$temp"
+temp="$(tempFile).htm"
+infile="$1"
+extension="${infile//*.}"
+if [[ "ftm" == "$extension" ]]; then
+    fmwtk-convpage "$infile" "$temp"
+else
+    cp "$infile" "$temp"
+fi
 open "$temp"
