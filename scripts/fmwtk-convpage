@@ -8,8 +8,13 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 # Convert a fmwtk simple-format page to the more html-like fmwtk format
 # Usage: fmwtk-convpage [page] [output-file]
 
-temp="$(tempFile).htm"
 infile="$1"
+outfile="$2"
+stdout="false"
+if [[ "-" == "$outfile" ]]; then
+    outfile="$(tempFile)"
+    stdout="true"
+fi
 extension="${infile//*.}"
 if [[ "ftm" == "$extension" ]]; then
     fmwtk-convpage "$infile" "$temp"
@@ -17,3 +22,6 @@ else
     cp "$infile" "$temp"
 fi
 open "$temp"
+if [[ "true" == "$stdout" ]]; then
+    cat "$outfile"
+fi
