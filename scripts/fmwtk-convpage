@@ -48,10 +48,10 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*)\@4 ([^\n]*)\n/\1<h4>\2<\/h4>\n/gm;
         s/^(\s*)\@5 ([^\n]*)\n/\1<h5>\2<\/h5>\n/gm;
         s/^(\s*)\@6 ([^\n]*)\n/\1<h6>\2<\/h6>\n/gm;
-        s/^(\s*[^-\n]*\n)(\s*- )/\1\n<ul>\2/gm; # ul start tags
-        s/^(\s*[^#\n]*\n)(\s*# )/\1\n<ol>\2/gm; # ol start tags
-        s/^(\s*- [^\n]*\n)(\s*[^-][^ ][^\n]*\n)/\1\2<\/ul>\n/gm; # ul end tags
-        s/^(\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
+        #s/^(\s*[^-\n]*\n)(\s*- )/\1\n<ul>\2/gm; # ul start tags
+        #s/^(\s*[^#\n]*\n)(\s*# )/\1\n<ol>\2/gm; # ol start tags
+        #s/^(\s*- [^\n]*\n)(\s*[^-][^ ][^\n]*\n)/\1\2<\/ul>\n/gm; # ul end tags
+        #s/^(\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
         s/^(\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ol
         s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
