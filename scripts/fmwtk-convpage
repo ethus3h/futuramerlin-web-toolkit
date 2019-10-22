@@ -28,22 +28,22 @@ if [[ "ftm" == "$extension" ]]; then
     prevLineWithoutSpaces=""
     prevLineSpacesCount="0"
     { while IFS= read -r thisLine; do
-        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
-        thisLineWithoutSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\2/g' 2>/dev/null <<< "$thisLine")"
+        thisLineSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
+        thisLineWithoutSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\2/g' 2>/dev/null <<< "$thisLine")"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "$prevLineWithoutSpaces" =~ ^(-|\#)\  ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
-                processed="$(perl -p -i -e '
+                processed="$(perl -0777 -p -i -e '
                     s/^('"$thisLineSpaces"')- ([^\n]*)/<ul>\n\1<li>\2/m; # ul start tags
                     s/^('"$thisLineSpaces"')# ([^\n]*)/<ol>\n\1<li>\2/m; # ol start tags
                 ' 2>/dev/null <<<" $prevLine"$'\n'"$thisLine")"
                 echo "Input:$prevLine"$'\n'"$thisLine:Processed:$processed:PLS:$prevLineSpaces:TLS:$thisLineSpaces:"
             else
                 # It has fewer spaces, so it could be a list end
-                processed="$(perl -p -i -e '
+                processed="$(perl -0777 -p -i -e '
                     s/^('"$prevLineSpaces"'- [^\n]*\n)('"$thisLineSpaces"'[^-][^ ][^\n]*\n)/\1\2<\/ul>\n/gm; # ul end tags
                     s/^('"$prevLineSpaces"'# [^\n]*\n)('"$thisLineSpaces"'[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
                 ' <<< "$prevLine"$'\n'"$thisLine")"
