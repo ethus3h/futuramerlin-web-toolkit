@@ -25,7 +25,8 @@ fi
 if [[ "ftm" == "$extension" ]]; then
     { while IFS= read -r thisLine; do
         prevLine="$thisLine"
-        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/gm' <<< "$thisLine")"
+        prevLineSpaces="$thisLineSpaces"
+        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' <<< "$thisLine")"
         echo "$thisLineSpaces" | wc -c
 #        if [[ $currentPageLine]]
  #       perl -p -i -e 
