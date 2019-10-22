@@ -8,16 +8,18 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 shopt -s extglob
 set +H
 
+infile="$1"
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$4"
-extension="${1//*.}"
+extension="${infile//*.}"
 if [[ "ftm" == "$1" ]]; then
-    PageA="${1/%\/index\.ftm}"
+    PageA="${infile/%\/index\.ftm}"
     PageB="${PageA/%\.ftm}"
 else
-    PageA="${1/%\/index\.htm}"
+    PageA="${infile/%\/index\.htm}"
     PageB="${PageA/%\.htm}"
+    outfile="../../built/$1"
 fi
 Page="$(basename "$PageB")";
 echo "Working on page: $Page"
