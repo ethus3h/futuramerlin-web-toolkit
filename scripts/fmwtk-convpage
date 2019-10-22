@@ -46,7 +46,7 @@ if [[ "ftm" == "$extension" ]]; then
                 processed="$(perl -0777 -p -i -e '
                     s/^('"$thisLineSpaces"')- ([^\n]*)/\n\1<\/ul>\2/m; # ul start tags
                     s/^('"$thisLineSpaces"')# ([^\n]*)/\n\1<\/ul>\2/m; # ol start tags
-                ' <<< "$prevLine"$'\n'"$thisLine")"
+                ' <<< "$thisLine")"
             fi
             if [[ "$processed" =~ ^\<(u|o)l\> ]] || [[ "$processed" =~ \<\/(u|o)l\>$ ]]; then
                 echo "$processed"
