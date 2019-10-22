@@ -31,6 +31,8 @@ if [[ "ftm" == "$extension" ]]; then
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
+            if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]]; then
+                
             processed="$(perl -p -i -e '
                 s/^'"$prevLineSpaces"'[^-\n]*\n('"$thisLineSpaces"'- )/<ul>\2/gm; # ul start tags
                 s/^'"$prevLineSpaces"'[^#\n]*\n('"$thisLineSpaces"'# )/<ol>\2/gm; # ol start tags
