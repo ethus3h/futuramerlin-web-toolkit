@@ -25,7 +25,7 @@ fi
 if [[ "ftm" == "$extension" ]]; then
     { while IFS= read -r thisLine; do
         prevLine="$thisLine"
-        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' <<< "$thisLine")"
+        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' <<< "$thisLine")" 2>/dev/null
         prevLineSpaces="$thisLineSpaces"
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
