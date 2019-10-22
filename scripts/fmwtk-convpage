@@ -5,8 +5,8 @@ source ember_bash_setup &> /dev/null || { printf '%b' '\033[1;31m' >&2; echo "A 
 
 trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(pwd) at $(emdate)."' ERR
 
-# Convert a fmwtk simple-format page to the more html-like fmwtk format
-# Usage: fmwtk-convpage [page] [output-file]
+# Convert a fmwtk simple-format page (*.ftm) to the more html-like fmwtk format
+# Usage: fmwtk-convpage [page].ftm [output-file]
 
 infile="$1"
 outfile="$2"
