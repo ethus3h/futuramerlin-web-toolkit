@@ -19,7 +19,7 @@ if [[ "ftm" == "$1" ]]; then
     PageB="${PageA/%\.ftm}"
     outfile="${outfile/%.ftm/.htm}"
     temp="$(tempFile)"
-    cp "$infile" "$temp"
+    fmwtk-convpage "$infile" "$temp"
     infile="$temp"
 else
     PageA="${infile/%\/index\.htm}"
