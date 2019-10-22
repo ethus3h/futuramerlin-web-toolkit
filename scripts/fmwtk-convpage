@@ -25,11 +25,8 @@ perl -0777 -p -i -e '
     s/(\n\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1<\/ul>\n\2/g; # ol end tags
     s/(\n\s*)- ([^\n]*)\n/\1<li>\2</li>\n/g; # li tags in ul
     s/(\n\s*)# ([^\n]*)\n/\1<li>\2</li>\n/g; # li tags in ol
-    s/^(\s*)([^<])$/\1<p>\2</p>/g; # li tags in ol
+    s/^(\s*)([^<])$/\1<p>\2</p>/g; # paragraph tags
     ' "$outfile" || die "Substitution failed"
-perl -0777 -p -i -e '
-    ' "$outfile" || die "Substitution failed"
-
 
 if [[ "true" == "$stdout" ]]; then
     cat "$outfile"
