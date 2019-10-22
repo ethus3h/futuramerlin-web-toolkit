@@ -29,8 +29,8 @@ if [[ "ftm" == "$extension" ]]; then
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
             perl -p -i -e '
-                s/^(\s*[^-\n]*\n)(\s*- )/\1\n<ul>\2/gm; # ul start tags
-                s/^(\s*[^#\n]*\n)(\s*# )/\1\n<ol>\2/gm; # ol start tags
+                s/^('"$prevLineSpaces"'[^-\n]*\n)('"$thisLineSpaces"'- )/\1\n<ul>\2/gm; # ul start tags
+                s/^('"$prevLineSpaces"'[^#\n]*\n)('"$thisLineSpaces"'# )/\1\n<ol>\2/gm; # ol start tags
                 s/^(\s*- [^\n]*\n)(\s*[^-][^ ][^\n]*\n)/\1\2<\/ul>\n/gm; # ul end tags
                 s/^(\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
             ' <<< "$prevLine"$'\n'"$thisLine"
