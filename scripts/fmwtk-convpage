@@ -25,10 +25,10 @@ cp "$infile" "$outfile"
 
 if [[ "ftm" == "$extension" ]]; then
     perl -0777 -p -i -e '
-        s/(\n\s*[^-\n]*\n)(\s*- )/\1<ul>\n\2/g; # ul start tags
-        s/(\n\s*[^#\n]*\n)(\s*# )/\1<ul>\n\2/g; # ol start tags
-        s/(\n\s*- [^\n]*)(\n\s*[^-][^ ][^\n]*\n)/\1<\/ul>\n\2/g; # ul end tags
-        s/(\n\s*# [^\n]*)(\n\s*[^#][^ ][^\n]*\n)/\1<\/ol>\n\2/g; # ol end tags
+        s/(\n\s*[^-\n]*\n)(\s*- )/\1\n<ul>\2/g; # ul start tags
+        s/(\n\s*[^#\n]*\n)(\s*# )/\1\n<ul>\2/g; # ol start tags
+        s/(\n\s*- [^\n]*\n)(\s*[^-][^ ][^\n]*\n)/\1\n<\/ul>\2/g; # ul end tags
+        s/(\n\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\n<\/ol>\2/g; # ol end tags
         s/(\n\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/g; # li tags in ul
         s/(\n\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/g; # li tags in ol
         s/^(\s*)([^<])$/\1<p>\2<\/p>/g; # paragraph tags
