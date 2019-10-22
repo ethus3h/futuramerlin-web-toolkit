@@ -24,9 +24,8 @@ fi
 
 if [[ "ftm" == "$extension" ]]; then
     { while IFS= read -r thisLine; do
-        prevLine="$thisLine"
-        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         prevLineSpaces="$thisLineSpaces"
+        thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
             perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' <<< "$prevLine"$'\n'"$thisLine"
@@ -35,6 +34,7 @@ if [[ "ftm" == "$extension" ]]; then
 #        if [[ $currentPageLine]]
  #       perl -p -i -e 
         echo "$thisLine"
+        prevLine="$thisLine"
     done < "$infile"; } > "$outfile"
     perl -0777 -p -i -e '
         s/^(\s*)\@1 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
