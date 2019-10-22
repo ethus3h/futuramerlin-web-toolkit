@@ -33,7 +33,7 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ol
         s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
-        s/^(\s*[^@\n]*\n)(\s*@1 )/\1\n<ol>\2/gm; # ol start tags
+        s/^(\s*[^@\n]*\n)(\s*@1 [^\n]*\n)/\1\n<ol>\2/gm; # ol start tags
         s/^(\s*[^@\n]*\n)(\s*@2 )/\1\n<ol>\2/gm; # ol start tags
         s/^(\s*[^@\n]*\n)(\s*@3 )/\1\n<ol>\2/gm; # ol start tags
         s/^(\s*[^@\n]*\n)(\s*@4 )/\1\n<ol>\2/gm; # ol start tags
