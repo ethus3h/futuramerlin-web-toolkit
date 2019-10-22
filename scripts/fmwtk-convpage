@@ -25,7 +25,9 @@ fi
 if [[ "ftm" == "$extension" ]]; then
     { while IFS= read -r currentPageLine; do
         prevLine="$currentPageLine"
-        perl -p -i -e 's/
+        thisLineSpaces="$(perl -p -i -e <<< $currentPageLine)"
+        if [[ $currentPageLine]]
+        perl -p -i -e 
         echo "$currentPageLine"
     done < "$infile"; } > "$outfile"
     perl -0777 -p -i -e '
