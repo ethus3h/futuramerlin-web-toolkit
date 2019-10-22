@@ -11,9 +11,14 @@ set +H
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$4"
-extension=
+extension="${1//*.}"
+if [[ "ftm" == "$1" ]]; then
 PageA="${1/%\/index\.htm}"
 PageB="${PageA/%\.htm}"
+else
+PageA="${1/%\/index\.htm}"
+PageB="${PageA/%\.htm}"
+fi
 Page="$(basename "$PageB")";
 echo "Working on page: $Page"
 rm -rf "../../built/$1"
