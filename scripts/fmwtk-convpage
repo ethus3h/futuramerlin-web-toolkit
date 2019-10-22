@@ -35,7 +35,7 @@ if [[ "ftm" == "$extension" ]]; then
                 s/^(\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
             ' <<< "$prevLine"$'\n'"$thisLine"
         fi
-        echo "$thisLineSpaces" | wc -c
+#        echo "$thisLineSpaces" | wc -c
 #        if [[ $currentPageLine]]
  #       perl -p -i -e 
         echo "$thisLine"
