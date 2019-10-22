@@ -151,7 +151,7 @@ convertBookFile() (
                 # Likewise for an empty string
                 [[ "/index" == "$in" ]] && in=".$in"
             else
-                if [[ -f "$in.fmwtk-book.conf" ]] || { [[ -f "$in" ]] && [[ ! -f "$in.htm" ]]; }; then
+                if [[ -f "$in.fmwtk-book.conf" ]] || { [[ -f "$in" ]] && [[ ! -f "$in.htm" ]] && [[ ! -f "$in.ftm" ]]; }; then
                     includeSubBook="true"
                 fi
             fi
@@ -166,6 +166,11 @@ convertBookFile() (
                 [[ -d "$inputSubbookBaseName.fmwtk-book/assets" ]] && find "$inputSubbookBaseName.fmwtk-book/assets/" -type f -exec mv {} "$outputDir/assets/" \;
             else
                 in="$in.htm"
+                isFtmPage="false"
+                if [[ -f "$in.ftm" ]]; then
+                    in="$in.ftm"
+                    isFtmPage="true"
+                fi
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
                 tempFile="$(tempFile)"
                 cp "$in" "$tempFile"
