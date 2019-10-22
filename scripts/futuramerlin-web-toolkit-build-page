@@ -13,11 +13,11 @@ futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$4"
 extension="${1//*.}"
 if [[ "ftm" == "$1" ]]; then
-PageA="${1/%\/index\.htm}"
-PageB="${PageA/%\.htm}"
+    PageA="${1/%\/index\.ftm}"
+    PageB="${PageA/%\.ftm}"
 else
-PageA="${1/%\/index\.htm}"
-PageB="${PageA/%\.htm}"
+    PageA="${1/%\/index\.htm}"
+    PageB="${PageA/%\.htm}"
 fi
 Page="$(basename "$PageB")";
 echo "Working on page: $Page"
