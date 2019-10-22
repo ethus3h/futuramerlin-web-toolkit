@@ -16,7 +16,8 @@ extension="${infile//*.}"
 if [[ "-" == "$outfile" ]]; then
     outfile="$(tempFile)"
     stdout="true"
-fi
+elif [[ -z "$outfile" ]]; then
+    outfile
 
 cp "$infile" "$outfile"
 
