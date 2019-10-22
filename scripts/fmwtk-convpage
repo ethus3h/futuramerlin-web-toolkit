@@ -27,7 +27,7 @@ cp "$infile" "$outfile"
 if [[ "ftm" == "$extension" ]]; then
     { while IFS= read -r currentPageLine; do
         prevLine="$currentPageLine"
-        
+        echo "$currentPageLine"
     done < "$infile"; } > "$outfile"
     perl -0777 -p -i -e '
         s/^(\s*)\@1 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
