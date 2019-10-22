@@ -24,7 +24,8 @@ fi
 
 if [[ "ftm" == "$extension" ]]; then
     prevLineSpaces=""
-    prevLineSpacesCount=""
+    prevLineWithoutSpaces=""
+    prevLineSpacesCount="0"
     { while IFS= read -r thisLine; do
         thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         thisLineWithoutSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\2/g' 2>/dev/null <<< "$thisLine")"
@@ -58,6 +59,7 @@ if [[ "ftm" == "$extension" ]]; then
         echo "$thisLine"
         prevLine="$thisLine"
         prevLineSpaces="$thisLineSpaces"
+        prevLineWithoutSpaces="$thisLineWithoutSpaces"
         prevLineSpacesCount="$thisLineSpacesCount"
     done < "$infile"; } > "$outfile"
 #     perl -0777 -p -i -e '
