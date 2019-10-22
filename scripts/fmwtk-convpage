@@ -13,11 +13,13 @@ outfile="$2"
 stdout="false"
 extension="${infile//*.}"
 
+if [[ -z "$outfile" ]]; then
+    outfile="-"
+fi
 if [[ "-" == "$outfile" ]]; then
     outfile="$(tempFile)"
     stdout="true"
-elif [[ -z "$outfile" ]]; then
-    outfile
+fi
 
 cp "$infile" "$outfile"
 
