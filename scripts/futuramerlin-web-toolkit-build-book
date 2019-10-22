@@ -218,9 +218,9 @@ convertBookFile() (
                     s/<idx>//g; # Index entry
                     s/<\/idx>//g;
                     s/<idx-hidden>([^<]+)<\/idx-hidden>//g; # Hidden index entry
-                    s/<book-omit>(((?!<\/book-omit>)[\S\s])*)<\/book-omit>//g; # Content to exclude from book
-                    s/<web-omit>//g; # Content to exclude from Web site
-                    s/<\/web-omit>//g;
+                    s/<web>(((?!<\/web>)[\S\s])*)<\/web>//g; # Content to exclude from book
+                    s/<book>//g; # Content to exclude from Web site
+                    s/<\/book>//g;
                     ' "$tempFile"
                 if [[ "true" == "$removeBreadcrumbs" ]]; then
                     # Remove the breadcrumbs (delimited by null)

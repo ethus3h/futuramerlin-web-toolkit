@@ -80,9 +80,9 @@ ereplaceRegEx 'nav-item-inactive [^\"]+' 'nav-item-inactive' "$outfile"
 perl -0777 -p -i -e 's/<idx>//g; # Index entry
                     s/<\/idx>//g;
                     s/<idx-hidden>([^<]+)<\/idx-hidden>//g; # Hidden index entry
-                    s/<book-omit>//g; # Content to exclude from book
-                    s/<\/book-omit>//g;
-                    s/<web-omit>(((?!<\/web-omit>)[\S\s])*)<\/book-omit>//g; # Content to exclude from Web site
+                    s/<web>//g; # Content to exclude from book
+                    s/<\/web>//g;
+                    s/<book>(((?!<\/book>)[\S\s])*)<\/book>//g; # Content to exclude from Web site
                     ' "$tempFile"
 shopt -u extglob
 ereplaceRegEx 'href="(..\/)?..\/(.\/)*\/' 'href="\/' "$outfile"
