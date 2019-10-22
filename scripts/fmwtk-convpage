@@ -29,9 +29,10 @@ if [[ "ftm" == "$extension" ]]; then
         thisLineSpaces="$(perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
+        prevLineWithoutLeadingSpaces="${}"
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
-            if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]]; then
+            if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[  ]]; then
                 # This line has more spaces, so it could be a list beginning
                 processed="$(perl -p -i -e '
                     s/^('"$thisLineSpaces"')- ([^\n]*)/<ul>\n\1<li>\2/m; # ul start tags
