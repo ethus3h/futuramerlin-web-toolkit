@@ -33,12 +33,12 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ol
         s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
-        s/^(\s*)@1 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # ol start tags
-        s/^(\s*)@2 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # ol start tags
-        s/^(\s*)@3 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # ol start tags
-        s/^(\s*)@4 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # ol start tags
-        s/^(\s*)@5 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # ol start tags
-        s/^(\s*)@6 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # ol start tags
+        s/^(\s*)@1 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
+        s/^(\s*)@2 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm;
+        s/^(\s*)@3 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm;
+        s/^(\s*)@4 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm;
+        s/^(\s*)@5 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm;
+        s/^(\s*)@6 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm;
         ' "$outfile" || die "Substitution failed"
 fi
 
