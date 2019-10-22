@@ -36,8 +36,8 @@ if [[ "ftm" == "$extension" ]]; then
                 processed="$(perl -p -i -e '
                     s/'"$prevLineSpaces"'[^-\n]*\n('"$thisLineSpaces"'- )/<ul>\2/gm; # ul start tags
                     s/'"$prevLineSpaces"'[^#\n]*\n('"$thisLineSpaces"'# )/<ol>\2/gm; # ol start tags
-                ' <<< "$prevLine"$'\n'"$thisLine")"
-                echo "$processed"
+                ' <<<" $prevLine"$'\n'"$thisLine")"
+                echo "$processed ABA "$prevLine"$'\n'"$thisLine""
             else
                 # It has fewer spaces, so it could be a list end
                 processed="$(perl -p -i -e '
