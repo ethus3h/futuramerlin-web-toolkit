@@ -18,11 +18,14 @@ if [[ "ftm" == "$1" ]]; then
     PageA="${infile/%\/index\.ftm}"
     PageB="${PageA/%\.ftm}"
     outfile="${outfile/%.ftm/.htm}"
+    temp="$(tempFile)"
+    cp "$infile" "$temp"
+    infile="$temp"
 else
     PageA="${infile/%\/index\.htm}"
     PageB="${PageA/%\.htm}"
 fi
-Page="$(basename "$PageB")";
+Page="$(basename "$PageB")"
 echo "Working on page: $Page"
 rm -rf "$outfile"
 mkdir -p "$outfile"
