@@ -13,13 +13,14 @@ futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$4"
 extension="${infile//*.}"
+outfile="../../built/$1"
 if [[ "ftm" == "$1" ]]; then
     PageA="${infile/%\/index\.ftm}"
     PageB="${PageA/%\.ftm}"
+    outfile="${outfile/%.ftm/.htm}"
 else
     PageA="${infile/%\/index\.htm}"
     PageB="${PageA/%\.htm}"
-    outfile="../../built/$1"
 fi
 Page="$(basename "$PageB")";
 echo "Working on page: $Page"
