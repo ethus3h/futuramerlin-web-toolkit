@@ -42,7 +42,7 @@ if [[ "ftm" == "$extension" ]]; then
                 ' 2>/dev/null <<< "$thisLine")"
                 echo "Input:$thisLine:Processed:$processed:PLS:$prevLineSpaces:TLS:$thisLineSpaces:"
             else
-                # It has fewer spaces, so it could be a list end
+                # It has fewer spaces, or the previous line was a list item, so it could be a list end
                 processed="$(perl -0777 -p -i -e '
                     s/^('"$prevLineSpaces"'- [^\n]*\n)('"$thisLineSpaces"'[^-][^ ][^\n]*\n)/\1\2<\/ul>\n/gm; # ul end tags
                     s/^('"$prevLineSpaces"'# [^\n]*\n)('"$thisLineSpaces"'[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
