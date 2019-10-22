@@ -30,6 +30,7 @@ if [[ "ftm" == "$extension" ]]; then
         if [[ "$prevLineSpaces" != "$thisLineSpaces" ]]; then
             # Indentation has changed, so it is possibly a beginning or end of list
             perl -p -i -e 's/^(\s*)([^\s].*)$/\1/g' <<< "$prevLine"$'\n'"$thisLine"
+        fi
         echo "$thisLineSpaces" | wc -c
 #        if [[ $currentPageLine]]
  #       perl -p -i -e 
