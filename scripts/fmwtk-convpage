@@ -31,7 +31,7 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/gm; # ol end tags
         s/^(\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ol
-        s/^(\s*)([^<][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
+        s/^(\s*)([^<\n][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
         ' "$outfile" || die "Substitution failed"
 fi
 
