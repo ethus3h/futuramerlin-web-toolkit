@@ -26,7 +26,7 @@ cp "$infile" "$outfile"
 if [[ "ftm" == "$extension" ]]; then
     perl -0777 -p -i -e '
         s/(\n\s*[^-\n]*\n)(\s*- )/\1\n<ul>\2/g; # ul start tags
-        s/(\n\s*[^#\n]*\n)(\s*# )/\1\n<ul>\2/g; # ol start tags
+        s/(\n\s*[^#\n]*\n)(\s*# )/\1\n<ol>\2/g; # ol start tags
         s/(\n\s*- [^\n]*\n)(\s*[^-][^ ][^\n]*\n)/\1\2<\/ul>\n/g; # ul end tags
         s/(\n\s*# [^\n]*\n)(\s*[^#][^ ][^\n]*\n)/\1\2<\/ol>\n/g; # ol end tags
         s/(\n\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/g; # li tags in ul
