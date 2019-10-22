@@ -23,6 +23,7 @@ if [[ "-" == "$outfile" ]]; then
 fi
 
 if [[ "ftm" == "$extension" ]]; then
+    prevLine=""
     prevLineSpaces=""
     prevLineWithoutSpaces=""
     prevLineSpacesCount="0"
