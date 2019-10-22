@@ -11,6 +11,7 @@ set +H
 futuramerlinWebToolkitVersion="$2"
 futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$4"
+extension=
 PageA="${1/%\/index\.htm}"
 PageB="${PageA/%\.htm}"
 Page="$(basename "$PageB")";

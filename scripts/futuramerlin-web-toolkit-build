@@ -114,7 +114,7 @@ echo "Environment ready; building site..."
                         traversedirectory "$i"
                     fi
                 else
-                    if [[ "$i" =~ \.htm$ ]]; then
+                    if [[ "$i" =~ \.htm$ ]] || [[ "$i" =~ \.ftm$ ]]; then
                         echo "Building page: $i"
                         ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName"
                     else
