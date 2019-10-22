@@ -34,8 +34,8 @@ if [[ "ftm" == "$extension" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]]; then
                 # This line has more spaces, so it could be a list beginning
                 processed="$(perl -p -i -e '
-                    s/'"$prevLineSpaces"'[^-\n]*\n('"$thisLineSpaces"'- )/<ul>\2/m; # ul start tags
-                    s/'"$prevLineSpaces"'[^#\n]*\n('"$thisLineSpaces"'# )/<ol>\2/m; # ol start tags
+                    s/^'"$prevLineSpaces"'[^-\n]*\n('"$thisLineSpaces"'- )/<ul>\2/m; # ul start tags
+                    s/^'"$prevLineSpaces"'[^#\n]*\n('"$thisLineSpaces"'# )/<ol>\2/m; # ol start tags
                 ' <<<" $prevLine"$'\n'"$thisLine")"
                 echo "UBU $processed ABA $prevLine"$'\n'"$thisLine OBO"
             else
