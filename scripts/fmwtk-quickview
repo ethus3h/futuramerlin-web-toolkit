@@ -10,10 +10,6 @@ trap 'die "A fatal error was reported on ${BASH_SOURCE[0]} line ${LINENO} in $(p
 
 temp="$(tempFile).htm"
 infile="$1"
-extension="${infile//*.}"
-if [[ "ftm" == "$extension" ]]; then
-    fmwtk-convpage "$infile" "$temp"
-else
-    cp "$infile" "$temp"
-fi
+fmwtk-convpage "$infile" "$temp"
+
 open "$temp"
