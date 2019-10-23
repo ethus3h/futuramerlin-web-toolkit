@@ -65,8 +65,8 @@ if [[ "ftm" == "$extension" ]]; then
         prevLineSpacesCount="$thisLineSpacesCount"
     done < "$outfile"; } | sponge "$outfile"
     perl -0777 -p -i -e '
-        s/^(\s*)<book>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<book>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags
-        s/^(\s*)<book>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<book>/gm;
+        s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags
+        s/^(\s*)<web>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<book>/gm;
         s/^(\s*)\@1 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
         s/^(\s*)\@2 ([^\n]*)\n/\1<h2>\2<\/h2>\n/gm;
         s/^(\s*)\@3 ([^\n]*)\n/\1<h3>\2<\/h3>\n/gm;
