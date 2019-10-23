@@ -58,6 +58,7 @@ if [[ "ftm" == "$extension" ]]; then
         prevLine="$thisLine"
         prevLineSpaces="$thisLineSpaces"
         prevLineWithoutSpaces="$thisLineWithoutSpaces"
+        prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
     done < "$outfile"; } | sponge "$outfile"
 #     perl -0777 -p -i -e '
