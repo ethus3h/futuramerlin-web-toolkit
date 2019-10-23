@@ -54,13 +54,13 @@ if [[ "ftm" == "$extension" ]]; then
             # FIXME: The indentation is wrong for this case and corresponding ol list end case
             # The previous line was a ul list item, so it could be a list end (but is not ending within a list)
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\1\2/gm; # ul end tags
+                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\n\1\2/gm; # ul end tags
             ' 2>/dev/null <<< "$thisLine")"
             [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix indentation
         else
             # The previous line was a ol list item, so it could be a list end (but is not ending within a list)
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\1\2/gm; # ol end tags
+                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\n\1\2/gm; # ol end tags
             ' 2>/dev/null <<< "$thisLine")"
             [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix indentation
         fi
