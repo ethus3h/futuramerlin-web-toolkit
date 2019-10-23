@@ -46,8 +46,8 @@ if [[ "ftm" == "$extension" ]]; then
         elif [[ "$prevLineSpacesCount" -gt "$thisLineSpacesCount" ]]; then
             # It has fewer spaces, so it could be a list end
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')- ([^\n]*)/\1    <\/ul></li>\n\1    <li>\2<\/li>/m; # ul end tags in list
-                s/^('"$thisLineSpaces"')# ([^\n]*)/\1    <\/ol></li>\n\1    <li>\2<\/li>/m; # ol end tags in list
+                s/^('"$thisLineSpaces"')- ([^\n]*)/\1    <\/ul><\/li>\n\1    <li>\2<\/li>/m; # ul end tags in list
+                s/^('"$thisLineSpaces"')# ([^\n]*)/\1    <\/ol><\/li>\n\1    <li>\2<\/li>/m; # ol end tags in list
             ' 2>/dev/null <<< "$thisLine")"
         elif [[ "ul" == "$prevLineIsListItem" ]]; then
             # The previous line was a ul list item, so it could be a list end (but is not ending within a list)
