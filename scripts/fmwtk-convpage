@@ -25,6 +25,7 @@ fi
 cp "$infile" "$outfile"
 
 if [[ "ftm" == "$extension" ]]; then
+    echo >> "$outfile"
     prevLine=""
     prevLineSpaces=""
     prevLineWithoutSpaces=""
