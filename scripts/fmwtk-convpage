@@ -79,6 +79,7 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*)- ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ol
         s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
+        s/^(\s*):9c43104e-3625-4bba-8ba9-0ade025bd2ff</\1</g; # remove book/web tag marker
         ' "$outfile" || die "Substitution failed"
 fi
 
