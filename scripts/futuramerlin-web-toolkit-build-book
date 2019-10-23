@@ -167,6 +167,7 @@ convertBookFile() (
             else
                 isFtmPage="false"
                 if [[ -f "$in.ftm" ]]; then
+                    set -x
                     in="$in.ftm"
                     isFtmPage="true"
                 else
