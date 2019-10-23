@@ -65,7 +65,7 @@ if [[ "ftm" == "$extension" ]]; then
             [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix indentation
         fi
         echo "$processed"
-        [[  ]]
+        [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix indentation
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
     done < "$outfile"; } | sponge "$outfile"
