@@ -46,7 +46,7 @@ if [[ "ftm" == "$extension" ]]; then
                 s/^('"$thisLineSpaces"')[^#][^ ]([^\n]*)/\n\1<\/ul>\2/m; # ol start tags
             ' 2>/dev/null <<< "$thisLine")"
         fi
-        echo "$processed"
+        echo ":$processed:"
 #        echo "$thisLineSpaces" | wc -c
 #        if [[ $currentPageLine]]
  #       perl -p -i -e 
