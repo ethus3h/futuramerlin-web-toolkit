@@ -35,7 +35,8 @@ if [[ "ftm" == "$extension" ]]; then
         thisLineSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         thisLineWithoutSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\2/g' 2>/dev/null <<< "$thisLine")"
         thisLineIsListItem="false"
-        [[ "$thisLineWithoutSpaces" =~ ^(-|\#)\  ]] && thisLineIsListItem="true"
+        [[ "$thisLineWithoutSpaces" =~ ^-\  ]] && thisLineIsListItem="ul"
+        [[ "$thisLineWithoutSpaces" =~ ^\#\  ]] && thisLineIsListItem="ol"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
@@ -50,6 +51,12 @@ if [[ "ftm" == "$extension" ]]; then
             processed="$(perl -0777 -p -i -e '
                 s/^('"$thisLineSpaces"')- ([^\n]*)/\1    <\/ul>\n\1<li>\2<\/li>/m; # ul end tags in list
                 s/^('"$thisLineSpaces"')# ([^\n]*)/\1    <\/ol>\n\1<li>\2<\/li>/m; # ol end tags in list
+            ' 2>/dev/null <<< "$thisLine")"
+        elif [[ "$prevLineSpacesCount" -gt "$thisLineSpacesCount" ]]; then
+            # The previous line was a list item, so it could be a list end (but is not ending within a list)
+            processed="$(perl -0777 -p -i -e '
+                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\2/cgm; # ul end tags
+                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ul>\2/cgm; # ol end tags
             ' 2>/dev/null <<< "$thisLine")"
         else
             # The previous line was a list item, so it could be a list end (but is not ending within a list)
