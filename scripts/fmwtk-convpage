@@ -36,6 +36,7 @@ if [[ "ftm" == "$extension" ]]; then
         [[ "$thisLineWithoutSpaces" =~ ^\#\  ]] && thisLineIsListItem="ol"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
+        deferredNewlineNeeded="false"
         if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
             # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
             processed="$(perl -0777 -p -i -e '
@@ -55,15 +56,16 @@ if [[ "ftm" == "$extension" ]]; then
             processed="$(perl -0777 -p -i -e '
                 s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\1\2/gm; # ul end tags
             ' 2>/dev/null <<< "$thisLine")"
-            [[ "$thisLine" != "$processed" ]] && echo # to fix indentation
+            [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix indentation
         else
             # The previous line was a ol list item, so it could be a list end (but is not ending within a list)
             processed="$(perl -0777 -p -i -e '
                 s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\1\2/gm; # ol end tags
             ' 2>/dev/null <<< "$thisLine")"
-            [[ "$thisLine" != "$processed" ]] && echo # to fix indentation
+            [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix indentation
         fi
         echo "$processed"
+        [[  ]]
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
     done < "$outfile"; } | sponge "$outfile"
