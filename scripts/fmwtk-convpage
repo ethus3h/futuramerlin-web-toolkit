@@ -52,9 +52,9 @@ if [[ "ftm" == "$extension" ]]; then
                 #s/^('"$thisLineSpaces"')[^#][^ ]\n\1<\/ul>\2/m; # ol start tags
             ' 2>/dev/null <<< "$thisLine")"
         else
-            # It has fewer spaces, or the previous line was a list item, so it could be a list end
+            # The previous line was a list item, so it could be a list end (but is not ending within a list)
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\n\1<\/ul>\2/m; # ul start tags
+                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\2/m; # ul end tags
                 #s/^('"$thisLineSpaces"')[^#][^ ]\n\1<\/ul>\2/m; # ol start tags
             ' 2>/dev/null <<< "$thisLine")"
         fi
