@@ -52,12 +52,12 @@ if [[ "ftm" == "$extension" ]]; then
         elif [[ "ul" == "$prevLineIsListItem" ]]; then
             # The previous line was a ul list item, so it could be a list end (but is not ending within a list)
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>a\n\2/gm; # ul end tags
+                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\n\n\2/gm; # ul end tags
             ' 2>/dev/null <<< "$thisLine")"
         else
             # The previous line was a ol list item, so it could be a list end (but is not ending within a list)
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>a\n\2/gm; # ol end tags
+                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\n\n\2/gm; # ol end tags
             ' 2>/dev/null <<< "$thisLine")"
         fi
         echo "$processed"
