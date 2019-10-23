@@ -42,8 +42,8 @@ if [[ "ftm" == "$extension" ]]; then
         else
             # It has fewer spaces, or the previous line was a list item, so it could be a list end
             processed="$(perl -0777 -p -i -e '
-                s/('"$thisLineSpaces"')[^-][^ ]([^\n]*)/\n\1<\/ul>\2/m; # ul start tags
-                s/('"$thisLineSpaces"')[^#][^ ]([^\n]*)/\n\1<\/ul>\2/m; # ol start tags
+                s/^('"$thisLineSpaces"')[^-][^ ]([^\n]*)/\n\1<\/ul>\2/m; # ul start tags
+                s/^('"$thisLineSpaces"')[^#][^ ]([^\n]*)/\n\1<\/ul>\2/m; # ol start tags
             ' 2>/dev/null <<< "$thisLine")"
         fi
         echo "$processed"
