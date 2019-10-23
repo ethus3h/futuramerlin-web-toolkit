@@ -166,8 +166,8 @@ convertBookFile() (
                 [[ -d "$inputSubbookBaseName.fmwtk-book/assets" ]] && find "$inputSubbookBaseName.fmwtk-book/assets/" -type f -exec mv {} "$outputDir/assets/" \;
             else
                 isFtmPage="false"
-                if [[ -f "$in.ftm" ]]; then
                     set -x
+                if [[ -f "$in.ftm" ]]; then
                     in="$in.ftm"
                     isFtmPage="true"
                 else
