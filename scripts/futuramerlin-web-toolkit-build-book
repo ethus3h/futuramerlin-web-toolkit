@@ -165,11 +165,12 @@ convertBookFile() (
                 fi
                 [[ -d "$inputSubbookBaseName.fmwtk-book/assets" ]] && find "$inputSubbookBaseName.fmwtk-book/assets/" -type f -exec mv {} "$outputDir/assets/" \;
             else
-                in="$in.htm"
                 isFtmPage="false"
                 if [[ -f "$in.ftm" ]]; then
                     in="$in.ftm"
                     isFtmPage="true"
+                else
+                    in="$in.htm"
                 fi
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
                 tempFile="$(tempFile)"
