@@ -176,6 +176,7 @@ convertBookFile() (
                 htmlHeadingDepth=$((adjustedDepth + 2)) # h2 is the "0" depth
                 tempFile="$(tempFile)"
                 if [[ "true" == "$isFtmPage" ]]; then
+                    # Use extra temp file to avoid second run of fmwtk-convpage on this page
                     tempFtmFile="$(tempFile)"
                     fmwtk-convpage "$in" "$tempFtmFile"
                     cp "$tempFtmFile" "$tempFile"
@@ -196,7 +197,7 @@ convertBookFile() (
                     echo "<h$htmlHeadingDepth>$title</h$htmlHeadingDepth>" >> "$out"
                 fi
                 if [[ "true" == "$isFtmPage" ]]; then
-                    fmwtk-convpage "$in" "$tempFile"
+                    cp "$tempFtmFile" "$tempFile"
                 else
                     cp "$in" "$tempFile"
                 fi
