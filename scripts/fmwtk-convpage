@@ -29,6 +29,7 @@ if [[ "ftm" == "$extension" ]]; then
     prevLine=""
     prevLineSpaces=""
     prevLineWithoutSpaces=""
+    prevLineIsListItem="false"
     prevLineSpacesCount="0"
     { while IFS= read -r thisLine; do
         thisLineSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
@@ -37,7 +38,7 @@ if [[ "ftm" == "$extension" ]]; then
         [[ "$thisLineWithoutSpaces" =~ ^(-|\#)\  ]] && thisLineIsListItem="true"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
-        if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || ! [[ "$prevLineWithoutSpaces" =~ ^(-|\#)\  ]]; then
+        if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || ! [[ "true" != "$prevLineIsListItem" ]]; then
             # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
             processed="$(perl -0777 -p -i -e '
                 s/^('"$thisLineSpaces"')- ([^\n]*)/\1<ul>\n\1    <li>\2<\/li>/m; # ul start tags
