@@ -166,7 +166,6 @@ convertBookFile() (
                 [[ -d "$inputSubbookBaseName.fmwtk-book/assets" ]] && find "$inputSubbookBaseName.fmwtk-book/assets/" -type f -exec mv {} "$outputDir/assets/" \;
             else
                 isFtmPage="false"
-                set -x
                 if [[ -f "$in.ftm" ]]; then
                     in="$in.ftm"
                     isFtmPage="true"
@@ -180,7 +179,6 @@ convertBookFile() (
                 else
                     cp "$in" "$tempFile"
                 fi
-                set +x
                 if [[ "-1" != "$depth" ]]; then
                     # Extract the title. Based on futuramerlin-web- toolkit-build-page. Don't do this for pages with depth -1, since it will probably be being used as the main page of a book which will probably come with its own title.
                     perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "$tempFile"
