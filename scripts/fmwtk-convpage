@@ -33,6 +33,8 @@ if [[ "ftm" == "$extension" ]]; then
     { while IFS= read -r thisLine; do
         thisLineSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         thisLineWithoutSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\2/g' 2>/dev/null <<< "$thisLine")"
+        thisLineIsListItem="false"
+        [[ "$thisLineWithoutSpaces" =~ ^(-|\#)\  ]] && thisLineIsListItem="true"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || ! [[ "$prevLineWithoutSpaces" =~ ^(-|\#)\  ]]; then
