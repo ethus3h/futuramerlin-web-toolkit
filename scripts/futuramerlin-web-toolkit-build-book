@@ -180,6 +180,7 @@ convertBookFile() (
                 else
                     cp "$in" "$tempFile"
                 fi
+                cat "$tempFile"
                 set +x
                 if [[ "-1" != "$depth" ]]; then
                     # Extract the title. Based on futuramerlin-web- toolkit-build-page. Don't do this for pages with depth -1, since it will probably be being used as the main page of a book which will probably come with its own title.
