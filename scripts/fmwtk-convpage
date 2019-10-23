@@ -22,6 +22,8 @@ if [[ "-" == "$outfile" ]]; then
     stdout="true"
 fi
 
+cp "$infile" "$outfile"
+
 if [[ "ftm" == "$extension" ]]; then
     prevLine=""
     prevLineSpaces=""
@@ -54,7 +56,7 @@ if [[ "ftm" == "$extension" ]]; then
         prevLineSpaces="$thisLineSpaces"
         prevLineWithoutSpaces="$thisLineWithoutSpaces"
         prevLineSpacesCount="$thisLineSpacesCount"
-    done < "$infile"; } > "$outfile"
+    done < "$outfile"; } | sponge "$outfile"
 #     perl -0777 -p -i -e '
 #         s/^(\s*)\@1 ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
 #         s/^(\s*)\@2 ([^\n]*)\n/\1<h2>\2<\/h2>\n/gm;
@@ -70,8 +72,6 @@ if [[ "ftm" == "$extension" ]]; then
 #         s/^(\s*)# ([^\n]*)\n/\1<li>\2<\/li>\n/gm; # li tags in ol
 #         s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
 #         ' "$outfile" || die "Substitution failed"
-else
-    cp "$infile" "$outfile"
 fi
 
 if [[ "true" == "$stdout" ]]; then
