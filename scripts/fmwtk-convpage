@@ -50,14 +50,15 @@ if [[ "ftm" == "$extension" ]]; then
                 s/^('"$thisLineSpaces"')# ([^\n]*)/\1    <\/ol><\/li>\n\1    <li>\2<\/li>/m; # ol end tags in list
             ' 2>/dev/null <<< "$thisLine")"
         elif [[ "ul" == "$prevLineIsListItem" ]]; then
+            # FIXME: The indentation is wrong for this case and corresponding ol list end case
             # The previous line was a ul list item, so it could be a list end (but is not ending within a list)
-            processed="$prevLineSpaces$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/<\/ul>\1\2/gm; # ul end tags
+            processed="$(perl -0777 -p -i -e '
+                s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\1\2/gm; # ul end tags
             ' 2>/dev/null <<< "$thisLine")"
         else
             # The previous line was a ol list item, so it could be a list end (but is not ending within a list)
-            processed="$prevLineSpaces$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/<\/ol>\1\2/gm; # ol end tags
+            processed="$(perl -0777 -p -i -e '
+                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\1\2/gm; # ol end tags
             ' 2>/dev/null <<< "$thisLine")"
         fi
         echo "$processed"
