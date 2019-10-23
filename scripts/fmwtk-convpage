@@ -26,9 +26,6 @@ cp "$infile" "$outfile"
 
 if [[ "ftm" == "$extension" ]]; then
     echo >> "$outfile" # make sure there's a blank line at the end to use for detecting closing tags
-    prevLine=""
-    prevLineSpaces=""
-    prevLineWithoutSpaces=""
     prevLineIsListItem="false"
     prevLineSpacesCount="0"
     { while IFS= read -r thisLine; do
@@ -63,13 +60,7 @@ if [[ "ftm" == "$extension" ]]; then
                 s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\2/gm; # ol end tags
             ' 2>/dev/null <<< "$thisLine")"
         fi
-        echo ":$processed:"
-#        echo "$thisLineSpaces" | wc -c
-#        if [[ $currentPageLine]]
- #       perl -p -i -e 
-        prevLine="$thisLine"
-        prevLineSpaces="$thisLineSpaces"
-        prevLineWithoutSpaces="$thisLineWithoutSpaces"
+        echo "$processed"
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
     done < "$outfile"; } | sponge "$outfile"
