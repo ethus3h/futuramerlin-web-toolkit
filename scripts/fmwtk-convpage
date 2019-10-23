@@ -25,7 +25,7 @@ fi
 cp "$infile" "$outfile"
 
 if [[ "ftm" == "$extension" ]]; then
-    echo >> "$outfile"
+    echo >> "$outfile" # make sure there's a blank line at the end to use for detecting closing tags
     prevLine=""
     prevLineSpaces=""
     prevLineWithoutSpaces=""
