@@ -44,7 +44,7 @@ if [[ "ftm" == "$extension" ]]; then
         deferredNewlineNeeded="false"
         if [[ "$thisLine" =~ '<pre>' ]] && [[ ! "$thisLine" =~ '</pre>' ]]; then
             # ONLY Supports 1 pre tag per line
-            inPreTag='start' # Don't special-case first pre line
+            inPreTag='true' # Don't special-case first pre line
         elif [[ "true" == "$inPreTag" ]] && [[ "$thisLine" =~ '</pre>' ]] && [[ ! "$thisLine" =~ '<pre>' ]]; then
             inPreTag='false'
         fi
