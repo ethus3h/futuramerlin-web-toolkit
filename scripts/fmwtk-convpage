@@ -75,7 +75,9 @@ if [[ "ftm" == "$extension" ]]; then
             inPreTag='false'
         fi
         if [[ "true" != "$inPreTag"]]; then
-            processed=
+            processed="$(perl -0777 -p -i -e '
+                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\n\1\2/gm; # ol end tags
+            ' 2>/dev/null <<< "$thisLine")"
         echo "$processed"
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
