@@ -67,6 +67,7 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         echo "$processed"
         if [[ "$processed" =~ '<pre>' ]] && [[ ! "$processed" =~ '</pre>' ]]; then
+            # ONLY Supports 1 pre tag per line
             inPreTag='true'
         fi
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
