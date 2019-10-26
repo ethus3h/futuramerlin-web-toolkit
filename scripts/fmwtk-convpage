@@ -76,8 +76,8 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         if [[ "true" != "$inPreTag"]]; then
             processed="$(perl -0777 -p -i -e '
-                s/^('"$thisLineSpaces"')([^#][^ ][^\n]*\n|\n)/\1<\/ol>\n\1\2/gm; # ol end tags
-            ' 2>/dev/null <<< "$thisLine")"
+                s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
+                ' 2>/dev/null <<< "$thisLine")"
         echo "$processed"
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
@@ -97,7 +97,6 @@ if [[ "ftm" == "$extension" ]]; then
         s/<\/li>\n(\s*)<(ul|ol)>/\n\1<\2>/gm; # Nested list start tags which should be in their associated li
         s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
-        s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
         ' "$outfile" || die "Substitution failed"
 fi
 
