@@ -76,7 +76,7 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         if [[ "true" != "$inPreTag" ]]; then
             processed="$(perl -0777 -p -i -e '
-                s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
+                s/^(\s*)([^<\n\s][^\n]*)([^-][^ ]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
                 ' 2>/dev/null <<< "$processed")"
         fi
         echo "$processed"
