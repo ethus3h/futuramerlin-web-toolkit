@@ -69,6 +69,8 @@ if [[ "ftm" == "$extension" ]]; then
         if [[ "$processed" =~ '<pre>' ]] && [[ ! "$processed" =~ '</pre>' ]]; then
             # ONLY Supports 1 pre tag per line
             inPreTag='true'
+        elif [[ "true" == "$inPreTag" ]] && [[ "$processed" =~ '</pre>' ]] && [[ ! "$processed" =~ '<pre>' ]]; then
+            inPreTag='false'
         fi
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
