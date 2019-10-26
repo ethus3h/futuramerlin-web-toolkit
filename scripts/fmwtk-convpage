@@ -80,11 +80,13 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         if [[ "true" != "$inPreTag" ]] && [[ "false" == "$thisLineIsListItem" ]]; then
             processed="$(perl -0777 -p -i -e '
+                s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
+                s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
                 s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
                 ' 2>/dev/null <<< "$processed")"
         fi
         echo "$processed"
-        echo "ABABA$processed:ABABAB" 1>&2
+        #echo "ABABA$processed:ABABAB" 1>&2
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
@@ -101,8 +103,6 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*)\@4 ([^\n]*)\n/\1<h6>\2<\/h6>\n/gm;
         s/\@\@/&#64;/gm; # Allow escaping @
         s/<\/li>\n(\s*)<(ul|ol)>/\n\1<\2>/gm; # Nested list start tags which should be in their associated li
-        s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
-        s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
         ' "$outfile" || die "Substitution failed"
 fi
 
