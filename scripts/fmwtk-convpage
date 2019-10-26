@@ -27,7 +27,6 @@ cp "$infile" "$outfile"
 if [[ "ftm" == "$extension" ]]; then
     perl -0777 -p -i -e '
         s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
-        s/^(\s*):9c43104e-3625-4bba-8ba9-0ade025bd2ff</\1</g; # remove book/web tag marker
         ' "$outfile" || die "Substitution failed"
     echo >> "$outfile" # make sure there's a blank line at the end to use for detecting closing tags
     prevLineIsListItem="false"
@@ -69,23 +68,21 @@ if [[ "ftm" == "$extension" ]]; then
             ' 2>/dev/null <<< "$thisLine")"
             [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix whitespace
         fi
-        echo "$processed"
         if [[ "$processed" =~ '<pre>' ]] && [[ ! "$processed" =~ '</pre>' ]]; then
             # ONLY Supports 1 pre tag per line
             inPreTag='true'
         elif [[ "true" == "$inPreTag" ]] && [[ "$processed" =~ '</pre>' ]] && [[ ! "$processed" =~ '<pre>' ]]; then
             inPreTag='false'
         fi
+        echo "$processed"
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
     perl -0777 -p -i -e '
-        s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
         s/^(\s*):9c43104e-3625-4bba-8ba9-0ade025bd2ff</\1</g; # remove book/web tag marker
         ' "$outfile" || die "Substitution failed"
     done < "$outfile"; } | sponge "$outfile"
     perl -0777 -p -i -e '
-        s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
         s/^(\s*)\@t ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
         s/^(\s*)\@0 ([^\n]*)\n/\1<h2>\2<\/h2>\n/gm;
         s/^(\s*)\@1 ([^\n]*)\n/\1<h3>\2<\/h3>\n/gm;
@@ -97,7 +94,6 @@ if [[ "ftm" == "$extension" ]]; then
         s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
         s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
         s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
-        s/^(\s*):9c43104e-3625-4bba-8ba9-0ade025bd2ff</\1</g; # remove book/web tag marker
         ' "$outfile" || die "Substitution failed"
 fi
 
