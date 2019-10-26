@@ -25,6 +25,10 @@ fi
 cp "$infile" "$outfile"
 
 if [[ "ftm" == "$extension" ]]; then
+    perl -0777 -p -i -e '
+        s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
+        s/^(\s*):9c43104e-3625-4bba-8ba9-0ade025bd2ff</\1</g; # remove book/web tag marker
+        ' "$outfile" || die "Substitution failed"
     echo >> "$outfile" # make sure there's a blank line at the end to use for detecting closing tags
     prevLineIsListItem="false"
     prevLineSpacesCount="0"
@@ -75,6 +79,10 @@ if [[ "ftm" == "$extension" ]]; then
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
+    perl -0777 -p -i -e '
+        s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
+        s/^(\s*):9c43104e-3625-4bba-8ba9-0ade025bd2ff</\1</g; # remove book/web tag marker
+        ' "$outfile" || die "Substitution failed"
     done < "$outfile"; } | sponge "$outfile"
     perl -0777 -p -i -e '
         s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
