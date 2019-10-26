@@ -84,7 +84,7 @@ if [[ "ftm" == "$extension" ]]; then
                 ' 2>/dev/null <<< "$processed")"
         fi
         echo "$processed"
-        echo "ABABA" &>2
+        echo "ABABA$processed:ABABAB" 1>&2
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
