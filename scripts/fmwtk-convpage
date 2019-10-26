@@ -48,12 +48,11 @@ if [[ "ftm" == "$extension" ]]; then
         elif [[ "true" == "$inPreTag" ]] && [[ "$thisLine" =~ '</pre>' ]] && [[ ! "$thisLine" =~ '<pre>' ]]; then
             inPreTag='false'
         fi
-        echo "AAAAA$processed:BBBB" 1>&2
         if [[ "false" == "$inPreTag" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
                 processed="$(perl -0777 -p -i -e '
-                    s/^('"$thisLineSpaces"')- ([^\n]*)/\1<ul>\n\1    <li>\2<\/li>/m; # ul start tags
+                    #s/^('"$thisLineSpaces"')- ([^\n]*)/\1<ul>\n\1    <li>\2<\/li>/m; # ul start tags
                     s/^('"$thisLineSpaces"')# ([^\n]*)/\1<ol>\n\1    <li>\2<\/li>/m; # ol start tags
                     ' 2>/dev/null <<< "$thisLine")"
                 #echo "Input:$thisLine:Processed:$processed:TLS:$thisLineSpaces:"
