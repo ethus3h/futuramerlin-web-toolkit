@@ -28,6 +28,7 @@ if [[ "ftm" == "$extension" ]]; then
     echo >> "$outfile" # make sure there's a blank line at the end to use for detecting closing tags
     prevLineIsListItem="false"
     prevLineSpacesCount="0"
+    inPreTag="false"
     { while IFS= read -r thisLine; do
         thisLineSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\1/g' 2>/dev/null <<< "$thisLine")"
         thisLineWithoutSpaces="$(perl -0777 -p -i -e 's/^(\s*)([^\s].*)$/\2/g' 2>/dev/null <<< "$thisLine")"
@@ -65,6 +66,8 @@ if [[ "ftm" == "$extension" ]]; then
             [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix whitespace
         fi
         echo "$processed"
+        if [[ "$processed" =~ '<pre>' ]] && [[ ! "$processed" =~ '</pre>' ]]; then
+            $
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
