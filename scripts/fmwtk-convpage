@@ -47,7 +47,7 @@ if [[ "ftm" == "$extension" ]]; then
         elif [[ "true" == "$inPreTag" ]] && [[ "$thisLine" =~ '</pre>' ]] && [[ ! "$thisLine" =~ '<pre>' ]]; then
             inPreTag='false'
         fi
-        if [[ "true" != "$inPreTag" ]]; then
+        if [[ "false" == "$inPreTag" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
                 processed="$(perl -0777 -p -i -e '
@@ -84,6 +84,7 @@ if [[ "ftm" == "$extension" ]]; then
                 ' 2>/dev/null <<< "$processed")"
         fi
         echo "$processed"
+        echo "ABABA$processed:ABABAB" &>2
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
         prevLineSpacesCount="$thisLineSpacesCount"
