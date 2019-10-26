@@ -40,6 +40,7 @@ if [[ "ftm" == "$extension" ]]; then
         [[ "$thisLineWithoutSpaces" =~ ^\#\  ]] && thisLineIsListItem="ol"
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
+        [[ "$thisLineWithoutSpaces" =~ '^<li>' ]] && 
         deferredNewlineNeeded="false"
         if [[ "$thisLine" =~ '<pre>' ]] && [[ ! "$thisLine" =~ '</pre>' ]]; then
             # ONLY Supports 1 pre tag per line
