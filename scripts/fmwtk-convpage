@@ -48,6 +48,7 @@ if [[ "ftm" == "$extension" ]]; then
         elif [[ "true" == "$inPreTag" ]] && [[ "$thisLine" =~ '</pre>' ]] && [[ ! "$thisLine" =~ '<pre>' ]]; then
             inPreTag='false'
         fi
+        echo "AAAAA$processed:BBBB" 1>&2
         if [[ "false" == "$inPreTag" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
