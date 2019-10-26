@@ -78,17 +78,14 @@ if [[ "ftm" == "$extension" ]]; then
         else
             processed="$thisLine"
         fi
-        if [[ "false" == "$inPreTag" ]] && [[ "false" == "$thisLineIsListItem" ]]; then
+        if [[ "false" == "$inPreTag" ]]; then
             processed="$(perl -0777 -p -i -e '
                 s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
                 s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
-                s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
                 ' 2>/dev/null <<< "$processed")"
         fi
         if [[ "false" == "$inPreTag" ]] && [[ "false" == "$thisLineIsListItem" ]]; then
             processed="$(perl -0777 -p -i -e '
-                s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
-                s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
                 s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
                 ' 2>/dev/null <<< "$processed")"
         fi
