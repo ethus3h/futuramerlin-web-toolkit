@@ -67,7 +67,7 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         echo "$processed"
         if [[ "$processed" =~ '<pre>' ]] && [[ ! "$processed" =~ '</pre>' ]]; then
-            inPreTag = 'true'
+            inPreTag='true'
         fi
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
         prevLineIsListItem="$thisLineIsListItem"
