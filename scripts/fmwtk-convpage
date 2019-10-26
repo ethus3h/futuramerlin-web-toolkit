@@ -41,6 +41,12 @@ if [[ "ftm" == "$extension" ]]; then
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         deferredNewlineNeeded="false"
+        if [[ "$thisLine" =~ '<pre>' ]] && [[ ! "$thisLine" =~ '</pre>' ]]; then
+            # ONLY Supports 1 pre tag per line
+            inPreTag='true'
+        elif [[ "true" == "$inPreTag" ]] && [[ "$thisLine" =~ '</pre>' ]] && [[ ! "$thisLine" =~ '<pre>' ]]; then
+            inPreTag='false'
+        fi
         if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
             # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
             processed="$(perl -0777 -p -i -e '
@@ -68,11 +74,7 @@ if [[ "ftm" == "$extension" ]]; then
                 ' 2>/dev/null <<< "$thisLine")"
             [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix whitespace
         fi
-        if [[ "$thisLine" =~ '<pre>' ]] && [[ ! "$thisLine" =~ '</pre>' ]]; then
-            # ONLY Supports 1 pre tag per line
-            inPreTag='true'
-        elif [[ "true" == "$inPreTag" ]] && [[ "$thisLine" =~ '</pre>' ]] && [[ ! "$thisLine" =~ '<pre>' ]]; then
-            inPreTag='false'
+        else
         fi
         if [[ "true" != "$inPreTag" ]] && [[ "false" == "$thisLineIsListItem" ]]; then
             processed="$(perl -0777 -p -i -e '
