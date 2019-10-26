@@ -77,7 +77,7 @@ if [[ "ftm" == "$extension" ]]; then
         if [[ "true" != "$inPreTag" ]]; then
             processed="$(perl -0777 -p -i -e '
                 s/^(\s*)([^<\n\s][^\n]*)\n/\1<p>\2<\/p>\n/gm; # paragraph tags
-                ' 2>/dev/null <<< "$thisLine")"
+                ' 2>/dev/null <<< "$processed")"
         fi
         echo "$processed"
         [[ "true" == "$deferredNewlineNeeded" ]] && echo # to fix whitespace
