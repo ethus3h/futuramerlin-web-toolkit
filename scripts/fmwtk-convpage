@@ -52,7 +52,7 @@ if [[ "ftm" == "$extension" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
                 echo "$thisLine" 1>&2
-                if [[ "$thisLine" =~ ^ +'<'/?li'>'\$ ]]; then
+                if [[ "$thisLine" =~ ^\ +'<'/?li'>'\$ ]]; then
                     processed="$thisLine"
                 else
                     &processed="$(perl -0777 -p -i -e '
