@@ -38,6 +38,7 @@ if [[ "ftm" == "$extension" ]]; then
         thisLineIsListItem="false"
         [[ "$thisLineWithoutSpaces" =~ ^-\  ]] && thisLineIsListItem="ul"
         [[ "$thisLineWithoutSpaces" =~ ^\#\  ]] && thisLineIsListItem="ol"
+        [[ "$thisLine" =~ ^\ *'<'/?li'>'$ ]] && thisLineIsListItem="true" # end of a multi-line list item
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         [[ "$thisLineWithoutSpaces" =~ ^'<'/?li'>' ]] && thisLineSpacesCount=$(( thisLineSpacesCount - 4 )) # <li> tags are indented 1 level more than - equivalent
@@ -52,7 +53,8 @@ if [[ "ftm" == "$extension" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
                 #echo "$thisLine" 1>&2
-                if [[ "$thisLine" =~ ^\ *'<'/?li'>'$ ]]; then
+                if ; then
+                    # End of a multi-line list item
                     processed="$thisLine"
                     thisLineIsListItem="true"
                 else
