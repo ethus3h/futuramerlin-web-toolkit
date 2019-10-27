@@ -60,7 +60,7 @@ if [[ "ftm" == "$extension" ]]; then
             elif [[ "$prevLineSpacesCount" -gt "$thisLineSpacesCount" ]] && [[ "false" != "$thisLineIsListItem" ]]; then
                 # It has fewer spaces, so it could be a list end
                 processed="$(perl -0777 -p -i -e '
-                    s/^('"$thisLineSpaces"')- ([^\n]*)/\1    <\/ul><\/li>\n\1    <li>\2<\/li>/m; # ul end tags in list
+                    #s/^('"$thisLineSpaces"')- ([^\n]*)/\1    <\/ul><\/li>\n\1    <li>\2<\/li>/m; # ul end tags in list
                     s/^('"$thisLineSpaces"')# ([^\n]*)/\1    <\/ol><\/li>\n\1    <li>\2<\/li>/m; # ol end tags in list
                     ' 2>/dev/null <<< "$thisLine")"
             elif [[ "ul" == "$prevLineIsListItem" ]]; then
@@ -82,7 +82,7 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         if [[ "false" == "$inPreTag" ]]; then
             processed="$(perl -0777 -p -i -e '
-                #s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
+                s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
                 s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
                 ' 2>/dev/null <<< "$processed")"
         fi
