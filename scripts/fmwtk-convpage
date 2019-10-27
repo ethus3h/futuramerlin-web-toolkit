@@ -82,7 +82,7 @@ if [[ "ftm" == "$extension" ]]; then
         fi
         if [[ "false" == "$inPreTag" ]]; then
             processed="$(perl -0777 -p -i -e '
-                s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
+                #s/^(\s*)- ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ul
                 s/^(\s*)# ([^\n]*)\n/\1    <li>\2<\/li>\n/gm; # li tags in ol
                 ' 2>/dev/null <<< "$processed")"
         fi
