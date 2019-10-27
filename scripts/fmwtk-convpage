@@ -51,7 +51,7 @@ if [[ "ftm" == "$extension" ]]; then
         if [[ "false" == "$inPreTag" ]]; then
             if [[ "$prevLineSpacesCount" -lt "$thisLineSpacesCount" ]] || [[ "false" == "$prevLineIsListItem" ]]; then
                 # This line has more spaces, or the previous line was not a list item, so it could be a list beginning
-                #echo "AAAA:$processed:BBBB"1>&2
+                echo "AAAA:$processed:BBBB"1>&2
                 [[ "$processed" != "        </li>" ]] && processed="$(perl -0777 -p -i -e '
                     s/^('"$thisLineSpaces"')- ([^\n]*)\n/\1<ul>\n\1    <li>\2<\/li>/m; # ul start tags
                     s/^('"$thisLineSpaces"')# ([^\n]*)\n/\1<ol>\n\1    <li>\2<\/li>/m; # ol start tags
@@ -67,7 +67,7 @@ if [[ "ftm" == "$extension" ]]; then
                 # FIXME: The whitespace (indentation and newlines) is wrong for this case and corresponding ol list end case
                 # The previous line was a ul list item, so it could be a list end (but is not ending within a list)
                 processed="$(perl -0777 -p -i -e '
-                    #s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\n\1\2/gm; # ul end tags
+                    s/^('"$thisLineSpaces"')([^-][^ ][^\n]*\n|\n)/\1<\/ul>\n\1\2/gm; # ul end tags
                     ' 2>/dev/null <<< "$thisLine")"
                 [[ "$thisLine" != "$processed" ]] && deferredNewlineNeeded="true" # to fix whitespace
             else
