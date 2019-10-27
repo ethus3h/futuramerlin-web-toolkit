@@ -38,7 +38,7 @@ if [[ "ftm" == "$extension" ]]; then
         thisLineIsListItem="false"
         [[ "$thisLineWithoutSpaces" =~ ^-\  ]] && thisLineIsListItem="ul"
         [[ "$thisLineWithoutSpaces" =~ ^\#\  ]] && thisLineIsListItem="ol"
-        [[ "$thisLine" =~ ^\ *'<'/?li'>'$ ]] && thisLineIsListItem="true" # end of a multi-line list item
+        [[ "$thisLine" =~ ^\ *'<'/?li'>'$ ]] && thisLineIsListItem="ul" # end of a multi-line list item. ONLY ul allows multi-line list items!
         thisLineSpacesCount="$(wc -c <<< "$thisLineSpaces")"
         thisLineSpacesCount=$(( thisLineSpacesCount - 1 ))
         [[ "$thisLineWithoutSpaces" =~ ^'<'/?li'>' ]] && thisLineSpacesCount=$(( thisLineSpacesCount - 4 )) # <li> tags are indented 1 level more than - equivalent
