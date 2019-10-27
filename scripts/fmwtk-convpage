@@ -54,6 +54,7 @@ if [[ "ftm" == "$extension" ]]; then
                 #echo "$thisLine" 1>&2
                 if [[ "$thisLine" =~ ^\ +'<'/?li'>'\$ ]]; then
                     processed="$thisLine"
+                    prevLineIsListItem="true"
                 else
                     processed="$(perl -0777 -p -i -e '
                     s/^('"$thisLineSpaces"')- ([^\n]*)\n/\1<ul>\n\1    <li>\2<\/li>/m; # ul start tags
