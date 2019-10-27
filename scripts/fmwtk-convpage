@@ -27,6 +27,13 @@ cp "$infile" "$outfile"
 if [[ "ftm" == "$extension" ]]; then
     perl -0777 -p -i -e '
         s/^(\s*)<(book|web)>/\1:9c43104e-3625-4bba-8ba9-0ade025bd2ff<\2>/gm; # <book> and <web> at start of a line should not suppress automatic paragraph tags, so hide them from the paragraph tag regex with this uuid
+        s/^(\s*)\@t ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
+        s/^(\s*)\@0 ([^\n]*)\n/\1<h2>\2<\/h2>\n/gm;
+        s/^(\s*)\@1 ([^\n]*)\n/\1<h3>\2<\/h3>\n/gm;
+        s/^(\s*)\@2 ([^\n]*)\n/\1<h4>\2<\/h4>\n/gm;
+        s/^(\s*)\@3 ([^\n]*)\n/\1<h5>\2<\/h5>\n/gm;
+        s/^(\s*)\@4 ([^\n]*)\n/\1<h6>\2<\/h6>\n/gm;
+        s/\@\@/&#64;/gm; # Allow escaping @
         ' "$outfile" || die "Substitution failed"
     echo >> "$outfile" # make sure there's a blank line at the end to use for detecting closing tags
     prevLineIsListItem="false"
@@ -100,13 +107,6 @@ if [[ "ftm" == "$extension" ]]; then
         ' "$outfile" || die "Substitution failed"
     done < "$outfile"; } | sponge "$outfile"
     perl -0777 -p -i -e '
-        s/^(\s*)\@t ([^\n]*)\n/\1<h1>\2<\/h1>\n/gm; # headers
-        s/^(\s*)\@0 ([^\n]*)\n/\1<h2>\2<\/h2>\n/gm;
-        s/^(\s*)\@1 ([^\n]*)\n/\1<h3>\2<\/h3>\n/gm;
-        s/^(\s*)\@2 ([^\n]*)\n/\1<h4>\2<\/h4>\n/gm;
-        s/^(\s*)\@3 ([^\n]*)\n/\1<h5>\2<\/h5>\n/gm;
-        s/^(\s*)\@4 ([^\n]*)\n/\1<h6>\2<\/h6>\n/gm;
-        s/\@\@/&#64;/gm; # Allow escaping @
         s/<\/li>\n(\s*)<(ul|ol)>/\n\1<\2>/gm; # Nested list start tags which should be in their associated li
         ' "$outfile" || die "Substitution failed"
 fi
