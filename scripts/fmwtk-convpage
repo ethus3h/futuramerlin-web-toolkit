@@ -61,7 +61,7 @@ if [[ "ftm" == "$extension" ]]; then
                     s/^('"$thisLineSpaces"')# ([^\n]*)\n/\1<ol>\n\1    <li>\2<\/li>/m; # ol start tags
                     ' 2>/dev/null <<< "$thisLine")"
                 fi
-                echo "Input:$thisLine:Processed:$processed:TLS:$thisLineSpaces:" 1>&2
+                echo "Input:$thisLine:Processed:$processed:TLS:$thisLineSpaces:List item:$thisLineIsListItem:" 1>&2
             elif [[ "$prevLineSpacesCount" -gt "$thisLineSpacesCount" ]] && [[ "false" != "$thisLineIsListItem" ]]; then
                 # It has fewer spaces, so it could be a list end
                 processed="$(perl -0777 -p -i -e '
