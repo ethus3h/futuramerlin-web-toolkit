@@ -102,7 +102,6 @@ echo "Environment ready; building site..."
             echo "Done post-book-hooks."
         fi
         rm "$tempFile"
-        set -x
         find . -type d -empty -delete
         traversedirectory() {
             echo "Entered directory $1..."
