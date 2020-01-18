@@ -42,7 +42,7 @@ futuramerlinWebToolkitLocalInstallationEnabled="$(preadconf localInstallation "$
 rm -rf ./futuramerlin-web-toolkit-output ./futuramerlin-web-toolkit-content ./built ./source ./scripts
 mkdir -p "futuramerlin-web-toolkit-content/content"
 mkdir "futuramerlin-web-toolkit-content/scripts"
-find . -maxdepth 1 -name "*" ! -path . ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
+find . -maxdepth 1 -name "*" ! -path . ! -path .git ! -path ./futuramerlin-web-toolkit-content -exec cp -r {} ./futuramerlin-web-toolkit-content/content/ \;
 mkdir ./source
 mv ./futuramerlin-web-toolkit-content/* ./source
 [[ "$futuramerlinWebToolkitpackageSource" == "true" ]] && cp -r ./source "./.fmwtk.source"
