@@ -76,6 +76,7 @@ rm -rf ./futuramerlin-web-toolkit
 echo "Environment ready; building site..."
 (
     cd ./source || exit 1
+    find . -type d -empty -delete
     (
         cd "content" || exit 1
         if [[ -f .futuramerlin-web-toolkit/pre-build-hooks ]]; then
