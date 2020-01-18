@@ -14,9 +14,12 @@ pandocTargets=(pandoc.json plain markdown)
 libreofficeTargets=(odt pdf epub rtf)
 targetCount="${#targets[@]}"
 
-nativeTargetsOnly="false"
+nativeTargetsOnly="true"
 if [[ "--native-targets-only" == "$1" ]]; then
     nativeTargetsOnly="true"
+    shift
+elif [[ "--not-native-targets-only" == "$1" ]]; then
+    nativeTargetsOnly="false"
     shift
 fi
 
