@@ -78,6 +78,7 @@ echo "Environment ready; building site..."
     cd ./source || exit 1
     (
         cd "content" || exit 1
+        if false; do
         if [[ -f .futuramerlin-web-toolkit/pre-build-hooks ]]; then
             echo "Beginning pre-build-hooks..."
             ./.futuramerlin-web-toolkit/pre-build-hooks || warn "Pre-build-hooks failed; continuing anyway."
@@ -102,6 +103,7 @@ echo "Environment ready; building site..."
             echo "Done post-book-hooks."
         fi
         rm "$tempFile"
+        fi
         find . -type d -empty -delete
         traversedirectory() {
             echo "Entered directory $1..."
