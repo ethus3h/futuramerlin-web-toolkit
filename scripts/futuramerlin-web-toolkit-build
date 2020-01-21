@@ -85,17 +85,17 @@ echo "Environment ready; building site..."
         fi
         set -x
         tempFile="$(tempFile)"
-        find . -name "futuramerlin-web-toolkit-discography.conf" -or -name "fmwtk-discography.conf" -print0 > "$tempFile"
+        find . \( -name "futuramerlin-web-toolkit-discography.conf" -or -name "fmwtk-discography.conf" \) -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
             fmwtk-discography "$currentFileName"
         done < "$tempFile"
-        find . -name "futuramerlin-web-toolkit-blog.conf" -or -name "fmwtk-blog.conf" -print0 > "$tempFile"
+        find . \( -name "futuramerlin-web-toolkit-blog.conf" -or -name "fmwtk-blog.conf" \) -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
             fmwtk-blog "$currentFileName"
         done < "$tempFile"
         set +x
         die
-        find . -name "fmwtk-book.conf" -or -name '*-fmwtk-book.conf' -or -name '*.fmwtk-book.conf' -print0 > "$tempFile"
+        find . \( -name "fmwtk-book.conf" -or -name '*-fmwtk-book.conf' -or -name '*.fmwtk-book.conf' \) -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
             fmwtk-book "$currentFileName"
         done < "$tempFile"
