@@ -14,7 +14,7 @@ futuramerlinWebToolkitSiteName="$3"
 futuramerlinWebToolkitThemeName="$4"
 extension="${infile//*.}"
 outfile="../../built/$1"
-if [[ "ftm" == "$1" ]]; then
+if [[ "ftm" == "$extension" ]]; then
     PageA="${infile/%\/index\.ftm}"
     PageB="${PageA/%\.ftm}"
     outfile="${outfile/%.ftm/.htm}"
