@@ -25,6 +25,7 @@ else
     PageA="${infile/%\/index\.htm}"
     PageB="${PageA/%\.htm}"
 fi
+echo "$infile:$outfile"
 die
 Page="$(basename "$PageB")"
 echo "Working on page: $Page"
