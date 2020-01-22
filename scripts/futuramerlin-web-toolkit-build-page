@@ -17,7 +17,7 @@ outfile="../../built/$1"
 if [[ "ftm" == "$extension" ]]; then
     PageA="${infile/%\/index\.ftm}"
     PageB="${PageA/%\.ftm}"
-    outfile="${outfile/%.ftm/.htm}"
+    outfile="${outfile/%.ftm/.html}"
     temp="$(tempFile)"
     fmwtk-convpage "$infile" "$temp"
     infile="$temp"
