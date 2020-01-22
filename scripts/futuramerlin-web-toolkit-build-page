@@ -38,7 +38,7 @@ else
     cp "../assets/1_start.html" "$outfile"
 fi
 ereplace "@FMWTK_VERSION@" "$futuramerlinWebToolkitVersion" "$outfile"
-cat "../content/$1" >> "$outfile"
+cat "../content/$infile" >> "$outfile"
 cat "../assets/2_end.html" >> "$outfile"
 ereplaceRegEx '(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)' '\1<!-- toc -->' "$outfile"
 ereplaceRegEx '(<p class=\"breadcrumbs\">(((?!<\/p>)[\S\s])*)<\/p>)' '\1<!-- toc -->' "$outfile"
