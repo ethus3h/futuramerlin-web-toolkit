@@ -37,7 +37,7 @@ else
     cp "../assets/1_start.html" "$outfile"
 fi
 ereplace "@FMWTK_VERSION@" "$futuramerlinWebToolkitVersion" "$outfile"
-cat "../content/$infile" >> "$outfile"
+cat "$infile" >> "$outfile"
 cat "../assets/2_end.html" >> "$outfile"
 ereplaceRegEx '(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)' '\1<!-- toc -->' "$outfile"
 ereplaceRegEx '(<p class=\"breadcrumbs\">(((?!<\/p>)[\S\s])*)<\/p>)' '\1<!-- toc -->' "$outfile"
@@ -49,7 +49,7 @@ tr '\n' ' ' < "$outfile" > "../../built/1.tmp"
 tr '\t' ' ' < "../../built/1.tmp" > "../../built/2.tmp"
 tr '\r' ' ' < "../../built/2.tmp" > "../../built/3.tmp"
 ereplace "nav-item-inactive $Page\"" 'nav-item-selected"' "$outfile"
-cp "../content/$infile" "../../built/4.tmp"
+cp "$infile" "../../built/4.tmp"
 # For debugging: wc -l "../../built/$infile"
 # Working on the title
 perl -ni -e 'print, exit if s/(<h1>(((?!<\/h1>)[\S\s])*)<\/h1>)/\1/sg' "../../built/4.tmp"
