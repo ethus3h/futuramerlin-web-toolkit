@@ -117,7 +117,8 @@ echo "Environment ready; building site..."
                 else
                     if [[ "$i" =~ \.htm$ ]] || [[ "$i" =~ \.ftm$ ]]; then
                         echo "Building page: $i"
-                        ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName"
+                        if ! ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName"; then
+                            warn "There was a problem building "
                     else
                         echo "Copying content asset: $i"
                         cp "$i" "../../built/$i" || warn "(copying failed: probably just ignoring empty directory $i)"
