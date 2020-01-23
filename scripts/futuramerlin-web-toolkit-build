@@ -88,6 +88,7 @@ echo "Environment ready; building site..."
             ./.futuramerlin-web-toolkit/pre-build-hooks || warn "Pre-build-hooks failed; continuing anyway."
             echo "Done pre-build-hooks."
         fi
+        if [[ "true" != "$quick" ]]; then
         tempFile="$(tempFile)"
         find . \( -name "futuramerlin-web-toolkit-discography.conf" -or -name "fmwtk-discography.conf" \) -print0 > "$tempFile"
         while IFS= read -r -d '' currentFileName; do
@@ -107,6 +108,7 @@ echo "Environment ready; building site..."
             echo "Done post-book-hooks."
         fi
         rm "$tempFile"
+        fi
         find . -type d -empty -delete
         traversedirectory() {
             echo "Entered directory $1..."
