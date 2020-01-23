@@ -123,7 +123,7 @@ echo "Environment ready; building site..."
                     fi
                 else
                     if [[ "$i" =~ \.htm$ ]] || [[ "$i" =~ \.ftm$ ]]; then
-                        echo "Building page: $i (to rerun: cd \"$(pwd)\"; ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName")"
+                        echo "Building page: $i (to rerun: cd \"$(pwd)\"; ../scripts/build-page \"$i\" \"$futuramerlinWebToolkitVersion\" \"$futuramerlinWebToolkitSiteName\" \"$futuramerlinWebToolkitThemeName\")"
                         ../scripts/build-page "$i" "$futuramerlinWebToolkitVersion" "$futuramerlinWebToolkitSiteName" "$futuramerlinWebToolkitThemeName"
                     else
                         echo "Copying content asset: $i"
