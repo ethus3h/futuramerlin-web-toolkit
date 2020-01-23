@@ -24,6 +24,7 @@ if [[ "ftm" == "$extension" ]]; then
 else
     PageA="${infile/%\/index\.htm}"
     PageB="${PageA/%\.htm}"
+    infile="../content/$infile"
 fi
 Page="$(basename "$PageB")"
 echo "Working on page: $Page"
