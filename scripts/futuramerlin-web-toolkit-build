@@ -29,6 +29,11 @@ if [[ -f ./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg ]]; then
     futuramerlinWebToolkitConfigFileName="./.futuramerlin-web-toolkit/.futuramerlin-web-toolkit.cfg"
 fi
 
+quick="false"
+if [[ "--quick" == "$1" ]]; then
+    quick="true"
+fi
+
 echo "Preparing environment (using config file: $futuramerlinWebToolkitConfigFileName)..."
 
 futuramerlinWebToolkitSiteName="$(preadconf siteName "$futuramerlinWebToolkitConfigFileName")"
