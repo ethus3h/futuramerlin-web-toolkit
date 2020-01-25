@@ -314,7 +314,7 @@ for (( i=0; i<targetCount; i++ )); do
     if [[ -e "$out" ]]; then
         cp "$out" "$bookName.fmwtk-book/$bookName-book.$targetExt"
 
-        echo '<html><head><meta http-equiv="Redirect:'"$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$targetExt.redirect.html"
+        echo '<html><head><meta http-equiv="Refresh" content='"0; URL=$out"'"><title></title></head><body></body></html>' > "$bookName.fmwtk-book/$bookName-book.$targetExt.redirect.html"
 
         echo "Done building target format $target."
     else
