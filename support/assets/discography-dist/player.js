@@ -324,3 +324,4 @@ for (let i = 1; i < trackRows.length; i++) {
 document.body.insertBefore(audioContainer, document.body.firstChild);
 
 loadTrack(1);
+    // @license-end
