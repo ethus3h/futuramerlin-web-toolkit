@@ -83,7 +83,7 @@ function updateVolume() {
     audioTag.volume = audioVolume.value / 100;
 }
 updateVolume();
-audioVolume.onchange = updateVolume;
+audioVolume.oninput = updateVolume;
 
 function convertRemToPixels(rem) {
     /* from https://stackoverflow.com/questions/36532307/rem-px-in-javascript */
